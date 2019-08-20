@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".app.ui.AccActivity"
-                  android:screenOrientation="portrait">
+                  android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".app.ui.VideoRecordActivity"
-                  android:screenOrientation="portrait">
+                  android:screenOrientation="landscape"
+              >
         </activity>
         <activity android:name=".MainActivity"
-                  android:screenOrientation="portrait"
                 >
 <!--
             <intent-filter>

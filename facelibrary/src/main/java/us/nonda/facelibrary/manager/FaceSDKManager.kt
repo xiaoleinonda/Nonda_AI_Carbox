@@ -24,7 +24,7 @@ import us.nonda.facelibrary.config.FaceConfig
 import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.db.LRUCache
 import us.nonda.facelibrary.model.*
-import us.nonda.facelibrary.status.FaceStatus
+import us.nonda.facelibrary.status.FaceStatusCache
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
@@ -55,11 +55,13 @@ class FaceSDKManager private constructor() {
     private val featureLRUCache = LRUCache<String, Feature>(1000)
 
 
-    private var faceStatus: FaceStatus? = null
+    private var status = STATUS_INIT
 
     companion object {
         const val TAG = "FaceSDKManager"
-
+        const val STATUS_INIT = 0;//未初始化
+        const val STATUS_INITING = 1;//初始化中
+        const val STATUS_INITED = 2//已初始化
 
         val instance: FaceSDKManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             FaceSDKManager()
@@ -74,33 +76,26 @@ class FaceSDKManager private constructor() {
     private var pass = false
 
 
-    fun getFaceDetect(): FaceDetect? {
-        return faceDetect
-    }
+    /**
+     * 每次应用启动初始化时调用
+     */
+    @Synchronized
+    fun init(context: Context, license: String) {
 
-    fun getFaceFeature(): FaceFeature? {
-        return faceFeature
-    }
-
-    fun getFaceLiveness(): FaceLive? {
-        return faceLiveness
-    }
-
-    fun init(context: Context) {
-        faceStatus = FaceStatus.get(context)
-
-        if (checkInited()) {
+        if (status != STATUS_INIT) {
             return
         }
-        init(context, object : IFaceInitListener {
+        log("开始初始化")
+        status = STATUS_INITING
+
+        init(context, license, object : IFaceInitListener {
             override fun onSucceed() {
+                status = STATUS_INITED
                 initPulish()
-                faceStatus?.faceInitStatus = FaceStatus.STATUS_INITED
-                Log.d(TAG, "初始化成功")
             }
 
             override fun onFailed(msg: String) {
-                faceStatus?.faceInitStatus = FaceStatus.STATUS_INIT
+                status = STATUS_INIT
             }
 
         })
@@ -112,7 +107,7 @@ class FaceSDKManager private constructor() {
      * 是否已经初始化了
      */
     private fun checkInited(): Boolean {
-        return faceStatus!!.faceInitStatus != FaceStatus.STATUS_INIT
+        return status == STATUS_INITED
     }
 
     private fun initPulish() {
@@ -135,52 +130,47 @@ class FaceSDKManager private constructor() {
 
     /**
      * 激活License
+     * 在收到服务器推送的license时调用
      */
     fun initLicense(context: Context, license: String, listener: IFaceInitListener?) {
         if (TextUtils.isEmpty(license)) {
             log("license is empty")
+            status = STATUS_INIT
             return
         }
-
         if (NetworkUtil.getConnectivityStatus(context)) {
+            log("开始激活")
+
             FaceAuthManager().initLicense(context, license, object : IFaceAuthCallback {
                 override fun onFailed(msg: String) {
                     listener?.onFailed("设备激活失败：$msg")
-                    faceStatus?.faceInitStatus = FaceStatus.STATUS_INIT
-                    faceStatus?.setFaceLicense("")
+                    status = STATUS_INIT
+                    FaceStatusCache.instance.faceLicence = ""
                     Log.d(TAG, "激活失败=$msg")
                 }
 
                 override fun onSucceed() {
-                    faceStatus?.setFaceLicense(license)
+                    FaceStatusCache.instance.faceLicence = license
                     Log.d(TAG, "激活成功")
-
                     initModel(listener)
-
-                    DBManager.getInstance().init(context)
-
-                    setFeature()
                 }
 
 
             })
         } else {
+            status = STATUS_INIT
             log("net error")
         }
 
     }
 
-    fun init(context: Context, listener: IFaceInitListener?) {
+    fun init(context: Context, license: String, listener: IFaceInitListener?) {
         this.context = context.applicationContext
 
-        faceStatus?.faceInitStatus = FaceStatus.STATUS_INITING
-
-        Log.d(TAG, "开始初始化")
-
-        if (!TextUtils.isEmpty(faceStatus?.getFaceLicense())) {
+        if (FaceStatusCache.instance.isLicence()) {
             initModel(listener)
         } else {
-            log("Not Found Face License")
+            initLicense(context, license, listener)
         }
 
     }
@@ -196,7 +186,7 @@ class FaceSDKManager private constructor() {
 
 
     fun initSDK() {
-        faceStatus!!.faceInitStatus = FaceStatus.STATUS_INIT
+        initConfig(null)
         faceDetect = FaceDetect()
         faceFeature = FaceFeature()
         faceLiveness = FaceLive()
@@ -252,7 +242,7 @@ class FaceSDKManager private constructor() {
             .map {
                 val emotions =
                     faceAttribute.emotions(it.imageFrame.argb, it.imageFrame.height, it.imageFrame.width, it.landmarks)
-                Log.d(TAG, "情绪=" + emotions)
+                Log.d("人脸识别", "情绪=" + emotions)
                 val parseFaceEnmition = parseFaceEnmition(emotions)
                 it.emotionsMsg = parseFaceEnmition
                 it
@@ -261,77 +251,102 @@ class FaceSDKManager private constructor() {
             }, {})
     }
 
+    private fun onInitSucceed() {
+        status = STATUS_INITED
+        Log.d(TAG, "初始化成功")
+        DBManager.getInstance().init(context)
+        setFeature()
+    }
+
+    private fun onInitFailed() {
+        status = STATUS_INIT
+        Log.d(TAG, "初始化失败")
+    }
+
+    @Synchronized
     fun initModel(listener: IFaceInitListener?) {
+        Log.d(TAG, "开始初始化模型")
+        try {
+            initSDK()
 
-        initSDK()
+            var detectSucceed = false
+            var livenessSucceed = false
+            var featureSucceed = false
+            var attributeSucceed = false
+            faceDetect?.initModel(context,
+                GlobalSet.DETECT_VIS_MODEL,
+                GlobalSet.DETECT_NIR_MODE,
+                GlobalSet.ALIGN_MODEL,
+                Callback { code, response ->
+                    if (code == 0) {
+                        detectSucceed = true
+                        if (livenessSucceed && featureSucceed && attributeSucceed) {
+                            listener?.onSucceed()
+                            onInitSucceed()
+                        }
+                    } else {
+                        listener?.onFailed(response)
+                        onInitFailed()
+                    }
+                })
+
+            faceDetect.loadConfig(getFaceEnvironmentConfig().config)
+            faceAttribute.initModel(
+                context,
+                GlobalSet.ATTRIBUTE_ATTTIBUTE_MODEL,
+                GlobalSet.ATTRIBUTE_EMOTION_MODEL,
+                Callback { code, response ->
+                    if (code == 0) {
+                        attributeSucceed = true
+                        if (livenessSucceed && featureSucceed && detectSucceed) {
+                            listener?.onSucceed()
+                            onInitSucceed()
+                        }
+                    } else {
+                        listener?.onFailed(response)
+                        onInitFailed()
+                    }
+                })
 
 
-        var detectSucceed = false
-        var livenessSucceed = false
-        var featureSucceed = false
-        var attributeSucceed = false
-        faceDetect?.initModel(context,
-            GlobalSet.DETECT_VIS_MODEL,
-            GlobalSet.DETECT_NIR_MODE,
-            GlobalSet.ALIGN_MODEL,
-            Callback { code, response ->
+            faceLiveness.initModel(
+                context,
+                GlobalSet.LIVE_VIS_MODEL,
+                GlobalSet.LIVE_NIR_MODEL,
+                GlobalSet.LIVE_DEPTH_MODEL
+            ) { code, response ->
                 if (code == 0) {
-                    detectSucceed = true
-                    if (livenessSucceed && featureSucceed && attributeSucceed) {
+                    livenessSucceed = true
+                    if (detectSucceed && featureSucceed && attributeSucceed) {
                         listener?.onSucceed()
+                        onInitSucceed()
                     }
                 } else {
                     listener?.onFailed(response)
+                    onInitFailed()
                 }
-            })
+            }
 
-        faceDetect.loadConfig(getFaceEnvironmentConfig().config)
-        faceAttribute.initModel(
-            context,
-            GlobalSet.ATTRIBUTE_ATTTIBUTE_MODEL,
-            GlobalSet.ATTRIBUTE_EMOTION_MODEL,
-            Callback { code, response ->
+            faceFeature.initModel(
+                context,
+                GlobalSet.RECOGNIZE_IDPHOTO_MODEL,
+                GlobalSet.RECOGNIZE_VIS_MODEL,
+                ""
+            ) { code, response ->
                 if (code == 0) {
-                    attributeSucceed = true
-                    if (livenessSucceed && featureSucceed && detectSucceed) {
+                    featureSucceed = true
+                    if (detectSucceed && livenessSucceed && attributeSucceed) {
                         listener?.onSucceed()
+                        onInitSucceed()
                     }
                 } else {
                     listener?.onFailed(response)
+                    onInitFailed()
                 }
-            })
-
-
-        faceLiveness.initModel(
-            context,
-            GlobalSet.LIVE_VIS_MODEL,
-            GlobalSet.LIVE_NIR_MODEL,
-            GlobalSet.LIVE_DEPTH_MODEL
-        ) { code, response ->
-            if (code == 0) {
-                livenessSucceed = true
-                if (detectSucceed && featureSucceed && attributeSucceed) {
-                    listener?.onSucceed()
-                }
-            } else {
-                listener?.onFailed(response)
             }
-        }
 
-        faceFeature.initModel(
-            context,
-            GlobalSet.RECOGNIZE_IDPHOTO_MODEL,
-            GlobalSet.RECOGNIZE_VIS_MODEL,
-            ""
-        ) { code, response ->
-            if (code == 0) {
-                featureSucceed = true
-                if (detectSucceed && livenessSucceed && attributeSucceed) {
-                    listener?.onSucceed()
-                }
-            } else {
-                listener?.onFailed(response)
-            }
+        } catch (e: UnsatisfiedLinkError) {
+            initLicense(context!!, FaceStatusCache.instance.faceLicence!!, listener)
         }
     }
 
@@ -489,9 +504,9 @@ class FaceSDKManager private constructor() {
         }
 
         future = es.submit {
-            Log.d(TAG, "数据转换前=" + System.currentTimeMillis())
+            Log.d("人脸识别", "数据转换前=" + System.currentTimeMillis())
             val yuv420 = yuv422To420(data, srcWidth, srcHeight)
-            Log.d(TAG, "数据转换后=" + System.currentTimeMillis() + "yuv420=" + yuv420)
+            Log.d("人脸识别", "数据转换后=" + System.currentTimeMillis() + "yuv420=" + yuv420)
 
             val argb = IntArray(srcWidth * srcHeight)
 
@@ -573,7 +588,7 @@ class FaceSDKManager private constructor() {
             }
             livenessModel.rgbLivenessScore = rgbScore
 
-            Log.d(TAG, "活体=" + rgbScore)
+            Log.d("人脸识别", "活体=" + rgbScore)
             if (isFeature()) {
                 filterFeature(livenessModel)
             }
@@ -598,7 +613,7 @@ class FaceSDKManager private constructor() {
      * 情绪识别
      */
     private fun startEnmotion(livenessModel: LivenessModel) {
-        Log.d(TAG, "开始识别情绪")
+        Log.d("人脸识别", "开始识别情绪")
         enmotionProcessor.onNext(livenessModel)
     }
 
@@ -607,7 +622,8 @@ class FaceSDKManager private constructor() {
      * 是否要做情绪识别
      */
     private fun isEnmotion(): Boolean {
-        return pass
+//        return pass
+        return true
     }
 
     /**
@@ -776,8 +792,8 @@ class FaceSDKManager private constructor() {
     }
 
 
-    fun stop(){
-        faceStatus?.resetStatus()
+    fun stop() {
+
     }
 
 

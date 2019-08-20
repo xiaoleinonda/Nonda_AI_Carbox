@@ -33,6 +33,10 @@ class AccActivity : AppCompatActivity() {
 
     }
 
+    fun onClose(view: View){
+        carBoxControler?.mode(CarBoxControler.MODE_ACC_OFF)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

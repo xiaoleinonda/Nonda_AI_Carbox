@@ -22,6 +22,6 @@ class NetStateChangeReceiver : BroadcastReceiver() {
     }
 
     private fun initFace(context: Context) {
-        FaceSDKManager.instance.init(context)
+        FaceSDKManager.instance.init(context, "")
     }
 }

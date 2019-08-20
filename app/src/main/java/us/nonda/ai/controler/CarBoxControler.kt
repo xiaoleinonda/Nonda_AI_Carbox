@@ -3,10 +3,9 @@ package us.nonda.ai.controler
 import android.content.Context
 import android.content.Intent
 import us.nonda.ai.app.ui.VideoRecordActivity
-import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.manager.FaceSDKManager
-import us.nonda.facelibrary.status.FaceStatus
+import us.nonda.facelibrary.status.FaceStatusCache
 
 class CarBoxControler constructor(private var context: Context) : ICarboxControl {
 
@@ -16,7 +15,7 @@ class CarBoxControler constructor(private var context: Context) : ICarboxControl
     }
 
     init {
-        initFace()
+//        initFace()
     }
 
 
@@ -26,14 +25,15 @@ class CarBoxControler constructor(private var context: Context) : ICarboxControl
     override fun mode(mode: Int) {
         when (mode) {
             MODE_ACC_ON -> {
-                initFace()
+//                FaceSDKManager.instance.init(context, "LY77-J8DW-8YCZ-5X6L")
+//
+//                initFace()
 
                 VideoRecordActivity.starter(context)
             }
             MODE_ACC_OFF->{
 
                 VideoRecordActivity.finish()
-                FaceStatus.get(context).resetStatus()
                 addSystemListener()
 
             }
@@ -44,8 +44,8 @@ class CarBoxControler constructor(private var context: Context) : ICarboxControl
 
 
     override fun initFace() {
-        FaceSDKManager.instance.initConfig(null)
-        FaceSDKManager.instance.init(context)
+//        FaceSDKManager.instance.initConfig(null)
+//        FaceSDKManager.instance.init(context, "")
     }
 
     override fun closeCamera() {

@@ -4,15 +4,13 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.R
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.controler.CarBoxControler
-import us.nonda.commonibrary.http.NetModule
 import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.mqttlibrary.mqtt.MqttService
 
 class AccActivity : AppCompatActivity() {
 
@@ -26,7 +24,7 @@ class AccActivity : AppCompatActivity() {
         carBoxControler = CarBoxControler(this)
 
         FaceSDKManager.instance.checkLicenceStatus()
-
+        MqttService.startService(this)
     }
 
     private fun registReceiver() {

@@ -34,6 +34,8 @@
             </intent-filter>
 -->
         </activity>
+        <service android:name="us.nonda.mqttlibrary.mqtt.MqttService"/>
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 
 </manifest>

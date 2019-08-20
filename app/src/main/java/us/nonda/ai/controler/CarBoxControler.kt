@@ -28,13 +28,13 @@ class CarBoxControler constructor(private var context: Context) : ICarboxControl
 //                FaceSDKManager.instance.init(context, "LY77-J8DW-8YCZ-5X6L")
 //
 //                initFace()
-
                 VideoRecordActivity.starter(context)
             }
             MODE_ACC_OFF->{
+                FaceSDKManager.instance.registFace()
 
-                VideoRecordActivity.finish()
-                addSystemListener()
+//                VideoRecordActivity.finish()
+//                addSystemListener()
 
             }
             else -> {

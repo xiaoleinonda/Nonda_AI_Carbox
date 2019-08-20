@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
@@ -45,6 +46,9 @@ class VideoRecordActivity : AppCompatActivity() {
             //            oepnCamera()
             starterRecord()
         }
+
+        val feature = FaceSDKManager.instance.setFeature()
+        Log.d("", "特征=" + feature)
 
 //        initPublish()
     }

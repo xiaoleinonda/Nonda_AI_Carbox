@@ -22,14 +22,6 @@ class BackCameraMananger private constructor() : CarboxCameraManager() {
         initCamera(surfaceView, true, CameraInfo.CAMERA_USB_CAMERA, cameraCallback)
     }
 
-    fun takeFrontPicture(){
-        takePicture(filePathManager?.getBackPicturePath() + System.currentTimeMillis(), object :CameraDevice.CamPictureCallback{
-            override fun onPictureTaken(p0: Int, p1: Int, p2: String?) {
-
-            }
-
-        })
-    }
 
     /*override fun startRecordResult(record: Int) {
         cameraCallback?.run {

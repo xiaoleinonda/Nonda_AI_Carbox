@@ -4,22 +4,29 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.R
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.controler.CarBoxControler
+import us.nonda.commonibrary.http.NetModule
 import us.nonda.facelibrary.db.DBManager
+import us.nonda.facelibrary.manager.FaceSDKManager
 
 class AccActivity : AppCompatActivity() {
 
     var netStateChangeReceiver: NetStateChangeReceiver? = null
 
-    private var carBoxControler:CarBoxControler ?=null
+    private var carBoxControler: CarBoxControler? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_acc)
         registReceiver()
-        carBoxControler =   CarBoxControler(this)
+        carBoxControler = CarBoxControler(this)
+
+        FaceSDKManager.instance.checkLicenceStatus()
+
     }
 
     private fun registReceiver() {
@@ -31,9 +38,11 @@ class AccActivity : AppCompatActivity() {
     fun onOpen(view: View) {
         carBoxControler?.mode(CarBoxControler.MODE_ACC_ON)
 
+
+
     }
 
-    fun onClose(view: View){
+    fun onClose(view: View) {
         carBoxControler?.mode(CarBoxControler.MODE_ACC_OFF)
     }
 

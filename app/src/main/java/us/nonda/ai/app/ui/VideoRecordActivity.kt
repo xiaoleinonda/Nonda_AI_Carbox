@@ -15,6 +15,7 @@ import us.nonda.ai.cache.CameraConfig
 import us.nonda.cameralibrary.camera.BackCameraMananger
 import us.nonda.cameralibrary.camera.CameraCallback
 import us.nonda.cameralibrary.camera.FrontCameraMananger
+import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
@@ -24,15 +25,16 @@ import us.nonda.facelibrary.model.LivenessModel
 class VideoRecordActivity : AppCompatActivity() {
 
 
-    companion object{
-        fun starter(context:Context){
+    companion object {
+        fun starter(context: Context) {
             context.startActivity(Intent(context, VideoRecordActivity::class.java))
         }
 
-        fun finish(){
+        fun finish() {
             FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
         }
     }
+
     private var subscribe: Disposable? = null
     private var publishProcessor: PublishProcessor<ByteArray>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +49,7 @@ class VideoRecordActivity : AppCompatActivity() {
             starterRecord()
         }
 
-        val feature = FaceSDKManager.instance.setFeature()
-        Log.d("", "特征=" + feature)
+
 
 //        initPublish()
     }
@@ -138,7 +139,15 @@ class VideoRecordActivity : AppCompatActivity() {
                 imgWidth: Int,
                 imgHeight: Int
             ) {
-                draw_detect_face_view.onFaceDetectCallback(isDetect, faceWidth, faceHeight, faceCenterX, faceCenterY, imgWidth, imgHeight)
+                draw_detect_face_view.onFaceDetectCallback(
+                    isDetect,
+                    faceWidth,
+                    faceHeight,
+                    faceCenterX,
+                    faceCenterY,
+                    imgWidth,
+                    imgHeight
+                )
             }
 
             override fun onTip(code: Int, msg: String?) {
@@ -148,10 +157,37 @@ class VideoRecordActivity : AppCompatActivity() {
 
             override fun onEnmotionCallback(livenessModel: LivenessModel?) {
                 println("识别  onEnmotionCallback=${livenessModel?.emotionsMsg}")
+                livenessModel?.run {
+                    val fileName = "${System.currentTimeMillis()}$emotionsMsg"
+                    BackCameraMananger.instance.pictureProcessor.onNext(
+                        PictureModel(
+                            emotionsMsg!!,
+                            imageFrame.width, imageFrame.height, imageFrame.argb, fileName
+                        )
+                    )
+                }
+
             }
 
             override fun onFaceFeatureCallBack(livenessModel: LivenessModel?) {
                 println("识别  onFaceFeatureCallBack=${livenessModel?.featureStatus}")
+                livenessModel?.run {
+                    var pictureModel: PictureModel
+                    if (featureStatus == 1) {
+                        var fileName = "${System.currentTimeMillis()}ture"
+                        pictureModel = PictureModel(
+                            "ture", imageFrame.width, imageFrame.height, imageFrame.argb
+                            , fileName
+                        )
+                    } else {
+                        var fileName = "${System.currentTimeMillis()}false"
+                        pictureModel = PictureModel(
+                            "false", imageFrame.width, imageFrame.height, imageFrame.argb
+                            , fileName
+                        )
+                    }
+                    BackCameraMananger.instance.pictureFaceProcessor.onNext(pictureModel)
+                }
 
             }
 
@@ -177,6 +213,8 @@ class VideoRecordActivity : AppCompatActivity() {
         super.onDestroy()
         us.nonda.cameralibrary.camera.BackCameraMananger.instance.closeCamera()
         us.nonda.cameralibrary.camera.FrontCameraMananger.instance.closeCamera()
+
+        FaceSDKManager.instance.stop()
 
     }
 }

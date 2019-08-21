@@ -8,21 +8,33 @@ import us.nonda.commonibrary.utils.SPUtils
 
 class FaceStatusCache private constructor() {
 
-    private lateinit var context: Context
+    private var context: Context = AppUtils.context
 
     companion object {
         val SP_KEY = "FaceStatusCache"
         val SP_KEY_LICENCE = "sp_key_licence"
         val SP_KEY_FACE_PASS_STATUS = "sp_key_face_pass_status"
+        val SP_KEY_FACE_PICTURE = "sp_key_face_picture"
 
         val instance: FaceStatusCache by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             FaceStatusCache()
         }
     }
 
-    init {
-        context =  AppUtils.context
-    }
+    /**
+     * 人脸注册图片
+     */
+    var facePicture: String? = null
+        get() {
+            if (TextUtils.isEmpty(field)) {
+                field = SPUtils.get(context, SP_KEY_FACE_PICTURE, "") as String
+            }
+            return field
+        }
+        set(value) {
+            field = value
+            SPUtils.put(context, SP_KEY_FACE_PICTURE, value)
+        }
 
 
     /**
@@ -77,6 +89,16 @@ class FaceStatusCache private constructor() {
      * 是否已经激活
      */
     fun isLicence() = !TextUtils.isEmpty(faceLicence)
+
+    fun clearFacePicture(){
+        facePicture = ""
+    }
+
+    fun clearFacePassStatus(){
+        facePassStatus = -1
+    }
+
+
 
     fun resetStatus() {
         enmotionStatus = -1

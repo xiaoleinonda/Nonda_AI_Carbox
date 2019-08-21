@@ -1,21 +1,16 @@
 package us.nonda.facelibrary.manager
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.media.FaceDetector
-import android.util.Base64
+import android.annotation.SuppressLint
 import android.util.Log
 import com.baidu.idl.facesdk.*
 import com.baidu.idl.facesdk.model.BDFaceSDKCommon
 import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
 import com.baidu.idl.facesdk.model.FaceInfo
-import com.baidu.idl.facesdk.model.Feature
+import io.reactivex.processors.PublishProcessor
+import io.reactivex.schedulers.Schedulers
+import us.nonda.commonibrary.utils.FileUtils
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.config.FaceConfig
-import us.nonda.facelibrary.db.DBManager
-import us.nonda.facelibrary.db.LRUCache
-import us.nonda.facelibrary.model.FaceImage
 import us.nonda.facelibrary.model.LivenessModel
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
@@ -28,7 +23,6 @@ class FaceLiveness constructor(
 ) {
 //    private var faceDetector: FaceDetector ?=null
 
-    private var mRgbArray: IntArray? = null
 
     private val es = Executors.newSingleThreadExecutor()
     private var future: Future<*>? = null
@@ -180,6 +174,8 @@ class FaceLiveness constructor(
 
     }
 
+
+    @SuppressLint("CheckResult")
     private fun startEnmotion(livenessModel: LivenessModel) {
         if (futureEnmotion != null && !futureEnmotion!!.isDone) {
             return
@@ -423,6 +419,8 @@ class FaceLiveness constructor(
         rotation = config.rotation
         mirror = config.mirror
     }
+
+
 
 
 }

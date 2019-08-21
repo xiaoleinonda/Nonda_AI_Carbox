@@ -1,5 +1,6 @@
 package us.nonda.cameralibrary.camera
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.CamcorderProfile
 import android.util.Log
@@ -12,8 +13,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.cache.CameraConfig
-import us.nonda.commonibrary.path.FilePathManager
-import us.nonda.commonibrary.utils.PathUtils
+import us.nonda.cameralibrary.model.PictureModel
+import us.nonda.cameralibrary.path.FilePathManager
+import us.nonda.commonibrary.utils.FileUtils
 
 abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
@@ -65,37 +67,49 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
 
     private var subscribe: Disposable? = null
-    private var publishProcessor: PublishProcessor<ByteArray>? = null
 
     private var isConvertYUV = false
 
-    var filePathManager: FilePathManager? = null
 
+
+     var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+     var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+
+
+    @SuppressLint("CheckResult")
     fun initCamera(surfaceView: SurfaceView, yuvData: Boolean, cameraType: Int, callback: CameraCallback) {
 
-        filePathManager = FilePathManager.get(surfaceView.context.applicationContext)
-        publishProcessor = PublishProcessor.create<ByteArray>()
 
         if (subscribe?.isDisposed == false) {
             subscribe?.dispose()
         }
-        subscribe = publishProcessor!!.subscribeOn(Schedulers.computation())
-            .unsubscribeOn(Schedulers.computation())
-            .observeOn(Schedulers.computation())
-            .map {
-                return@map yuv422To420(
-                    it,
-                    previewWidth,
-                    previewHeight
-                )
+        subscribe =   pictureProcessor.subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
+                t.emotion
             }
             .doOnNext {
-                Log.d(TAG, "转换后数据=" + it.size)
-                cameraCallback?.onYuvCbFrame(it, previewWidth, previewHeight)
+                var folderPath = FilePathManager.get().getBackEmotionPictureFolderPath() + it.emotion+"/"
+                FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
             }
-            .subscribe({
+           .doOnNext {
+               val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion+"/"
+               takePicture(folderPath, it.fileName)
+           }.subscribe({Log.d("图片", "保存情绪图片成功")},{})
 
-            }, {})
+        pictureFaceProcessor.
+            subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
+                t.emotion
+            }
+            .doOnNext {
+                var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion+"/"
+                FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
+
+            }.subscribe({Log.d("图片", "保存人脸图片成功")},{})
 
 
         this.cameraCallback = callback
@@ -144,15 +158,15 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
         when (cameraType) {
             CameraInfo.CAMERA_USB_CAMERA -> {
-                videoFileName = filePathManager!!.getBackVideoPath()
-                videoFrameRate = cameraConfig!!.videoFrameRateBack
-                previewFrameRate = cameraConfig!!.videoFrameRateFront
+                videoFileName = FilePathManager.get().getBackVideoPath()
+                videoFrameRate = cameraConfig.videoFrameRateBack
+                previewFrameRate = cameraConfig.videoFrameRateFront
                 isConvertYUV = true
             }
             else -> {
-                videoFileName = filePathManager!!.getFrontVideoPath()
-                videoFrameRate = cameraConfig!!.videoFrameRateFront
-                previewFrameRate = cameraConfig!!.videoFrameRateFront
+                videoFileName = FilePathManager.get().getFrontVideoPath()
+                videoFrameRate = cameraConfig.videoFrameRateFront
+                previewFrameRate = cameraConfig.videoFrameRateFront
                 isConvertYUV = false
             }
         }
@@ -412,4 +426,13 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
     fun getWidth() = previewWidth
     fun geHeight() = previewHeight
+
+
+    fun takePicture(folder:String, pictureName: String) {
+        if (cameraDevice == null) return
+        val path = folder  + pictureName + ".jpeg"
+        cameraDevice!!.takePicture(path, CameraDevice.ShutterCallback { },
+            CameraDevice.PictureCallback {  })
+
+    }
 }

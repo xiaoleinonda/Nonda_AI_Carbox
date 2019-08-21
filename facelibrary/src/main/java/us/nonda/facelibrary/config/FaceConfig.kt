@@ -13,4 +13,6 @@ class FaceConfig {
     // 0：RGB无镜像，1：有镜像
     var mirror: Int = 0
 
+
+
 }

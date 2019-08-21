@@ -188,6 +188,7 @@ class FaceRegister constructor(
              * 向数据库中插入人脸特征
              */
             if (FaceApi.getInstance().featureAdd(feature)) {
+                FaceSDKManager.instance.setFeature()
                 mqttPulish("注册成功")
             } else {
                 mqttPulish("注册特征提取失败")

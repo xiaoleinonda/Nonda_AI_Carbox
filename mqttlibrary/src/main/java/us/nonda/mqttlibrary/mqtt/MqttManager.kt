@@ -66,7 +66,7 @@ class MqttManager {
                 return true
             } else {
                 Log.i(TAG, "没有可用网络")
-                Handler().postDelayed(Runnable { doClientConnection() }, 3000)
+//                Handler().postDelayed(Runnable { doClientConnection() }, 3000)
                 return false
             }
         }
@@ -85,7 +85,7 @@ class MqttManager {
         override fun onFailure(arg0: IMqttToken?, arg1: Throwable) {
             arg1.printStackTrace()
             Log.i(TAG, "连接失败 ")
-            doClientConnection()//连接失败，重连（可关闭服务器进行模拟）
+//            doClientConnection()//连接失败，重连（可关闭服务器进行模拟）
         }
     }
 
@@ -107,7 +107,7 @@ class MqttManager {
         override fun connectionLost(arg0: Throwable?) {
             Log.i(TAG, "连接断开 ")
             mqttState = MQTTSTATE_CONNECTIONLOST
-            doClientConnection()//连接断开，重连
+//            doClientConnection()//连接断开，重连
         }
     }
 

@@ -11,7 +11,6 @@ import us.nonda.ai.controler.CarBoxControler
 import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.mqttlibrary.mqtt.MqttManager
-import us.nonda.mqttlibrary.mqtt.MqttService
 
 class AccActivity : AppCompatActivity() {
 
@@ -25,7 +24,6 @@ class AccActivity : AppCompatActivity() {
         carBoxControler = CarBoxControler(this)
 
         FaceSDKManager.instance.checkLicenceStatus()
-        MqttService.startService(this)
     }
 
     private fun registReceiver() {

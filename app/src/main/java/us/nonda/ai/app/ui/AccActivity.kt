@@ -44,6 +44,10 @@ class AccActivity : AppCompatActivity() {
         carBoxControler?.mode(CarBoxControler.MODE_ACC_OFF)
     }
 
+    fun onPublish(view: View) {
+        MqttService.getInstance().publish("测试publish")
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

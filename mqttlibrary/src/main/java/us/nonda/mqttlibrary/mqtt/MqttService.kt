@@ -2,6 +2,7 @@ package us.nonda.mqttlibrary.mqtt
 
 import android.annotation.SuppressLint
 import android.app.Service
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import org.eclipse.paho.client.mqttv3.MqttException
@@ -21,6 +22,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
+import us.nonda.commonibrary.utils.NetworkUtil
 
 /**
  *MQTT客户端连接参数
@@ -35,45 +37,24 @@ Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - fal
  */
 class MqttService : Service() {
     private val TAG = MqttService::class.java.simpleName
-    private var mMqttConnectOptions: MqttConnectOptions? = null
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
     //    var USERNAME = "admin"//用户名
     //    var PASSWORD = "password"//密码
     private var CLIENTID = "Android${System.currentTimeMillis()}"
-    public var mqttState = ""
+    public var mqttState = 0
+    private val MQTTSTATE_CONNECTIONLOST = 0
+    private val MQTTSTATE_MESSAGEARRIVED = 1
+    private val MQTTSTATE_DELIVERYCOMPLETE = 2
+
 
     companion object {
         @SuppressLint("StaticFieldLeak")
-        private var mqttAndroidClient: MqttAndroidClient? = null
         private var imei = DeviceUtils.getIMEICode(AppUtils.context)
         var PUBLISH_TOPIC = "nonda/drive/$imei/report"//车机上报云端：
         var RESPONSE_TOPIC = "nonda/drive/$imei/issue"//云端下发车机:
         var LAST_WILL_TOPIC = "nonda/drive/$imei/will"//车机Last Wii：
-
-        /**
-         * 开启服务
-         */
-        fun startService(mContext: Context) {
-            mContext.startService(Intent(mContext, MqttService::class.java))
-            Log.i(TAG, "开启服务")
-        }
-
-        /**
-         * 发布 （模拟其他客户端发布消息）
-         *
-         * @param message 消息
-         */
-        fun publish(message: String) {
-            val topic = PUBLISH_TOPIC
-            val qos = 1
-            val retained = false
-            try {
-                //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
-                mqttAndroidClient!!.publish(topic, message.toByteArray(), qos, retained)
-            } catch (e: MqttException) {
-                e.printStackTrace()
-            }
-        }
+        var mqttAndroidClient: MqttAndroidClient? = null
+        private var mMqttConnectOptions: MqttConnectOptions? = null
 
         @Volatile
         private var instance: MqttService? = null
@@ -82,6 +63,32 @@ class MqttService : Service() {
             instance ?: synchronized(this) {
                 instance ?: MqttService().also { instance = it }
             }
+    }
+
+    /**
+     * 开启服务
+     */
+    fun startService(mContext: Context) {
+        if (mqttAndroidClient == null) {
+            mContext.startService(Intent(mContext, MqttService::class.java))
+        } else {
+            doClientConnection()
+        }
+        Log.i(ContentValues.TAG, "开启服务")
+    }
+
+    /**
+     * 停止服务
+     */
+    fun stopService() {
+        try {
+            if (mqttAndroidClient != null) {
+                mqttAndroidClient?.disconnect() //断开连接
+            }
+        } catch (e: MqttException) {
+            e.printStackTrace()
+        }
+        Log.i(ContentValues.TAG, "停止服务")
     }
 
     /**
@@ -105,7 +112,7 @@ class MqttService : Service() {
 
     //MQTT是否连接成功的监听
     private val iMqttActionListener = object : IMqttActionListener {
-        override fun onSuccess(arg0: IMqttToken) {
+        override fun onSuccess(arg0: IMqttToken?) {
             Log.i(TAG, "连接成功 ")
             try {
                 mqttAndroidClient!!.subscribe(PUBLISH_TOPIC, 1)//订阅主题，参数：主题、服务质量
@@ -127,23 +134,19 @@ class MqttService : Service() {
         @Throws(Exception::class)
         override fun messageArrived(topic: String, message: MqttMessage) {
             Log.i(TAG, "收到消息： " + String(message.payload))
-            //收到消息，这里弹出Toast表示。如果需要更新UI，可以使用广播或者EventBus进行发送
-            Toast.makeText(AppUtils.context, "messageArrived: " + String(message.payload), Toast.LENGTH_LONG).show()
             //收到其他客户端的消息后，响应给对方告知消息已到达或者消息有问题等
             response("message arrived")
-            mqttState = "messageArrived"
+            mqttState = MQTTSTATE_MESSAGEARRIVED
         }
 
-        override fun deliveryComplete(arg0: IMqttDeliveryToken) {
-            mqttState = "deliveryComplete"
-            Toast.makeText(AppUtils.context, "deliveryComplete ", Toast.LENGTH_LONG).show()
+        override fun deliveryComplete(arg0: IMqttDeliveryToken?) {
+            mqttState = MQTTSTATE_DELIVERYCOMPLETE
         }
 
-        override fun connectionLost(arg0: Throwable) {
+        override fun connectionLost(arg0: Throwable?) {
             Log.i(TAG, "连接断开 ")
-            doClientConnection()//连接断开，重连
-            mqttState = "connectionLost"
-            Toast.makeText(AppUtils.context, "connectionLost: ", Toast.LENGTH_LONG).show()
+            mqttState = MQTTSTATE_CONNECTIONLOST
+//            doClientConnection()//连接断开，重连
         }
     }
 
@@ -158,6 +161,23 @@ class MqttService : Service() {
     }
 
     /**
+     * 发布 （模拟其他客户端发布消息）
+     *
+     * @param message 消息
+     */
+    fun publish(message: String) {
+        val topic = PUBLISH_TOPIC
+        val qos = 1
+        val retained = false
+        try {
+            //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
+            mqttAndroidClient?.publish(topic, message.toByteArray(), qos, retained)
+        } catch (e: MqttException) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
      * 响应 （收到其他客户端的消息后，响应给对方告知消息已到达或者消息有问题等）
      *
      * @param message 消息
@@ -168,7 +188,7 @@ class MqttService : Service() {
         val retained = false
         try {
             //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
-            mqttAndroidClient!!.publish(topic, message.toByteArray(), qos, retained)
+            mqttAndroidClient?.publish(topic, message.toByteArray(), qos, retained)
         } catch (e: MqttException) {
             e.printStackTrace()
         }
@@ -215,9 +235,9 @@ class MqttService : Service() {
      */
     @Synchronized
     private fun doClientConnection() {
-        if (!mqttAndroidClient!!.isConnected && isConnectIsNomarl) {
+        if (isConnectIsNomarl && !mqttAndroidClient!!.isConnected) {
             try {
-                mqttAndroidClient!!.connect(mMqttConnectOptions, null, iMqttActionListener)
+                mqttAndroidClient?.connect(mMqttConnectOptions, null, iMqttActionListener)
             } catch (e: MqttException) {
                 e.printStackTrace()
             }
@@ -226,7 +246,9 @@ class MqttService : Service() {
 
     override fun onDestroy() {
         try {
-            mqttAndroidClient!!.disconnect() //断开连接
+            if ( mqttAndroidClient != null && mqttAndroidClient!!.isConnected) {
+                mqttAndroidClient?.disconnect() //断开连接
+            }
         } catch (e: MqttException) {
             e.printStackTrace()
         }

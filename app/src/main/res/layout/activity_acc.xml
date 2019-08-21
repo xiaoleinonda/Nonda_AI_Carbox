@@ -18,5 +18,10 @@
             android:onClick="onClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    <Button
+            android:text="onPublish"
+            android:onClick="onPublish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

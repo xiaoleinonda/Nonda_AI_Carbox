@@ -10,6 +10,7 @@ import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.mqttlibrary.mqtt.MqttService
 
 class AccActivity : AppCompatActivity() {
@@ -45,7 +46,7 @@ class AccActivity : AppCompatActivity() {
     }
 
     fun onPublish(view: View) {
-        MqttService.getInstance().publish("测试publish")
+        MqttManager.getInstance().publish("测试publish")
     }
 
 

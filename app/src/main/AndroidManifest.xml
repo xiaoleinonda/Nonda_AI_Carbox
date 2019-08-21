@@ -36,6 +36,13 @@
         </activity>
         <service android:name="us.nonda.mqttlibrary.mqtt.MqttService"/>
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+
+        <receiver android:name=".app.receiver.AccBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -261,7 +261,7 @@ class FaceLiveness constructor(
 
                 } else {
                     //特征提取失败
-                    featureStatus = 0
+                    featureStatus = 3
                     Log.d(TAG, "特征提取失败")
 
                 }

@@ -21,6 +21,7 @@ import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.facelibrary.model.LivenessModel
+import us.nonda.mqttlibrary.mqtt.MqttManager
 
 class VideoRecordActivity : AppCompatActivity() {
 
@@ -159,12 +160,14 @@ class VideoRecordActivity : AppCompatActivity() {
                 println("识别  onEnmotionCallback=${livenessModel?.emotionsMsg}")
                 livenessModel?.run {
                     val fileName = "${System.currentTimeMillis()}$emotionsMsg"
+                    MqttManager.getInstance().pulishEmotion(emotionsMsg)
                     BackCameraMananger.instance.pictureProcessor.onNext(
                         PictureModel(
                             emotionsMsg!!,
                             imageFrame.width, imageFrame.height, imageFrame.argb, fileName
                         )
                     )
+
                 }
 
             }
@@ -187,6 +190,8 @@ class VideoRecordActivity : AppCompatActivity() {
                         )
                     }
                     BackCameraMananger.instance.pictureFaceProcessor.onNext(pictureModel)
+
+                    MqttManager.getInstance().pulishFaceResult(featureStatus)
                 }
 
             }

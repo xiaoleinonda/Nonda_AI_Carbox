@@ -255,6 +255,22 @@ class MqttManager {
     private fun publish(msg: MqttMessage) {
         mqttAndroidClient?.publish(CLIENTID, msg)
     }
+
+
+    /**
+     * 上报人脸比对结果
+     */
+    fun pulishFaceResult(result:Int){
+
+    }
+
+    /**
+     * 上报情绪识别结果
+     */
+    fun pulishEmotion(emotion:String){
+
+    }
+
 }
 
 

@@ -230,18 +230,31 @@ class MqttManager {
     }
 
 
-    private fun pulish(location: Location){
+    /**
+     * 上报GPS
+     */
+    fun pulish(location: Location) {
         location.bearing
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.newBuilder()
         location?.run {
-            builderItem.lat =  latitude
-            builderItem.lng =  longitude
-            builderItem.spd =  speed.toDouble()
+            builderItem.lat = latitude
+            builderItem.lng = longitude
+            builderItem.spd = speed.toDouble()
             builderItem.acc = accuracy.toDouble()
             builderItem.brg = bearing.toDouble()
             builderItem.time = System.currentTimeMillis()
         }
         val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.newBuilder()
         builderData.addItems(builderItem)
+        val byteArray = builderData.build().toByteArray()
+        val mqttMessage = MqttMessage()
+        mqttMessage.payload = byteArray
+        publish(mqttMessage)
+    }
+
+    private fun publish(msg: MqttMessage) {
+        mqttAndroidClient?.publish(CLIENTID, msg)
     }
 }
+
+

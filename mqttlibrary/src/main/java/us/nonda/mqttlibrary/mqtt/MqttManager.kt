@@ -3,9 +3,11 @@ package us.nonda.mqttlibrary.mqtt
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.location.Location
 import android.net.ConnectivityManager
 import android.os.Handler
 import android.util.Log
+import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 import us.nonda.commonibrary.utils.AppUtils
@@ -225,5 +227,21 @@ class MqttManager {
         } catch (e: MqttException) {
             e.printStackTrace()
         }
+    }
+
+
+    private fun pulish(location: Location){
+        location.bearing
+        val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.newBuilder()
+        location?.run {
+            builderItem.lat =  latitude
+            builderItem.lng =  longitude
+            builderItem.spd =  speed.toDouble()
+            builderItem.acc = accuracy.toDouble()
+            builderItem.brg = bearing.toDouble()
+            builderItem.time = System.currentTimeMillis()
+        }
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.newBuilder()
+        builderData.addItems(builderItem)
     }
 }

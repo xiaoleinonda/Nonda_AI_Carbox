@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package io.nonda.onedata.proto.contract;
+
+option java_outer_classname = "CloudDriveMqttMessageCreator";
+
+
+message CloudDriveMqttMessage {
+    int32 cmd = 1;
+    int64 time = 2;
+    google.protobuf.Any data = 3;
+}
+
+message CloudDriveMqttBoxStatusData {
+    string fw = 1;
+    string app = 2;
+    double lat = 3;
+    double lng = 4;
+    double acc = 5;
+    double vol = 6;
+}
+
+message CloudDriveMqttEventData {
+    string fw = 1;
+    string app = 2;
+    double lat = 3;
+    double lng = 4;
+    double acc = 5;
+    double vol = 6;
+    int32 type = 7;
+    string content = 8;
+}
+
+message CloudDriveMqttGpsData {
+    repeated CloudDriveMqttGpsDataItem items = 1;
+}
+
+message CloudDriveMqttGpsDataItem {
+    int64 time = 1;
+    double lat = 2;
+    double lng = 3;
+    double spd = 4;
+    double acc = 5;
+    double brg = 6;
+}
+
+message CloudDriveMqttGSensorData {
+    repeated CloudDriveMqttGSensorDataItem items = 1;
+}
+
+message CloudDriveMqttGSensorDataItem {
+    int64 time = 1;
+    double x = 2;
+    double y = 3;
+    double z = 4;
+}
+
+message CloudDriveMqttGyroData {
+    repeated CloudDriveMqttGyroDataItem items = 1;
+}
+
+message CloudDriveMqttGyroDataItem {
+    int64 time = 1;
+    double x = 2;
+    double y = 3;
+    double z = 4;
+}
+
+message CloudDriveMqttFreqData {
+    int32 collectFreq = 1;
+    int32 reportFreq = 2;
+}
+
+message CloudDriveMqttFaceData {
+    repeated CloudDriveMqttFaceDataItem items = 1;
+}
+
+message CloudDriveMqttFaceDataItem {
+    int64 time = 1;
+    int32 face = 2;
+}
+
+message CloudDriveMqttEmotionData {
+    repeated CloudDriveMqttEmotionDataItem items = 1;
+}
+
+message CloudDriveMqttEmotionDataItem {
+    int64 time = 1;
+    string emotion = 2;
+}

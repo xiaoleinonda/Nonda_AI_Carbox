@@ -56,6 +56,7 @@ dependencies {
     implementation project(path: ':cameralibrary')
     implementation project(path: ':systemlibrary')
     implementation project(path: ':mqttlibrary')
+    implementation project(path: ':otalibrary')
 
     //MQTT
     implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'

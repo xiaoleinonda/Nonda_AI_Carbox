@@ -109,7 +109,7 @@ class MqttManager {
         override fun connectionLost(arg0: Throwable?) {
             Log.i(TAG, "连接断开 ")
             mqttState = MQTTSTATE_CONNECTIONLOST
-//            doClientConnection()//连接断开，重连
+            doClientConnection()//连接断开，重连
         }
     }
 

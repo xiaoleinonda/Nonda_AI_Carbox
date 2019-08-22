@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import org.eclipse.paho.client.mqttv3.MqttMessage
 import us.nonda.ai.R
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.controler.CarBoxControler
@@ -27,6 +28,7 @@ class AccActivity : AppCompatActivity() {
         carBoxControler = CarBoxControler(this)
 
         FaceSDKManager.instance.checkLicenceStatus()
+        MqttManager.getInstance().init()
     }
 
     private fun registReceiver() {
@@ -46,7 +48,7 @@ class AccActivity : AppCompatActivity() {
     }
 
     fun onPublish(view: View) {
-        MqttManager.getInstance().publish("测试publish")
+//        MqttManager.getInstance().pulishGPS()
     }
 
     fun onOTA(view: View) {

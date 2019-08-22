@@ -7,7 +7,6 @@ import android.net.ConnectivityManager
 import us.nonda.commonibrary.utils.NetworkUtil
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.mqttlibrary.mqtt.MqttManager
-import us.nonda.mqttlibrary.mqtt.MqttService
 
 
 class NetStateChangeReceiver : BroadcastReceiver() {
@@ -17,9 +16,9 @@ class NetStateChangeReceiver : BroadcastReceiver() {
             val connectivityStatus = NetworkUtil.getConnectivityStatus(context)
             if (connectivityStatus) {
                 initFace(context)
-                MqttManager.getInstance().doConnect(context)
+                MqttManager.getInstance().onStart()
             }else{
-                MqttManager.getInstance().stopConnect(context)
+                MqttManager.getInstance().onStop()
             }
         }
     }

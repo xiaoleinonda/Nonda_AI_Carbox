@@ -5,5 +5,5 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IMqttMessageHandler {
 
-    void handleMqttMessage(@NotNull CloudDriveMqttMessageCreator.CloudDriveMqttMessage cloudDriveMqttMessage);
+    void handleMqttMessage(@NotNull CloudDriveMqttMessageCreator.CloudDriveMqttFreqData cloudDriveMqttFreqData);
 }

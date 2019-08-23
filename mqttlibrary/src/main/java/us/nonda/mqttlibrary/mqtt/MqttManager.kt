@@ -174,8 +174,9 @@ class MqttManager : MqttCallback, IMqttActionListener {
             return
         }
         val mqttMessageHandler = MqttHandlerFactory.getHandlerByCMD(cloudDriveMqttMessage.cmd)
-        
-        mqttMessageHandler.handleMqttMessage(cloudDriveMqttMessage)
+
+        val cloudDriveMqttFreqData = cloudDriveMqttMessage.data.unpack(CloudDriveMqttMessageCreator.CloudDriveMqttFreqData::class.java)
+        mqttMessageHandler.handleMqttMessage(cloudDriveMqttFreqData)
     }
 
 

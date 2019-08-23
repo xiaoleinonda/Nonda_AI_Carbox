@@ -9,6 +9,11 @@ import org.eclipse.paho.client.mqttv3.*
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.mqttlibrary.model.*
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EMOTION
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_FACE_RESULT
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GPS
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
 
 /**
  *MQTT客户端连接参数
@@ -31,13 +36,6 @@ class MqttManager : MqttCallback, IMqttActionListener {
     private val MQTTSTATE_MESSAGEARRIVED = 1
     private val MQTTSTATE_DELIVERYCOMPLETE = 2
     private val mqttConnectOptions = MqttConnectOptions()
-
-    private val PUBLISH_STATUS = 10001
-    private val PUBLISH_GPS = 10003
-    private val PUBLISH_GSENSOR = 10004
-    private val PUBLISH_GYRO = 10005
-    private val PUBLISH_FACE_RESULT = 10006
-    private val PUBLISH_EMOTION = 10007
 
     public var isConnected = false
 
@@ -118,17 +116,18 @@ class MqttManager : MqttCallback, IMqttActionListener {
      *
      * @param message 消息
      */
-//    fun publish(message: String) {
-//        val topic = PUBLISH_TOPIC
-//        val qos = 1
-//        val retained = false
-//        try {
-//            //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
-//            mqttAndroidClient.publish(topic, message.toByteArray(), qos, retained)
-//        } catch (e: MqttException) {
-//            e.printStackTrace()
-//        }
-//    }
+    fun publish(message: String) {
+        val topic = PUBLISH_TOPIC
+        val qos = 1
+        val retained = false
+        try {
+            //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
+            mqttAndroidClient.publish(topic, message.toByteArray(), qos, retained)
+        } catch (e: MqttException) {
+            e.printStackTrace()
+        }
+    }
+
     private fun publish(builderMessage: CloudDriveMqttMessageCreator.CloudDriveMqttMessage.Builder, cmd: Int) {
         builderMessage.time = System.currentTimeMillis()
         builderMessage.cmd = cmd
@@ -159,8 +158,24 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     override fun messageArrived(topic: String?, message: MqttMessage?) {
+        var cloudDriveMqttMessage: CloudDriveMqttMessageCreator.CloudDriveMqttMessage? = null
+
         Log.d(TAG, "messageArrived")
         mqttState = MQTTSTATE_MESSAGEARRIVED
+
+        //过滤掉topic为publish的回调
+        if (PUBLISH_TOPIC == topic) return
+
+        if (message != null) {
+            cloudDriveMqttMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(message.payload)
+        }
+
+        if (cloudDriveMqttMessage == null) {
+            return
+        }
+        val mqttMessageHandler = MqttHandlerFactory.getHandlerByCMD(cloudDriveMqttMessage.cmd)
+        
+        mqttMessageHandler.handleMqttMessage(cloudDriveMqttMessage)
     }
 
 
@@ -179,7 +194,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
         Log.d(TAG, "onSuccess")
         isConnected = true
         try {
-            mqttAndroidClient.subscribe(PUBLISH_TOPIC, 1)//订阅主题，参数：主题、服务质量
+            mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
         } catch (e: MqttException) {
             e.printStackTrace()
         }
@@ -215,7 +230,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGPS(GPSBeans: List<GPSBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.newBuilder()
-        for (i in 0..GPSBeans.size) {
+        for (i in 0 until GPSBeans.size) {
             val GPSBean = GPSBeans[i]
             GPSBean.run {
                 builderItem.lat = this.lat!!
@@ -239,7 +254,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGSensor(gSensorBeans: List<GSensorBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.newBuilder()
-        for (i in 0..gSensorBeans.size) {
+        for (i in 0 until gSensorBeans.size) {
             val gSensorBean = gSensorBeans[i]
             gSensorBean.run {
                 builderItem.x = this.x!!
@@ -253,7 +268,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
 
-        publish(builderMessage, PUBLISH_GSENSOR)
+        publish(builderMessage, Constant.PUBLISH_GSENSOR)
     }
 
     /**
@@ -261,7 +276,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGyro(gyroBeans: List<GyroBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.newBuilder()
-        for (i in 0..gyroBeans.size) {
+        for (i in 0 until gyroBeans.size) {
             val gyroBean = gyroBeans[i]
             gyroBean.run {
                 builderItem.x = this.x!!
@@ -283,7 +298,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishFaceResult(faceResultBeans: List<FaceResultBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.newBuilder()
-        for (i in 0..faceResultBeans.size) {
+        for (i in 0 until faceResultBeans.size) {
             val gyroBean = faceResultBeans[i]
             gyroBean.run {
                 builderItem.face = this.face!!
@@ -303,7 +318,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishEmotion(emotionBeans: List<EmotionBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.newBuilder()
-        for (i in 0..emotionBeans.size) {
+        for (i in 0 until emotionBeans.size) {
             val emotionBean = emotionBeans[i]
             emotionBean.run {
                 builderItem.emotion = this.emotion!!

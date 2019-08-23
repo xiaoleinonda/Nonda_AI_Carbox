@@ -9,9 +9,12 @@ import com.baidu.idl.facesdk.FaceDetect
 import com.baidu.idl.facesdk.FaceFeature
 import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
+import us.nonda.cameralibrary.status.CameraStatus
+import us.nonda.commonibrary.MyLog
 import us.nonda.facelibrary.db.FaceApi
 import us.nonda.facelibrary.model.FaceImage
 import us.nonda.facelibrary.model.LivenessModel
+import us.nonda.facelibrary.status.FaceStatusCache
 import us.nonda.facelibrary.utils.DeleteFaceUtil
 import us.nonda.facelibrary.utils.FileUtils
 import us.nonda.facelibrary.utils.ImageUtils
@@ -26,6 +29,7 @@ class FaceRegister constructor(
     private var faceFeature: FaceFeature
 ) {
 
+    private val TAG = "FaceRegister"
     private var future: Future<*>? = null
     private val es: ExecutorService = Executors.newSingleThreadExecutor()
 
@@ -38,7 +42,11 @@ class FaceRegister constructor(
     private var width = 480
     private var height = 640
 
+
     fun registFace(faceImage: FaceImage) {
+        if (CameraStatus.instance.getAccStatus() == 0) {
+            return
+        }
         val imageArray = Base64.decode(faceImage.image, Base64.DEFAULT)
         val userId = faceImage.userId
 
@@ -46,6 +54,7 @@ class FaceRegister constructor(
         mqttPulish("特征提取中...")
         removeFace {
             mqttPulish("start register face")
+            MyLog.d(TAG, "start register face")
             this.userId = userId
             val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
             val matrix = Matrix()
@@ -62,10 +71,12 @@ class FaceRegister constructor(
                     bitmap.width, bitmap.height
                 )
 
-                checkFace(rgbArray, bitmap.width, bitmap.height)
+                checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
 
 
             } else {
+                MyLog.d(TAG, "解析图片失败")
+
                 mqttPulish("解析图片失败")
             }
 
@@ -76,7 +87,8 @@ class FaceRegister constructor(
     /**
      * 检测人脸
      */
-    private fun checkFace(imageArray: IntArray, width: Int, height: Int) {
+    private fun checkFace(imageArray: IntArray, width: Int, height: Int, facePic:String) {
+
         if (future != null && !future!!.isDone) {
             return
         }
@@ -85,6 +97,7 @@ class FaceRegister constructor(
             val maxFace = trackMaxFace(imageArray, width, height)
 
             mqttPulish("注册的人脸maxFace=" + maxFace)
+            MyLog.d(TAG, "注册的人脸maxFace=" + maxFace)
 
 
             val livenessModel = LivenessModel()
@@ -99,9 +112,10 @@ class FaceRegister constructor(
                 livenessModel.faceInfo = faceInfo
                 livenessModel.faceID = faceInfo.face_id
 
-                registFace(livenessModel)
+                registFace(livenessModel, facePic)
 
             } else {
+                MyLog.d(TAG, "注册的人脸未提取到人脸")
 
                 mqttPulish("注册的人脸未提取到人脸")
 
@@ -110,7 +124,7 @@ class FaceRegister constructor(
 
     }
 
-    private fun registFace(livenessModel: LivenessModel) {
+    private fun registFace(livenessModel: LivenessModel, facePicture:String) {
         val visFeature = ByteArray(512)
         val lenght = livenessModel.run {
             extractFeature(
@@ -188,13 +202,22 @@ class FaceRegister constructor(
              * 向数据库中插入人脸特征
              */
             if (FaceApi.getInstance().featureAdd(feature)) {
+                if (CameraStatus.instance.getAccStatus() == 0) {
+                    return
+                }
                 FaceSDKManager.instance.setFeature()
+                FaceStatusCache.instance.facePicture = facePicture
                 mqttPulish("注册成功")
+                MyLog.d(TAG, "注册成功")
+
             } else {
                 mqttPulish("注册特征提取失败")
+                MyLog.d(TAG, "注册特征提取失败")
+
             }
             userId = ""
         }
+
     }
 
     /**

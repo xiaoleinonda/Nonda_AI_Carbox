@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import us.nonda.ai.app.ui.VideoRecordActivity
+import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.status.CarboxCacheManager
 import us.nonda.commonibrary.utils.FinishActivityManager
@@ -21,7 +22,7 @@ class AccBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if (action_acc_on == intent?.action) {
-            accOn()
+            accOn(context)
         } else if (action_acc_off == intent?.action) {
             accOff()
         }
@@ -31,41 +32,17 @@ class AccBroadcastReceiver : BroadcastReceiver() {
      * 初始化
      * 开启摄像头
      */
-    private fun accOn() {
-        MyLog.d(TAG,"accOn")
-        CarboxCacheManager.instance.putACCStatus(true)
+    private fun accOn(context: Context?) {
+        MyLog.d(TAG, "accOn")
+        CarBoxControler.instance.accOnMode(context!!)
     }
 
 
     private fun accOff() {
-        MyLog.d(TAG,"accOff")
-        CarboxCacheManager.instance.putACCStatus(false)
-
-        closeCamera()
-        closeFace()
-        updateReportFreq()
-    }
-
-    /**
-     * 关闭摄像头页面
-     */
-    private fun closeCamera() {
-        FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
-    }
-
-    /**
-     * 关闭识别相关
-     */
-    private fun closeFace() {
-
+        MyLog.d(TAG, "accOff")
+        CarBoxControler.instance.checkOTA()
 
     }
 
-    /**
-     * 修改上报频率
-     */
-    private fun updateReportFreq() {
 
-
-    }
 }

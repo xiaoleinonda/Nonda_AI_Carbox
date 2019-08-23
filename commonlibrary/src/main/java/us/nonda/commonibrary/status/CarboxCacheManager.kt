@@ -25,15 +25,6 @@ class CarboxCacheManager private constructor(){
     var status_new_apk:Int = -1*/
 
 
-    /**
-     * 获取ACC状态
-     * ON =ture
-     * OFF = false
-     */
-    fun getACCStatus() =  SPUtils.get(AppUtils.context, SP_KEY_ACC_STATUS, false) as Boolean
 
-    fun putACCStatus(on:Boolean){
-        SPUtils.put(AppUtils.context, SP_KEY_ACC_STATUS, on)
-    }
 
 }

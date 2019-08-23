@@ -1,6 +1,15 @@
 package us.nonda.cameralibrary.status
 
-class CameraStatus {
+import com.mediatek.carcorder.CarcorderManager
+
+class CameraStatus private constructor(){
+
+    companion object{
+        val instance: CameraStatus by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){
+            CameraStatus()
+        }
+
+    }
 
     /**
      * 前摄像头open状态
@@ -25,6 +34,19 @@ class CameraStatus {
      * 0正在录制
      */
     var backCameraRecordStatus = -1
+
+
+    /**
+     * 返回acc状态
+     * 1 ACC ON， 0 ACC OFF， -1 UNKNOW
+     */
+    fun getAccStatus() = CarcorderManager.get().queryCarEngineState()
+
+
+    /**
+     * 主动唤醒休眠
+     */
+    fun exitIpo() = CarcorderManager.get().ipodProxy?.exitIpod(0)
 
 
     fun resetStatus() {

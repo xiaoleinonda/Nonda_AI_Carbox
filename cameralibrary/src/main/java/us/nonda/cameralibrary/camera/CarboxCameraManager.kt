@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.cache.CameraConfig
 import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.cameralibrary.path.FilePathManager
+import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.FileUtils
 
 abstract class CarboxCameraManager : SurfaceHolder.Callback {
@@ -226,8 +227,12 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     fun openCamera(cameraId: Int, yuvData: Boolean) {
         try {
             cameraDevice = CarcorderManager.get().openCameraDevice(cameraId)
+            MyLog.d(TAG, "摄像头打开成功")
+
         } catch (e: java.lang.Exception) {
             cameraCallback?.onOpenCameraFaile("Open Camera Failed")
+            MyLog.d(TAG, "摄像头打开失败")
+
             e.printStackTrace()
         }
         cameraDevice!!.setRecordingMuteAudio(false)
@@ -327,17 +332,21 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     }
 
     fun startRecord() {
-        when (val record = cameraDevice?.startRecord()) {
+        val record = cameraDevice?.startRecord()
+        when (record) {
             null -> {
                 cameraCallback?.onRecordFailed(-100)
             }
             0 -> {
+
                 cameraCallback?.onRecordSucceed()
             }
             else -> {
                 cameraCallback?.onRecordFailed(record)
             }
         }
+        MyLog.d(TAG, "录制结果="+record)
+
 //            startRecordResult(record)
     }
 

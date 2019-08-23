@@ -43,6 +43,26 @@
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".app.receiver.BootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".app.receiver.IPOBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_BOOT_IPO"/>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN_IPO"/>
+            </intent-filter>
+        </receiver>
+
+
+        <service android:name=".app.service.SensorReportService"/>
+
     </application>
 
 </manifest>

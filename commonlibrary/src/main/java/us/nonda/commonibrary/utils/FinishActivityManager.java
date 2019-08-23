@@ -57,6 +57,13 @@ public class FinishActivityManager {
         }
         return null;
     }
+
+    public int getActivitySum(){
+        if (mActivityStack != null && !mActivityStack.isEmpty()) {
+            return mActivityStack.size();
+        }
+        return 0;
+    }
     /**
      * 关闭当前Activity（栈中最后一个压入的）
      */

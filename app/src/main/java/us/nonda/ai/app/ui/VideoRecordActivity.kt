@@ -17,6 +17,7 @@ import us.nonda.cameralibrary.camera.CameraCallback
 import us.nonda.cameralibrary.camera.FrontCameraMananger
 import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.cameralibrary.status.CameraStatus
+import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.manager.FaceSDKManager
@@ -25,10 +26,19 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 
 class VideoRecordActivity : AppCompatActivity() {
 
+    private val TAG = "VideoRecordActivity"
 
     companion object {
         fun starter(context: Context) {
-            context.startActivity(Intent(context, VideoRecordActivity::class.java))
+            val activitySum = FinishActivityManager.getManager().activitySum
+            if (activitySum > 0) {
+                FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
+            }
+
+            val intent = Intent(context, VideoRecordActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+
         }
 
         fun finish() {
@@ -41,7 +51,9 @@ class VideoRecordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_record)
+
         FinishActivityManager.getManager().addActivity(this)
+        MyLog.d(TAG, "onCreate")
         oepnCamera()
 
 
@@ -51,9 +63,14 @@ class VideoRecordActivity : AppCompatActivity() {
         }
 
 
-
 //        initPublish()
     }
+
+    override fun onResume() {
+        super.onResume()
+        MyLog.d(TAG, "onResume")
+    }
+
 
     private fun initPublish() {
         publishProcessor = PublishProcessor.create<ByteArray>()
@@ -215,6 +232,8 @@ class VideoRecordActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        MyLog.d(TAG, "onDestroy")
+
         super.onDestroy()
         us.nonda.cameralibrary.camera.BackCameraMananger.instance.closeCamera()
         us.nonda.cameralibrary.camera.FrontCameraMananger.instance.closeCamera()

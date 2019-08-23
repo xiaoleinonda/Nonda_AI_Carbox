@@ -89,3 +89,12 @@ message CloudDriveMqttEmotionDataItem {
     int64 time = 1;
     string emotion = 2;
 }
+
+message CloudDriveMqttLogData {
+    string type = 1;
+    string msg = 2;
+}
+
+message CloudDriveMqttReportStatusData {
+    int32 type = 1;
+}

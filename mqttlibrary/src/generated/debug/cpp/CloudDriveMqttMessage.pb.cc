@@ -92,13 +92,23 @@ public:
  ::google::protobuf::internal::ExplicitlyConstructed<CloudDriveMqttEmotionDataItem>
      _instance;
 } _CloudDriveMqttEmotionDataItem_default_instance_;
+class CloudDriveMqttLogDataDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<CloudDriveMqttLogData>
+     _instance;
+} _CloudDriveMqttLogData_default_instance_;
+class CloudDriveMqttReportStatusDataDefaultTypeInternal {
+public:
+ ::google::protobuf::internal::ExplicitlyConstructed<CloudDriveMqttReportStatusData>
+     _instance;
+} _CloudDriveMqttReportStatusData_default_instance_;
 
 namespace protobuf_CloudDriveMqttMessage_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[14];
+::google::protobuf::Metadata file_level_metadata[16];
 
 }  // namespace
 
@@ -113,6 +123,8 @@ PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::AuxillaryParseTableField
 };
 PROTOBUF_CONSTEXPR_VAR ::google::protobuf::internal::ParseTable const
     TableStruct::schema[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
+  { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
   { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
   { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
   { NULL, NULL, 0, -1, -1, -1, -1, NULL, false },
@@ -242,6 +254,19 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEmotionDataItem, time_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEmotionDataItem, emotion_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttLogData, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttLogData, type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttLogData, msg_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttReportStatusData, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttReportStatusData, type_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(CloudDriveMqttMessage)},
@@ -258,6 +283,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_ATTR
   { 92, -1, sizeof(CloudDriveMqttFaceDataItem)},
   { 99, -1, sizeof(CloudDriveMqttEmotionData)},
   { 105, -1, sizeof(CloudDriveMqttEmotionDataItem)},
+  { 112, -1, sizeof(CloudDriveMqttLogData)},
+  { 119, -1, sizeof(CloudDriveMqttReportStatusData)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -275,6 +302,8 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_CloudDriveMqttFaceDataItem_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_CloudDriveMqttEmotionData_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_CloudDriveMqttEmotionDataItem_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_CloudDriveMqttLogData_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_CloudDriveMqttReportStatusData_default_instance_),
 };
 
 namespace {
@@ -295,7 +324,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 14);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 16);
 }
 
 }  // namespace
@@ -332,7 +361,11 @@ void TableStruct::InitDefaultsImpl() {
   ::google::protobuf::internal::OnShutdownDestroyMessage(
       &_CloudDriveMqttEmotionData_default_instance_);_CloudDriveMqttEmotionDataItem_default_instance_._instance.DefaultConstruct();
   ::google::protobuf::internal::OnShutdownDestroyMessage(
-      &_CloudDriveMqttEmotionDataItem_default_instance_);_CloudDriveMqttMessage_default_instance_._instance.get_mutable()->data_ = const_cast< ::google::protobuf::Any*>(
+      &_CloudDriveMqttEmotionDataItem_default_instance_);_CloudDriveMqttLogData_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_CloudDriveMqttLogData_default_instance_);_CloudDriveMqttReportStatusData_default_instance_._instance.DefaultConstruct();
+  ::google::protobuf::internal::OnShutdownDestroyMessage(
+      &_CloudDriveMqttReportStatusData_default_instance_);_CloudDriveMqttMessage_default_instance_._instance.get_mutable()->data_ = const_cast< ::google::protobuf::Any*>(
       ::google::protobuf::Any::internal_default_instance());
 }
 
@@ -378,11 +411,14 @@ void AddDescriptorsImpl() {
       "tEmotionData\022M\n\005items\030\001 \003(\0132>.io.nonda.o"
       "nedata.proto.contract.CloudDriveMqttEmot"
       "ionDataItem\">\n\035CloudDriveMqttEmotionData"
-      "Item\022\014\n\004time\030\001 \001(\003\022\017\n\007emotion\030\002 \001(\tB\036B\034C"
-      "loudDriveMqttMessageCreatorb\006proto3"
+      "Item\022\014\n\004time\030\001 \001(\003\022\017\n\007emotion\030\002 \001(\t\"2\n\025C"
+      "loudDriveMqttLogData\022\014\n\004type\030\001 \001(\t\022\013\n\003ms"
+      "g\030\002 \001(\t\".\n\036CloudDriveMqttReportStatusDat"
+      "a\022\014\n\004type\030\001 \001(\005B\036B\034CloudDriveMqttMessage"
+      "Creatorb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1435);
+      descriptor, 1535);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "CloudDriveMqttMessage.proto", &protobuf_RegisterTypes);
   ::google::protobuf::protobuf_google_2fprotobuf_2fany_2eproto::AddDescriptors();
@@ -5862,6 +5898,681 @@ void CloudDriveMqttEmotionDataItem::set_allocated_emotion(::std::string* emotion
   }
   emotion_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), emotion);
   // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem.emotion)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CloudDriveMqttLogData::kTypeFieldNumber;
+const int CloudDriveMqttLogData::kMsgFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CloudDriveMqttLogData::CloudDriveMqttLogData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_CloudDriveMqttMessage_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+}
+CloudDriveMqttLogData::CloudDriveMqttLogData(const CloudDriveMqttLogData& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.type().size() > 0) {
+    type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type_);
+  }
+  msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.msg().size() > 0) {
+    msg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msg_);
+  }
+  // @@protoc_insertion_point(copy_constructor:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+}
+
+void CloudDriveMqttLogData::SharedCtor() {
+  type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  msg_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _cached_size_ = 0;
+}
+
+CloudDriveMqttLogData::~CloudDriveMqttLogData() {
+  // @@protoc_insertion_point(destructor:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  SharedDtor();
+}
+
+void CloudDriveMqttLogData::SharedDtor() {
+  type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  msg_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void CloudDriveMqttLogData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CloudDriveMqttLogData::descriptor() {
+  protobuf_CloudDriveMqttMessage_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_CloudDriveMqttMessage_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const CloudDriveMqttLogData& CloudDriveMqttLogData::default_instance() {
+  protobuf_CloudDriveMqttMessage_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+CloudDriveMqttLogData* CloudDriveMqttLogData::New(::google::protobuf::Arena* arena) const {
+  CloudDriveMqttLogData* n = new CloudDriveMqttLogData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void CloudDriveMqttLogData::Clear() {
+// @@protoc_insertion_point(message_clear_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+bool CloudDriveMqttLogData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string type = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_type()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->type().data(), static_cast<int>(this->type().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string msg = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_msg()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->msg().data(), static_cast<int>(this->msg().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  return false;
+#undef DO_
+}
+
+void CloudDriveMqttLogData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string type = 1;
+  if (this->type().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->type().data(), static_cast<int>(this->type().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->type(), output);
+  }
+
+  // string msg = 2;
+  if (this->msg().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->msg().data(), static_cast<int>(this->msg().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->msg(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+}
+
+::google::protobuf::uint8* CloudDriveMqttLogData::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string type = 1;
+  if (this->type().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->type().data(), static_cast<int>(this->type().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->type(), target);
+  }
+
+  // string msg = 2;
+  if (this->msg().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->msg().data(), static_cast<int>(this->msg().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->msg(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  return target;
+}
+
+size_t CloudDriveMqttLogData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string type = 1;
+  if (this->type().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->type());
+  }
+
+  // string msg = 2;
+  if (this->msg().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->msg());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CloudDriveMqttLogData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CloudDriveMqttLogData* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const CloudDriveMqttLogData>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+    MergeFrom(*source);
+  }
+}
+
+void CloudDriveMqttLogData::MergeFrom(const CloudDriveMqttLogData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.type().size() > 0) {
+
+    type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.type_);
+  }
+  if (from.msg().size() > 0) {
+
+    msg_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.msg_);
+  }
+}
+
+void CloudDriveMqttLogData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CloudDriveMqttLogData::CopyFrom(const CloudDriveMqttLogData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CloudDriveMqttLogData::IsInitialized() const {
+  return true;
+}
+
+void CloudDriveMqttLogData::Swap(CloudDriveMqttLogData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CloudDriveMqttLogData::InternalSwap(CloudDriveMqttLogData* other) {
+  using std::swap;
+  type_.Swap(&other->type_);
+  msg_.Swap(&other->msg_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata CloudDriveMqttLogData::GetMetadata() const {
+  protobuf_CloudDriveMqttMessage_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_CloudDriveMqttMessage_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// CloudDriveMqttLogData
+
+// string type = 1;
+void CloudDriveMqttLogData::clear_type() {
+  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& CloudDriveMqttLogData::type() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+  return type_.GetNoArena();
+}
+void CloudDriveMqttLogData::set_type(const ::std::string& value) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+}
+#if LANG_CXX11
+void CloudDriveMqttLogData::set_type(::std::string&& value) {
+  
+  type_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+}
+#endif
+void CloudDriveMqttLogData::set_type(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+}
+void CloudDriveMqttLogData::set_type(const char* value, size_t size) {
+  
+  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+}
+::std::string* CloudDriveMqttLogData::mutable_type() {
+  
+  // @@protoc_insertion_point(field_mutable:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* CloudDriveMqttLogData::release_type() {
+  // @@protoc_insertion_point(field_release:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+  
+  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void CloudDriveMqttLogData::set_allocated_type(::std::string* type) {
+  if (type != NULL) {
+    
+  } else {
+    
+  }
+  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+  // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.type)
+}
+
+// string msg = 2;
+void CloudDriveMqttLogData::clear_msg() {
+  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& CloudDriveMqttLogData::msg() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+  return msg_.GetNoArena();
+}
+void CloudDriveMqttLogData::set_msg(const ::std::string& value) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+}
+#if LANG_CXX11
+void CloudDriveMqttLogData::set_msg(::std::string&& value) {
+  
+  msg_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+}
+#endif
+void CloudDriveMqttLogData::set_msg(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+}
+void CloudDriveMqttLogData::set_msg(const char* value, size_t size) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+}
+::std::string* CloudDriveMqttLogData::mutable_msg() {
+  
+  // @@protoc_insertion_point(field_mutable:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+  return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* CloudDriveMqttLogData::release_msg() {
+  // @@protoc_insertion_point(field_release:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+  
+  return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void CloudDriveMqttLogData::set_allocated_msg(::std::string* msg) {
+  if (msg != NULL) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msg);
+  // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttLogData.msg)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CloudDriveMqttReportStatusData::kTypeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CloudDriveMqttReportStatusData::CloudDriveMqttReportStatusData()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_CloudDriveMqttMessage_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+}
+CloudDriveMqttReportStatusData::CloudDriveMqttReportStatusData(const CloudDriveMqttReportStatusData& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  type_ = from.type_;
+  // @@protoc_insertion_point(copy_constructor:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+}
+
+void CloudDriveMqttReportStatusData::SharedCtor() {
+  type_ = 0;
+  _cached_size_ = 0;
+}
+
+CloudDriveMqttReportStatusData::~CloudDriveMqttReportStatusData() {
+  // @@protoc_insertion_point(destructor:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  SharedDtor();
+}
+
+void CloudDriveMqttReportStatusData::SharedDtor() {
+}
+
+void CloudDriveMqttReportStatusData::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CloudDriveMqttReportStatusData::descriptor() {
+  protobuf_CloudDriveMqttMessage_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_CloudDriveMqttMessage_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const CloudDriveMqttReportStatusData& CloudDriveMqttReportStatusData::default_instance() {
+  protobuf_CloudDriveMqttMessage_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+CloudDriveMqttReportStatusData* CloudDriveMqttReportStatusData::New(::google::protobuf::Arena* arena) const {
+  CloudDriveMqttReportStatusData* n = new CloudDriveMqttReportStatusData;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void CloudDriveMqttReportStatusData::Clear() {
+// @@protoc_insertion_point(message_clear_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  type_ = 0;
+  _internal_metadata_.Clear();
+}
+
+bool CloudDriveMqttReportStatusData::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 type = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &type_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  return false;
+#undef DO_
+}
+
+void CloudDriveMqttReportStatusData::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 type = 1;
+  if (this->type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->type(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+}
+
+::google::protobuf::uint8* CloudDriveMqttReportStatusData::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 type = 1;
+  if (this->type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->type(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  return target;
+}
+
+size_t CloudDriveMqttReportStatusData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // int32 type = 1;
+  if (this->type() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->type());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CloudDriveMqttReportStatusData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CloudDriveMqttReportStatusData* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const CloudDriveMqttReportStatusData>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+    MergeFrom(*source);
+  }
+}
+
+void CloudDriveMqttReportStatusData::MergeFrom(const CloudDriveMqttReportStatusData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.type() != 0) {
+    set_type(from.type());
+  }
+}
+
+void CloudDriveMqttReportStatusData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CloudDriveMqttReportStatusData::CopyFrom(const CloudDriveMqttReportStatusData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CloudDriveMqttReportStatusData::IsInitialized() const {
+  return true;
+}
+
+void CloudDriveMqttReportStatusData::Swap(CloudDriveMqttReportStatusData* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CloudDriveMqttReportStatusData::InternalSwap(CloudDriveMqttReportStatusData* other) {
+  using std::swap;
+  swap(type_, other->type_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata CloudDriveMqttReportStatusData::GetMetadata() const {
+  protobuf_CloudDriveMqttMessage_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_CloudDriveMqttMessage_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// CloudDriveMqttReportStatusData
+
+// int32 type = 1;
+void CloudDriveMqttReportStatusData::clear_type() {
+  type_ = 0;
+}
+::google::protobuf::int32 CloudDriveMqttReportStatusData::type() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData.type)
+  return type_;
+}
+void CloudDriveMqttReportStatusData::set_type(::google::protobuf::int32 value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData.type)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

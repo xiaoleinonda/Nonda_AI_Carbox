@@ -34,7 +34,7 @@ class AccBroadcastReceiver : BroadcastReceiver() {
      */
     private fun accOn(context: Context?) {
         MyLog.d(TAG, "accOn")
-        CarBoxControler.instance.accOnMode(context!!)
+        CarBoxControler.instance.accOnMode(context!!, "ACC广播")
     }
 
 

@@ -15,7 +15,8 @@ public class DeviceUtils {
     public static String getIMEICode(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 //        return tm.getDeviceId();
-        return "Androidzhimengchentest";
+        return "869455047237132";
+//        return "Androidzhimengchentest";
     }
 
 

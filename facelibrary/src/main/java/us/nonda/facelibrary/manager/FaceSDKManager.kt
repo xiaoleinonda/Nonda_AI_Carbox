@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.TextUtils
 import android.util.Log
-import com.baidu.idl.facesdk.FaceAttributes
-import com.baidu.idl.facesdk.FaceDetect
-import com.baidu.idl.facesdk.FaceFeature
-import com.baidu.idl.facesdk.FaceLive
+import com.baidu.idl.facesdk.*
 import com.baidu.idl.facesdk.callback.Callback
 import com.baidu.idl.facesdk.model.BDFaceSDKCommon
 import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
@@ -31,6 +28,7 @@ import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.db.FaceApi
 import us.nonda.facelibrary.db.LRUCache
 import us.nonda.facelibrary.model.*
+import us.nonda.facelibrary.model.FaceImage
 import us.nonda.facelibrary.status.FaceStatusCache
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
@@ -589,10 +587,13 @@ class FaceSDKManager private constructor() {
             return
         }
 
+        if (TextUtils.isEmpty(deviceId)) {
+            deviceId = FaceAuth().getDeviceId(context)
+        }
         val imeiCode = DeviceUtils.getIMEICode(context)
         log("IMEI号=$imeiCode")
         NetModule.instance.provideAPIService()
-            .getSerialNum(imeiCode)
+            .getSerialNum(imeiCode, deviceId!!)
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -673,7 +674,7 @@ class FaceSDKManager private constructor() {
     /**********         Regist face          ***********/
 
 
-    private fun checkRegistFaceStatus() {
+    fun checkRegistFaceStatus() {
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
         }
@@ -701,6 +702,7 @@ class FaceSDKManager private constructor() {
         register.registFace(faceImage)
     }
 
+    private var deviceId: String? = null
 
     /**
      * http请求注册人脸的图片
@@ -714,6 +716,7 @@ class FaceSDKManager private constructor() {
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
             return
         }
+
 
         val imeiCode = DeviceUtils.getIMEICode(context)
         NetModule.instance.provideAPIService()

@@ -51,7 +51,7 @@ object LocationUtils {
      * 获取最好的定位方式
      */
     @SuppressLint("MissingPermission")
-    fun getBestLocation(context: Context, locationListener: LocationListener): Location {
+    fun getBestLocation(context: Context, locationListener: LocationListener?): Location? {
         stopLocation(context, locationListener)
 
         var location: Location?
@@ -80,7 +80,7 @@ object LocationUtils {
             location = manager.getLastKnownLocation(provider!!)
         }
 
-        Log.d("定位", "getBestLocation:location= " + location!!)
+        Log.d("定位", "getBestLocation:location= " + location)
 
         /*        if (location == null) {
             Scheduler.Worker worker = Schedulers.io().createWorker();
@@ -130,7 +130,7 @@ object LocationUtils {
         return location
     }
 
-    fun stopLocation(context: Context, locationListener: LocationListener) {
+    fun stopLocation(context: Context, locationListener: LocationListener?) {
         val manager = getLocationManager(context)
         if (locationListener != null) {
             //移除定位监听

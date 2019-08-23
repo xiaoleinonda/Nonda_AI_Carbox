@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
@@ -27,6 +28,7 @@ import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.model.GSensorBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
+import java.util.concurrent.TimeUnit
 
 class VideoRecordActivity : AppCompatActivity() {
 
@@ -46,7 +48,19 @@ class VideoRecordActivity : AppCompatActivity() {
             val intent = Intent(context, VideoRecordActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
+/*
+            Observable.timer(5, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .subscribe{
+                    val activitySum = FinishActivityManager.getManager().activitySum
+                    if (activitySum > 0) {
+                        FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
+                    }
 
+                    val intent = Intent(context, VideoRecordActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    context.startActivity(intent)
+                }
+*/
         }
 
         fun finish() {
@@ -188,6 +202,8 @@ class VideoRecordActivity : AppCompatActivity() {
 
                     val fileName = "$currentTimeMillis$emotionsMsg"
 
+                    MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg")
+
                     if (emotionData.size > 0) {
                         val time = emotionData[0].time
                         if (currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq) {
@@ -215,6 +231,7 @@ class VideoRecordActivity : AppCompatActivity() {
             override fun onFaceFeatureCallBack(livenessModel: LivenessModel?) {
                 println("识别  onFaceFeatureCallBack=${livenessModel?.featureStatus}")
                 livenessModel?.run {
+                    MyLog.d(TAG, "人脸比对结果=$featureStatus")
 
                     val currentTimeMillis = System.currentTimeMillis()
 

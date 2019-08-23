@@ -3,6 +3,7 @@ package us.nonda.ai.app.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import us.nonda.ai.MainActivity
 import us.nonda.ai.app.ui.AccActivity
 import us.nonda.commonibrary.MyLog
 
@@ -19,7 +20,7 @@ class BootBroadcastReceiver : BroadcastReceiver() {
         if (action == intent?.action) {
             MyLog.d(TAG, "开机")
 
-            Intent(context, AccActivity::class.java).run {
+            Intent(context, MainActivity::class.java).run {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context?.startActivity(this)
             }

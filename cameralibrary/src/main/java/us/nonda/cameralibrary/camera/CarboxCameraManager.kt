@@ -327,11 +327,13 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
             isPreviewed = true
             this@CarboxCameraManager.startRecord()
         }
-
-
     }
 
     fun startRecord() {
+        if (cameraDevice?.state == 2) {
+            cameraDevice?.stopRecord()
+        }
+
         val record = cameraDevice?.startRecord()
         when (record) {
             null -> {

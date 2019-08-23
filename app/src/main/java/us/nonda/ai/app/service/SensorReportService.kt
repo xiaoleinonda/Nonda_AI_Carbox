@@ -23,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe
 import us.nonda.ai.app.sensor.CarGsensorListener
 import us.nonda.ai.app.sensor.CarGyroListener
 import us.nonda.ai.app.sensor.CarLocationListener
+import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.event.ServiceEvent
 
 
@@ -74,6 +75,8 @@ class SensorReportService : Service() {
 
 
     override fun onDestroy() {
+        MyLog.d(TAG, "服务开启关闭")
+
         stopLocation()
         actionGyro(false)
         actionGSensor(false)
@@ -84,7 +87,10 @@ class SensorReportService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        MyLog.d(TAG, "服务开启成功")
         startLocation()
+        actionGSensor(true)
+        actionGyro(true)
         return START_NOT_STICKY
     }
 

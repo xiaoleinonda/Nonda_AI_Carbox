@@ -18,9 +18,9 @@ public class MyLog {
     private static Boolean MYLOG_SWITCH = true; // 日志文件总开关
     private static Boolean MYLOG_WRITE_TO_FILE = true;// 日志写入文件开关
     private static char MYLOG_TYPE = 'v';// 输入日志类型，w代表只输出告警信息等，v代表输出所有信息
-    private static String MYLOG_PATH_SDCARD_DIR = "/storage/sdcard1/nonda/Log";// 日志文件在sdcard中的路径
+    private static String MYLOG_PATH_SDCARD_DIR = "/storage/sdcard1/nonda/Log222";// 日志文件在sdcard中的路径
     private static int SDCARD_LOG_FILE_SAVE_DAYS = 0;// sd卡中日志文件的最多保存天数
-    private static String MYLOGFILEName = "Log.txt";// 本类输出的日志文件名称
+    private static String MYLOGFILEName = "LOGLog.txt";// 本类输出的日志文件名称
     private static SimpleDateFormat myLogSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 日志的输出格式
     private static SimpleDateFormat logfile = new SimpleDateFormat("yyyy-MM-dd");// 日志文件格式
     public Context context;

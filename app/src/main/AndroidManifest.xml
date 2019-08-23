@@ -13,25 +13,25 @@
             android:theme="@style/AppTheme">
         <activity android:name=".app.ui.AccActivity"
                   android:screenOrientation="landscape">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".app.ui.VideoRecordActivity"
+                  android:launchMode="singleTop"
                   android:screenOrientation="landscape"
         >
         </activity>
         <activity android:name=".MainActivity"
+                  android:launchMode="singleTask"
         >
-            <!--
                         <intent-filter>
                             <action android:name="android.intent.action.MAIN"/>
 
                             <category android:name="android.intent.category.LAUNCHER"/>
                         </intent-filter>
-            -->
         </activity>
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
         <service

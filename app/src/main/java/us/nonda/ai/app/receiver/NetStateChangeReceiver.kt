@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.utils.NetworkUtil
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.mqttlibrary.mqtt.MqttManager
@@ -15,12 +16,18 @@ class NetStateChangeReceiver : BroadcastReceiver() {
         if (ConnectivityManager.CONNECTIVITY_ACTION == intent.action) {
             val connectivityStatus = NetworkUtil.getConnectivityStatus(context)
             if (connectivityStatus) {
-                initFace(context)
+                initDevice()
                 MqttManager.getInstance().onStart()
             }else{
                 MqttManager.getInstance().onStop()
             }
         }
+    }
+
+    private fun initDevice() {
+      FaceSDKManager.instance.checkLicenceStatus()
+      FaceSDKManager.instance.checkRegistFaceStatus()
+
     }
 
     private fun initFace(context: Context) {

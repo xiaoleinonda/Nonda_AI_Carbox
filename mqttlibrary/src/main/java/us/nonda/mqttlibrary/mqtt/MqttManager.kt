@@ -6,6 +6,7 @@ import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.mqttlibrary.model.*
@@ -208,6 +209,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_STATUS)
+        MyLog.i(TAG, "上报状态")
     }
 
     /**
@@ -232,6 +234,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_GPS)
+        MyLog.i(TAG, "上报GPS=${GPSBeans.size}")
+
     }
 
     /**
@@ -254,6 +258,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_GSENSOR)
+        MyLog.i(TAG, "上报G-Sensor=${gSensorBeans.size}")
+
     }
 
     /**
@@ -276,6 +282,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_GYRO)
+        MyLog.i(TAG, "上报Gyro=${gyroBeans.size}")
+
     }
 
     /**
@@ -296,6 +304,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_FACE_RESULT)
+        MyLog.i(TAG, "上报人脸比对结果=${faceResultBeans.size}")
+
     }
 
     /**
@@ -316,6 +326,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_EMOTION)
+        MyLog.i(TAG, "上报情绪识别结果=${emotionBeans.size}")
+
     }
 
 }

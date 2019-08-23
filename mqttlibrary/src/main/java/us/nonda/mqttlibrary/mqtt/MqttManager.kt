@@ -1,7 +1,6 @@
 package us.nonda.mqttlibrary.mqtt
 
 import android.annotation.SuppressLint
-import android.location.Location
 import android.util.Log
 import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
@@ -195,7 +194,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
     /**
      * 上报状态
      */
-    fun publishStatus(statusBean: StatusBean) {
+    fun publishSleepStatus(statusBean: StatusBean) {
         val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.newBuilder()
 
         builderData.fw = statusBean.fw

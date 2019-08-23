@@ -18,15 +18,23 @@ import us.nonda.cameralibrary.camera.FrontCameraMananger
 import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.facelibrary.model.LivenessModel
+import us.nonda.mqttlibrary.model.EmotionBean
+import us.nonda.mqttlibrary.model.FaceResultBean
+import us.nonda.mqttlibrary.model.GSensorBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 
 class VideoRecordActivity : AppCompatActivity() {
 
     private val TAG = "VideoRecordActivity"
+
+    private val emotionData = arrayListOf<EmotionBean>()
+    private val faceData = arrayListOf<FaceResultBean>()
+
 
     companion object {
         fun starter(context: Context) {
@@ -176,9 +184,24 @@ class VideoRecordActivity : AppCompatActivity() {
             override fun onEnmotionCallback(livenessModel: LivenessModel?) {
                 println("识别  onEnmotionCallback=${livenessModel?.emotionsMsg}")
                 livenessModel?.run {
-                    val fileName = "${System.currentTimeMillis()}$emotionsMsg"
-//                    MqttManager.getInstance().publishEmotion(emotionsMsg)
+                    val currentTimeMillis = System.currentTimeMillis()
+
+                    val fileName = "$currentTimeMillis$emotionsMsg"
+
+                    if (emotionData.size > 0) {
+                        val time = emotionData[0].time
+                        if (currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq) {
+                            var reportData = arrayListOf<EmotionBean>()
+                            reportData.addAll(emotionData)
+                            MqttManager.getInstance().publishEmotion(reportData)
+                            emotionData.clear()
+                        }
+                    }
+                    emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
+
+
                     BackCameraMananger.instance.pictureProcessor.onNext(
+
                         PictureModel(
                             emotionsMsg!!,
                             imageFrame.width, imageFrame.height, imageFrame.argb, fileName
@@ -192,15 +215,31 @@ class VideoRecordActivity : AppCompatActivity() {
             override fun onFaceFeatureCallBack(livenessModel: LivenessModel?) {
                 println("识别  onFaceFeatureCallBack=${livenessModel?.featureStatus}")
                 livenessModel?.run {
+
+                    val currentTimeMillis = System.currentTimeMillis()
+
+                    if (faceData.size > 0) {
+                        val time = faceData[0].time
+                        if (currentTimeMillis - time > CarboxConfigRepostory.instance.faceResultReportFreq) {
+                            var reportData = arrayListOf<FaceResultBean>()
+                            reportData.addAll(faceData)
+                            MqttManager.getInstance().publishFaceResult(reportData)
+                            faceData.clear()
+                        }
+                    }
+                    faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
+
+
+
                     var pictureModel: PictureModel
                     if (featureStatus == 1) {
-                        var fileName = "${System.currentTimeMillis()}ture"
+                        var fileName = "${currentTimeMillis}ture"
                         pictureModel = PictureModel(
                             "ture", imageFrame.width, imageFrame.height, imageFrame.argb
                             , fileName
                         )
                     } else {
-                        var fileName = "${System.currentTimeMillis()}false"
+                        var fileName = "${currentTimeMillis}false"
                         pictureModel = PictureModel(
                             "false", imageFrame.width, imageFrame.height, imageFrame.argb
                             , fileName
@@ -208,7 +247,6 @@ class VideoRecordActivity : AppCompatActivity() {
                     }
                     BackCameraMananger.instance.pictureFaceProcessor.onNext(pictureModel)
 
-//                    MqttManager.getInstance().publishFaceResult(featureStatus)
                 }
 
             }
@@ -238,7 +276,7 @@ class VideoRecordActivity : AppCompatActivity() {
         us.nonda.cameralibrary.camera.BackCameraMananger.instance.closeCamera()
         us.nonda.cameralibrary.camera.FrontCameraMananger.instance.closeCamera()
 
-        FaceSDKManager.instance.stop()
+//        FaceSDKManager.instance.stop()
 
     }
 }

@@ -6,19 +6,12 @@ import android.location.*
 import android.location.LocationManager
 import android.text.TextUtils
 import android.util.Log
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.utils.AppUtils
 
 object LocationUtils {
 
-    private var REFRESH_TIME: Long = 1000
-
     private val METER_POSITION: Float = 0.0f
-
-
-    init {
-        REFRESH_TIME = 2000
-    }
-
 
     private fun getLocationManager(context: Context): LocationManager {
         return context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -119,10 +112,15 @@ object LocationUtils {
         }*/
 
         if (locationListener != null) {
-            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, REFRESH_TIME, METER_POSITION, locationListener)
+            manager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                CarboxConfigRepostory.instance.gpsCollectFreq,
+                METER_POSITION,
+                locationListener
+            )
             manager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
-                REFRESH_TIME,
+                CarboxConfigRepostory.instance.gpsCollectFreq,
                 METER_POSITION,
                 locationListener
             )

@@ -3,7 +3,6 @@
           package="us.nonda.ai">
 
 
-
     <application
             android:name=".app.base.NondaApp"
             android:allowBackup="true"
@@ -22,21 +21,24 @@
         </activity>
         <activity android:name=".app.ui.VideoRecordActivity"
                   android:screenOrientation="landscape"
-              >
+        >
         </activity>
         <activity android:name=".MainActivity"
-                >
-<!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        >
+            <!--
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
--->
+                            <category android:name="android.intent.category.LAUNCHER"/>
+                        </intent-filter>
+            -->
         </activity>
-        <service android:name="us.nonda.mqttlibrary.mqtt.MqttService"/>
-        <service android:name="org.eclipse.paho.android.service.MqttService" />
-
+        <service android:name="org.eclipse.paho.android.service.MqttService"/>
+        <service
+                android:name="us.nonda.otalibrary.Service.DownloadApkService"
+                android:enabled="true"
+                android:exported="true">
+        </service>
         <receiver android:name=".app.receiver.AccBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>

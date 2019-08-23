@@ -177,7 +177,7 @@ class VideoRecordActivity : AppCompatActivity() {
                 println("识别  onEnmotionCallback=${livenessModel?.emotionsMsg}")
                 livenessModel?.run {
                     val fileName = "${System.currentTimeMillis()}$emotionsMsg"
-                    MqttManager.getInstance().pulishEmotion(emotionsMsg)
+//                    MqttManager.getInstance().publishEmotion(emotionsMsg)
                     BackCameraMananger.instance.pictureProcessor.onNext(
                         PictureModel(
                             emotionsMsg!!,
@@ -208,7 +208,7 @@ class VideoRecordActivity : AppCompatActivity() {
                     }
                     BackCameraMananger.instance.pictureFaceProcessor.onNext(pictureModel)
 
-                    MqttManager.getInstance().pulishFaceResult(featureStatus)
+//                    MqttManager.getInstance().publishFaceResult(featureStatus)
                 }
 
             }

@@ -1,1 +1,1 @@
-include ':app', ':facelibrary', ':commonlibrary', ':cameralibrary', ':systemlibrary', ':mqttlibrary'
+include ':app', ':facelibrary', ':commonlibrary', ':cameralibrary', ':systemlibrary', ':mqttlibrary', ':otalibrary'

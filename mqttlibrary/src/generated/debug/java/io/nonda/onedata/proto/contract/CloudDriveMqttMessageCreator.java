@@ -755,14 +755,14 @@ public final class CloudDriveMqttMessageCreator {
     double getLng();
 
     /**
-     * <code>double acc = 5;</code>
+     * <code>float acc = 5;</code>
      */
-    double getAcc();
+    float getAcc();
 
     /**
-     * <code>double vol = 6;</code>
+     * <code>float vol = 6;</code>
      */
-    double getVol();
+    float getVol();
   }
   /**
    * Protobuf type {@code io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData}
@@ -781,8 +781,8 @@ public final class CloudDriveMqttMessageCreator {
       app_ = "";
       lat_ = 0D;
       lng_ = 0D;
-      acc_ = 0D;
-      vol_ = 0D;
+      acc_ = 0F;
+      vol_ = 0F;
     }
 
     @java.lang.Override
@@ -835,14 +835,14 @@ public final class CloudDriveMqttMessageCreator {
               lng_ = input.readDouble();
               break;
             }
-            case 41: {
+            case 45: {
 
-              acc_ = input.readDouble();
+              acc_ = input.readFloat();
               break;
             }
-            case 49: {
+            case 53: {
 
-              vol_ = input.readDouble();
+              vol_ = input.readFloat();
               break;
             }
           }
@@ -956,20 +956,20 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     public static final int ACC_FIELD_NUMBER = 5;
-    private double acc_;
+    private float acc_;
     /**
-     * <code>double acc = 5;</code>
+     * <code>float acc = 5;</code>
      */
-    public double getAcc() {
+    public float getAcc() {
       return acc_;
     }
 
     public static final int VOL_FIELD_NUMBER = 6;
-    private double vol_;
+    private float vol_;
     /**
-     * <code>double vol = 6;</code>
+     * <code>float vol = 6;</code>
      */
-    public double getVol() {
+    public float getVol() {
       return vol_;
     }
 
@@ -997,11 +997,11 @@ public final class CloudDriveMqttMessageCreator {
       if (lng_ != 0D) {
         output.writeDouble(4, lng_);
       }
-      if (acc_ != 0D) {
-        output.writeDouble(5, acc_);
+      if (acc_ != 0F) {
+        output.writeFloat(5, acc_);
       }
-      if (vol_ != 0D) {
-        output.writeDouble(6, vol_);
+      if (vol_ != 0F) {
+        output.writeFloat(6, vol_);
       }
       unknownFields.writeTo(output);
     }
@@ -1025,13 +1025,13 @@ public final class CloudDriveMqttMessageCreator {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(4, lng_);
       }
-      if (acc_ != 0D) {
+      if (acc_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, acc_);
+          .computeFloatSize(5, acc_);
       }
-      if (vol_ != 0D) {
+      if (vol_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(6, vol_);
+          .computeFloatSize(6, vol_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1062,12 +1062,12 @@ public final class CloudDriveMqttMessageCreator {
           == java.lang.Double.doubleToLongBits(
               other.getLng()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getAcc())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getAcc())
+          == java.lang.Float.floatToIntBits(
               other.getAcc()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getVol())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getVol())
+          == java.lang.Float.floatToIntBits(
               other.getVol()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -1091,11 +1091,11 @@ public final class CloudDriveMqttMessageCreator {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getLng()));
       hash = (37 * hash) + ACC_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getAcc()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAcc());
       hash = (37 * hash) + VOL_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getVol()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getVol());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1233,9 +1233,9 @@ public final class CloudDriveMqttMessageCreator {
 
         lng_ = 0D;
 
-        acc_ = 0D;
+        acc_ = 0F;
 
-        vol_ = 0D;
+        vol_ = 0F;
 
         return this;
       }
@@ -1320,10 +1320,10 @@ public final class CloudDriveMqttMessageCreator {
         if (other.getLng() != 0D) {
           setLng(other.getLng());
         }
-        if (other.getAcc() != 0D) {
+        if (other.getAcc() != 0F) {
           setAcc(other.getAcc());
         }
-        if (other.getVol() != 0D) {
+        if (other.getVol() != 0F) {
           setVol(other.getVol());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -1543,54 +1543,54 @@ public final class CloudDriveMqttMessageCreator {
         return this;
       }
 
-      private double acc_ ;
+      private float acc_ ;
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
-      public double getAcc() {
+      public float getAcc() {
         return acc_;
       }
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
-      public Builder setAcc(double value) {
+      public Builder setAcc(float value) {
         
         acc_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
       public Builder clearAcc() {
         
-        acc_ = 0D;
+        acc_ = 0F;
         onChanged();
         return this;
       }
 
-      private double vol_ ;
+      private float vol_ ;
       /**
-       * <code>double vol = 6;</code>
+       * <code>float vol = 6;</code>
        */
-      public double getVol() {
+      public float getVol() {
         return vol_;
       }
       /**
-       * <code>double vol = 6;</code>
+       * <code>float vol = 6;</code>
        */
-      public Builder setVol(double value) {
+      public Builder setVol(float value) {
         
         vol_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double vol = 6;</code>
+       * <code>float vol = 6;</code>
        */
       public Builder clearVol() {
         
-        vol_ = 0D;
+        vol_ = 0F;
         onChanged();
         return this;
       }
@@ -1678,14 +1678,14 @@ public final class CloudDriveMqttMessageCreator {
     double getLng();
 
     /**
-     * <code>double acc = 5;</code>
+     * <code>float acc = 5;</code>
      */
-    double getAcc();
+    float getAcc();
 
     /**
-     * <code>double vol = 6;</code>
+     * <code>float vol = 6;</code>
      */
-    double getVol();
+    float getVol();
 
     /**
      * <code>int32 type = 7;</code>
@@ -1719,8 +1719,8 @@ public final class CloudDriveMqttMessageCreator {
       app_ = "";
       lat_ = 0D;
       lng_ = 0D;
-      acc_ = 0D;
-      vol_ = 0D;
+      acc_ = 0F;
+      vol_ = 0F;
       type_ = 0;
       content_ = "";
     }
@@ -1775,14 +1775,14 @@ public final class CloudDriveMqttMessageCreator {
               lng_ = input.readDouble();
               break;
             }
-            case 41: {
+            case 45: {
 
-              acc_ = input.readDouble();
+              acc_ = input.readFloat();
               break;
             }
-            case 49: {
+            case 53: {
 
-              vol_ = input.readDouble();
+              vol_ = input.readFloat();
               break;
             }
             case 56: {
@@ -1907,20 +1907,20 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     public static final int ACC_FIELD_NUMBER = 5;
-    private double acc_;
+    private float acc_;
     /**
-     * <code>double acc = 5;</code>
+     * <code>float acc = 5;</code>
      */
-    public double getAcc() {
+    public float getAcc() {
       return acc_;
     }
 
     public static final int VOL_FIELD_NUMBER = 6;
-    private double vol_;
+    private float vol_;
     /**
-     * <code>double vol = 6;</code>
+     * <code>float vol = 6;</code>
      */
-    public double getVol() {
+    public float getVol() {
       return vol_;
     }
 
@@ -1991,11 +1991,11 @@ public final class CloudDriveMqttMessageCreator {
       if (lng_ != 0D) {
         output.writeDouble(4, lng_);
       }
-      if (acc_ != 0D) {
-        output.writeDouble(5, acc_);
+      if (acc_ != 0F) {
+        output.writeFloat(5, acc_);
       }
-      if (vol_ != 0D) {
-        output.writeDouble(6, vol_);
+      if (vol_ != 0F) {
+        output.writeFloat(6, vol_);
       }
       if (type_ != 0) {
         output.writeInt32(7, type_);
@@ -2025,13 +2025,13 @@ public final class CloudDriveMqttMessageCreator {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(4, lng_);
       }
-      if (acc_ != 0D) {
+      if (acc_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, acc_);
+          .computeFloatSize(5, acc_);
       }
-      if (vol_ != 0D) {
+      if (vol_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(6, vol_);
+          .computeFloatSize(6, vol_);
       }
       if (type_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -2069,12 +2069,12 @@ public final class CloudDriveMqttMessageCreator {
           == java.lang.Double.doubleToLongBits(
               other.getLng()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getAcc())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getAcc())
+          == java.lang.Float.floatToIntBits(
               other.getAcc()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getVol())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getVol())
+          == java.lang.Float.floatToIntBits(
               other.getVol()));
       result = result && (getType()
           == other.getType());
@@ -2102,11 +2102,11 @@ public final class CloudDriveMqttMessageCreator {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getLng()));
       hash = (37 * hash) + ACC_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getAcc()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAcc());
       hash = (37 * hash) + VOL_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getVol()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getVol());
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getType();
       hash = (37 * hash) + CONTENT_FIELD_NUMBER;
@@ -2248,9 +2248,9 @@ public final class CloudDriveMqttMessageCreator {
 
         lng_ = 0D;
 
-        acc_ = 0D;
+        acc_ = 0F;
 
-        vol_ = 0D;
+        vol_ = 0F;
 
         type_ = 0;
 
@@ -2341,10 +2341,10 @@ public final class CloudDriveMqttMessageCreator {
         if (other.getLng() != 0D) {
           setLng(other.getLng());
         }
-        if (other.getAcc() != 0D) {
+        if (other.getAcc() != 0F) {
           setAcc(other.getAcc());
         }
-        if (other.getVol() != 0D) {
+        if (other.getVol() != 0F) {
           setVol(other.getVol());
         }
         if (other.getType() != 0) {
@@ -2571,54 +2571,54 @@ public final class CloudDriveMqttMessageCreator {
         return this;
       }
 
-      private double acc_ ;
+      private float acc_ ;
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
-      public double getAcc() {
+      public float getAcc() {
         return acc_;
       }
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
-      public Builder setAcc(double value) {
+      public Builder setAcc(float value) {
         
         acc_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
       public Builder clearAcc() {
         
-        acc_ = 0D;
+        acc_ = 0F;
         onChanged();
         return this;
       }
 
-      private double vol_ ;
+      private float vol_ ;
       /**
-       * <code>double vol = 6;</code>
+       * <code>float vol = 6;</code>
        */
-      public double getVol() {
+      public float getVol() {
         return vol_;
       }
       /**
-       * <code>double vol = 6;</code>
+       * <code>float vol = 6;</code>
        */
-      public Builder setVol(double value) {
+      public Builder setVol(float value) {
         
         vol_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double vol = 6;</code>
+       * <code>float vol = 6;</code>
        */
       public Builder clearVol() {
         
-        vol_ = 0D;
+        vol_ = 0F;
         onChanged();
         return this;
       }
@@ -3540,19 +3540,19 @@ public final class CloudDriveMqttMessageCreator {
     double getLng();
 
     /**
-     * <code>double spd = 4;</code>
+     * <code>float spd = 4;</code>
      */
-    double getSpd();
+    float getSpd();
 
     /**
-     * <code>double acc = 5;</code>
+     * <code>float acc = 5;</code>
      */
-    double getAcc();
+    float getAcc();
 
     /**
-     * <code>double brg = 6;</code>
+     * <code>float brg = 6;</code>
      */
-    double getBrg();
+    float getBrg();
   }
   /**
    * Protobuf type {@code io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem}
@@ -3570,9 +3570,9 @@ public final class CloudDriveMqttMessageCreator {
       time_ = 0L;
       lat_ = 0D;
       lng_ = 0D;
-      spd_ = 0D;
-      acc_ = 0D;
-      brg_ = 0D;
+      spd_ = 0F;
+      acc_ = 0F;
+      brg_ = 0F;
     }
 
     @java.lang.Override
@@ -3618,19 +3618,19 @@ public final class CloudDriveMqttMessageCreator {
               lng_ = input.readDouble();
               break;
             }
-            case 33: {
+            case 37: {
 
-              spd_ = input.readDouble();
+              spd_ = input.readFloat();
               break;
             }
-            case 41: {
+            case 45: {
 
-              acc_ = input.readDouble();
+              acc_ = input.readFloat();
               break;
             }
-            case 49: {
+            case 53: {
 
-              brg_ = input.readDouble();
+              brg_ = input.readFloat();
               break;
             }
           }
@@ -3685,29 +3685,29 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     public static final int SPD_FIELD_NUMBER = 4;
-    private double spd_;
+    private float spd_;
     /**
-     * <code>double spd = 4;</code>
+     * <code>float spd = 4;</code>
      */
-    public double getSpd() {
+    public float getSpd() {
       return spd_;
     }
 
     public static final int ACC_FIELD_NUMBER = 5;
-    private double acc_;
+    private float acc_;
     /**
-     * <code>double acc = 5;</code>
+     * <code>float acc = 5;</code>
      */
-    public double getAcc() {
+    public float getAcc() {
       return acc_;
     }
 
     public static final int BRG_FIELD_NUMBER = 6;
-    private double brg_;
+    private float brg_;
     /**
-     * <code>double brg = 6;</code>
+     * <code>float brg = 6;</code>
      */
-    public double getBrg() {
+    public float getBrg() {
       return brg_;
     }
 
@@ -3732,14 +3732,14 @@ public final class CloudDriveMqttMessageCreator {
       if (lng_ != 0D) {
         output.writeDouble(3, lng_);
       }
-      if (spd_ != 0D) {
-        output.writeDouble(4, spd_);
+      if (spd_ != 0F) {
+        output.writeFloat(4, spd_);
       }
-      if (acc_ != 0D) {
-        output.writeDouble(5, acc_);
+      if (acc_ != 0F) {
+        output.writeFloat(5, acc_);
       }
-      if (brg_ != 0D) {
-        output.writeDouble(6, brg_);
+      if (brg_ != 0F) {
+        output.writeFloat(6, brg_);
       }
       unknownFields.writeTo(output);
     }
@@ -3761,17 +3761,17 @@ public final class CloudDriveMqttMessageCreator {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(3, lng_);
       }
-      if (spd_ != 0D) {
+      if (spd_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, spd_);
+          .computeFloatSize(4, spd_);
       }
-      if (acc_ != 0D) {
+      if (acc_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, acc_);
+          .computeFloatSize(5, acc_);
       }
-      if (brg_ != 0D) {
+      if (brg_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(6, brg_);
+          .computeFloatSize(6, brg_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3800,16 +3800,16 @@ public final class CloudDriveMqttMessageCreator {
           == java.lang.Double.doubleToLongBits(
               other.getLng()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getSpd())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getSpd())
+          == java.lang.Float.floatToIntBits(
               other.getSpd()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getAcc())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getAcc())
+          == java.lang.Float.floatToIntBits(
               other.getAcc()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getBrg())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getBrg())
+          == java.lang.Float.floatToIntBits(
               other.getBrg()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -3832,14 +3832,14 @@ public final class CloudDriveMqttMessageCreator {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getLng()));
       hash = (37 * hash) + SPD_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getSpd()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getSpd());
       hash = (37 * hash) + ACC_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getAcc()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAcc());
       hash = (37 * hash) + BRG_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getBrg()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getBrg());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3975,11 +3975,11 @@ public final class CloudDriveMqttMessageCreator {
 
         lng_ = 0D;
 
-        spd_ = 0D;
+        spd_ = 0F;
 
-        acc_ = 0D;
+        acc_ = 0F;
 
-        brg_ = 0D;
+        brg_ = 0F;
 
         return this;
       }
@@ -4059,13 +4059,13 @@ public final class CloudDriveMqttMessageCreator {
         if (other.getLng() != 0D) {
           setLng(other.getLng());
         }
-        if (other.getSpd() != 0D) {
+        if (other.getSpd() != 0F) {
           setSpd(other.getSpd());
         }
-        if (other.getAcc() != 0D) {
+        if (other.getAcc() != 0F) {
           setAcc(other.getAcc());
         }
-        if (other.getBrg() != 0D) {
+        if (other.getBrg() != 0F) {
           setBrg(other.getBrg());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -4173,80 +4173,80 @@ public final class CloudDriveMqttMessageCreator {
         return this;
       }
 
-      private double spd_ ;
+      private float spd_ ;
       /**
-       * <code>double spd = 4;</code>
+       * <code>float spd = 4;</code>
        */
-      public double getSpd() {
+      public float getSpd() {
         return spd_;
       }
       /**
-       * <code>double spd = 4;</code>
+       * <code>float spd = 4;</code>
        */
-      public Builder setSpd(double value) {
+      public Builder setSpd(float value) {
         
         spd_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double spd = 4;</code>
+       * <code>float spd = 4;</code>
        */
       public Builder clearSpd() {
         
-        spd_ = 0D;
+        spd_ = 0F;
         onChanged();
         return this;
       }
 
-      private double acc_ ;
+      private float acc_ ;
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
-      public double getAcc() {
+      public float getAcc() {
         return acc_;
       }
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
-      public Builder setAcc(double value) {
+      public Builder setAcc(float value) {
         
         acc_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double acc = 5;</code>
+       * <code>float acc = 5;</code>
        */
       public Builder clearAcc() {
         
-        acc_ = 0D;
+        acc_ = 0F;
         onChanged();
         return this;
       }
 
-      private double brg_ ;
+      private float brg_ ;
       /**
-       * <code>double brg = 6;</code>
+       * <code>float brg = 6;</code>
        */
-      public double getBrg() {
+      public float getBrg() {
         return brg_;
       }
       /**
-       * <code>double brg = 6;</code>
+       * <code>float brg = 6;</code>
        */
-      public Builder setBrg(double value) {
+      public Builder setBrg(float value) {
         
         brg_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double brg = 6;</code>
+       * <code>float brg = 6;</code>
        */
       public Builder clearBrg() {
         
-        brg_ = 0D;
+        brg_ = 0F;
         onChanged();
         return this;
       }
@@ -5063,19 +5063,19 @@ public final class CloudDriveMqttMessageCreator {
     long getTime();
 
     /**
-     * <code>double x = 2;</code>
+     * <code>float x = 2;</code>
      */
-    double getX();
+    float getX();
 
     /**
-     * <code>double y = 3;</code>
+     * <code>float y = 3;</code>
      */
-    double getY();
+    float getY();
 
     /**
-     * <code>double z = 4;</code>
+     * <code>float z = 4;</code>
      */
-    double getZ();
+    float getZ();
   }
   /**
    * Protobuf type {@code io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem}
@@ -5091,9 +5091,9 @@ public final class CloudDriveMqttMessageCreator {
     }
     private CloudDriveMqttGSensorDataItem() {
       time_ = 0L;
-      x_ = 0D;
-      y_ = 0D;
-      z_ = 0D;
+      x_ = 0F;
+      y_ = 0F;
+      z_ = 0F;
     }
 
     @java.lang.Override
@@ -5129,19 +5129,19 @@ public final class CloudDriveMqttMessageCreator {
               time_ = input.readInt64();
               break;
             }
-            case 17: {
+            case 21: {
 
-              x_ = input.readDouble();
+              x_ = input.readFloat();
               break;
             }
-            case 25: {
+            case 29: {
 
-              y_ = input.readDouble();
+              y_ = input.readFloat();
               break;
             }
-            case 33: {
+            case 37: {
 
-              z_ = input.readDouble();
+              z_ = input.readFloat();
               break;
             }
           }
@@ -5178,29 +5178,29 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     public static final int X_FIELD_NUMBER = 2;
-    private double x_;
+    private float x_;
     /**
-     * <code>double x = 2;</code>
+     * <code>float x = 2;</code>
      */
-    public double getX() {
+    public float getX() {
       return x_;
     }
 
     public static final int Y_FIELD_NUMBER = 3;
-    private double y_;
+    private float y_;
     /**
-     * <code>double y = 3;</code>
+     * <code>float y = 3;</code>
      */
-    public double getY() {
+    public float getY() {
       return y_;
     }
 
     public static final int Z_FIELD_NUMBER = 4;
-    private double z_;
+    private float z_;
     /**
-     * <code>double z = 4;</code>
+     * <code>float z = 4;</code>
      */
-    public double getZ() {
+    public float getZ() {
       return z_;
     }
 
@@ -5219,14 +5219,14 @@ public final class CloudDriveMqttMessageCreator {
       if (time_ != 0L) {
         output.writeInt64(1, time_);
       }
-      if (x_ != 0D) {
-        output.writeDouble(2, x_);
+      if (x_ != 0F) {
+        output.writeFloat(2, x_);
       }
-      if (y_ != 0D) {
-        output.writeDouble(3, y_);
+      if (y_ != 0F) {
+        output.writeFloat(3, y_);
       }
-      if (z_ != 0D) {
-        output.writeDouble(4, z_);
+      if (z_ != 0F) {
+        output.writeFloat(4, z_);
       }
       unknownFields.writeTo(output);
     }
@@ -5240,17 +5240,17 @@ public final class CloudDriveMqttMessageCreator {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(1, time_);
       }
-      if (x_ != 0D) {
+      if (x_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(2, x_);
+          .computeFloatSize(2, x_);
       }
-      if (y_ != 0D) {
+      if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, y_);
+          .computeFloatSize(3, y_);
       }
-      if (z_ != 0D) {
+      if (z_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, z_);
+          .computeFloatSize(4, z_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5271,16 +5271,16 @@ public final class CloudDriveMqttMessageCreator {
       result = result && (getTime()
           == other.getTime());
       result = result && (
-          java.lang.Double.doubleToLongBits(getX())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getX())
+          == java.lang.Float.floatToIntBits(
               other.getX()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getY())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getY())
+          == java.lang.Float.floatToIntBits(
               other.getY()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getZ())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getZ())
+          == java.lang.Float.floatToIntBits(
               other.getZ()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -5297,14 +5297,14 @@ public final class CloudDriveMqttMessageCreator {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTime());
       hash = (37 * hash) + X_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getX()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getX());
       hash = (37 * hash) + Y_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getY()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getY());
       hash = (37 * hash) + Z_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getZ()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getZ());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5436,11 +5436,11 @@ public final class CloudDriveMqttMessageCreator {
         super.clear();
         time_ = 0L;
 
-        x_ = 0D;
+        x_ = 0F;
 
-        y_ = 0D;
+        y_ = 0F;
 
-        z_ = 0D;
+        z_ = 0F;
 
         return this;
       }
@@ -5512,13 +5512,13 @@ public final class CloudDriveMqttMessageCreator {
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
-        if (other.getX() != 0D) {
+        if (other.getX() != 0F) {
           setX(other.getX());
         }
-        if (other.getY() != 0D) {
+        if (other.getY() != 0F) {
           setY(other.getY());
         }
-        if (other.getZ() != 0D) {
+        if (other.getZ() != 0F) {
           setZ(other.getZ());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -5574,80 +5574,80 @@ public final class CloudDriveMqttMessageCreator {
         return this;
       }
 
-      private double x_ ;
+      private float x_ ;
       /**
-       * <code>double x = 2;</code>
+       * <code>float x = 2;</code>
        */
-      public double getX() {
+      public float getX() {
         return x_;
       }
       /**
-       * <code>double x = 2;</code>
+       * <code>float x = 2;</code>
        */
-      public Builder setX(double value) {
+      public Builder setX(float value) {
         
         x_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double x = 2;</code>
+       * <code>float x = 2;</code>
        */
       public Builder clearX() {
         
-        x_ = 0D;
+        x_ = 0F;
         onChanged();
         return this;
       }
 
-      private double y_ ;
+      private float y_ ;
       /**
-       * <code>double y = 3;</code>
+       * <code>float y = 3;</code>
        */
-      public double getY() {
+      public float getY() {
         return y_;
       }
       /**
-       * <code>double y = 3;</code>
+       * <code>float y = 3;</code>
        */
-      public Builder setY(double value) {
+      public Builder setY(float value) {
         
         y_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double y = 3;</code>
+       * <code>float y = 3;</code>
        */
       public Builder clearY() {
         
-        y_ = 0D;
+        y_ = 0F;
         onChanged();
         return this;
       }
 
-      private double z_ ;
+      private float z_ ;
       /**
-       * <code>double z = 4;</code>
+       * <code>float z = 4;</code>
        */
-      public double getZ() {
+      public float getZ() {
         return z_;
       }
       /**
-       * <code>double z = 4;</code>
+       * <code>float z = 4;</code>
        */
-      public Builder setZ(double value) {
+      public Builder setZ(float value) {
         
         z_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double z = 4;</code>
+       * <code>float z = 4;</code>
        */
       public Builder clearZ() {
         
-        z_ = 0D;
+        z_ = 0F;
         onChanged();
         return this;
       }
@@ -6464,19 +6464,19 @@ public final class CloudDriveMqttMessageCreator {
     long getTime();
 
     /**
-     * <code>double x = 2;</code>
+     * <code>float x = 2;</code>
      */
-    double getX();
+    float getX();
 
     /**
-     * <code>double y = 3;</code>
+     * <code>float y = 3;</code>
      */
-    double getY();
+    float getY();
 
     /**
-     * <code>double z = 4;</code>
+     * <code>float z = 4;</code>
      */
-    double getZ();
+    float getZ();
   }
   /**
    * Protobuf type {@code io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem}
@@ -6492,9 +6492,9 @@ public final class CloudDriveMqttMessageCreator {
     }
     private CloudDriveMqttGyroDataItem() {
       time_ = 0L;
-      x_ = 0D;
-      y_ = 0D;
-      z_ = 0D;
+      x_ = 0F;
+      y_ = 0F;
+      z_ = 0F;
     }
 
     @java.lang.Override
@@ -6530,19 +6530,19 @@ public final class CloudDriveMqttMessageCreator {
               time_ = input.readInt64();
               break;
             }
-            case 17: {
+            case 21: {
 
-              x_ = input.readDouble();
+              x_ = input.readFloat();
               break;
             }
-            case 25: {
+            case 29: {
 
-              y_ = input.readDouble();
+              y_ = input.readFloat();
               break;
             }
-            case 33: {
+            case 37: {
 
-              z_ = input.readDouble();
+              z_ = input.readFloat();
               break;
             }
           }
@@ -6579,29 +6579,29 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     public static final int X_FIELD_NUMBER = 2;
-    private double x_;
+    private float x_;
     /**
-     * <code>double x = 2;</code>
+     * <code>float x = 2;</code>
      */
-    public double getX() {
+    public float getX() {
       return x_;
     }
 
     public static final int Y_FIELD_NUMBER = 3;
-    private double y_;
+    private float y_;
     /**
-     * <code>double y = 3;</code>
+     * <code>float y = 3;</code>
      */
-    public double getY() {
+    public float getY() {
       return y_;
     }
 
     public static final int Z_FIELD_NUMBER = 4;
-    private double z_;
+    private float z_;
     /**
-     * <code>double z = 4;</code>
+     * <code>float z = 4;</code>
      */
-    public double getZ() {
+    public float getZ() {
       return z_;
     }
 
@@ -6620,14 +6620,14 @@ public final class CloudDriveMqttMessageCreator {
       if (time_ != 0L) {
         output.writeInt64(1, time_);
       }
-      if (x_ != 0D) {
-        output.writeDouble(2, x_);
+      if (x_ != 0F) {
+        output.writeFloat(2, x_);
       }
-      if (y_ != 0D) {
-        output.writeDouble(3, y_);
+      if (y_ != 0F) {
+        output.writeFloat(3, y_);
       }
-      if (z_ != 0D) {
-        output.writeDouble(4, z_);
+      if (z_ != 0F) {
+        output.writeFloat(4, z_);
       }
       unknownFields.writeTo(output);
     }
@@ -6641,17 +6641,17 @@ public final class CloudDriveMqttMessageCreator {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(1, time_);
       }
-      if (x_ != 0D) {
+      if (x_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(2, x_);
+          .computeFloatSize(2, x_);
       }
-      if (y_ != 0D) {
+      if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, y_);
+          .computeFloatSize(3, y_);
       }
-      if (z_ != 0D) {
+      if (z_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, z_);
+          .computeFloatSize(4, z_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6672,16 +6672,16 @@ public final class CloudDriveMqttMessageCreator {
       result = result && (getTime()
           == other.getTime());
       result = result && (
-          java.lang.Double.doubleToLongBits(getX())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getX())
+          == java.lang.Float.floatToIntBits(
               other.getX()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getY())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getY())
+          == java.lang.Float.floatToIntBits(
               other.getY()));
       result = result && (
-          java.lang.Double.doubleToLongBits(getZ())
-          == java.lang.Double.doubleToLongBits(
+          java.lang.Float.floatToIntBits(getZ())
+          == java.lang.Float.floatToIntBits(
               other.getZ()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
@@ -6698,14 +6698,14 @@ public final class CloudDriveMqttMessageCreator {
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTime());
       hash = (37 * hash) + X_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getX()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getX());
       hash = (37 * hash) + Y_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getY()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getY());
       hash = (37 * hash) + Z_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getZ()));
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getZ());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -6837,11 +6837,11 @@ public final class CloudDriveMqttMessageCreator {
         super.clear();
         time_ = 0L;
 
-        x_ = 0D;
+        x_ = 0F;
 
-        y_ = 0D;
+        y_ = 0F;
 
-        z_ = 0D;
+        z_ = 0F;
 
         return this;
       }
@@ -6913,13 +6913,13 @@ public final class CloudDriveMqttMessageCreator {
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
-        if (other.getX() != 0D) {
+        if (other.getX() != 0F) {
           setX(other.getX());
         }
-        if (other.getY() != 0D) {
+        if (other.getY() != 0F) {
           setY(other.getY());
         }
-        if (other.getZ() != 0D) {
+        if (other.getZ() != 0F) {
           setZ(other.getZ());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -6975,80 +6975,80 @@ public final class CloudDriveMqttMessageCreator {
         return this;
       }
 
-      private double x_ ;
+      private float x_ ;
       /**
-       * <code>double x = 2;</code>
+       * <code>float x = 2;</code>
        */
-      public double getX() {
+      public float getX() {
         return x_;
       }
       /**
-       * <code>double x = 2;</code>
+       * <code>float x = 2;</code>
        */
-      public Builder setX(double value) {
+      public Builder setX(float value) {
         
         x_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double x = 2;</code>
+       * <code>float x = 2;</code>
        */
       public Builder clearX() {
         
-        x_ = 0D;
+        x_ = 0F;
         onChanged();
         return this;
       }
 
-      private double y_ ;
+      private float y_ ;
       /**
-       * <code>double y = 3;</code>
+       * <code>float y = 3;</code>
        */
-      public double getY() {
+      public float getY() {
         return y_;
       }
       /**
-       * <code>double y = 3;</code>
+       * <code>float y = 3;</code>
        */
-      public Builder setY(double value) {
+      public Builder setY(float value) {
         
         y_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double y = 3;</code>
+       * <code>float y = 3;</code>
        */
       public Builder clearY() {
         
-        y_ = 0D;
+        y_ = 0F;
         onChanged();
         return this;
       }
 
-      private double z_ ;
+      private float z_ ;
       /**
-       * <code>double z = 4;</code>
+       * <code>float z = 4;</code>
        */
-      public double getZ() {
+      public float getZ() {
         return z_;
       }
       /**
-       * <code>double z = 4;</code>
+       * <code>float z = 4;</code>
        */
-      public Builder setZ(double value) {
+      public Builder setZ(float value) {
         
         z_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double z = 4;</code>
+       * <code>float z = 4;</code>
        */
       public Builder clearZ() {
         
-        z_ = 0D;
+        z_ = 0F;
         onChanged();
         return this;
       }
@@ -10303,25 +10303,25 @@ public final class CloudDriveMqttMessageCreator {
       "d\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\"\n\004data\030\003 \001(\0132\024.go" +
       "ogle.protobuf.Any\"j\n\033CloudDriveMqttBoxSt" +
       "atusData\022\n\n\002fw\030\001 \001(\t\022\013\n\003app\030\002 \001(\t\022\013\n\003lat" +
-      "\030\003 \001(\001\022\013\n\003lng\030\004 \001(\001\022\013\n\003acc\030\005 \001(\001\022\013\n\003vol\030" +
-      "\006 \001(\001\"\205\001\n\027CloudDriveMqttEventData\022\n\n\002fw\030" +
+      "\030\003 \001(\001\022\013\n\003lng\030\004 \001(\001\022\013\n\003acc\030\005 \001(\002\022\013\n\003vol\030" +
+      "\006 \001(\002\"\205\001\n\027CloudDriveMqttEventData\022\n\n\002fw\030" +
       "\001 \001(\t\022\013\n\003app\030\002 \001(\t\022\013\n\003lat\030\003 \001(\001\022\013\n\003lng\030\004" +
-      " \001(\001\022\013\n\003acc\030\005 \001(\001\022\013\n\003vol\030\006 \001(\001\022\014\n\004type\030\007",
+      " \001(\001\022\013\n\003acc\030\005 \001(\002\022\013\n\003vol\030\006 \001(\002\022\014\n\004type\030\007",
       " \001(\005\022\017\n\007content\030\010 \001(\t\"b\n\025CloudDriveMqttG" +
       "psData\022I\n\005items\030\001 \003(\0132:.io.nonda.onedata" +
       ".proto.contract.CloudDriveMqttGpsDataIte" +
       "m\"j\n\031CloudDriveMqttGpsDataItem\022\014\n\004time\030\001" +
       " \001(\003\022\013\n\003lat\030\002 \001(\001\022\013\n\003lng\030\003 \001(\001\022\013\n\003spd\030\004 " +
-      "\001(\001\022\013\n\003acc\030\005 \001(\001\022\013\n\003brg\030\006 \001(\001\"j\n\031CloudDr" +
+      "\001(\002\022\013\n\003acc\030\005 \001(\002\022\013\n\003brg\030\006 \001(\002\"j\n\031CloudDr" +
       "iveMqttGSensorData\022M\n\005items\030\001 \003(\0132>.io.n" +
       "onda.onedata.proto.contract.CloudDriveMq" +
       "ttGSensorDataItem\"N\n\035CloudDriveMqttGSens" +
-      "orDataItem\022\014\n\004time\030\001 \001(\003\022\t\n\001x\030\002 \001(\001\022\t\n\001y",
-      "\030\003 \001(\001\022\t\n\001z\030\004 \001(\001\"d\n\026CloudDriveMqttGyroD" +
+      "orDataItem\022\014\n\004time\030\001 \001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y",
+      "\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\"d\n\026CloudDriveMqttGyroD" +
       "ata\022J\n\005items\030\001 \003(\0132;.io.nonda.onedata.pr" +
       "oto.contract.CloudDriveMqttGyroDataItem\"" +
       "K\n\032CloudDriveMqttGyroDataItem\022\014\n\004time\030\001 " +
-      "\001(\003\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030\003 \001(\001\022\t\n\001z\030\004 \001(\001\"A\n\026" +
+      "\001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\"A\n\026" +
       "CloudDriveMqttFreqData\022\023\n\013collectFreq\030\001 " +
       "\001(\005\022\022\n\nreportFreq\030\002 \001(\005\"d\n\026CloudDriveMqt" +
       "tFaceData\022J\n\005items\030\001 \003(\0132;.io.nonda.oned" +

@@ -342,17 +342,17 @@ class CloudDriveMqttBoxStatusData : public ::google::protobuf::Message /* @@prot
   double lng() const;
   void set_lng(double value);
 
-  // double acc = 5;
+  // float acc = 5;
   void clear_acc();
   static const int kAccFieldNumber = 5;
-  double acc() const;
-  void set_acc(double value);
+  float acc() const;
+  void set_acc(float value);
 
-  // double vol = 6;
+  // float vol = 6;
   void clear_vol();
   static const int kVolFieldNumber = 6;
-  double vol() const;
-  void set_vol(double value);
+  float vol() const;
+  void set_vol(float value);
 
   // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData)
  private:
@@ -362,8 +362,8 @@ class CloudDriveMqttBoxStatusData : public ::google::protobuf::Message /* @@prot
   ::google::protobuf::internal::ArenaStringPtr app_;
   double lat_;
   double lng_;
-  double acc_;
-  double vol_;
+  float acc_;
+  float vol_;
   mutable int _cached_size_;
   friend struct protobuf_CloudDriveMqttMessage_2eproto::TableStruct;
 };
@@ -504,17 +504,17 @@ class CloudDriveMqttEventData : public ::google::protobuf::Message /* @@protoc_i
   double lng() const;
   void set_lng(double value);
 
-  // double acc = 5;
+  // float acc = 5;
   void clear_acc();
   static const int kAccFieldNumber = 5;
-  double acc() const;
-  void set_acc(double value);
+  float acc() const;
+  void set_acc(float value);
 
-  // double vol = 6;
+  // float vol = 6;
   void clear_vol();
   static const int kVolFieldNumber = 6;
-  double vol() const;
-  void set_vol(double value);
+  float vol() const;
+  void set_vol(float value);
 
   // int32 type = 7;
   void clear_type();
@@ -531,8 +531,8 @@ class CloudDriveMqttEventData : public ::google::protobuf::Message /* @@protoc_i
   ::google::protobuf::internal::ArenaStringPtr content_;
   double lat_;
   double lng_;
-  double acc_;
-  double vol_;
+  float acc_;
+  float vol_;
   ::google::protobuf::int32 type_;
   mutable int _cached_size_;
   friend struct protobuf_CloudDriveMqttMessage_2eproto::TableStruct;
@@ -741,23 +741,23 @@ class CloudDriveMqttGpsDataItem : public ::google::protobuf::Message /* @@protoc
   double lng() const;
   void set_lng(double value);
 
-  // double spd = 4;
+  // float spd = 4;
   void clear_spd();
   static const int kSpdFieldNumber = 4;
-  double spd() const;
-  void set_spd(double value);
+  float spd() const;
+  void set_spd(float value);
 
-  // double acc = 5;
+  // float acc = 5;
   void clear_acc();
   static const int kAccFieldNumber = 5;
-  double acc() const;
-  void set_acc(double value);
+  float acc() const;
+  void set_acc(float value);
 
-  // double brg = 6;
+  // float brg = 6;
   void clear_brg();
   static const int kBrgFieldNumber = 6;
-  double brg() const;
-  void set_brg(double value);
+  float brg() const;
+  void set_brg(float value);
 
   // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem)
  private:
@@ -766,9 +766,9 @@ class CloudDriveMqttGpsDataItem : public ::google::protobuf::Message /* @@protoc
   ::google::protobuf::int64 time_;
   double lat_;
   double lng_;
-  double spd_;
-  double acc_;
-  double brg_;
+  float spd_;
+  float acc_;
+  float brg_;
   mutable int _cached_size_;
   friend struct protobuf_CloudDriveMqttMessage_2eproto::TableStruct;
 };
@@ -964,32 +964,32 @@ class CloudDriveMqttGSensorDataItem : public ::google::protobuf::Message /* @@pr
   ::google::protobuf::int64 time() const;
   void set_time(::google::protobuf::int64 value);
 
-  // double x = 2;
+  // float x = 2;
   void clear_x();
   static const int kXFieldNumber = 2;
-  double x() const;
-  void set_x(double value);
+  float x() const;
+  void set_x(float value);
 
-  // double y = 3;
+  // float y = 3;
   void clear_y();
   static const int kYFieldNumber = 3;
-  double y() const;
-  void set_y(double value);
+  float y() const;
+  void set_y(float value);
 
-  // double z = 4;
+  // float z = 4;
   void clear_z();
   static const int kZFieldNumber = 4;
-  double z() const;
-  void set_z(double value);
+  float z() const;
+  void set_z(float value);
 
   // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int64 time_;
-  double x_;
-  double y_;
-  double z_;
+  float x_;
+  float y_;
+  float z_;
   mutable int _cached_size_;
   friend struct protobuf_CloudDriveMqttMessage_2eproto::TableStruct;
 };
@@ -1185,32 +1185,32 @@ class CloudDriveMqttGyroDataItem : public ::google::protobuf::Message /* @@proto
   ::google::protobuf::int64 time() const;
   void set_time(::google::protobuf::int64 value);
 
-  // double x = 2;
+  // float x = 2;
   void clear_x();
   static const int kXFieldNumber = 2;
-  double x() const;
-  void set_x(double value);
+  float x() const;
+  void set_x(float value);
 
-  // double y = 3;
+  // float y = 3;
   void clear_y();
   static const int kYFieldNumber = 3;
-  double y() const;
-  void set_y(double value);
+  float y() const;
+  void set_y(float value);
 
-  // double z = 4;
+  // float z = 4;
   void clear_z();
   static const int kZFieldNumber = 4;
-  double z() const;
-  void set_z(double value);
+  float z() const;
+  void set_z(float value);
 
   // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int64 time_;
-  double x_;
-  double y_;
-  double z_;
+  float x_;
+  float y_;
+  float z_;
   mutable int _cached_size_;
   friend struct protobuf_CloudDriveMqttMessage_2eproto::TableStruct;
 };
@@ -1958,29 +1958,29 @@ inline void CloudDriveMqttBoxStatusData::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.lng)
 }
 
-// double acc = 5;
+// float acc = 5;
 inline void CloudDriveMqttBoxStatusData::clear_acc() {
   acc_ = 0;
 }
-inline double CloudDriveMqttBoxStatusData::acc() const {
+inline float CloudDriveMqttBoxStatusData::acc() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.acc)
   return acc_;
 }
-inline void CloudDriveMqttBoxStatusData::set_acc(double value) {
+inline void CloudDriveMqttBoxStatusData::set_acc(float value) {
   
   acc_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.acc)
 }
 
-// double vol = 6;
+// float vol = 6;
 inline void CloudDriveMqttBoxStatusData::clear_vol() {
   vol_ = 0;
 }
-inline double CloudDriveMqttBoxStatusData::vol() const {
+inline float CloudDriveMqttBoxStatusData::vol() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.vol)
   return vol_;
 }
-inline void CloudDriveMqttBoxStatusData::set_vol(double value) {
+inline void CloudDriveMqttBoxStatusData::set_vol(float value) {
   
   vol_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.vol)
@@ -2124,29 +2124,29 @@ inline void CloudDriveMqttEventData::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.lng)
 }
 
-// double acc = 5;
+// float acc = 5;
 inline void CloudDriveMqttEventData::clear_acc() {
   acc_ = 0;
 }
-inline double CloudDriveMqttEventData::acc() const {
+inline float CloudDriveMqttEventData::acc() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.acc)
   return acc_;
 }
-inline void CloudDriveMqttEventData::set_acc(double value) {
+inline void CloudDriveMqttEventData::set_acc(float value) {
   
   acc_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.acc)
 }
 
-// double vol = 6;
+// float vol = 6;
 inline void CloudDriveMqttEventData::clear_vol() {
   vol_ = 0;
 }
-inline double CloudDriveMqttEventData::vol() const {
+inline float CloudDriveMqttEventData::vol() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.vol)
   return vol_;
 }
-inline void CloudDriveMqttEventData::set_vol(double value) {
+inline void CloudDriveMqttEventData::set_vol(float value) {
   
   vol_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.vol)
@@ -2299,43 +2299,43 @@ inline void CloudDriveMqttGpsDataItem::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.lng)
 }
 
-// double spd = 4;
+// float spd = 4;
 inline void CloudDriveMqttGpsDataItem::clear_spd() {
   spd_ = 0;
 }
-inline double CloudDriveMqttGpsDataItem::spd() const {
+inline float CloudDriveMqttGpsDataItem::spd() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.spd)
   return spd_;
 }
-inline void CloudDriveMqttGpsDataItem::set_spd(double value) {
+inline void CloudDriveMqttGpsDataItem::set_spd(float value) {
   
   spd_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.spd)
 }
 
-// double acc = 5;
+// float acc = 5;
 inline void CloudDriveMqttGpsDataItem::clear_acc() {
   acc_ = 0;
 }
-inline double CloudDriveMqttGpsDataItem::acc() const {
+inline float CloudDriveMqttGpsDataItem::acc() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.acc)
   return acc_;
 }
-inline void CloudDriveMqttGpsDataItem::set_acc(double value) {
+inline void CloudDriveMqttGpsDataItem::set_acc(float value) {
   
   acc_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.acc)
 }
 
-// double brg = 6;
+// float brg = 6;
 inline void CloudDriveMqttGpsDataItem::clear_brg() {
   brg_ = 0;
 }
-inline double CloudDriveMqttGpsDataItem::brg() const {
+inline float CloudDriveMqttGpsDataItem::brg() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.brg)
   return brg_;
 }
-inline void CloudDriveMqttGpsDataItem::set_brg(double value) {
+inline void CloudDriveMqttGpsDataItem::set_brg(float value) {
   
   brg_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem.brg)
@@ -2393,43 +2393,43 @@ inline void CloudDriveMqttGSensorDataItem::set_time(::google::protobuf::int64 va
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.time)
 }
 
-// double x = 2;
+// float x = 2;
 inline void CloudDriveMqttGSensorDataItem::clear_x() {
   x_ = 0;
 }
-inline double CloudDriveMqttGSensorDataItem::x() const {
+inline float CloudDriveMqttGSensorDataItem::x() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.x)
   return x_;
 }
-inline void CloudDriveMqttGSensorDataItem::set_x(double value) {
+inline void CloudDriveMqttGSensorDataItem::set_x(float value) {
   
   x_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.x)
 }
 
-// double y = 3;
+// float y = 3;
 inline void CloudDriveMqttGSensorDataItem::clear_y() {
   y_ = 0;
 }
-inline double CloudDriveMqttGSensorDataItem::y() const {
+inline float CloudDriveMqttGSensorDataItem::y() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.y)
   return y_;
 }
-inline void CloudDriveMqttGSensorDataItem::set_y(double value) {
+inline void CloudDriveMqttGSensorDataItem::set_y(float value) {
   
   y_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.y)
 }
 
-// double z = 4;
+// float z = 4;
 inline void CloudDriveMqttGSensorDataItem::clear_z() {
   z_ = 0;
 }
-inline double CloudDriveMqttGSensorDataItem::z() const {
+inline float CloudDriveMqttGSensorDataItem::z() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.z)
   return z_;
 }
-inline void CloudDriveMqttGSensorDataItem::set_z(double value) {
+inline void CloudDriveMqttGSensorDataItem::set_z(float value) {
   
   z_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem.z)
@@ -2487,43 +2487,43 @@ inline void CloudDriveMqttGyroDataItem::set_time(::google::protobuf::int64 value
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.time)
 }
 
-// double x = 2;
+// float x = 2;
 inline void CloudDriveMqttGyroDataItem::clear_x() {
   x_ = 0;
 }
-inline double CloudDriveMqttGyroDataItem::x() const {
+inline float CloudDriveMqttGyroDataItem::x() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.x)
   return x_;
 }
-inline void CloudDriveMqttGyroDataItem::set_x(double value) {
+inline void CloudDriveMqttGyroDataItem::set_x(float value) {
   
   x_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.x)
 }
 
-// double y = 3;
+// float y = 3;
 inline void CloudDriveMqttGyroDataItem::clear_y() {
   y_ = 0;
 }
-inline double CloudDriveMqttGyroDataItem::y() const {
+inline float CloudDriveMqttGyroDataItem::y() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.y)
   return y_;
 }
-inline void CloudDriveMqttGyroDataItem::set_y(double value) {
+inline void CloudDriveMqttGyroDataItem::set_y(float value) {
   
   y_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.y)
 }
 
-// double z = 4;
+// float z = 4;
 inline void CloudDriveMqttGyroDataItem::clear_z() {
   z_ = 0;
 }
-inline double CloudDriveMqttGyroDataItem::z() const {
+inline float CloudDriveMqttGyroDataItem::z() const {
   // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.z)
   return z_;
 }
-inline void CloudDriveMqttGyroDataItem::set_z(double value) {
+inline void CloudDriveMqttGyroDataItem::set_z(float value) {
   
   z_ = value;
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem.z)

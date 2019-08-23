@@ -202,8 +202,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderData.app = statusBean.app
         builderData.lat = statusBean.lat
         builderData.lng = statusBean.lng
-        builderData.acc = statusBean.acc
-        builderData.vol = statusBean.vol
+        builderData.acc = statusBean.acc!!
+        builderData.vol = statusBean.vol!!
 
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())

@@ -149,7 +149,7 @@ class SensorReportService : Service() {
         val gSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         if (open) {
             if (gSensorListener == null) {
-                gSensorListener = CarGsensorListener(gSensorListener)
+                gSensorListener = CarGsensorListener()
             } else {
                 sensorManager?.unregisterListener(gSensorListener)
             }

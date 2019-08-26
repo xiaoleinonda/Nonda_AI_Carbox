@@ -10,6 +10,7 @@ import com.yaoxiaowen.download.DownloadStatus;
 import com.yaoxiaowen.download.bean.DownloadInfo;
 import com.yaoxiaowen.download.FileInfo;
 import com.yaoxiaowen.download.db.DbHolder;
+import com.yaoxiaowen.download.utils.InstallUtils;
 import com.yaoxiaowen.download.utils.LogUtils;
 import us.nonda.commonibrary.utils.AppUtils;
 
@@ -191,7 +192,7 @@ public class DownloadTask implements Runnable {
 
             mFileInfo.setDownloadStatus(DownloadStatus.COMPLETE);
             //下载完成安装app
-            installApk(mFileInfo.getFilePath());
+            InstallUtils.installApk(mFileInfo.getFilePath());
             dbHolder.saveFile(mFileInfo);
             context.sendBroadcast(intent);
         } catch (Exception e) {
@@ -219,13 +220,6 @@ public class DownloadTask implements Runnable {
 
 
     }//end of "download()"
-
-    private void installApk(String appPath) {
-        Intent intent = new Intent("android.intent.action.SILENCE_INSTALL");
-        intent.putExtra("appPath", appPath);
-        intent.putExtra("packageName", AppUtils.context.getPackageName());
-        this.sendBroadcast(intent);
-    }
 
 
     private String getRedirectionUrl(String sourceUrl) {

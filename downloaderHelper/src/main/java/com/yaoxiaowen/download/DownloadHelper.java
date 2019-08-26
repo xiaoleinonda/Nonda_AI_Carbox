@@ -74,8 +74,6 @@ public class DownloadHelper {
     }
 
 
-//     mDownloadHelper.addTask("http://www.meituan.com/mobile/download/meituan/android/meituan?from=new", downloadFile, "")
-//            .submit(this)
 
     public void addCarBoxTask(Context context) {
         //创建文件夹DownLoad，在存储卡下
@@ -86,11 +84,10 @@ public class DownloadHelper {
             file.mkdir();
         }
         //下载后的文件名
-        String fileName = dirName + "船新的版本" + ".apk";
+        String fileName = dirName + "meituan" + ".apk";
         File downloadFile = new File(fileName);
-
-
         String url = "http://www.meituan.com/mobile/download/meituan/android/meituan?from=new";
+//        String url = "https://download.zus.ai/clouddrive/vehiclebox/app/app_v1.apk";
         RequestInfo requestInfo = createRequest(url, downloadFile, "", InnerConstant.Request.loading);
         LogUtils.i(TAG, "addTask() requestInfo=" + requestInfo);
 

@@ -1,12 +1,12 @@
 package us.nonda.ai.app.ui
 
-import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_acc.*
+import com.yaoxiaowen.download.DownloadHelper
 import us.nonda.ai.R
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.controler.CarBoxControler
@@ -56,16 +56,12 @@ class AccActivity : AppCompatActivity() {
     }
 
     fun onOTA(view: View) {
-//        val mIntent = Intent(applicationContext, DownloadApkService::class.java)
-        //TODO
-     /*   mIntent.putExtra(
-            APK_DOWNLOAD_URL,
-//            "https://ali-fir-pro-binary.fir.im/b31cff6b333debb38ab49b511a43d4c5250de990.apk?auth_key=1566477346-0-0-35a369b6a5d864394b38dc6774896828"
-        "https://download.zus.ai/clouddrive/vehiclebox/app/app_v1.apk"
-        )*/
-//        mIntent.putExtra(Constants.APK_MD5, mUpdateInfonfo.getMD5())
-//        mIntent.putExtra(Constants.APK_DIFF_UPDATE, mUpdateInfonfo.isDiffUpdate())
-//        applicationContext.startService(mIntent)
+        val mDownloadHelper = DownloadHelper.getInstance()
+//        mDownloadHelper.addTask("https://download.zus.ai/clouddrive/vehiclebox/app/app_v1.apk", downloadFile, "")
+//        mDownloadHelper.addTask("https://ali-fir-pro-binary.fir.im/b31cff6b333debb38ab49b511a43d4c5250de990.apk?auth_key=1566477346-0-0-35a369b6a5d864394b38dc6774896828", downloadFile, "")
+//        mDownloadHelper.addTask("http://www.meituan.com/mobile/download/meituan/android/meituan?from=new", downloadFile, "")
+//            .submit(this)
+        mDownloadHelper.addCarBoxTask(this)
     }
 
 

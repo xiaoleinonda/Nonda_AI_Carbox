@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import us.nonda.ai.controler.CarBoxControler
+import com.yaoxiaowen.download.DownloadHelper
+import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.NetworkUtil
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.mqttlibrary.mqtt.MqttManager
@@ -18,6 +20,9 @@ class NetStateChangeReceiver : BroadcastReceiver() {
             if (connectivityStatus) {
                 initDevice()
                 MqttManager.getInstance().onStart()
+
+                val mDownloadHelper = DownloadHelper.getInstance()
+                mDownloadHelper.addCarBoxTask(AppUtils.context)
             }else{
                 MqttManager.getInstance().onStop()
             }

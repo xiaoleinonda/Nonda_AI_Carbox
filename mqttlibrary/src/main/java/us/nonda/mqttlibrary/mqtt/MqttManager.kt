@@ -217,7 +217,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGPS(GPSBeans: List<GPSBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.newBuilder()
-        for (i in 0..GPSBeans.size) {
+        for (i in 0 until GPSBeans.size) {
             val GPSBean = GPSBeans[i]
             GPSBean.run {
                 builderItem.lat = this.lat!!
@@ -243,7 +243,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGSensor(gSensorBeans: List<GSensorBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.newBuilder()
-        for (i in 0..gSensorBeans.size) {
+        for (i in 0 until gSensorBeans.size) {
             val gSensorBean = gSensorBeans[i]
             gSensorBean.run {
                 builderItem.x = this.x!!
@@ -267,7 +267,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGyro(gyroBeans: List<GyroBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.newBuilder()
-        for (i in 0..gyroBeans.size) {
+        for (i in 0 until gyroBeans.size) {
             val gyroBean = gyroBeans[i]
             gyroBean.run {
                 builderItem.x = this.x!!
@@ -291,7 +291,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishFaceResult(faceResultBeans: List<FaceResultBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.newBuilder()
-        for (i in 0..faceResultBeans.size) {
+        for (i in 0 until faceResultBeans.size) {
             val gyroBean = faceResultBeans[i]
             gyroBean.run {
                 builderItem.face = this.face!!
@@ -313,7 +313,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishEmotion(emotionBeans: List<EmotionBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.newBuilder()
-        for (i in 0..emotionBeans.size) {
+        for (i in 0 until emotionBeans.size) {
             val emotionBean = emotionBeans[i]
             emotionBean.run {
                 builderItem.emotion = this.emotion!!

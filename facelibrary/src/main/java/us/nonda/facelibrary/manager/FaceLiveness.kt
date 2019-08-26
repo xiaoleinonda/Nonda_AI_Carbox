@@ -55,7 +55,6 @@ class FaceLiveness constructor(
     private var faceFeaturePreTime: Long = 0
 
 
-
     fun dealData(yuv422: ByteArray) {
         if (yuv422 == null) return
         if (future3 != null && !future3!!.isDone()) {
@@ -245,7 +244,11 @@ class FaceLiveness constructor(
                 if (length == 128f) {
                     featureByte = visFeature
 
-                    val feature1 = FaceSDKManager.instance.getFaceFeature(FaceFeature.FeatureType.FEATURE_VIS, getFeatureByte(), this)
+                    val feature1 = FaceSDKManager.instance.getFaceFeature(
+                        FaceFeature.FeatureType.FEATURE_VIS,
+                        getFeatureByte(),
+                        this
+                    )
 
                     if (feature1 != null) {
                         this.feature = feature1
@@ -335,9 +338,10 @@ class FaceLiveness constructor(
     }
 
     fun setCallback(callback: FaceDetectCallBack?) {
-        if (callback != null && this.callback == null) {
-            this.callback = callback
+        if (callback == null || this.callback == callback) {
+            return
         }
+        this.callback = callback
     }
 
     /**
@@ -411,8 +415,6 @@ class FaceLiveness constructor(
     }
 
 
-
-
     fun initConfig(config: FaceConfig) {
         EMOTION_FREQ_TIME = config.emotionFreqTime
         FACEFEATURE_FREQ_TIME = config.facefeatureFreqTime
@@ -420,7 +422,7 @@ class FaceLiveness constructor(
         mirror = config.mirror
     }
 
-
-
-
+    fun stop() {
+        callback == null
+    }
 }

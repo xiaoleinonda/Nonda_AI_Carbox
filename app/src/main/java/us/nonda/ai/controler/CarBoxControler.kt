@@ -3,7 +3,9 @@ package us.nonda.ai.controler
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.telephony.TelephonyManager
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +20,9 @@ import us.nonda.commonibrary.event.ServiceEvent
 import us.nonda.commonibrary.status.CarboxCacheManager
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.facelibrary.manager.StringUtils
 import us.nonda.mqttlibrary.model.GPSBean
+import us.nonda.mqttlibrary.model.StatusBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.concurrent.TimeUnit
 
@@ -44,10 +48,10 @@ class CarBoxControler private constructor() {
      * check face
      *
      */
-    fun wakeUp(context: Context, msg:String) {
+    fun wakeUp(context: Context, msg: String) {
         MyLog.d(TAG, "wakeUp 唤醒应用    $msg")
         initConfig()
-        startCamera(context)
+//        startCamera(context)
         initFace()
         startLocation()
         startSensor()
@@ -61,7 +65,7 @@ class CarBoxControler private constructor() {
      * 切换到ACC ON 模式
      *
      */
-    fun accOnMode(context: Context, msg:String) {
+    fun accOnMode(context: Context, msg: String) {
         if (ONING) {
             MyLog.d(TAG, "正在accOnMode 重复了")
             return
@@ -116,7 +120,6 @@ class CarBoxControler private constructor() {
                     }
                 }
             }
-
 
 
     }
@@ -176,7 +179,7 @@ class CarBoxControler private constructor() {
     /**
      * 进入相机页面
      */
-    private fun startCamera(context: Context) {
+    fun startCamera(context: Context) {
         MyLog.d(TAG, "startCamera")
         if (getAccStatus() == 0) {
             MyLog.d(TAG, "startCamera acc off 不开启摄像头")
@@ -239,6 +242,7 @@ class CarBoxControler private constructor() {
 
     private var time: Long = 0
     private var gpsDisposable: Disposable? = null
+    private var batteryInfoDisposable: Disposable? = null
 
 
     /**
@@ -276,6 +280,23 @@ class CarBoxControler private constructor() {
             }
 
 
+        if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
+            batteryInfoDisposable!!.dispose()
+        }
+        batteryInfoDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+            .observeOn(Schedulers.io())
+            .subscribe {
+                val carBatteryInfo = getCarBatteryInfo()
+                val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
+                val versionName = AppUtils.getVersionName(AppUtils.context)
+                val latitude = (bestLocation?.latitude)?.toDouble()?:-1.0
+                val longitude = (bestLocation?.longitude)?.toDouble()?:-1.0
+                val accuracy = bestLocation?.accuracy
+                MqttManager.getInstance().publishSleepStatus(StatusBean("fw", versionName, latitude, longitude, accuracy, 1.0f))
+                batteryInfoDisposable?.dispose()
+            }
+
+
     }
 
     fun countDownNoticeIPO() {
@@ -292,6 +313,28 @@ class CarBoxControler private constructor() {
                     timerDisposable?.dispose()
                 }
             }
+
+    }
+
+
+    /**
+     * 获取电压
+     */
+    fun getCarBatteryInfo(): String? {
+        val path = "/sys/bus/platform/devices/device_info/CARBATTERYINFO"
+        return StringUtils.getString(path)
+    }
+
+
+    /**
+     * 获取sim卡iccid
+     */
+    @SuppressLint("MissingPermission")
+     fun getSimNumber(context: Context):String {
+        val telephonyManager = context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE) as TelephonyManager
+        val simSerialNumber = telephonyManager.simSerialNumber
+        MyLog.d("SIM卡", "ICCID=$simSerialNumber")
+        return simSerialNumber
 
     }
 

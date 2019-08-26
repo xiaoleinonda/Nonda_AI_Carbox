@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
+import org.eclipse.paho.android.service.MqttService
 import org.eclipse.paho.client.mqttv3.*
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
@@ -138,7 +139,13 @@ class MqttManager : MqttCallback, IMqttActionListener {
         val mqttMessage = MqttMessage()
         mqttMessage.payload = byteArray
 
-        mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+        try {
+            mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+            MyLog.d(TAG, "mqttAndroidClient=$mqttAndroidClient")
+        } catch (e:Exception) {
+            MyLog.d(TAG, "mqtt连接失败")
+        }
+
     }
 
 
@@ -217,19 +224,20 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGPS(GPSBeans: List<GPSBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.newBuilder()
-        for (i in 0..GPSBeans.size) {
-            val GPSBean = GPSBeans[i]
-            GPSBean.run {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.newBuilder()
+
+        for (gpsBean in GPSBeans) {
+            gpsBean?.run {
                 builderItem.lat = this.lat!!
                 builderItem.lng = this.lng!!
                 builderItem.spd = this.spd!!
                 builderItem.acc = this.acc!!
                 builderItem.brg = this.brg!!
                 builderItem.time = System.currentTimeMillis()
+                builderData.addItems(builderItem)
             }
         }
-        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.newBuilder()
-        builderData.addItems(builderItem)
+
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
 
@@ -243,23 +251,23 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGSensor(gSensorBeans: List<GSensorBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.newBuilder()
-        for (i in 0..gSensorBeans.size) {
-            val gSensorBean = gSensorBeans[i]
-            gSensorBean.run {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.newBuilder()
+
+        for (gSensorBean in gSensorBeans) {
+            gSensorBean?.run {
                 builderItem.x = this.x!!
                 builderItem.y = this.y!!
                 builderItem.z = this.z!!
                 builderItem.time = this.time!!
+                builderData.addItems(builderItem)
             }
         }
-        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.newBuilder()
-        builderData.addItems(builderItem)
+
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
 
         publish(builderMessage, PUBLISH_GSENSOR)
         MyLog.i(TAG, "上报G-Sensor=${gSensorBeans.size}")
-
     }
 
     /**
@@ -267,17 +275,18 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishGyro(gyroBeans: List<GyroBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.newBuilder()
-        for (i in 0..gyroBeans.size) {
-            val gyroBean = gyroBeans[i]
-            gyroBean.run {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.newBuilder()
+
+        for (gyroBean in gyroBeans) {
+            gyroBean?.run {
                 builderItem.x = this.x!!
                 builderItem.y = this.y!!
                 builderItem.z = this.z!!
                 builderItem.time = this.time!!
+                builderData.addItems(builderItem)
             }
         }
-        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.newBuilder()
-        builderData.addItems(builderItem)
+
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
 
@@ -291,15 +300,16 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishFaceResult(faceResultBeans: List<FaceResultBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.newBuilder()
-        for (i in 0..faceResultBeans.size) {
-            val gyroBean = faceResultBeans[i]
-            gyroBean.run {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.newBuilder()
+
+        for (faceResultBean in faceResultBeans) {
+            faceResultBean?.run {
                 builderItem.face = this.face!!
                 builderItem.time = this.time!!
+                builderData.addItems(builderItem)
             }
         }
-        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.newBuilder()
-        builderData.addItems(builderItem)
+
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
 
@@ -313,15 +323,16 @@ class MqttManager : MqttCallback, IMqttActionListener {
      */
     fun publishEmotion(emotionBeans: List<EmotionBean>) {
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.newBuilder()
-        for (i in 0..emotionBeans.size) {
-            val emotionBean = emotionBeans[i]
-            emotionBean.run {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.newBuilder()
+
+        for (emotionBean in emotionBeans) {
+            emotionBean?.run {
                 builderItem.emotion = this.emotion!!
                 builderItem.time = this.time!!
+                builderData.addItems(builderItem)
             }
         }
-        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.newBuilder()
-        builderData.addItems(builderItem)
+
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
 

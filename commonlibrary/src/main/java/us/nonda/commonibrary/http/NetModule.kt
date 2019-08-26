@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 class NetModule private constructor() {
 
-    private val DEFAULT_TIMEOUT: Long = 60
+    private val DEFAULT_TIMEOUT: Long = 30
     private val BASE_URL = "https://api-clouddrive-qa.zus.ai/"
 
     private  var retrofit: Retrofit

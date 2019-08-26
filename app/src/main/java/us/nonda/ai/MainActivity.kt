@@ -7,9 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.util.Log
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import us.nonda.ai.app.service.SensorReportService
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.http.NetModule
 
 /**
  * 首页
@@ -22,20 +25,33 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MyLog.d(TAG, "setContentView")
+
         setContentView(R.layout.activity_main)
         SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
         checkAccStatus(this)
 
-        getSimNumber()
+        btn_location.setOnClickListener {
+            Log.d("VideoRecordActivity", "点击")
+            CarBoxControler.instance.startCamera(this)
+
+        }
+
+        val carBatteryInfo = CarBoxControler
+            .instance.getCarBatteryInfo()
+
+        val simNumber = CarBoxControler.instance.getSimNumber(this)
+        MyLog.d("设备信息", "电量=$carBatteryInfo   sim卡=$simNumber")
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getSimNumber() {
-        val telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
-        val simSerialNumber = telephonyManager.simSerialNumber
-        Log.d("SIM卡", "ICCID=$simSerialNumber")
-
+    private fun test() {
+        NetModule.instance.provideAPIService()
+            .postLicenceSucceed("", "", "123")
+            .subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({}, {})
     }
 
     private fun checkAccStatus(context: Context) {

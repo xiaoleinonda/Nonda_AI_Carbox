@@ -72,9 +72,9 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     private var isConvertYUV = false
 
 
-
-     var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
-     var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+    var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+    var pictureFrontProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+    var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
 
 
     @SuppressLint("CheckResult")
@@ -84,33 +84,44 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
         if (subscribe?.isDisposed == false) {
             subscribe?.dispose()
         }
-        subscribe =   pictureProcessor.subscribeOn(Schedulers.io())
+        subscribe = pictureProcessor.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
                 t.emotion
             }
             .doOnNext {
-                var folderPath = FilePathManager.get().getBackEmotionPictureFolderPath() + it.emotion+"/"
+                var folderPath = FilePathManager.get().getBackEmotionPictureFolderPath() + it.emotion + "/"
                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
             }
-           .doOnNext {
-               val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion+"/"
-               takePicture(folderPath, it.fileName)
-           }.subscribe({Log.d("图片", "保存情绪图片成功")},{})
+            .doOnNext {
+                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
+                takePicture(folderPath, it.fileName)
+            }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
 
-        pictureFaceProcessor.
-            subscribeOn(Schedulers.io())
+        pictureFrontProcessor.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
                 t.emotion
             }
             .doOnNext {
-                var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion+"/"
+                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
+                takePicture(folderPath, it.fileName)
+            }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
+
+
+        pictureFaceProcessor.subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
+                t.emotion
+            }
+            .doOnNext {
+                var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion + "/"
                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
 
-            }.subscribe({Log.d("图片", "保存人脸图片成功")},{})
+            }.subscribe({ Log.d("图片", "保存人脸图片成功") }, {})
 
 
         this.cameraCallback = callback
@@ -347,7 +358,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
                 cameraCallback?.onRecordFailed(record)
             }
         }
-        MyLog.d(TAG, "录制结果="+record)
+        MyLog.d(TAG, "录制结果=" + record)
 
 //            startRecordResult(record)
     }
@@ -375,12 +386,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     }
 
     protected fun takePicture(path: String, callback: CameraDevice.CamPictureCallback) {
-        cameraDevice?.takePicture(path, object : CameraDevice.ShutterCallback {
-            override fun onShutter() {
-
-            }
-
-        }, callback)
+        cameraDevice?.takePicture(path, CameraDevice.ShutterCallback { }, callback)
     }
 
     fun log(tag: String, msg: String) {
@@ -439,11 +445,13 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     fun geHeight() = previewHeight
 
 
-    fun takePicture(folder:String, pictureName: String) {
+    fun takePicture(folder: String, pictureName: String) {
         if (cameraDevice == null) return
-        val path = folder  + pictureName + ".jpeg"
+        val path = "$folder$pictureName.jpeg"
         cameraDevice!!.takePicture(path, CameraDevice.ShutterCallback { },
-            CameraDevice.PictureCallback {  })
+            CameraDevice.PictureCallback {
+                Log.d("back takePicture图片", "path=$it");
+            })
 
     }
 }

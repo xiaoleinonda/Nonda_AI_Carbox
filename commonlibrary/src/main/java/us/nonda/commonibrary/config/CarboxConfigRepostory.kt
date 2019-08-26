@@ -16,7 +16,7 @@ class CarboxConfigRepostory private constructor() {
     /**
      * 上报时间
      */
-    var gpsReportFreq: Long = 1 * 60 * 1000
+    var gpsReportFreq: Long = 1 * 20 * 1000
 
     /**
      * 采集时间
@@ -26,7 +26,7 @@ class CarboxConfigRepostory private constructor() {
     /**
      * 上报时间
      */
-    var gSensorReportFreq: Long = 1 * 60 * 1000
+    var gSensorReportFreq: Long = 1 * 20 * 1000
 
     /**
      * 采集时间
@@ -36,7 +36,7 @@ class CarboxConfigRepostory private constructor() {
     /**
      * 上报时间
      */
-    var gyroReportFreq: Long = 1 * 60 * 1000
+    var gyroReportFreq: Long = 1 * 20 * 1000
 
 
     var emotionReportFreq: Long = 1 * 60 * 1000

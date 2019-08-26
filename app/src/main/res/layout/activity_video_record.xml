@@ -7,6 +7,9 @@
         android:layout_height="match_parent"
         tools:context=".app.ui.VideoRecordActivity">
 
+
+
+
     <Button
             android:id="@+id/btn_camera"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,4 +47,27 @@
             app:layout_constraintBottom_toBottomOf="@id/surfaceViewBack"
             android:layout_height="0dp"
             />
+
+    <TextView
+            android:id="@+id/tv_emotion"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="open"
+            tools:text="sdfsdf"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/tv_pass"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="sdfsdf"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

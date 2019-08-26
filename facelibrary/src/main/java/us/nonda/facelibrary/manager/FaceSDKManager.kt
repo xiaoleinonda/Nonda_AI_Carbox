@@ -477,7 +477,7 @@ class FaceSDKManager private constructor() {
     ): Feature? {
         log("cache=${featureLRUCache.getAll().size}       curFeature=${curFeature.size}")
 
-        if (this.featureLRUCache.all.isNotEmpty()) {
+    /*    if (this.featureLRUCache.all.isNotEmpty()) {
             for (featureEntry: Map.Entry<String, Feature> in featureLRUCache.all) {
                 val feature = featureEntry.value
                 val similariry: Float
@@ -492,7 +492,7 @@ class FaceSDKManager private constructor() {
                     }
                 }
             }
-        }
+        }*/
 
         val featureCpp = faceFeature.featureCompareCpp(
             curFeature, featureType, 90f
@@ -504,8 +504,8 @@ class FaceSDKManager private constructor() {
             log("Id=" + featureCpp.id)
 
             val features = DBManager.getInstance().queryFeatureById(featureCpp.id)
-            if (features != null && features!!.size > 0) {
-                val feature = features!!.get(0)
+            if (features != null && features.size > 0) {
+                val feature = features.get(0)
                 log("注册成功" + features.size)
 
                 featureLRUCache.put(feature.getUserName(), feature)
@@ -543,9 +543,11 @@ class FaceSDKManager private constructor() {
 
 
     fun stop() {
+        faceLivenessManager?.stop()
         faceCache.clearFacePassStatus()
         faceCache.clearFacePicture()
         featureLRUCache.clear()
+
 
         val listFeatures = DBManager.getInstance().queryFeature()
         if (listFeatures != null && listFeatures.size > 0) {

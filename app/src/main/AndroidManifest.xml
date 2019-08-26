@@ -3,6 +3,8 @@
           package="us.nonda.ai">
 
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <application
             android:name=".app.base.NondaApp"
             android:allowBackup="true"
@@ -11,7 +13,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
+
         <activity android:name=".app.ui.AccActivity"
+
                   android:screenOrientation="landscape">
            <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

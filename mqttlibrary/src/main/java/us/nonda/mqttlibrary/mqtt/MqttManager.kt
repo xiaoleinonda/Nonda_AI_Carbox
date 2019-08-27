@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
-import org.eclipse.paho.android.service.MqttService
 import org.eclipse.paho.client.mqttv3.*
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
@@ -28,7 +27,7 @@ UserName: <username>
 Password: <password>
 Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - false
  */
-class MqttManager : MqttCallback, IMqttActionListener{
+class MqttManager : MqttCallback, IMqttActionListener {
 
     private val TAG = MqttManager::class.java.simpleName
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
@@ -68,8 +67,7 @@ class MqttManager : MqttCallback, IMqttActionListener{
     )
 
 
-
-     init {
+    init {
         mqttAndroidClient.setCallback(this)
         mqttConnectOptions.isCleanSession = false
         // 设置超时时间，单位：秒
@@ -185,9 +183,8 @@ class MqttManager : MqttCallback, IMqttActionListener{
         if (cloudDriveMqttMessage == null) {
             return
         }
-        val cloudDriveMqttFreqData = cloudDriveMqttMessage.data.unpack(CloudDriveMqttMessageCreator.CloudDriveMqttFreqData::class.java)
         val mqttMessageHandler = MqttHandlerFactory.getHandlerByCMD(cloudDriveMqttMessage.cmd)
-        mqttMessageHandler.handleMqttMessage(cloudDriveMqttFreqData)
+        mqttMessageHandler.handleMqttMessage(cloudDriveMqttMessage)
     }
 
 

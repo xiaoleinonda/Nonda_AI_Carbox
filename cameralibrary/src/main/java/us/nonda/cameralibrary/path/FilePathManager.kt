@@ -1,6 +1,7 @@
 package us.nonda.cameralibrary.path
 
 import us.nonda.commonibrary.utils.AppUtils
+import us.nonda.commonibrary.utils.DateUtils
 import us.nonda.commonibrary.utils.PathUtils
 
 class FilePathManager private constructor() {
@@ -31,16 +32,31 @@ class FilePathManager private constructor() {
         }
     }
 
-    init {
 
-
+    fun getFrontEmotionPictureFolderPath(): String {
+        val nowDateShort = DateUtils.getNowDateShort()
+        return "$sdcard/$path_main/$nowDateShort/image/emotion/front/"
     }
 
-    fun getFrontEmotionPictureFolderPath() = "$sdcard/$path_main/$path_picture_folder/$path_picture_front_folder/"
-    fun getBackEmotionPictureFolderPath() = "$sdcard/$path_main/$path_picture_folder/$path_picture_back_folder/"
-    fun getFrontVideoPath() = "$sdcard/$path_main/$path_video_folder/$path_video_front_folder/"
-    fun getBackVideoPath() = "$sdcard/$path_main/$path_video_folder/$path_video_back_folder/"
-    fun getFacePictureFolderPath() = "$sdcard/$path_main/$path_picture_folder/$path_picture_face_folder/"
+    fun getBackEmotionPictureFolderPath(): String {
+        val nowDateShort = DateUtils.getNowDateShort()
+        return "$sdcard/$path_main/$nowDateShort/image/emotion/back/"
+    }
+
+    fun getFrontVideoPath(): String {
+        val nowDateShort = DateUtils.getNowDateShort()
+        return "$sdcard/$path_main/$nowDateShort/video/front/"
+    }
+
+    fun getBackVideoPath(): String {
+        val nowDateShort = DateUtils.getNowDateShort()
+        return "$sdcard/$path_main/$nowDateShort/video/back/"
+    }
+
+    fun getFacePictureFolderPath(): String {
+        val nowDateShort = DateUtils.getNowDateShort()
+        return "$sdcard/$path_main/$nowDateShort/image/face/back/"
+    }
 
 
 }

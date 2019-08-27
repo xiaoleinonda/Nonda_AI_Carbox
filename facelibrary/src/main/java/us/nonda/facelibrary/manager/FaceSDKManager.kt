@@ -10,11 +10,13 @@ import com.baidu.idl.facesdk.model.BDFaceSDKCommon
 import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
 import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
+import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
+import us.nonda.commonibrary.model.PostLicenceBody
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.commonibrary.utils.NetworkUtil
@@ -477,22 +479,22 @@ class FaceSDKManager private constructor() {
     ): Feature? {
         log("cache=${featureLRUCache.getAll().size}       curFeature=${curFeature.size}")
 
-    /*    if (this.featureLRUCache.all.isNotEmpty()) {
-            for (featureEntry: Map.Entry<String, Feature> in featureLRUCache.all) {
-                val feature = featureEntry.value
-                val similariry: Float
+        /*    if (this.featureLRUCache.all.isNotEmpty()) {
+                for (featureEntry: Map.Entry<String, Feature> in featureLRUCache.all) {
+                    val feature = featureEntry.value
+                    val similariry: Float
 
-                if (featureType == FaceFeature.FeatureType.FEATURE_VIS) {
-                    similariry = featureCompare(feature.getFeature(), curFeature)
-                    log("similariry=$similariry")
-                    if (similariry > 0.8f) {
-                        liveModel.featureScore = similariry
-                        featureLRUCache.put(feature.getUserName(), feature)
-                        return feature
+                    if (featureType == FaceFeature.FeatureType.FEATURE_VIS) {
+                        similariry = featureCompare(feature.getFeature(), curFeature)
+                        log("similariry=$similariry")
+                        if (similariry > 0.8f) {
+                            liveModel.featureScore = similariry
+                            featureLRUCache.put(feature.getUserName(), feature)
+                            return feature
+                        }
                     }
                 }
-            }
-        }*/
+            }*/
 
         val featureCpp = faceFeature.featureCompareCpp(
             curFeature, featureType, 90f
@@ -584,6 +586,7 @@ class FaceSDKManager private constructor() {
         }
     }
 
+    private var requestSerialNumDisposable: Disposable? = null
     private fun getLicenceStrHttp() {
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
             return
@@ -594,11 +597,16 @@ class FaceSDKManager private constructor() {
         }
         val imeiCode = DeviceUtils.getIMEICode(context)
         log("IMEI号=$imeiCode")
-        NetModule.instance.provideAPIService()
+
+        if (requestSerialNumDisposable != null && !requestSerialNumDisposable!!.isDisposed) {
+            requestSerialNumDisposable!!.dispose()
+        }
+        requestSerialNumDisposable = NetModule.instance.provideAPIService()
             .getSerialNum(imeiCode, deviceId!!)
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .retry(2)
             .subscribe({
                 if (it.code == 200 && it.data != null) {
                     val data = it.data
@@ -706,6 +714,7 @@ class FaceSDKManager private constructor() {
 
     private var deviceId: String? = null
 
+    private var requestFacePicDisposable: Disposable? = null
     /**
      * http请求注册人脸的图片
      */
@@ -721,11 +730,16 @@ class FaceSDKManager private constructor() {
 
 
         val imeiCode = DeviceUtils.getIMEICode(context)
-        NetModule.instance.provideAPIService()
+
+        if (requestFacePicDisposable != null && !requestFacePicDisposable!!.isDisposed) {
+            requestFacePicDisposable!!.dispose()
+        }
+        requestFacePicDisposable = NetModule.instance.provideAPIService()
             .getFacepicture("869455047237132")
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
+            .retry(2)
             .subscribe({
                 if (it.code == 200 && it.data != null) {
                     val data = it.data

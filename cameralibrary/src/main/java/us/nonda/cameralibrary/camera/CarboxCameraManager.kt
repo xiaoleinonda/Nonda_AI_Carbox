@@ -59,7 +59,14 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     private var rotation: Int = 0
     private var video_duration_ms: Int = 0
 
+    /**
+     * 视频录制保存的名字
+     */
     private var videoFileName: String = ""
+    /**
+     * 视频录制保存的路径
+     */
+    private var videoFilePathName: String = ""
     private var videoFrameRate: Int = 0
     private var videoSizeLimi: Int = 0
     private var previewFrameRate: Int = 0
@@ -67,10 +74,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     private var video_record_quality: Int = CamcorderProfile.QUALITY_480P
 
 
-
     private var isConvertYUV = false
-
-
 
 
     @SuppressLint("CheckResult")
@@ -121,13 +125,15 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
         when (cameraType) {
             CameraInfo.CAMERA_USB_CAMERA -> {
-                videoFileName = FilePathManager.get().getBackVideoPath()
+                videoFilePathName = FilePathManager.get().getBackVideoPath()
+                videoFileName = "nondaback"
                 videoFrameRate = cameraConfig.videoFrameRateBack
                 previewFrameRate = cameraConfig.videoFrameRateFront
                 isConvertYUV = true
             }
             else -> {
-                videoFileName = FilePathManager.get().getFrontVideoPath()
+                videoFilePathName = FilePathManager.get().getFrontVideoPath()
+                videoFileName = "nondafront"
                 videoFrameRate = cameraConfig.videoFrameRateFront
                 previewFrameRate = cameraConfig.videoFrameRateFront
                 isConvertYUV = false
@@ -186,7 +192,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     /**
      * 打开相机
      */
-    fun openCamera(cameraId: Int, yuvData: Boolean) {
+    private fun openCamera(cameraId: Int, yuvData: Boolean) {
         try {
             cameraDevice = CarcorderManager.get().openCameraDevice(cameraId)
             MyLog.d(TAG, "摄像头打开成功")
@@ -215,7 +221,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
         parameters.setYUVCallbackType(CameraDevice.YUVCallbackType.yuvCBAndRecord)//录制同时 获取yuv数据
 
-        parameters.setOutputFile(videoFileName)//录制的保存路径
+        parameters.setOutputFile(videoFilePathName)//录制的保存路径
         val profile = CamcorderProfile.get(cameraId, video_record_quality)
         profile.videoFrameRate = videoFrameRate//usb摄像头设置15帧
         profile.videoBitRate = videoBitRate
@@ -223,7 +229,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
         parameters.setRecordingHint(true)
 
         parameters.setFreeSizeLimit(videoSizeLimi)//设置视频长度
-
+        parameters.setFileNameTypeFormat(videoFileName, "%Y%m%d%H%M%S%n")
         parameters.setMainVideoFrameMode(CameraDevice.VideoFrameMode.DISABLE) //保存为视频文件
         parameters.setOutputFileFormat(CameraDevice.OutputFormat.MPEG_4)
 
@@ -319,7 +325,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     /**
      * 关闭摄像头和录制
      */
-  open  fun closeCamera() {
+    open fun closeCamera() {
         cameraDevice?.run {
             stopRecord()
             stopYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
@@ -330,7 +336,6 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
             }
 
         }
-
 
 
     }

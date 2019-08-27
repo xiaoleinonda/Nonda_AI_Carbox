@@ -68,7 +68,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
     )
 
 
-    fun init() {
+    init {
         mqttAndroidClient.setCallback(this)
         mqttConnectOptions.isCleanSession = false
         // 设置超时时间，单位：秒
@@ -141,7 +141,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
         try {
             mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
             MyLog.d(TAG, "mqttAndroidClient=$mqttAndroidClient")
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             MyLog.d(TAG, "mqtt连接失败")
         }
 
@@ -182,7 +182,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
             return
         }
         val mqttMessageHandler = MqttHandlerFactory.getHandlerByCMD(cloudDriveMqttMessage.cmd)
-        
+
         mqttMessageHandler.handleMqttMessage(cloudDriveMqttMessage)
     }
 

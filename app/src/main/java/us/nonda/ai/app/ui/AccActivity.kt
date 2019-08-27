@@ -19,24 +19,16 @@ import java.util.ArrayList
 
 class AccActivity : AppCompatActivity() {
 
-    var netStateChangeReceiver: NetStateChangeReceiver? = null
 
     private var carBoxControler: CarBoxControler? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_acc)
-        registReceiver()
 
         FaceSDKManager.instance.checkLicenceStatus()
-        MqttManager.getInstance().init()
         btn_ota.text = AppUtils.getVersionName(this)
     }
 
-    private fun registReceiver() {
-        netStateChangeReceiver = NetStateChangeReceiver()
-        registerReceiver(netStateChangeReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-
-    }
 
     fun onOpen(view: View) {
 
@@ -67,8 +59,7 @@ class AccActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        DBManager.getInstance().release()
-        unregisterReceiver(netStateChangeReceiver)
+
     }
 
 }

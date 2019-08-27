@@ -30,6 +30,7 @@ import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.model.GSensorBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 class VideoRecordActivity : AppCompatActivity() {
@@ -42,10 +43,10 @@ class VideoRecordActivity : AppCompatActivity() {
 
     companion object {
         fun starter(context: Context) {
-          /*  val activitySum = FinishActivityManager.getManager().activitySum
-            if (activitySum > 0) {
-                FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
-            }*/
+            /*  val activitySum = FinishActivityManager.getManager().activitySum
+              if (activitySum > 0) {
+                  FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
+              }*/
             val intent = Intent(context, VideoRecordActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
@@ -69,8 +70,6 @@ class VideoRecordActivity : AppCompatActivity() {
         }
     }
 
-    private var subscribe: Disposable? = null
-    private var publishProcessor: PublishProcessor<ByteArray>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_record)
@@ -78,8 +77,6 @@ class VideoRecordActivity : AppCompatActivity() {
         FinishActivityManager.getManager().addActivity(this)
         MyLog.d(TAG, "onCreate")
         oepnCamera()
-
-
 
         btn_camera.setOnClickListener {
             //            oepnCamera()
@@ -97,56 +94,13 @@ class VideoRecordActivity : AppCompatActivity() {
     }
 
 
-    private fun initPublish() {
-        publishProcessor = PublishProcessor.create<ByteArray>()
-
-        if (subscribe?.isDisposed == false) {
-            subscribe?.dispose()
-        }
-        subscribe = publishProcessor!!.subscribeOn(Schedulers.computation())
-            .unsubscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                //                cameraCallback?.onYuvCbFrame(it)
-            }, {})
-
-    }
-
     fun starterRecord() {
 //        BackCameraMananger.instance.startRecord()
 //        FrontCameraMananger.instance.startRecord()
     }
 
-    var timeBack: Long = 0;
-    var timeFront: Long = 0;
-    private fun oepnCamera() {
-        us.nonda.cameralibrary.camera.BackCameraMananger.instance.initBackCamera(surfaceViewBack, object :
-            us.nonda.cameralibrary.camera.CameraCallback {
-            override fun onRecordSucceed() {
-//                println("录制 BACK  onRecordSucceed")
-            }
-
-            override fun onRecordFailed(code: Int) {
-//                println("录制 BACK  onRecordFailed $code")
-            }
-
-            override fun onOpenCameraSucceed() {
-//                println("录制 BACK  onOpenCameraSucceed")
-            }
-
-            override fun onOpenCameraFaile(msg: String) {
-//                println("录制 BACK  onOpenCameraFaile $msg")
-            }
-
-            override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
-//                println("百度BACK   onYuvCbFrame $bytes")
-                face(bytes, width, height)
-
-            }
-
-        })
-
-        us.nonda.cameralibrary.camera.FrontCameraMananger.instance.initBackCamera(surfaceViewFront, object :
+    private fun openFrontCamera() {
+        FrontCameraMananger.instance.initBackCamera(surfaceViewFront, object :
             us.nonda.cameralibrary.camera.CameraCallback {
             override fun onRecordSucceed() {
 //                println("录制 Front  onRecordSucceed")
@@ -172,6 +126,42 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
         })
+
+    }
+
+    private fun openBackCamera() {
+        BackCameraMananger.instance.initBackCamera(surfaceViewBack, object :
+            us.nonda.cameralibrary.camera.CameraCallback {
+            override fun onRecordSucceed() {
+//                println("录制 BACK  onRecordSucceed")
+            }
+
+            override fun onRecordFailed(code: Int) {
+//                println("录制 BACK  onRecordFailed $code")
+            }
+
+            override fun onOpenCameraSucceed() {
+//                println("录制 BACK  onOpenCameraSucceed")
+            }
+
+            override fun onOpenCameraFaile(msg: String) {
+//                println("录制 BACK  onOpenCameraFaile $msg")
+            }
+
+            override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
+//                println("百度BACK   onYuvCbFrame $bytes")
+                face(bytes, width, height)
+
+            }
+
+        })
+
+    }
+
+    private fun oepnCamera() {
+        openBackCamera()
+        openFrontCamera()
+
         FaceSDKManager.instance.setCallback(object : FaceDetectCallBack {
             override fun onFaceDetectCallback(
                 isDetect: Boolean,
@@ -240,18 +230,18 @@ class VideoRecordActivity : AppCompatActivity() {
                 livenessModel?.run {
                     MyLog.d(TAG, "人脸比对结果=$featureStatus")
 
-                 val currentTimeMillis = System.currentTimeMillis()
+                    val currentTimeMillis = System.currentTimeMillis()
 
-                        if (faceData.size > 0) {
-                         val time = faceData[0].time
-                         if (currentTimeMillis - time > CarboxConfigRepostory.instance.faceResultReportFreq) {
-                             var reportData = arrayListOf<FaceResultBean>()
-                             reportData.addAll(faceData)
-                             MqttManager.getInstance().publishFaceResult(reportData)
-                             faceData.clear()
-                         }
-                     }
-                     faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
+                    if (faceData.size > 0) {
+                        val time = faceData[0].time
+                        if (currentTimeMillis - time > CarboxConfigRepostory.instance.faceResultReportFreq) {
+                            var reportData = arrayListOf<FaceResultBean>()
+                            reportData.addAll(faceData)
+                            MqttManager.getInstance().publishFaceResult(reportData)
+                            faceData.clear()
+                        }
+                    }
+                    faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
 
 
                     setResult("成功")
@@ -285,16 +275,17 @@ class VideoRecordActivity : AppCompatActivity() {
     }
 
 
-
     private fun face(bytes: ByteArray, width: Int, height: Int) {
         FaceSDKManager.instance.recognition(bytes, width, height)
     }
 
-    private fun setEnmotion(emotion:String){
+    private fun setEnmotion(emotion: String) {
         runOnUiThread {
             tv_emotion.setText(emotion)
         }
-    }   private fun setResult(pass:String){
+    }
+
+    private fun setResult(pass: String) {
         runOnUiThread {
             tv_pass.setText(pass)
         }

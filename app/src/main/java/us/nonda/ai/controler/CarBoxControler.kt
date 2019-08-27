@@ -51,7 +51,7 @@ class CarBoxControler private constructor() {
     fun wakeUp(context: Context, msg: String) {
         MyLog.d(TAG, "wakeUp 唤醒应用    $msg")
         initConfig()
-//        startCamera(context)
+        startCamera(context)
         initFace()
         startLocation()
         startSensor()
@@ -287,14 +287,16 @@ class CarBoxControler private constructor() {
             .observeOn(Schedulers.io())
             .subscribe {
                 val carBatteryInfo = getCarBatteryInfo()
+              val vol =  java.lang.Float.valueOf(carBatteryInfo?:"0.0")
                 val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
                 val versionName = AppUtils.getVersionName(AppUtils.context)
                 val latitude = (bestLocation?.latitude)?.toDouble()?:-1.0
                 val longitude = (bestLocation?.longitude)?.toDouble()?:-1.0
                 val accuracy = bestLocation?.accuracy
-                MqttManager.getInstance().publishSleepStatus(StatusBean("fw", versionName, latitude, longitude, accuracy, 1.0f))
+                MqttManager.getInstance().publishSleepStatus(StatusBean("fw", versionName, latitude, longitude, accuracy, vol))
                 batteryInfoDisposable?.dispose()
             }
+
 
 
     }

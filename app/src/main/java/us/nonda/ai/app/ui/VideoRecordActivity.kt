@@ -101,7 +101,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
     private fun openFrontCamera() {
         FrontCameraMananger.instance.initBackCamera(surfaceViewFront, object :
-            us.nonda.cameralibrary.camera.CameraCallback {
+            CameraCallback {
             override fun onRecordSucceed() {
 //                println("录制 Front  onRecordSucceed")
 
@@ -131,7 +131,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
     private fun openBackCamera() {
         BackCameraMananger.instance.initBackCamera(surfaceViewBack, object :
-            us.nonda.cameralibrary.camera.CameraCallback {
+            CameraCallback {
             override fun onRecordSucceed() {
 //                println("录制 BACK  onRecordSucceed")
             }
@@ -298,7 +298,7 @@ class VideoRecordActivity : AppCompatActivity() {
         us.nonda.cameralibrary.camera.BackCameraMananger.instance.closeCamera()
         us.nonda.cameralibrary.camera.FrontCameraMananger.instance.closeCamera()
 
-        FinishActivityManager.getManager().finishActivity(this)
+//        FinishActivityManager.getManager().removeActivity(this)
 
 //        FaceSDKManager.instance.stop()
 

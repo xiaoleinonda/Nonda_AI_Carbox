@@ -196,29 +196,29 @@ class FaceLiveness constructor(
     private fun parseFaceEnmition(emotions: BDFaceSDKEmotions?): String? {
         return when (emotions?.emotion) {
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_ANGRY -> {
-                "生气"
+                "ANGRY"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_DISGUST -> {
-                "恶心"
+                "DISGUST"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_FEAR -> {
-                "害怕"
+                "FEAR"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_HAPPY -> {
-                "开心"
+                "HAPPY"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_SAD -> {
-                "伤心"
+                "SAD"
             }
 
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_SURPRISE -> {
-                "惊讶"
+                "SURPRISE"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_NEUTRAL -> {
-                "无情绪"
+                "NEUTRAL"
             }
             else -> {
-                "解析失败"
+                "NULL"
             }
         }
     }

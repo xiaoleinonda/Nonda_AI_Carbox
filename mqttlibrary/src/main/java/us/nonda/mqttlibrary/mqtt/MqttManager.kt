@@ -144,9 +144,9 @@ class MqttManager : MqttCallback, IMqttActionListener{
 
         try {
             mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
-            MyLog.d(TAG, "mqttAndroidClient=$mqttAndroidClient")
+            MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
         } catch (e: Exception) {
-            MyLog.d(TAG, "mqtt连接失败")
+            MyLog.d(TAG, "mqtt发送失败")
             Log.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
         }
     }

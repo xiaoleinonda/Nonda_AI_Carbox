@@ -18,7 +18,7 @@ class NondaApp : Application() {
         super.onCreate()
         instance = this
         MyLog.d(TAG,"onCreate")
-       Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
+//       Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
         AppUtils.init(this)
 
     }

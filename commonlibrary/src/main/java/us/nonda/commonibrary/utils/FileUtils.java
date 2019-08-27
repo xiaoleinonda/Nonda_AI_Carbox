@@ -22,7 +22,6 @@ public class FileUtils {
         if (!file.exists()) {
             return "";
         }
-
         StringBuilder result = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件

@@ -34,27 +34,27 @@ class FilePathManager private constructor() {
 
 
     fun getFrontEmotionPictureFolderPath(): String {
-        val nowDateShort = DateUtils.getNowDateShort()
+        val nowDateShort = DateUtils.getStringDateShort()
         return "$sdcard/$path_main/$nowDateShort/image/emotion/front/"
     }
 
     fun getBackEmotionPictureFolderPath(): String {
-        val nowDateShort = DateUtils.getNowDateShort()
+        val nowDateShort = DateUtils.getStringDateShort()
         return "$sdcard/$path_main/$nowDateShort/image/emotion/back/"
     }
 
     fun getFrontVideoPath(): String {
-        val nowDateShort = DateUtils.getNowDateShort()
+        val nowDateShort = DateUtils.getStringDateShort()
         return "$sdcard/$path_main/$nowDateShort/video/front/"
     }
 
     fun getBackVideoPath(): String {
-        val nowDateShort = DateUtils.getNowDateShort()
+        val nowDateShort = DateUtils.getStringDateShort()
         return "$sdcard/$path_main/$nowDateShort/video/back/"
     }
 
     fun getFacePictureFolderPath(): String {
-        val nowDateShort = DateUtils.getNowDateShort()
+        val nowDateShort = DateUtils.getStringDateShort()
         return "$sdcard/$path_main/$nowDateShort/image/face/back/"
     }
 

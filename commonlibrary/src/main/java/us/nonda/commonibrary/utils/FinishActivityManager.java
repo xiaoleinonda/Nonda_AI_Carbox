@@ -31,6 +31,30 @@ public class FinishActivityManager {
         }
         mActivityStack.add(new WeakReference<>(activity));
     }
+
+    /**
+     * 添加Activity到栈
+     * @param activity
+     */
+    public void removeActivity(Activity activity) {
+        if (mActivityStack == null) {
+           return;
+        }
+        // 使用迭代器进行安全删除
+        for (Iterator<WeakReference<Activity>> it = mActivityStack.iterator(); it.hasNext(); ) {
+            WeakReference<Activity> activityReference = it.next();
+            Activity temp = activityReference.get();
+            // 清理掉已经释放的activity
+            if (temp == null) {
+                it.remove();
+                continue;
+            }
+            if (temp == activity) {
+                it.remove();
+            }
+        }
+    }
+
     /**
      * 检查弱引用是否释放，若释放，则从栈中清理掉该元素
      */

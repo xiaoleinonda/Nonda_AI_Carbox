@@ -73,6 +73,7 @@ class FaceSDKManager private constructor() {
     }
 
 
+
     private var callback: FaceDetectCallBack? = null
 
     /**

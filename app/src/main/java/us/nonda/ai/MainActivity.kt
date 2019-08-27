@@ -17,7 +17,9 @@ import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
+import us.nonda.commonibrary.utils.DateUtils
 import us.nonda.facelibrary.db.DBManager
+import us.nonda.facelibrary.manager.FaceSDKManager
 
 /**
  * 首页
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         MyLog.d(TAG, "setContentView")
 
         setContentView(R.layout.activity_main)
+//        FaceSDKManager.instance.stop()
+
         registReceiver()
 
         SensorReportService.startService(this)
@@ -41,8 +45,9 @@ class MainActivity : AppCompatActivity() {
         checkAccStatus(this)
 
         btn_location.setOnClickListener {
-            Log.d("VideoRecordActivity", "点击")
-            CarBoxControler.instance.startCamera(this)
+            CarBoxControler.instance.startCamera(this@MainActivity)
+        }
+        btn_stop_location.setOnClickListener {
             test()
         }
 
@@ -54,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun test() {
-
+        checkAccStatus(this)
     }
 
 
@@ -81,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         unregisterReceiver(netStateChangeReceiver)
 
     }
+
     private fun registReceiver() {
         netStateChangeReceiver = NetStateChangeReceiver()
         registerReceiver(netStateChangeReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))

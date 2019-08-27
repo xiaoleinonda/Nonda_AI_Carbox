@@ -195,6 +195,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     private fun openCamera(cameraId: Int, yuvData: Boolean) {
         try {
             cameraDevice = CarcorderManager.get().openCameraDevice(cameraId)
+
             MyLog.d(TAG, "摄像头打开成功")
 
         } catch (e: java.lang.Exception) {
@@ -202,6 +203,10 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
             MyLog.d(TAG, "摄像头打开失败")
 
             e.printStackTrace()
+        }
+
+        if (cameraDevice == null) {
+            return
         }
         cameraDevice!!.setRecordingMuteAudio(false)
 

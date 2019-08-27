@@ -37,6 +37,7 @@ public class DownloadHelper {
                 }
             }
         }
+
         return SINGLETANCE;
     }
 

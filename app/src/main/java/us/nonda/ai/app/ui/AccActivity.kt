@@ -4,18 +4,22 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import kotlinx.android.synthetic.main.activity_acc.*
 import com.yaoxiaowen.download.DownloadHelper
 import us.nonda.ai.R
-import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.ArrayList
+import androidx.core.os.HandlerCompat.postDelayed
+import androidx.core.os.postDelayed
+import androidx.core.os.HandlerCompat.postDelayed
+import us.nonda.mqttlibrary.model.GPSBean
+
 
 class AccActivity : AppCompatActivity() {
 
@@ -39,12 +43,12 @@ class AccActivity : AppCompatActivity() {
     }
 
     fun onPublish(view: View) {
-        val lists = ArrayList<FaceResultBean>()
-        val faceResultBean = FaceResultBean(1, System.currentTimeMillis())
-//        faceResultBean.face=1
-//        faceResultBean.time=System.currentTimeMillis()
-        lists.add(faceResultBean)
-        MqttManager.getInstance().publishFaceResult(lists)
+        val lists = ArrayList<GPSBean>()
+        for (i in 0..3000) {
+            val gps = GPSBean(120.111,120.121311,3213.12f,3123.213f,121231f,System.currentTimeMillis())
+            lists.add(gps)
+        }
+        MqttManager.getInstance().publishGPS(lists)
     }
 
     fun onOTA(view: View) {
@@ -56,10 +60,24 @@ class AccActivity : AppCompatActivity() {
         mDownloadHelper.addCarBoxTask(this)
     }
 
+    fun onInfinitePuiblish(view: View) {
+        val lists = ArrayList<FaceResultBean>()
+        val faceResultBean = FaceResultBean(1, System.currentTimeMillis())
+        lists.add(faceResultBean)
+        MqttManager.getInstance().publishFaceResult(lists)
+//        handler.postDelayed(runnable, 1000)
+    }
 
-    override fun onDestroy() {
-        super.onDestroy()
 
+    var handler = Handler()
+    var runnable: Runnable = object : Runnable {
+        override fun run() {
+            val lists = ArrayList<FaceResultBean>()
+            val faceResultBean = FaceResultBean(1, System.currentTimeMillis())
+            lists.add(faceResultBean)
+            MqttManager.getInstance().publishFaceResult(lists)
+            handler.postDelayed(this, 1000)
+        }
     }
 
 }

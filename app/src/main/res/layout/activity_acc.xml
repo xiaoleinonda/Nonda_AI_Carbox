@@ -23,6 +23,12 @@
             android:onClick="onPublish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+    <Button
+            android:text="on infinite Publish"
+            android:onClick="onInfinitePuiblish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     <Button
             android:text="OTA"
             android:id="@+id/btn_ota"

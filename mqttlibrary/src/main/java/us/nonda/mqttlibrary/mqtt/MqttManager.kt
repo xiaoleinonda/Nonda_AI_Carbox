@@ -28,7 +28,7 @@ UserName: <username>
 Password: <password>
 Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - false
  */
-class MqttManager : MqttCallback, IMqttActionListener {
+class MqttManager : MqttCallback, IMqttActionListener{
 
     private val TAG = MqttManager::class.java.simpleName
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
@@ -68,7 +68,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
     )
 
 
-    init {
+
+     init {
         mqttAndroidClient.setCallback(this)
         mqttConnectOptions.isCleanSession = false
         // 设置超时时间，单位：秒
@@ -102,6 +103,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
             } catch (e: MqttException) {
                 e.printStackTrace()
             }
+        } else {
+            Log.d(TAG, "网络重新连接" + mqttAndroidClient.isConnected)
         }
     }
 
@@ -110,6 +113,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
         if (mqttAndroidClient.isConnected) {
             mqttAndroidClient.disconnect()
         }
+        Log.d(TAG, "网络断开" + mqttAndroidClient.isConnected)
 
     }
 
@@ -143,8 +147,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
             MyLog.d(TAG, "mqttAndroidClient=$mqttAndroidClient")
         } catch (e: Exception) {
             MyLog.d(TAG, "mqtt连接失败")
+            Log.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
         }
-
     }
 
 
@@ -199,18 +203,19 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     override fun onSuccess(asyncActionToken: IMqttToken?) {
-        Log.d(TAG, "onSuccess")
         isConnected = true
         try {
             mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
+            Log.d(TAG, "onSuccess发送成功")
         } catch (e: MqttException) {
             e.printStackTrace()
+            Log.d(TAG, "onSuccess：${e?.message}" + mqttAndroidClient.isConnected)
         }
     }
 
     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
         isConnected = false
-        Log.d(TAG, "onFailure：${exception?.message}")
+        Log.d(TAG, "onFailure：${exception?.message}+mqttAndroidClient.isConnected")
     }
 
 

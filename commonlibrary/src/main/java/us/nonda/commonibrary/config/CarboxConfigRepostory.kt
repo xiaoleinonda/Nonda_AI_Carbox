@@ -40,13 +40,17 @@ class CarboxConfigRepostory private constructor() {
 
 
     var emotionReportFreq: Long = 1 * 60 * 1000
+    var emotionCollectFreq: Long = 1 * 60 * 1000
     var faceResultReportFreq: Long = 1 * 60 * 1000
+    var faceResultCollectFreq: Long = 1 * 60 * 1000
 
 
     companion object {
         private val SP_KEY_GSENSOR_CONFIG = "sp_key_gsensor_config"
         private val SP_KEY_GYRO_CONFIG = "sp_key_gyro_config"
         private val SP_KEY_GPS_CONFIG = "sp_key_gps_config"
+        private val SP_KEY_EMOTION_CONFIG = "sp_key_emotion_config"
+        private val SP_KEY_FACE_CONFIG = "sp_key_face_config"
         val instance: CarboxConfigRepostory by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             CarboxConfigRepostory()
         }
@@ -107,5 +111,32 @@ class CarboxConfigRepostory private constructor() {
             gpsReportFreq = reportFreq
         }
         SPUtils.put(context, SP_KEY_GPS_CONFIG, gpsConfig)
+    }
+
+    private fun getEmotionConfig(): EmotionConfig? {
+        val json = SPUtils.get(context, SP_KEY_EMOTION_CONFIG, "") as String
+        return Gson().fromJson(json, EmotionConfig::class.java)
+    }
+
+    fun putEmotionConfig(gpsConfig: EmotionConfig) {
+        gpsConfig.run {
+            emotionCollectFreq = collectFreq
+            emotionReportFreq = reportFreq
+        }
+        SPUtils.put(context, SP_KEY_EMOTION_CONFIG, gpsConfig)
+    }
+
+
+    private fun getFaceConfig(): FaceConfig? {
+        val json = SPUtils.get(context, SP_KEY_FACE_CONFIG, "") as String
+        return Gson().fromJson(json, FaceConfig::class.java)
+    }
+
+    fun putFaceConfig(gpsConfig: FaceConfig) {
+        gpsConfig.run {
+            faceResultCollectFreq = collectFreq
+            faceResultReportFreq = reportFreq
+        }
+        SPUtils.put(context, SP_KEY_FACE_CONFIG, gpsConfig)
     }
 }

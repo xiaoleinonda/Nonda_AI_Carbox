@@ -5,13 +5,13 @@ import android.util.Log
 import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
-import org.eclipse.paho.android.service.MqttService
 import org.eclipse.paho.client.mqttv3.*
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.mqttlibrary.model.*
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EMOTION
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EVENT
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_FACE_RESULT
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GPS
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
@@ -28,7 +28,7 @@ UserName: <username>
 Password: <password>
 Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - false
  */
-class MqttManager : MqttCallback, IMqttActionListener{
+class MqttManager : MqttCallback, IMqttActionListener {
 
     private val TAG = MqttManager::class.java.simpleName
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
@@ -68,8 +68,7 @@ class MqttManager : MqttCallback, IMqttActionListener{
     )
 
 
-
-     init {
+    init {
         mqttAndroidClient.setCallback(this)
         mqttConnectOptions.isCleanSession = false
         // 设置超时时间，单位：秒
@@ -185,9 +184,8 @@ class MqttManager : MqttCallback, IMqttActionListener{
         if (cloudDriveMqttMessage == null) {
             return
         }
-        val cloudDriveMqttFreqData = cloudDriveMqttMessage.data.unpack(CloudDriveMqttMessageCreator.CloudDriveMqttFreqData::class.java)
         val mqttMessageHandler = MqttHandlerFactory.getHandlerByCMD(cloudDriveMqttMessage.cmd)
-        mqttMessageHandler.handleMqttMessage(cloudDriveMqttFreqData)
+        mqttMessageHandler.handleMqttMessage(cloudDriveMqttMessage)
     }
 
 
@@ -237,6 +235,28 @@ class MqttManager : MqttCallback, IMqttActionListener{
 
         publish(builderMessage, PUBLISH_STATUS)
         MyLog.i(TAG, "上报状态")
+    }
+
+    /**
+     * 上报事件
+     */
+    fun publishEventData(eventDataBean: EventDataBean) {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEventData.newBuilder()
+
+        builderData.fw = eventDataBean.fw
+        builderData.app = eventDataBean.app
+        builderData.lat = eventDataBean.lat
+        builderData.lng = eventDataBean.lng
+        builderData.acc = eventDataBean.acc!!
+        builderData.vol = eventDataBean.vol!!
+        builderData.type = eventDataBean.type!!
+        builderData.content = eventDataBean.content!!
+
+        val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
+        builderMessage.data = Any.pack(builderData.build())
+
+        publish(builderMessage, PUBLISH_EVENT)
+        MyLog.i(TAG, "上报事件")
     }
 
     /**

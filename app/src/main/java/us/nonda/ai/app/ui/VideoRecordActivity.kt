@@ -17,6 +17,7 @@ import us.nonda.cameralibrary.camera.BackCameraMananger
 import us.nonda.cameralibrary.camera.CameraCallback
 import us.nonda.cameralibrary.camera.FrontCameraMananger
 import us.nonda.cameralibrary.model.PictureModel
+import us.nonda.cameralibrary.path.FilePathManager
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
@@ -79,12 +80,11 @@ class VideoRecordActivity : AppCompatActivity() {
         oepnCamera()
 
 
+
         btn_camera.setOnClickListener {
             //            oepnCamera()
 //            starterRecord()
-            val sdCardPath = PathUtils.getSDCardPath(this@VideoRecordActivity)
-            val currentTimeMillis = System.currentTimeMillis()
-            FrontCameraMananger.instance.takePicture("$sdCardPath/test/", "TEST$currentTimeMillis")
+//
         }
 
 
@@ -227,8 +227,9 @@ class VideoRecordActivity : AppCompatActivity() {
 
                         pictureModel
                     )
-
-                    BackCameraMananger.instance.pictureFrontProcessor.onNext(pictureModel)
+//                    val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + emotionsMsg + "/"
+//                    BackCameraMananger.instance.takePicture(folderPath, fileName)
+                    FrontCameraMananger.instance.pictureFrontProcessor.onNext(pictureModel)
 
                 }
 
@@ -283,14 +284,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
     }
 
-    /**
-     * 绘制人脸框。
-     */
 
-    private fun showFrame(isDetect: Boolean, model: LivenessModel?) {
-
-
-    }
 
     private fun face(bytes: ByteArray, width: Int, height: Int) {
         FaceSDKManager.instance.recognition(bytes, width, height)

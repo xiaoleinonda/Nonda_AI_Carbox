@@ -67,63 +67,14 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     private var video_record_quality: Int = CamcorderProfile.QUALITY_480P
 
 
-    private var subscribe: Disposable? = null
 
     private var isConvertYUV = false
 
 
-    var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
-    var pictureFrontProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
-    var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
 
 
     @SuppressLint("CheckResult")
     fun initCamera(surfaceView: SurfaceView, yuvData: Boolean, cameraType: Int, callback: CameraCallback) {
-
-
-        if (subscribe?.isDisposed == false) {
-            subscribe?.dispose()
-        }
-        subscribe = pictureProcessor.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
-                t.emotion
-            }
-            .doOnNext {
-                var folderPath = FilePathManager.get().getBackEmotionPictureFolderPath() + it.emotion + "/"
-                FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
-            }
-            .doOnNext {
-                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
-                takePicture(folderPath, it.fileName)
-            }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
-
-        pictureFrontProcessor.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
-                t.emotion
-            }
-            .doOnNext {
-                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
-                takePicture(folderPath, it.fileName)
-            }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
-
-
-        pictureFaceProcessor.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
-                t.emotion
-            }
-            .doOnNext {
-                var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion + "/"
-                FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
-
-            }.subscribe({ Log.d("图片", "保存人脸图片成功") }, {})
-
-
         this.cameraCallback = callback
         isPreviewed = false
         surfaceCreated = false
@@ -368,7 +319,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     /**
      * 关闭摄像头和录制
      */
-    fun closeCamera() {
+  open  fun closeCamera() {
         cameraDevice?.run {
             stopRecord()
             stopYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
@@ -378,10 +329,9 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
                 stopPreview()
             }
 
-            if (subscribe?.isDisposed == false) {
-                subscribe?.dispose()
-            }
         }
+
+
 
     }
 
@@ -448,6 +398,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     fun takePicture(folder: String, pictureName: String) {
         if (cameraDevice == null) return
         val path = "$folder$pictureName.jpeg"
+        Log.d("takePicture图片", "path=$path")
         cameraDevice!!.takePicture(path, CameraDevice.ShutterCallback { },
             CameraDevice.PictureCallback {
                 Log.d("back takePicture图片", "path=$it");

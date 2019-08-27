@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         btn_location.setOnClickListener {
             Log.d("VideoRecordActivity", "点击")
-            CarBoxControler.instance.startCamera(this)
-
+//            CarBoxControler.instance.startCamera(this)
+            test()
         }
 
         val carBatteryInfo = CarBoxControler
@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun test() {
         NetModule.instance.provideAPIService()
-            .postLicenceSucceed("", "", "123")
+            .postLicenceSucceed("869455047237132", "111", "123")
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe({}, {})
+            .subscribe({ println("成功$it")}, { println("失败${it.message}")})
     }
 
     private fun checkAccStatus(context: Context) {

@@ -47,7 +47,7 @@ class CameraConfig private constructor(private var context: Context){
      * 720p: 2Mbps - 9Mbps
      * 480p: 1Mbps - 4Mbps
      */
-    public var videoBitRate: Int = 1*1000*1000
+    public var videoBitRate: Int = 1*500*1000
     public var videoSizeLimi: Int = 300//视频长度 单位/M
 
     /**
@@ -55,11 +55,6 @@ class CameraConfig private constructor(private var context: Context){
      */
     public var video_record_quality: Int = 480//视频长度 单位/M
 
-
-    fun updateCache(){
-        val json = Gson().toJson(this)
-        SPUtils.put(context, SP_KEY, json)
-    }
 
 
 

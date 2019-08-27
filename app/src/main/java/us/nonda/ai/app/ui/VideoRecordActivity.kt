@@ -298,9 +298,10 @@ class VideoRecordActivity : AppCompatActivity() {
         us.nonda.cameralibrary.camera.BackCameraMananger.instance.closeCamera()
         us.nonda.cameralibrary.camera.FrontCameraMananger.instance.closeCamera()
 
+
 //        FinishActivityManager.getManager().removeActivity(this)
 
-//        FaceSDKManager.instance.stop()
+        FaceSDKManager.instance.onCameraClose()
 
     }
 }

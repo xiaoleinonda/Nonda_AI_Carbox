@@ -300,7 +300,7 @@ class FaceSDKManager private constructor() {
         status = STATUS_INITED
         log("初始化成功")
         DBManager.getInstance().init(context)
-        setFeature()
+//        setFeature()
         faceLivenessManager = FaceLiveness(faceDetect, faceLive, faceFeature, faceAttribute)
         faceLivenessManager?.initConfig(config!!)
 
@@ -565,6 +565,18 @@ class FaceSDKManager private constructor() {
         MyLog.d(TAG, "featureLRUCache=${featureLRUCache.all.size}")
         MyLog.d(TAG, "数据库=${DBManager.getInstance().queryFeature()}")
 
+    }
+
+    fun onCameraClose(){
+        faceLivenessManager?.stop()
+        faceCache.clearFacePassStatus()
+        featureLRUCache.clear()
+        val listFeatures = DBManager.getInstance().queryFeature()
+        if (listFeatures != null && listFeatures.size > 0) {
+            for (listFeature in listFeatures) {
+                FaceApi.getInstance().featureDelete(listFeature)
+            }
+        }
     }
 
     private var faceFreq: Long = 500

@@ -88,7 +88,14 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
         initPreview(surfaceView)
 
+
         val cameraID = getCameraID(CarcorderManager.get(), cameraType)
+
+        val cameraState = CarcorderManager.get().getCameraState(cameraID)
+
+
+//
+//        Log.d(TAG, "camera状态=$cameraState")
 
         openCamera(cameraID, yuvData)
 
@@ -188,6 +195,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
         return cameraID
     }
 
+    private var mCameraId = -1
 
     /**
      * 打开相机
@@ -204,10 +212,13 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
             e.printStackTrace()
         }
+        mCameraId = cameraId
+
 
         if (cameraDevice == null) {
             return
         }
+
         cameraDevice!!.setRecordingMuteAudio(false)
 
         val parameters = cameraDevice!!.getParameters()
@@ -294,26 +305,33 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     private fun startPreview(holder: SurfaceHolder?) {
         if (holder == null) return
         cameraDevice?.run {
-            setPreviewSurface(holder.surface)
-            startPreview()
+
+            val cameraState = CarcorderManager.get().getCameraState(mCameraId)
+            if (cameraState != 1) {
+                setPreviewSurface(holder.surface)
+                startPreview()
+            }
+
             startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
             isPreviewed = true
-            this@CarboxCameraManager.startRecord()
+
+            if (cameraState != 2) {
+                this@CarboxCameraManager.startRecord()
+            }
         }
     }
 
     fun startRecord() {
-        if (cameraDevice?.state == 2) {
+       /* if (cameraDevice?.state == 2) {
             cameraDevice?.stopRecord()
         }
-
+*/
         val record = cameraDevice?.startRecord()
         when (record) {
             null -> {
                 cameraCallback?.onRecordFailed(-100)
             }
             0 -> {
-
                 cameraCallback?.onRecordSucceed()
             }
             else -> {
@@ -340,8 +358,12 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
                 stopPreview()
             }
 
+
         }
 
+        if (mCameraId != -1) {
+            CarcorderManager.get().closeCameraDevice(mCameraId)
+        }
 
     }
 

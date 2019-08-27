@@ -9,6 +9,7 @@ import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.status.CarboxCacheManager
 import us.nonda.commonibrary.utils.FinishActivityManager
+import us.nonda.mqttlibrary.mqtt.MqttManager
 
 /**
  * Created by chenjun on 2019-06-12.

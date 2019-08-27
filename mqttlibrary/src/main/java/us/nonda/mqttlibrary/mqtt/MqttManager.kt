@@ -11,6 +11,7 @@ import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.mqttlibrary.model.*
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EMOTION
+import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EVENT
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_FACE_RESULT
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GPS
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
@@ -234,6 +235,28 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
         publish(builderMessage, PUBLISH_STATUS)
         MyLog.i(TAG, "上报状态")
+    }
+
+    /**
+     * 上报事件
+     */
+    fun publishEventData(eventDataBean: EventDataBean) {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEventData.newBuilder()
+
+        builderData.fw = eventDataBean.fw
+        builderData.app = eventDataBean.app
+        builderData.lat = eventDataBean.lat
+        builderData.lng = eventDataBean.lng
+        builderData.acc = eventDataBean.acc!!
+        builderData.vol = eventDataBean.vol!!
+        builderData.type = eventDataBean.type!!
+        builderData.content = eventDataBean.content!!
+
+        val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
+        builderMessage.data = Any.pack(builderData.build())
+
+        publish(builderMessage, PUBLISH_EVENT)
+        MyLog.i(TAG, "上报事件")
     }
 
     /**

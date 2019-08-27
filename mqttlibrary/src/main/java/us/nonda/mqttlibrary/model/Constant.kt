@@ -5,6 +5,7 @@ class Constant {
         /** CMD 定义  */
         //上报
         const val PUBLISH_STATUS = 10001
+        const val PUBLISH_EVENT = 10002
         const val PUBLISH_GPS = 10003
         const val PUBLISH_GSENSOR = 10004
         const val PUBLISH_GYRO = 10005

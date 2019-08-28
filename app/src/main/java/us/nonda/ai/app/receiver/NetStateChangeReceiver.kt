@@ -23,8 +23,8 @@ class NetStateChangeReceiver : BroadcastReceiver() {
                 MyLog.d("网络", "有网")
                 initDevice()
                 MqttManager.getInstance().onStart()
-//                val mDownloadHelper = DownloadHelper.getInstance()
-//                mDownloadHelper.addCarBoxTask(AppUtils.context)
+//                DownloadHelper.getInstance().addCarBoxTask(AppUtils.context)
+//                CarBoxControler.instance.checkOTA()
             }else{
                 MyLog.d("网络", "断网")
 

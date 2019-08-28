@@ -23,12 +23,11 @@ class NondaApp : Application() {
         instance = this
         MyLog.d(TAG, "onCreate")
 //       Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
-        checkVersion()
         AppUtils.init(this)
-
+        checkVersion()
     }
 
-    /**e
+    /**
      * 检查版本号，判断是否更新
      */
     private fun checkVersion() {
@@ -38,7 +37,7 @@ class NondaApp : Application() {
             //更新成功删除安装包
             val dirName = AppUtils.context.getExternalFilesDir(null)?.path + "/DownLoad/"
             //下载后的文件名
-            val fileName = dirName + "ZUS_AI.apk"
+            val fileName = dirName + "ZUS_AI" + AppUtils.getVersionName(this) + ".apk"
             val downloadFile = File(fileName)
             if (downloadFile.exists()) {
                 downloadFile.delete()

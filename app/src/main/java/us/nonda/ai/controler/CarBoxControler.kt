@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.yaoxiaowen.download.DownloadHelper
@@ -20,6 +21,7 @@ import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.event.ServiceEvent
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.utils.AppUtils
+import us.nonda.commonibrary.utils.CompareUtlis
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.commonibrary.utils.StringUtils
 import us.nonda.mqttlibrary.model.GPSBean
@@ -106,33 +108,38 @@ class CarBoxControler private constructor() : onDownloadListener {
      * 检测OTA升级
      */
     fun checkOTA() {
-         sleep()
+        sleep()
 
         //取消休眠
         cancelIPO()
 
         MyLog.d(TAG, "开始OTA")
-
-        NetModule.instance.provideAPIService()
-            .getAppVersion("869455047237132")
-            .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .retry(2)
-            .subscribe({
-                if (it.code == 200 && it.data != null && it.data!!.isUpdate) {
-                    val data = it.data
-                    val appVersion = data?.appVersion
-                    val url = data?.downUrl
-                    checkDownLoad(appVersion, url)
-                } else {
-                    onNotDownLoad()
-                }
-            }, {
-                it.message?.let { it1 ->
-                    onNotDownLoad()
-                }
-            })
+        //TODO  替换imei
+        AppUtils.getVersionName(AppUtils.context)?.let {
+            NetModule.instance.provideAPIService()
+                .getAppVersion("869455047237132", it)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .retry(2)
+                .subscribe({
+                    if (it.code == 200 && it.data != null && it.data!!.updateStatus) {
+                        val data = it.data
+                        val appVersion = data?.appVersion
+                        val url = data?.downUrl
+                        Log.d("下载测试", data.toString())
+                        checkDownLoad(appVersion, url)
+                    } else {
+                        onNotDownLoad()
+                        Log.d("下载测试", it.code.toString())
+                    }
+                }, {
+                    it.message?.let { it1 ->
+                        onNotDownLoad()
+                        Log.d("下载测试", it.message)
+                    }
+                })
+        }
 
 /*        var dis = Observable.interval(0, 1, TimeUnit.SECONDS)
             .subscribe {
@@ -152,9 +159,11 @@ class CarBoxControler private constructor() : onDownloadListener {
      * 检测是否需要下载apk
      */
     private fun checkDownLoad(appVersion: String?, url: String?) {
+        //如果版本号不相等，并且服务端版本号大于客户端版本号更新
+        Log.d("下载测试", "当前版本号" + AppUtils.getVersionName(AppUtils.context))
         if (appVersion != AppUtils.getVersionName(AppUtils.context)) {
-            DownloadHelper.getInstance().addTask(AppUtils.context, url)
             DownloadHelper.getInstance().setOnDownloadListener(this)
+            DownloadHelper.getInstance().addTask(AppUtils.context, url, appVersion)
         } else {
             onNotDownLoad()
         }
@@ -411,7 +420,7 @@ class CarBoxControler private constructor() : onDownloadListener {
         val telephonyManager = context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE) as TelephonyManager
         val simSerialNumber = telephonyManager.simSerialNumber
         MyLog.d("SIM卡", "ICCID=$simSerialNumber")
-        return simSerialNumber?:""
+        return simSerialNumber ?: ""
 
     }
 
@@ -421,6 +430,8 @@ class CarBoxControler private constructor() : onDownloadListener {
 
     override fun onDownloadFailure() {
         //TODO 下载失败
+//        CarBoxControler.instance.checkOTA()
+//        DownloadHelper.getInstance().addCarBoxTask(AppUtils.context)
     }
 
 }

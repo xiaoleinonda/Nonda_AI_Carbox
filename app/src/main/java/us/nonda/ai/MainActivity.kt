@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.util.Log
+import com.yaoxiaowen.download.DownloadHelper
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.app.service.SensorReportService
+import us.nonda.ai.app.ui.AccActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
@@ -50,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         }
         btn_stop_location.setOnClickListener {
             test()
+//            val intent = Intent(this, AccActivity::class.java)
+//            startActivity(intent)
+
+//            DownloadHelper.getInstance().addCarBoxTask(this)
         }
 
         val carBatteryInfo = CarBoxControler

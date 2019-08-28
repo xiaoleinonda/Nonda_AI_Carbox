@@ -127,7 +127,6 @@ public class DownloadService extends Service {
                     return;
                 }
             }
-            InstallUtils.installApk(mFileInfo.getFilePath());
         }
 
         if (null != task) {

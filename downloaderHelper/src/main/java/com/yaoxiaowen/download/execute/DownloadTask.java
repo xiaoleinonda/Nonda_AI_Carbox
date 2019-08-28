@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.yaoxiaowen.download.DownloadConstant;
+import com.yaoxiaowen.download.DownloadHelper;
 import com.yaoxiaowen.download.DownloadStatus;
 import com.yaoxiaowen.download.bean.DownloadInfo;
 import com.yaoxiaowen.download.FileInfo;
@@ -191,11 +192,15 @@ public class DownloadTask implements Runnable {
             }// end of "while(..."
 
             mFileInfo.setDownloadStatus(DownloadStatus.COMPLETE);
+            //下载完成回调通知
+            DownloadHelper.getInstance().onDownloadListener.onDownloadSuccess();
             //下载完成安装app
             InstallUtils.installApk(mFileInfo.getFilePath());
             dbHolder.saveFile(mFileInfo);
             context.sendBroadcast(intent);
         } catch (Exception e) {
+            //下载失败回调通知
+            DownloadHelper.getInstance().onDownloadListener.onDownloadFailure();
             LogUtils.e(TAG, "下载过程发生失败");
             mFileInfo.setDownloadStatus(DownloadStatus.FAIL);
             dbHolder.saveFile(mFileInfo);
@@ -242,6 +247,8 @@ public class DownloadTask implements Runnable {
 
         } catch (Exception e) {
             e.printStackTrace();
+            //下载失败回调通知
+            DownloadHelper.getInstance().onDownloadListener.onDownloadFailure();
         }
 
         return redirUrl;

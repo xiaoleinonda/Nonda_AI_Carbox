@@ -8,7 +8,7 @@ class ReportStatusHandler : IMqttMessageHandler {
         val cloudDriveMqttFreqData =
             cloudDriveMqttMessage.data.unpack(CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData::class.java)
         if (cloudDriveMqttFreqData.type == 1) {
-            CarBoxControler.instance.onIpoON()
+//            CarBoxControler.instance.onIpoON()
         }
     }
 }

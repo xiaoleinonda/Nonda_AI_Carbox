@@ -1,4 +1,4 @@
-package us.nonda.ai.location
+package us.nonda.commonibrary.location
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,6 @@ import android.location.LocationManager
 import android.text.TextUtils
 import android.util.Log
 import us.nonda.commonibrary.config.CarboxConfigRepostory
-import us.nonda.commonibrary.utils.AppUtils
 
 object LocationUtils {
 

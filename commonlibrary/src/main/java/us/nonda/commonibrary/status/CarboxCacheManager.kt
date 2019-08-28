@@ -8,6 +8,7 @@ class CarboxCacheManager private constructor() {
 
     private val SP_KEY_ACC_STATUS = "sp_key_acc_status"
     private val SP_KEY_SLEEP_TIME = "sp_key_sleep_time"
+    private val SP_KEY_SIM_NUMBER = "sp_key_sim_number"
 
     companion object {
         val instance: CarboxCacheManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
@@ -32,6 +33,7 @@ class CarboxCacheManager private constructor() {
       var status_regist_face_feature:Int = -1
       var status_mqtt_connect:Int = -1
       var status_new_apk:Int = -1*/
+
 
 
 }

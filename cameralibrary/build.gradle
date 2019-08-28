@@ -36,6 +36,7 @@ dependencies {
     compile "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(path: ':commonlibrary')
+    api project(path: ':mqttlibrary')
 }
 repositories {
     mavenCentral()

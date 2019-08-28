@@ -32,6 +32,7 @@ import us.nonda.facelibrary.db.LRUCache
 import us.nonda.facelibrary.model.*
 import us.nonda.facelibrary.model.FaceImage
 import us.nonda.facelibrary.status.FaceStatusCache
+import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.io.InputStreamReader
@@ -297,6 +298,8 @@ class FaceSDKManager private constructor() {
      *
      */
     private fun onInitSucceed() {
+        MqttManager.getInstance().publishEventData(1003, "1")
+
         status = STATUS_INITED
         log("初始化成功")
         DBManager.getInstance().init(context)
@@ -314,6 +317,8 @@ class FaceSDKManager private constructor() {
      */
 
     private fun onInitFailed() {
+        MqttManager.getInstance().publishEventData(1003, "2")
+
         status = STATUS_INIT
         log("初始化失败")
     }
@@ -601,6 +606,7 @@ class FaceSDKManager private constructor() {
 
     private var requestSerialNumDisposable: Disposable? = null
     private fun getLicenceStrHttp() {
+        onGetSerialNumSucceed("123")// todo
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
             return
         }
@@ -674,9 +680,13 @@ class FaceSDKManager private constructor() {
 //                    FaceStatusCache.instance.faceLicence = ""
                     log("激活失败=$msg")
                     activating = false
+                    MqttManager.getInstance().publishEventData(1002, "2")
+
                 }
 
                 override fun onSucceed() {
+                    MqttManager.getInstance().publishEventData(1002, "1")
+
                     FaceStatusCache.instance.faceLicence = license
                     log("激活成功")
                     initModel()
@@ -747,6 +757,8 @@ class FaceSDKManager private constructor() {
         if (requestFacePicDisposable != null && !requestFacePicDisposable!!.isDisposed) {
             requestFacePicDisposable!!.dispose()
         }
+
+
         requestFacePicDisposable = NetModule.instance.provideAPIService()
             .getFacepicture("869455047237132")
             .subscribeOn(Schedulers.io())
@@ -775,6 +787,8 @@ class FaceSDKManager private constructor() {
      * 服务器获取图片成功
      */
     private fun onGetFacePictureSucceed(facePicture: String) {
+        MqttManager.getInstance().publishEventData(1012, "1")
+
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
         }
@@ -786,6 +800,8 @@ class FaceSDKManager private constructor() {
      * 服务器获取图片失败
      */
     private fun onGetFacePictureFailed(msg: String) {
+        MqttManager.getInstance().publishEventData(1012, "2")
+
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
         }

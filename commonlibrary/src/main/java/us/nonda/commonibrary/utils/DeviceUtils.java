@@ -3,6 +3,7 @@ package us.nonda.commonibrary.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DeviceUtils {
 
@@ -28,4 +29,28 @@ public class DeviceUtils {
         String serialNumber = android.os.Build.SERIAL;
         return serialNumber;
     }
+
+
+
+    /**
+     * 获取电压
+     */
+    public static String getCarBatteryInfo() {
+        String path = "/sys/bus/platform/devices/device_info/CARBATTERYINFO";
+        return StringUtils.getString(path);
+    }
+
+
+    /**
+     * 获取sim卡iccid
+     */
+    @SuppressLint("MissingPermission")
+   public static String getSimNumber( Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE);
+        String simSerialNumber = telephonyManager.getSimSerialNumber();
+        return simSerialNumber;
+
+    }
+
+
 }

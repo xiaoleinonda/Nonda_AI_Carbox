@@ -9,14 +9,10 @@ import android.view.SurfaceView
 import com.mediatek.carcorder.CameraDevice
 import com.mediatek.carcorder.CameraInfo
 import com.mediatek.carcorder.CarcorderManager
-import io.reactivex.disposables.Disposable
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.cache.CameraConfig
-import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.cameralibrary.path.FilePathManager
 import us.nonda.commonibrary.MyLog
-import us.nonda.commonibrary.utils.FileUtils
+import us.nonda.mqttlibrary.mqtt.MqttManager
 
 abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
@@ -97,7 +93,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 //
 //        Log.d(TAG, "camera状态=$cameraState")
 
-        openCamera(cameraID, yuvData)
+        openCamera(cameraID, yuvData, cameraType)
 
     }
 
@@ -200,7 +196,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
     /**
      * 打开相机
      */
-    private fun openCamera(cameraId: Int, yuvData: Boolean) {
+    private fun openCamera(cameraId: Int, yuvData: Boolean, cameraType: Int) {
         try {
             cameraDevice = CarcorderManager.get().openCameraDevice(cameraId)
 
@@ -216,7 +212,28 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
 
 
         if (cameraDevice == null) {
+            when (cameraType) {
+                CameraInfo.CAMERA_USB_CAMERA -> {
+                    MqttManager.getInstance().publishEventData(1004, "2")
+
+                }
+                else -> {
+                    MqttManager.getInstance().publishEventData(1005, "2")
+
+                }
+            }
             return
+        }
+
+        when (cameraType) {
+            CameraInfo.CAMERA_USB_CAMERA -> {
+                MqttManager.getInstance().publishEventData(1004, "1")
+
+            }
+            else -> {
+                MqttManager.getInstance().publishEventData(1005, "1")
+
+            }
         }
 
         cameraDevice!!.setRecordingMuteAudio(false)
@@ -357,7 +374,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
             if (isPreviewed) {
                 stopPreview()
             }
-
+            cameraCallback?.onCloseCamera()
 
         }
 

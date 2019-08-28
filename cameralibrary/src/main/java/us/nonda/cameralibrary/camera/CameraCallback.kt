@@ -6,4 +6,5 @@ interface CameraCallback {
     fun onOpenCameraSucceed()
     fun onOpenCameraFaile(msg: String)
     fun onYuvCbFrame(bytes: ByteArray, width:Int, height:Int)
+    fun onCloseCamera()
 }

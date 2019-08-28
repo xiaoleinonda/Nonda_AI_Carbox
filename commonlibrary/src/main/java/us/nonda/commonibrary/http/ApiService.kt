@@ -2,13 +2,13 @@ package us.nonda.commonibrary.http
 
 import io.reactivex.Observable
 import retrofit2.http.*
-import us.nonda.commonibrary.model.FacePictureModel
-import us.nonda.commonibrary.model.FaceSerialModel
-import us.nonda.commonibrary.model.PostLicenceBody
-import us.nonda.commonibrary.model.PostLicenceModel
+import us.nonda.commonibrary.model.*
 
 interface ApiService {
 
+
+    @GET("/api/v1/vehiclebox/check/appversion")
+    fun getAppVersion(@Query(value = "imei") imei:String):Observable<BaseResult<AppVersionModel>>
 
     @GET("/api/v1/vehiclebox/download/facepic")
     fun getFacepicture(@Query(value = "imei") imei:String):Observable<BaseResult<FacePictureModel>>

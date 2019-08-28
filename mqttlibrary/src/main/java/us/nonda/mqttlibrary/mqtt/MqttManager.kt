@@ -7,6 +7,7 @@ import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.mqttlibrary.model.*
@@ -169,6 +170,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     override fun messageArrived(topic: String?, message: MqttMessage?) {
+        MqttManager.getInstance().publishEventData(1015, "2")
+
         var cloudDriveMqttMessage: CloudDriveMqttMessageCreator.CloudDriveMqttMessage? = null
 
         Log.d(TAG, "messageArrived")
@@ -184,12 +187,16 @@ class MqttManager : MqttCallback, IMqttActionListener {
         if (cloudDriveMqttMessage == null) {
             return
         }
+        MqttManager.getInstance().publishEventData(1015, cloudDriveMqttMessage.cmd.toString())
+
         val mqttMessageHandler = MqttHandlerFactory.getHandlerByCMD(cloudDriveMqttMessage.cmd)
         mqttMessageHandler.handleMqttMessage(cloudDriveMqttMessage)
     }
 
 
     override fun connectionLost(cause: Throwable?) {
+        MqttManager.getInstance().publishEventData(1014, "2")
+
         Log.d(TAG, "connectionLost")
         isConnected = false
         mqttState = MQTTSTATE_CONNECTIONLOST
@@ -205,13 +212,19 @@ class MqttManager : MqttCallback, IMqttActionListener {
         try {
             mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
             Log.d(TAG, "onSuccess发送成功")
+            MqttManager.getInstance().publishEventData(1014, "1")
+
         } catch (e: MqttException) {
+            MqttManager.getInstance().publishEventData(1014, "2")
+
             e.printStackTrace()
             Log.d(TAG, "onSuccess：${e?.message}" + mqttAndroidClient.isConnected)
         }
     }
 
     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
+        MqttManager.getInstance().publishEventData(1014, "2")
+
         isConnected = false
         Log.d(TAG, "onFailure：${exception?.message}+mqttAndroidClient.isConnected")
     }
@@ -240,17 +253,22 @@ class MqttManager : MqttCallback, IMqttActionListener {
     /**
      * 上报事件
      */
-    fun publishEventData(eventDataBean: EventDataBean) {
+        fun publishEventData(type: Int, content:String) {
         val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEventData.newBuilder()
 
-        builderData.fw = eventDataBean.fw
-        builderData.app = eventDataBean.app
-        builderData.lat = eventDataBean.lat
-        builderData.lng = eventDataBean.lng
-        builderData.acc = eventDataBean.acc!!
-        builderData.vol = eventDataBean.vol!!
-        builderData.type = eventDataBean.type!!
-        builderData.content = eventDataBean.content!!
+        val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
+        val latitude = bestLocation?.latitude
+        val longitude = bestLocation?.longitude
+        val accuracy = bestLocation?.accuracy
+
+        builderData.fw = "1.2"
+        builderData.app = AppUtils.getVersionName(AppUtils.context)
+        builderData.lat = latitude?:0.0
+        builderData.lng = longitude?:0.0
+        builderData.acc = accuracy ?:0.0f
+        builderData.vol = DeviceUtils.getCarBatteryInfo().toFloat()
+        builderData.type = type
+        builderData.content = content
 
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())

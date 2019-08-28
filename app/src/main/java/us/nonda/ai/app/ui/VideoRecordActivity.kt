@@ -102,13 +102,18 @@ class VideoRecordActivity : AppCompatActivity() {
     private fun openFrontCamera() {
         FrontCameraMananger.instance.initBackCamera(surfaceViewFront, object :
             CameraCallback {
+            override fun onCloseCamera() {
+                MqttManager.getInstance().publishEventData(1006, "1")
+                MqttManager.getInstance().publishEventData(1010, "1")
+            }
+
             override fun onRecordSucceed() {
-//                println("录制 Front  onRecordSucceed")
+                MqttManager.getInstance().publishEventData(1008, "1")
 
             }
 
             override fun onRecordFailed(code: Int) {
-//                println("录制 Front  onRecordFailed $code")
+                MqttManager.getInstance().publishEventData(1008, "2")
 
             }
 
@@ -132,15 +137,23 @@ class VideoRecordActivity : AppCompatActivity() {
     private fun openBackCamera() {
         BackCameraMananger.instance.initBackCamera(surfaceViewBack, object :
             CameraCallback {
+            override fun onCloseCamera() {
+                MqttManager.getInstance().publishEventData(1011, "1")
+
+            }
+
             override fun onRecordSucceed() {
-//                println("录制 BACK  onRecordSucceed")
+                MqttManager.getInstance().publishEventData(1009, "1")
             }
 
             override fun onRecordFailed(code: Int) {
-//                println("录制 BACK  onRecordFailed $code")
+                MqttManager.getInstance().publishEventData(1009, "2")
+
             }
 
             override fun onOpenCameraSucceed() {
+                MyLog.d(TAG, "打开back摄像头成功， 开始初始化face")
+                FaceSDKManager.instance.check()
 //                println("录制 BACK  onOpenCameraSucceed")
             }
 

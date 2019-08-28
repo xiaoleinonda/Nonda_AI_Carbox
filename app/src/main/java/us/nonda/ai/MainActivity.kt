@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
-        checkAccStatus(this)
+//        checkAccStatus(this)
 
         btn_location.setOnClickListener {
             CarBoxControler.instance.startCamera(this@MainActivity)

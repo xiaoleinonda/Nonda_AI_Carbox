@@ -23,8 +23,10 @@ class AccBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if (action_acc_on == intent?.action) {
+            MqttManager.getInstance().publishEventData(1001, "1")
             accOn(context)
         } else if (action_acc_off == intent?.action) {
+            MqttManager.getInstance().publishEventData(1001, "2")
             accOff()
         }
     }

@@ -3,12 +3,8 @@ package us.nonda.ai.app.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
 import us.nonda.ai.controler.CarBoxControler
-import us.nonda.ai.location.LocationUtils
 import us.nonda.commonibrary.MyLog
-import java.util.concurrent.TimeUnit
 
 /**
  * IPO广播

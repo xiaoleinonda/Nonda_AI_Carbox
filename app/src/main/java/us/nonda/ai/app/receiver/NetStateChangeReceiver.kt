@@ -20,8 +20,8 @@ class NetStateChangeReceiver : BroadcastReceiver() {
             if (connectivityStatus) {
                 initDevice()
                 MqttManager.getInstance().onStart()
-                val mDownloadHelper = DownloadHelper.getInstance()
-                mDownloadHelper.addCarBoxTask(AppUtils.context)
+//                val mDownloadHelper = DownloadHelper.getInstance()
+//                mDownloadHelper.addCarBoxTask(AppUtils.context)
             }else{
                 MqttManager.getInstance().onStop()
             }

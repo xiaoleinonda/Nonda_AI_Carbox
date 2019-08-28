@@ -18,6 +18,7 @@ import us.nonda.facelibrary.status.FaceStatusCache
 import us.nonda.facelibrary.utils.DeleteFaceUtil
 import us.nonda.facelibrary.utils.FileUtils
 import us.nonda.facelibrary.utils.ImageUtils
+import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.io.File
 import java.util.*
 import java.util.concurrent.ExecutorService
@@ -52,6 +53,7 @@ class FaceRegister constructor(
 
         //特征提取中...
         mqttPulish("特征提取中...")
+
         removeFace {
             mqttPulish("start register face")
             MyLog.d(TAG, "start register face")
@@ -112,6 +114,7 @@ class FaceRegister constructor(
                 livenessModel.faceInfo = faceInfo
                 livenessModel.faceID = faceInfo.face_id
 
+
                 registFace(livenessModel, facePic)
 
             } else {
@@ -137,6 +140,8 @@ class FaceRegister constructor(
 
         }
         if (lenght == 128f) {
+            MqttManager.getInstance().publishEventData(1013, "1")
+
             val feature = Feature()
             feature.ctime = System.currentTimeMillis()
             feature.feature = visFeature
@@ -216,6 +221,9 @@ class FaceRegister constructor(
 
             }
             userId = ""
+        } else {
+            MqttManager.getInstance().publishEventData(1013, "2")
+
         }
 
     }

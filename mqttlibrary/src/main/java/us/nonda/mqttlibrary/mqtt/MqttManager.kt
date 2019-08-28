@@ -251,9 +251,33 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     /**
+     * 上报状态
+     */
+    fun publishStatus() {
+        val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.newBuilder()
+        val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
+        val latitude = bestLocation?.latitude
+        val longitude = bestLocation?.longitude
+        val accuracy = bestLocation?.accuracy
+
+        builderData.fw = "1.2"
+        builderData.app = AppUtils.getVersionName(AppUtils.context)
+        builderData.lat = latitude ?: 0.0
+        builderData.lng = longitude ?: 0.0
+        builderData.acc = accuracy ?: 0.0f
+        builderData.vol = DeviceUtils.getCarBatteryInfo().toFloat()
+
+        val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
+        builderMessage.data = Any.pack(builderData.build())
+
+        publish(builderMessage, PUBLISH_STATUS)
+        MyLog.i(TAG, "立即上报状态")
+    }
+
+    /**
      * 上报事件
      */
-        fun publishEventData(type: Int, content:String) {
+    fun publishEventData(type: Int, content: String) {
         val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEventData.newBuilder()
 
         val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
@@ -263,9 +287,9 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
         builderData.fw = "1.2"
         builderData.app = AppUtils.getVersionName(AppUtils.context)
-        builderData.lat = latitude?:0.0
-        builderData.lng = longitude?:0.0
-        builderData.acc = accuracy ?:0.0f
+        builderData.lat = latitude ?: 0.0
+        builderData.lng = longitude ?: 0.0
+        builderData.acc = accuracy ?: 0.0f
         builderData.vol = DeviceUtils.getCarBatteryInfo().toFloat()
         builderData.type = type
         builderData.content = content
@@ -398,7 +422,6 @@ class MqttManager : MqttCallback, IMqttActionListener {
         MyLog.i(TAG, "上报情绪识别结果=${emotionBeans.size}")
 
     }
-
 
 
 }

@@ -294,6 +294,7 @@ class FaceSDKManager private constructor() {
 
 
     /**
+     *
      * 初始化model成功
      *
      */
@@ -302,7 +303,6 @@ class FaceSDKManager private constructor() {
 
         status = STATUS_INITED
         log("初始化成功")
-        DBManager.getInstance().init(context)
 //        setFeature()
         faceLivenessManager = FaceLiveness(faceDetect, faceLive, faceFeature, faceAttribute)
         faceLivenessManager?.initConfig(config!!)
@@ -485,7 +485,7 @@ class FaceSDKManager private constructor() {
     ): Feature? {
         log("cache=${featureLRUCache.getAll().size}       curFeature=${curFeature.size}")
 
-        /*    if (this.featureLRUCache.all.isNotEmpty()) {
+           /* if (this.featureLRUCache.all.isNotEmpty()) {
                 for (featureEntry: Map.Entry<String, Feature> in featureLRUCache.all) {
                     val feature = featureEntry.value
                     val similariry: Float
@@ -505,12 +505,12 @@ class FaceSDKManager private constructor() {
         val featureCpp = faceFeature.featureCompareCpp(
             curFeature, featureType, 90f
         )
-        log("featureCpp=$featureCpp")
+        log("faceFeature=$faceFeature   featureCpp=$featureCpp")
 
         if (featureCpp != null) {
             liveModel.featureScore = featureCpp.score
             log("Id=" + featureCpp.id)
-
+            val queryFeature = DBManager.getInstance().queryFeature()
             val features = DBManager.getInstance().queryFeatureById(featureCpp.id)
             if (features != null && features.size > 0) {
                 val feature = features.get(0)
@@ -541,6 +541,10 @@ class FaceSDKManager private constructor() {
         if (listFeatures != null && faceFeature != null) {
             log("setFeature: r人脸库的数量listFeatures.size()=" + listFeatures!!.size)
             faceFeature.setFeature(listFeatures)
+
+            log("faceFeature=$faceFeature  groupId=${listFeatures[0].groupId}" +
+                    "id=${listFeatures[0].id}" +
+                    "faceToken=${listFeatures[0].faceToken}")
             return listFeatures!!.size
         }
         return 0
@@ -576,12 +580,12 @@ class FaceSDKManager private constructor() {
         faceLivenessManager?.stop()
         faceCache.clearFacePassStatus()
         featureLRUCache.clear()
-        val listFeatures = DBManager.getInstance().queryFeature()
+  /*      val listFeatures = DBManager.getInstance().queryFeature()
         if (listFeatures != null && listFeatures.size > 0) {
             for (listFeature in listFeatures) {
                 FaceApi.getInstance().featureDelete(listFeature)
             }
-        }
+        }*/
     }
 
     private var faceFreq: Long = 500

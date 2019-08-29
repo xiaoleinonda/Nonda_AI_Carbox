@@ -11,23 +11,33 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_START_SQL = "CREATE TABLE IF NOT EXISTS ";
     private static final String CREATE_TABLE_PRIMIRY_SQL = " integer primary key autoincrement,";
-    /** 数据库名称 */
-    private static final String DB_NAME = "bdface.db";
-    /** 数据库版本 */
+    /**
+     * 数据库名称
+     */
+    private static final String DB_NAME = "nonda.db";
+    /**
+     * 数据库版本
+     */
     private static final int VERSION = 1;
-    /** 人脸特征表 */
+    /**
+     * 人脸特征表
+     */
     public static final String TABLE_FEATURE = "feature";
-    /** 用户组表 */
+    /**
+     * 用户组表
+     */
     public static final String TABLE_USER_GROUP = "user_group";
     public static final String TABLE_USER = "user";
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTables(db);
     }
+
     @Override
     public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion > oldVersion) {
@@ -38,6 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
+
     private synchronized void createTables(SQLiteDatabase db) {
         if (db == null || db.isReadOnly()) {
             db = getWritableDatabase();
@@ -55,6 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
         featureSql.append(" crop_name").append(" varchar(32) default \"\" ,");
         featureSql.append(" ctime").append(" long ,");
         featureSql.append(" update_time").append(" long )");
+//        featureSql.append(" feature_id").append(" int )");
         try {
             db.execSQL(featureSql.toString());
         } catch (Exception e) {

@@ -15,7 +15,7 @@ object DeleteFaceUtil {
     fun deleteFace(deleteSuccessCallback: () -> Unit) {
         mUserInfoListener.deleteSuccessCallback = deleteSuccessCallback
         // 初始化数据库
-        DBManager.getInstance().init(AppUtils.context)
+//        DBManager.getInstance().init(AppUtils.context)
         // 读取数据库信息
         UserInfoManager.getInstance().getFeatureInfo(
             null,

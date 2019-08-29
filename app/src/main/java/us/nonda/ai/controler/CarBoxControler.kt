@@ -103,6 +103,8 @@ class CarBoxControler private constructor() {
      * 检测OTA升级
      */
     fun checkOTA() {
+         sleep()
+
         //取消休眠
         cancelIPO()
 
@@ -275,7 +277,7 @@ class CarBoxControler private constructor() {
         closeCamera()
         stopSensor()
         stopLocation()
-        stopFace()
+//        stopFace()
     }
 
     private fun stopLocation() {
@@ -401,7 +403,7 @@ class CarBoxControler private constructor() {
         val telephonyManager = context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE) as TelephonyManager
         val simSerialNumber = telephonyManager.simSerialNumber
         MyLog.d("SIM卡", "ICCID=$simSerialNumber")
-        return simSerialNumber
+        return simSerialNumber?:""
 
     }
 

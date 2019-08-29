@@ -49,8 +49,8 @@ class FaceAuthManager {
         licenseID: String,
         callback: IFaceAuthCallback
     ) {
-
-        faceAuth.initLicenseOnLine(context, licenseID, object : AuthCallback {
+        var str = "6HDB-HCPB-B4PW-RQVS"
+        faceAuth.initLicenseOnLine(context, str, object : AuthCallback {
             override fun onResponse(p0: Int, p1: String?, p2: String?) {
                 if (p0 == 0) {
                     callback.onSucceed()

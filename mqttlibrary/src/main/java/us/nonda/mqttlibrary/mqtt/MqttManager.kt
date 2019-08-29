@@ -33,7 +33,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
     private val TAG = MqttManager::class.java.simpleName
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
-    private var CLIENT_ID = "Android${DeviceUtils.getIMEICode(AppUtils.context)}"
+//    private var CLIENT_ID = "Android${DeviceUtils.getIMEICode(AppUtils.context)}"
+    private var CLIENT_ID = "nonda-vehiclebox-${DeviceUtils.getIMEICode(AppUtils.context)}"
     var mqttState = 0
     private val MQTTSTATE_CONNECTIONLOST = 0
     private val MQTTSTATE_MESSAGEARRIVED = 1
@@ -146,8 +147,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
             mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
             MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
         } catch (e: Exception) {
-            MyLog.d(TAG, "mqtt发送失败")
-            Log.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
+            MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
         }
     }
 
@@ -170,7 +170,6 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     override fun messageArrived(topic: String?, message: MqttMessage?) {
-        MqttManager.getInstance().publishEventData(1015, "2")
 
         var cloudDriveMqttMessage: CloudDriveMqttMessageCreator.CloudDriveMqttMessage? = null
 
@@ -380,6 +379,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
      * 上报情绪识别结果
      */
     fun publishEmotion(emotionBeans: List<EmotionBean>) {
+        MyLog.d(TAG, "开始上报情绪${emotionBeans.size}")
         val builderItem = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.newBuilder()
         val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.newBuilder()
 

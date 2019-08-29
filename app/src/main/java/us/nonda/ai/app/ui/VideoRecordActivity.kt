@@ -24,6 +24,7 @@ import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.commonibrary.utils.PathUtils
 import us.nonda.facelibrary.callback.FaceDetectCallBack
+import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.facelibrary.model.LivenessModel
 import us.nonda.mqttlibrary.model.EmotionBean
@@ -208,15 +209,21 @@ class VideoRecordActivity : AppCompatActivity() {
 
                     val fileName = "$currentTimeMillis$emotionsMsg"
                     setEnmotion(emotionsMsg)
-                    MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg")
+                    MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
+
 
                     if (emotionData.size > 0) {
                         val time = emotionData[0].time
-                        if (currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq) {
+                        MyLog.d(TAG, "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > 10000}")
+
+                        if (currentTimeMillis - time > 10000) {
+                            MyLog.d(TAG, "可以上报情绪了${emotionData.size}")
                             var reportData = arrayListOf<EmotionBean>()
                             reportData.addAll(emotionData)
                             MqttManager.getInstance().publishEmotion(reportData)
                             emotionData.clear()
+                            MyLog.d(TAG, "上报情绪完成${emotionData.size}")
+
                         }
                     }
                     emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
@@ -315,6 +322,12 @@ class VideoRecordActivity : AppCompatActivity() {
 //        FinishActivityManager.getManager().removeActivity(this)
 
         FaceSDKManager.instance.onCameraClose()
+
+        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")
+
+        val queryFeature = DBManager.getInstance().queryFeature()
+
+        MyLog.d("删除数据", "$deleteAllFeature   ---   ${queryFeature.size}")
 
     }
 }

@@ -39,10 +39,10 @@ class CarboxConfigRepostory private constructor() {
     var gyroReportFreq: Long = 1 * 20 * 1000
 
 
-    var emotionReportFreq: Long = 1 * 60 * 1000
-    var emotionCollectFreq: Long = 1 * 60 * 1000
-    var faceResultReportFreq: Long = 1 * 60 * 1000
-    var faceResultCollectFreq: Long = 1 * 60 * 1000
+    var emotionReportFreq: Long = 1 * 10 * 1000
+    var emotionCollectFreq: Long = 1 * 10 * 1000
+    var faceResultReportFreq: Long = 1 * 10 * 1000
+    var faceResultCollectFreq: Long = 1 * 10 * 1000
 
 
     companion object {

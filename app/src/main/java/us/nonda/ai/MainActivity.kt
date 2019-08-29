@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 //        FaceSDKManager.instance.stop()
 
         registReceiver()
+        checkAccStatus(this)
 
         SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
@@ -82,7 +83,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onDestroy()
         SensorReportService.stopService(this)
-        DBManager.getInstance().release()
         unregisterReceiver(netStateChangeReceiver)
 
     }

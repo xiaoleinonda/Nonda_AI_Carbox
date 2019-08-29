@@ -62,6 +62,7 @@ public class DBManager {
 
     /**
      * 打开数据库
+     *
      * @return SQLiteDatabase
      */
     public synchronized SQLiteDatabase openDatabase() {
@@ -93,6 +94,7 @@ public class DBManager {
 
         try {
             mDatabase = mDBHelper.getWritableDatabase();
+            if (mDatabase== null)return false;
             beginTransaction(mDatabase);
 
             ContentValues cv = new ContentValues();
@@ -105,6 +107,7 @@ public class DBManager {
             cv.put("crop_name", feature.getCropImageName());
             cv.put("ctime", System.currentTimeMillis());
             cv.put("update_time", System.currentTimeMillis());
+//            cv.put("feature_id", feature.getId());
 
             long id = mDatabase.insert(DBHelper.TABLE_FEATURE, null, cv);
 
@@ -159,6 +162,53 @@ public class DBManager {
         }
         return featureList;
     }
+
+/*
+    public List<Feature> queryFeatureById(int id) {
+        ArrayList<Feature> featureList = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            if (mDBHelper == null) {
+                return featureList;
+            }
+            SQLiteDatabase db = mDBHelper.getReadableDatabase();
+            String where = "feature_id = ? ";
+            String[] whereValue = {String.valueOf(id)};
+            cursor = db.query(DBHelper.TABLE_FEATURE, null, where, whereValue, null, null, null);
+            while (cursor != null && cursor.getCount() > 0 && cursor.moveToNext()) {
+                int dbId = cursor.getInt(cursor.getColumnIndex("_id"));
+                String groupId = cursor.getString(cursor.getColumnIndex("group_id"));
+                String faceToken = cursor.getString(cursor.getColumnIndex("face_token"));
+                byte[] featureContent = cursor.getBlob(cursor.getColumnIndex("feature"));
+                String userId = cursor.getString(cursor.getColumnIndex("user_id"));
+                long updateTime = cursor.getLong(cursor.getColumnIndex("update_time"));
+                long ctime = cursor.getLong(cursor.getColumnIndex("ctime"));
+                String imageName = cursor.getString(cursor.getColumnIndex("image_name"));
+                String cropName = cursor.getString(cursor.getColumnIndex("crop_name"));
+                int featureId = cursor.getInt(cursor.getColumnIndex("feature_id"));
+                String userName = cursor.getString(cursor.getColumnIndex("user_name"));
+
+                Feature feature = new Feature();
+                feature.setId(featureId);
+                feature.setGroupId(groupId);
+                feature.setFaceToken(faceToken);
+                feature.setFeature(featureContent);
+                feature.setCtime(ctime);
+                feature.setUpdateTime(updateTime);
+                feature.setGroupId("0");
+                feature.setUserId(userId);
+                feature.setImageName(imageName);
+                feature.setUserName(userName);
+                feature.setCropImageName(cropName);
+                featureList.add(feature);
+            }
+        } finally {
+            closeCursor(cursor);
+        }
+        return featureList;
+    }
+*/
 
     public List<Feature> queryFeatureByName(String userName) {
         ArrayList<Feature> featureList = new ArrayList<>();
@@ -278,6 +328,29 @@ public class DBManager {
             if (!TextUtils.isEmpty(userId)) {
                 String where = "user_id = ? and group_id = ? and face_token = ? ";
                 String[] whereValue = {userId, groupId, faceToken};
+
+                if (mDatabase.delete(DBHelper.TABLE_FEATURE, where, whereValue) < 0) {
+                    return false;
+                }
+                setTransactionSuccessful(mDatabase);
+                success = true;
+            }
+
+        } finally {
+            endTransaction(mDatabase);
+        }
+        return success;
+    }
+
+    public boolean deleteAllFeature(String groupId) {
+        boolean success = false;
+        try {
+            mDatabase = mDBHelper.getWritableDatabase();
+            beginTransaction(mDatabase);
+
+            if (!TextUtils.isEmpty(groupId)) {
+                String where = "group_id = ? ";
+                String[] whereValue = {groupId};
 
                 if (mDatabase.delete(DBHelper.TABLE_FEATURE, where, whereValue) < 0) {
                     return false;

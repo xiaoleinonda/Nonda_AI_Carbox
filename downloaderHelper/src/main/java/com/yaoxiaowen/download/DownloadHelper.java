@@ -71,7 +71,7 @@ public class DownloadHelper {
 //        requests.add(requestInfo);
 //        return this;
 //    }
-    public void addTask(Context context, String url) {
+    public void addTask(Context context, String url, String appVersion) {
         //创建文件夹DownLoad，在存储卡下
         String dirName = AppUtils.context.getExternalFilesDir(null).getPath() + "/DownLoad/";
         File file = new File(dirName);
@@ -80,7 +80,7 @@ public class DownloadHelper {
             file.mkdir();
         }
         //下载后的文件名
-        String fileName = dirName + "ZUS_AI.apk";
+        String fileName = dirName + "ZUS_AI" + appVersion + ".apk";
         File downloadFile = new File(fileName);
         RequestInfo requestInfo = createRequest(url, downloadFile, "", InnerConstant.Request.loading);
         LogUtils.i(TAG, "addTask() requestInfo=" + requestInfo);

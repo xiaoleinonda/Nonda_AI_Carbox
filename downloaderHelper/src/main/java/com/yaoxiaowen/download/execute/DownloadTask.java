@@ -193,7 +193,9 @@ public class DownloadTask implements Runnable {
 
             mFileInfo.setDownloadStatus(DownloadStatus.COMPLETE);
             //下载完成回调通知
-            DownloadHelper.getInstance().onDownloadListener.onDownloadSuccess();
+            if (DownloadHelper.getInstance().onDownloadListener != null) {
+                DownloadHelper.getInstance().onDownloadListener.onDownloadSuccess();
+            }
             //下载完成安装app
             InstallUtils.installApk(mFileInfo.getFilePath());
             dbHolder.saveFile(mFileInfo);

@@ -112,6 +112,7 @@ class CarBoxControler private constructor() : onDownloadListener {
 
         //取消休眠
         cancelIPO()
+
         MyLog.d(TAG, "开始OTA")
         //TODO  替换imei
         AppUtils.getVersionName(AppUtils.context)?.let {
@@ -122,20 +123,22 @@ class CarBoxControler private constructor() : onDownloadListener {
                 .observeOn(Schedulers.io())
                 .retry(2)
                 .subscribe({
+//                    it.code = 400
                     if (it.code == 200 && it.data != null && it.data!!.updateStatus) {
                         val data = it.data
                         val appVersion = data?.appVersion
                         val url = data?.downUrl
-                        Log.d("下载测试", data.toString())
+                        MyLog.d("下载测试", data.toString())
                         checkDownLoad(appVersion, url)
                     } else {
                         onNotDownLoad()
-                        Log.d("下载测试", it.code.toString())
+                        MyLog.d("下载测试", it.code.toString())
                     }
                 }, {
                     it.message?.let { it1 ->
+
                         onNotDownLoad()
-                        Log.d("下载测试", it.message)
+                        MyLog.d("下载测试", it.message)
                     }
                 })
         }
@@ -159,8 +162,12 @@ class CarBoxControler private constructor() : onDownloadListener {
      */
     private fun checkDownLoad(appVersion: String?, url: String?) {
         //如果版本号不相等，并且服务端版本号大于客户端版本号更新
-        Log.d("下载测试", "当前版本号" + AppUtils.getVersionName(AppUtils.context))
+        MyLog.d("是否需要下载", "当前版本号" + AppUtils.getVersionName(AppUtils.context))
         if (appVersion != AppUtils.getVersionName(AppUtils.context)) {
+            MyLog.d("需要下载", "当前版本号" + AppUtils.getVersionName(AppUtils.context))
+
+            MqttManager.getInstance().publishEventData(1018, "")
+
             DownloadHelper.getInstance().setOnDownloadListener(this)
             DownloadHelper.getInstance().addTask(AppUtils.context, url, appVersion)
         } else {
@@ -168,40 +175,31 @@ class CarBoxControler private constructor() : onDownloadListener {
         }
     }
 
-    private fun downloadApk(url: String) {
-        MqttManager.getInstance().publishEventData(1018, "")
-    }
-
-    private fun onDownloadApkSucceed() {
-        updateApp("")
-
-    }
 
 
-    private fun updateApp(path: String) {
-        Observable.timer(10000, TimeUnit.MILLISECONDS, Schedulers.newThread())
-            .subscribe {
-                onUpdateSucceed()
-            }
-
-    }
 
 
-    /**
+
+/*
+    */
+/**
      * 当更新成功时
-     */
+     *//*
+
     private fun onUpdateSucceed() {
         MqttManager.getInstance().publishEventData(1019, "1")
         if (getAccStatus() == 0) {
             noticeIPO(AppUtils.context)
         }
     }
+*/
 
 
     /**
      * 不需要更新时
      */
     private fun onNotDownLoad() {
+
         if (getAccStatus() == 0) {
             noticeIPO(AppUtils.context)
         }
@@ -285,6 +283,7 @@ class CarBoxControler private constructor() : onDownloadListener {
      */
     fun getAccStatus() = CameraStatus.instance.getAccStatus()
 
+    fun isAccOff(): Boolean = getAccStatus() == 0
 
     /**
      * 休眠应用
@@ -427,11 +426,13 @@ class CarBoxControler private constructor() : onDownloadListener {
     }
 
     override fun onDownloadSuccess() {
-        //TODO 下载成功
+        MyLog.d(TAG, "下载apk成功")
+
     }
 
     override fun onDownloadFailure() {
-        //TODO 下载失败
+        MyLog.d(TAG, "下载apk失败")
+
 //        CarBoxControler.instance.checkOTA()
 //        DownloadHelper.getInstance().addCarBoxTask(AppUtils.context)
     }

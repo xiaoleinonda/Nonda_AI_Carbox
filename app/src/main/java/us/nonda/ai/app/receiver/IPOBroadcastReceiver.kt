@@ -31,7 +31,7 @@ class IPOBroadcastReceiver : BroadcastReceiver() {
     private fun onIpoOff() {
         CarBoxControler.instance.sleep()
 
-        CarBoxControler.instance.countDownNoticeIPO()
+//        CarBoxControler.instance.countDownNoticeIPO()
     }
 
     /**

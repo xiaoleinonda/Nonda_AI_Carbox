@@ -17,6 +17,7 @@ import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
+import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DateUtils
 import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.manager.FaceSDKManager
@@ -61,6 +62,8 @@ class MainActivity : AppCompatActivity() {
 
         val simNumber = CarBoxControler.instance.getSimNumber(this)
         MyLog.d("设备信息", "电量=$carBatteryInfo   sim卡=$simNumber")
+
+        tv_version.text = AppUtils.getVersionName(this)
     }
 
     private fun test() {

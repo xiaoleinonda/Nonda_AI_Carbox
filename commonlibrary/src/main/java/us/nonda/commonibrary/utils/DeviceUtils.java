@@ -3,6 +3,7 @@ package us.nonda.commonibrary.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DeviceUtils {
@@ -37,6 +38,9 @@ public class DeviceUtils {
      */
     public static String getCarBatteryInfo() {
         String path = "/sys/bus/platform/devices/device_info/CARBATTERYINFO";
+        if (TextUtils.isEmpty(path)) {
+            return "0";
+        }
         return StringUtils.getString(path);
     }
 

@@ -56,7 +56,6 @@ dependencies {
     implementation project(path: ':cameralibrary')
     implementation project(path: ':systemlibrary')
     implementation project(path: ':mqttlibrary')
-    implementation project(path: ':otalibrary')
     implementation project(path: ':downloaderHelper')
 
     //MQTT

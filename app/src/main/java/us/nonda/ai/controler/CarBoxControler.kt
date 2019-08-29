@@ -112,7 +112,6 @@ class CarBoxControler private constructor() : onDownloadListener {
 
         //取消休眠
         cancelIPO()
-
         MyLog.d(TAG, "开始OTA")
         //TODO  替换imei
         AppUtils.getVersionName(AppUtils.context)?.let {
@@ -305,9 +304,12 @@ class CarBoxControler private constructor() : onDownloadListener {
      * 主动进入休眠广播
      */
     fun noticeIPO(context: Context) {
-        MyLog.d(TAG, "主动进入休眠")
-        val intent = Intent("com.reacheng.action.SYNC_NOTICE_IPO")
-        context.sendBroadcast(intent)
+        if (CameraStatus.instance.getAccStatus() == 0) {
+            MyLog.d(TAG, "主动进入休眠")
+            val intent = Intent("com.reacheng.action.SYNC_NOTICE_IPO")
+            context.sendBroadcast(intent)
+        }
+
     }
 
     /**

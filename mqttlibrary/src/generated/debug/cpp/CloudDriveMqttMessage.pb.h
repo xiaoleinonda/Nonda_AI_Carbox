@@ -336,27 +336,41 @@ class CloudDriveMqttBoxStatusData : public ::google::protobuf::Message /* @@prot
   ::std::string* release_app();
   void set_allocated_app(::std::string* app);
 
-  // double lat = 3;
+  // string sim = 3;
+  void clear_sim();
+  static const int kSimFieldNumber = 3;
+  const ::std::string& sim() const;
+  void set_sim(const ::std::string& value);
+  #if LANG_CXX11
+  void set_sim(::std::string&& value);
+  #endif
+  void set_sim(const char* value);
+  void set_sim(const char* value, size_t size);
+  ::std::string* mutable_sim();
+  ::std::string* release_sim();
+  void set_allocated_sim(::std::string* sim);
+
+  // double lat = 4;
   void clear_lat();
-  static const int kLatFieldNumber = 3;
+  static const int kLatFieldNumber = 4;
   double lat() const;
   void set_lat(double value);
 
-  // double lng = 4;
+  // double lng = 5;
   void clear_lng();
-  static const int kLngFieldNumber = 4;
+  static const int kLngFieldNumber = 5;
   double lng() const;
   void set_lng(double value);
 
-  // float acc = 5;
+  // float acc = 6;
   void clear_acc();
-  static const int kAccFieldNumber = 5;
+  static const int kAccFieldNumber = 6;
   float acc() const;
   void set_acc(float value);
 
-  // float vol = 6;
+  // float vol = 7;
   void clear_vol();
-  static const int kVolFieldNumber = 6;
+  static const int kVolFieldNumber = 7;
   float vol() const;
   void set_vol(float value);
 
@@ -366,6 +380,7 @@ class CloudDriveMqttBoxStatusData : public ::google::protobuf::Message /* @@prot
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr fw_;
   ::google::protobuf::internal::ArenaStringPtr app_;
+  ::google::protobuf::internal::ArenaStringPtr sim_;
   double lat_;
   double lng_;
   float acc_;
@@ -484,9 +499,23 @@ class CloudDriveMqttEventData : public ::google::protobuf::Message /* @@protoc_i
   ::std::string* release_app();
   void set_allocated_app(::std::string* app);
 
-  // string content = 8;
+  // string sim = 3;
+  void clear_sim();
+  static const int kSimFieldNumber = 3;
+  const ::std::string& sim() const;
+  void set_sim(const ::std::string& value);
+  #if LANG_CXX11
+  void set_sim(::std::string&& value);
+  #endif
+  void set_sim(const char* value);
+  void set_sim(const char* value, size_t size);
+  ::std::string* mutable_sim();
+  ::std::string* release_sim();
+  void set_allocated_sim(::std::string* sim);
+
+  // string content = 9;
   void clear_content();
-  static const int kContentFieldNumber = 8;
+  static const int kContentFieldNumber = 9;
   const ::std::string& content() const;
   void set_content(const ::std::string& value);
   #if LANG_CXX11
@@ -498,33 +527,33 @@ class CloudDriveMqttEventData : public ::google::protobuf::Message /* @@protoc_i
   ::std::string* release_content();
   void set_allocated_content(::std::string* content);
 
-  // double lat = 3;
+  // double lat = 4;
   void clear_lat();
-  static const int kLatFieldNumber = 3;
+  static const int kLatFieldNumber = 4;
   double lat() const;
   void set_lat(double value);
 
-  // double lng = 4;
+  // double lng = 5;
   void clear_lng();
-  static const int kLngFieldNumber = 4;
+  static const int kLngFieldNumber = 5;
   double lng() const;
   void set_lng(double value);
 
-  // float acc = 5;
+  // float acc = 6;
   void clear_acc();
-  static const int kAccFieldNumber = 5;
+  static const int kAccFieldNumber = 6;
   float acc() const;
   void set_acc(float value);
 
-  // float vol = 6;
+  // float vol = 7;
   void clear_vol();
-  static const int kVolFieldNumber = 6;
+  static const int kVolFieldNumber = 7;
   float vol() const;
   void set_vol(float value);
 
-  // int32 type = 7;
+  // int32 type = 8;
   void clear_type();
-  static const int kTypeFieldNumber = 7;
+  static const int kTypeFieldNumber = 8;
   ::google::protobuf::int32 type() const;
   void set_type(::google::protobuf::int32 value);
 
@@ -534,6 +563,7 @@ class CloudDriveMqttEventData : public ::google::protobuf::Message /* @@protoc_i
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr fw_;
   ::google::protobuf::internal::ArenaStringPtr app_;
+  ::google::protobuf::internal::ArenaStringPtr sim_;
   ::google::protobuf::internal::ArenaStringPtr content_;
   double lat_;
   double lng_;
@@ -2153,7 +2183,60 @@ inline void CloudDriveMqttBoxStatusData::set_allocated_app(::std::string* app) {
   // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.app)
 }
 
-// double lat = 3;
+// string sim = 3;
+inline void CloudDriveMqttBoxStatusData::clear_sim() {
+  sim_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CloudDriveMqttBoxStatusData::sim() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+  return sim_.GetNoArena();
+}
+inline void CloudDriveMqttBoxStatusData::set_sim(const ::std::string& value) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+#if LANG_CXX11
+inline void CloudDriveMqttBoxStatusData::set_sim(::std::string&& value) {
+  
+  sim_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+#endif
+inline void CloudDriveMqttBoxStatusData::set_sim(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+inline void CloudDriveMqttBoxStatusData::set_sim(const char* value, size_t size) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+inline ::std::string* CloudDriveMqttBoxStatusData::mutable_sim() {
+  
+  // @@protoc_insertion_point(field_mutable:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+  return sim_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CloudDriveMqttBoxStatusData::release_sim() {
+  // @@protoc_insertion_point(field_release:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+  
+  return sim_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CloudDriveMqttBoxStatusData::set_allocated_sim(::std::string* sim) {
+  if (sim != NULL) {
+    
+  } else {
+    
+  }
+  sim_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sim);
+  // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+
+// double lat = 4;
 inline void CloudDriveMqttBoxStatusData::clear_lat() {
   lat_ = 0;
 }
@@ -2167,7 +2250,7 @@ inline void CloudDriveMqttBoxStatusData::set_lat(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.lat)
 }
 
-// double lng = 4;
+// double lng = 5;
 inline void CloudDriveMqttBoxStatusData::clear_lng() {
   lng_ = 0;
 }
@@ -2181,7 +2264,7 @@ inline void CloudDriveMqttBoxStatusData::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.lng)
 }
 
-// float acc = 5;
+// float acc = 6;
 inline void CloudDriveMqttBoxStatusData::clear_acc() {
   acc_ = 0;
 }
@@ -2195,7 +2278,7 @@ inline void CloudDriveMqttBoxStatusData::set_acc(float value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.acc)
 }
 
-// float vol = 6;
+// float vol = 7;
 inline void CloudDriveMqttBoxStatusData::clear_vol() {
   vol_ = 0;
 }
@@ -2319,7 +2402,60 @@ inline void CloudDriveMqttEventData::set_allocated_app(::std::string* app) {
   // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.app)
 }
 
-// double lat = 3;
+// string sim = 3;
+inline void CloudDriveMqttEventData::clear_sim() {
+  sim_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CloudDriveMqttEventData::sim() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+  return sim_.GetNoArena();
+}
+inline void CloudDriveMqttEventData::set_sim(const ::std::string& value) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+#if LANG_CXX11
+inline void CloudDriveMqttEventData::set_sim(::std::string&& value) {
+  
+  sim_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+#endif
+inline void CloudDriveMqttEventData::set_sim(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+inline void CloudDriveMqttEventData::set_sim(const char* value, size_t size) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+inline ::std::string* CloudDriveMqttEventData::mutable_sim() {
+  
+  // @@protoc_insertion_point(field_mutable:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+  return sim_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CloudDriveMqttEventData::release_sim() {
+  // @@protoc_insertion_point(field_release:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+  
+  return sim_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CloudDriveMqttEventData::set_allocated_sim(::std::string* sim) {
+  if (sim != NULL) {
+    
+  } else {
+    
+  }
+  sim_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sim);
+  // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+
+// double lat = 4;
 inline void CloudDriveMqttEventData::clear_lat() {
   lat_ = 0;
 }
@@ -2333,7 +2469,7 @@ inline void CloudDriveMqttEventData::set_lat(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.lat)
 }
 
-// double lng = 4;
+// double lng = 5;
 inline void CloudDriveMqttEventData::clear_lng() {
   lng_ = 0;
 }
@@ -2347,7 +2483,7 @@ inline void CloudDriveMqttEventData::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.lng)
 }
 
-// float acc = 5;
+// float acc = 6;
 inline void CloudDriveMqttEventData::clear_acc() {
   acc_ = 0;
 }
@@ -2361,7 +2497,7 @@ inline void CloudDriveMqttEventData::set_acc(float value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.acc)
 }
 
-// float vol = 6;
+// float vol = 7;
 inline void CloudDriveMqttEventData::clear_vol() {
   vol_ = 0;
 }
@@ -2375,7 +2511,7 @@ inline void CloudDriveMqttEventData::set_vol(float value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.vol)
 }
 
-// int32 type = 7;
+// int32 type = 8;
 inline void CloudDriveMqttEventData::clear_type() {
   type_ = 0;
 }
@@ -2389,7 +2525,7 @@ inline void CloudDriveMqttEventData::set_type(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.type)
 }
 
-// string content = 8;
+// string content = 9;
 inline void CloudDriveMqttEventData::clear_content() {
   content_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

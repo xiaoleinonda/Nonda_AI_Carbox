@@ -3,8 +3,8 @@
 
 package io.nonda.onedata.proto.contract;
 
-public final class CloudDriveMqttMessageCreator {
-  private CloudDriveMqttMessageCreator() {}
+public final class CloudDriveMqttMessageOuterClass {
+  private CloudDriveMqttMessageOuterClass() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
@@ -123,14 +123,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.Builder.class);
     }
 
     public static final int CMD_FIELD_NUMBER = 1;
@@ -223,10 +223,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage) obj;
 
       boolean result = true;
       result = result && (getCmd()
@@ -263,69 +263,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -337,7 +337,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -357,20 +357,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttMessage)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessageOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -402,23 +402,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttMessage_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage(this);
         result.cmd_ = cmd_;
         result.time_ = time_;
         if (dataBuilder_ == null) {
@@ -457,16 +457,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage.getDefaultInstance()) return this;
         if (other.getCmd() != 0) {
           setCmd(other.getCmd());
         }
@@ -489,11 +489,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -686,12 +686,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttMessage)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -714,7 +714,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttMessage getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -876,14 +876,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.Builder.class);
     }
 
     public static final int FW_FIELD_NUMBER = 1;
@@ -1100,10 +1100,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData) obj;
 
       boolean result = true;
       result = result && getFw()
@@ -1162,69 +1162,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1236,7 +1236,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -1256,20 +1256,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1305,23 +1305,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttBoxStatusData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData(this);
         result.fw_ = fw_;
         result.app_ = app_;
         result.sim_ = sim_;
@@ -1360,16 +1360,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData.getDefaultInstance()) return this;
         if (!other.getFw().isEmpty()) {
           fw_ = other.fw_;
           onChanged();
@@ -1407,11 +1407,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1746,12 +1746,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1774,7 +1774,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttBoxStatusData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1964,14 +1964,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.Builder.class);
     }
 
     public static final int FW_FIELD_NUMBER = 1;
@@ -2244,10 +2244,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData) obj;
 
       boolean result = true;
       result = result && getFw()
@@ -2314,69 +2314,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2388,7 +2388,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2408,20 +2408,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttEventData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2461,23 +2461,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEventData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData(this);
         result.fw_ = fw_;
         result.app_ = app_;
         result.sim_ = sim_;
@@ -2518,16 +2518,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData.getDefaultInstance()) return this;
         if (!other.getFw().isEmpty()) {
           fw_ = other.fw_;
           onChanged();
@@ -2572,11 +2572,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3006,12 +3006,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttEventData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3034,7 +3034,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEventData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEventData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3047,12 +3047,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem> 
+    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem> 
         getItemsList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem getItems(int index);
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem getItems(int index);
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
@@ -3060,12 +3060,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder> 
+    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder> 
         getItemsOrBuilderList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder getItemsOrBuilder(
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder getItemsOrBuilder(
         int index);
   }
   /**
@@ -3114,11 +3114,11 @@ public final class CloudDriveMqttMessageCreator {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem>();
+                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem>();
                 mutable_bitField0_ |= 0x00000001;
               }
               items_.add(
-                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.parser(), extensionRegistry));
+                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.parser(), extensionRegistry));
               break;
             }
           }
@@ -3138,28 +3138,28 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.Builder.class);
     }
 
     public static final int ITEMS_FIELD_NUMBER = 1;
-    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem> items_;
+    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem> items_;
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem> getItemsList() {
+    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder> 
+    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
     }
@@ -3172,13 +3172,13 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem getItems(int index) {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder getItemsOrBuilder(
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
     }
@@ -3220,10 +3220,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData) obj;
 
       boolean result = true;
       result = result && getItemsList()
@@ -3248,69 +3248,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3322,7 +3322,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -3342,20 +3342,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttGpsData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3384,23 +3384,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -3442,16 +3442,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData.getDefaultInstance()) return this;
         if (itemsBuilder_ == null) {
           if (!other.items_.isEmpty()) {
             if (items_.isEmpty()) {
@@ -3491,11 +3491,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3506,22 +3506,22 @@ public final class CloudDriveMqttMessageCreator {
       }
       private int bitField0_;
 
-      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem> items_ =
+      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem>(items_);
+          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem>(items_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder> itemsBuilder_;
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder> itemsBuilder_;
 
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem> getItemsList() {
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem> getItemsList() {
         if (itemsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(items_);
         } else {
@@ -3541,7 +3541,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem getItems(int index) {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem getItems(int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);
         } else {
@@ -3552,7 +3552,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3569,7 +3569,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.set(index, builderForValue.build());
@@ -3582,7 +3582,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem value) {
+      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3599,7 +3599,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3616,7 +3616,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
       public Builder addItems(
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder builderForValue) {
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(builderForValue.build());
@@ -3630,7 +3630,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(index, builderForValue.build());
@@ -3644,7 +3644,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
       public Builder addAllItems(
-          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem> values) {
+          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem> values) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -3684,14 +3684,14 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder getItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder getItemsBuilder(
           int index) {
         return getItemsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder getItemsOrBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder getItemsOrBuilder(
           int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);  } else {
@@ -3701,7 +3701,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder> 
+      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder> 
            getItemsOrBuilderList() {
         if (itemsBuilder_ != null) {
           return itemsBuilder_.getMessageOrBuilderList();
@@ -3712,31 +3712,31 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder addItemsBuilder() {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder addItemsBuilder() {
         return getItemsFieldBuilder().addBuilder(
-            io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.getDefaultInstance());
+            io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder addItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder addItemsBuilder(
           int index) {
         return getItemsFieldBuilder().addBuilder(
-            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.getDefaultInstance());
+            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder> 
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder> 
            getItemsBuilderList() {
         return getItemsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder> 
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder> 
           getItemsFieldBuilder() {
         if (itemsBuilder_ == null) {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder>(
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder>(
                   items_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -3760,12 +3760,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGpsData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3788,7 +3788,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3921,14 +3921,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder.class);
     }
 
     public static final int TIME_FIELD_NUMBER = 1;
@@ -4057,10 +4057,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem) obj;
 
       boolean result = true;
       result = result && (getTime()
@@ -4119,69 +4119,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4193,7 +4193,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -4213,20 +4213,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItemOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItemOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4260,23 +4260,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGpsDataItem_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem(this);
         result.time_ = time_;
         result.lat_ = lat_;
         result.lng_ = lng_;
@@ -4314,16 +4314,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem.getDefaultInstance()) return this;
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
@@ -4355,11 +4355,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4539,12 +4539,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGpsDataItem)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4567,7 +4567,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGpsDataItem getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGpsDataItem getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4580,12 +4580,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem> 
+    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem> 
         getItemsList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem getItems(int index);
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem getItems(int index);
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
@@ -4593,12 +4593,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder> 
+    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder> 
         getItemsOrBuilderList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder getItemsOrBuilder(
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder getItemsOrBuilder(
         int index);
   }
   /**
@@ -4647,11 +4647,11 @@ public final class CloudDriveMqttMessageCreator {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem>();
+                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem>();
                 mutable_bitField0_ |= 0x00000001;
               }
               items_.add(
-                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.parser(), extensionRegistry));
+                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.parser(), extensionRegistry));
               break;
             }
           }
@@ -4671,28 +4671,28 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.Builder.class);
     }
 
     public static final int ITEMS_FIELD_NUMBER = 1;
-    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem> items_;
+    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem> items_;
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem> getItemsList() {
+    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder> 
+    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
     }
@@ -4705,13 +4705,13 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem getItems(int index) {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder getItemsOrBuilder(
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
     }
@@ -4753,10 +4753,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData) obj;
 
       boolean result = true;
       result = result && getItemsList()
@@ -4781,69 +4781,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4855,7 +4855,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -4875,20 +4875,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4917,23 +4917,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -4975,16 +4975,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData.getDefaultInstance()) return this;
         if (itemsBuilder_ == null) {
           if (!other.items_.isEmpty()) {
             if (items_.isEmpty()) {
@@ -5024,11 +5024,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5039,22 +5039,22 @@ public final class CloudDriveMqttMessageCreator {
       }
       private int bitField0_;
 
-      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem> items_ =
+      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem>(items_);
+          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem>(items_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder> itemsBuilder_;
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder> itemsBuilder_;
 
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem> getItemsList() {
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem> getItemsList() {
         if (itemsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(items_);
         } else {
@@ -5074,7 +5074,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem getItems(int index) {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem getItems(int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);
         } else {
@@ -5085,7 +5085,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5102,7 +5102,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.set(index, builderForValue.build());
@@ -5115,7 +5115,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem value) {
+      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5132,7 +5132,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5149,7 +5149,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
       public Builder addItems(
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder builderForValue) {
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(builderForValue.build());
@@ -5163,7 +5163,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(index, builderForValue.build());
@@ -5177,7 +5177,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
       public Builder addAllItems(
-          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem> values) {
+          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem> values) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -5217,14 +5217,14 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder getItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder getItemsBuilder(
           int index) {
         return getItemsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder getItemsOrBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder getItemsOrBuilder(
           int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);  } else {
@@ -5234,7 +5234,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder> 
+      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder> 
            getItemsOrBuilderList() {
         if (itemsBuilder_ != null) {
           return itemsBuilder_.getMessageOrBuilderList();
@@ -5245,31 +5245,31 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder addItemsBuilder() {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder addItemsBuilder() {
         return getItemsFieldBuilder().addBuilder(
-            io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.getDefaultInstance());
+            io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder addItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder addItemsBuilder(
           int index) {
         return getItemsFieldBuilder().addBuilder(
-            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.getDefaultInstance());
+            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder> 
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder> 
            getItemsBuilderList() {
         return getItemsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder> 
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder> 
           getItemsFieldBuilder() {
         if (itemsBuilder_ == null) {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder>(
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder>(
                   items_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -5293,12 +5293,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5321,7 +5321,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5432,14 +5432,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder.class);
     }
 
     public static final int TIME_FIELD_NUMBER = 1;
@@ -5536,10 +5536,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem) obj;
 
       boolean result = true;
       result = result && (getTime()
@@ -5584,69 +5584,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5658,7 +5658,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -5678,20 +5678,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItemOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItemOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -5721,23 +5721,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGSensorDataItem_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem(this);
         result.time_ = time_;
         result.x_ = x_;
         result.y_ = y_;
@@ -5773,16 +5773,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem.getDefaultInstance()) return this;
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
@@ -5808,11 +5808,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5940,12 +5940,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGSensorDataItem)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5968,7 +5968,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGSensorDataItem getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGSensorDataItem getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5981,12 +5981,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem> 
+    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem> 
         getItemsList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem getItems(int index);
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem getItems(int index);
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
@@ -5994,12 +5994,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder> 
+    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder> 
         getItemsOrBuilderList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder getItemsOrBuilder(
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder getItemsOrBuilder(
         int index);
   }
   /**
@@ -6048,11 +6048,11 @@ public final class CloudDriveMqttMessageCreator {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem>();
+                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem>();
                 mutable_bitField0_ |= 0x00000001;
               }
               items_.add(
-                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.parser(), extensionRegistry));
+                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.parser(), extensionRegistry));
               break;
             }
           }
@@ -6072,28 +6072,28 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.Builder.class);
     }
 
     public static final int ITEMS_FIELD_NUMBER = 1;
-    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem> items_;
+    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem> items_;
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem> getItemsList() {
+    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder> 
+    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
     }
@@ -6106,13 +6106,13 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem getItems(int index) {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder getItemsOrBuilder(
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
     }
@@ -6154,10 +6154,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData) obj;
 
       boolean result = true;
       result = result && getItemsList()
@@ -6182,69 +6182,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6256,7 +6256,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -6276,20 +6276,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttGyroData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -6318,23 +6318,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -6376,16 +6376,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData.getDefaultInstance()) return this;
         if (itemsBuilder_ == null) {
           if (!other.items_.isEmpty()) {
             if (items_.isEmpty()) {
@@ -6425,11 +6425,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6440,22 +6440,22 @@ public final class CloudDriveMqttMessageCreator {
       }
       private int bitField0_;
 
-      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem> items_ =
+      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem>(items_);
+          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem>(items_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder> itemsBuilder_;
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder> itemsBuilder_;
 
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem> getItemsList() {
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem> getItemsList() {
         if (itemsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(items_);
         } else {
@@ -6475,7 +6475,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem getItems(int index) {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem getItems(int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);
         } else {
@@ -6486,7 +6486,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6503,7 +6503,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.set(index, builderForValue.build());
@@ -6516,7 +6516,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem value) {
+      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6533,7 +6533,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6550,7 +6550,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
       public Builder addItems(
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder builderForValue) {
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(builderForValue.build());
@@ -6564,7 +6564,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(index, builderForValue.build());
@@ -6578,7 +6578,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
       public Builder addAllItems(
-          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem> values) {
+          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem> values) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -6618,14 +6618,14 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder getItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder getItemsBuilder(
           int index) {
         return getItemsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder getItemsOrBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder getItemsOrBuilder(
           int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);  } else {
@@ -6635,7 +6635,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder> 
+      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder> 
            getItemsOrBuilderList() {
         if (itemsBuilder_ != null) {
           return itemsBuilder_.getMessageOrBuilderList();
@@ -6646,31 +6646,31 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder addItemsBuilder() {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder addItemsBuilder() {
         return getItemsFieldBuilder().addBuilder(
-            io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.getDefaultInstance());
+            io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder addItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder addItemsBuilder(
           int index) {
         return getItemsFieldBuilder().addBuilder(
-            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.getDefaultInstance());
+            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder> 
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder> 
            getItemsBuilderList() {
         return getItemsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder> 
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder> 
           getItemsFieldBuilder() {
         if (itemsBuilder_ == null) {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder>(
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder>(
                   items_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -6694,12 +6694,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGyroData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6722,7 +6722,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6833,14 +6833,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder.class);
     }
 
     public static final int TIME_FIELD_NUMBER = 1;
@@ -6937,10 +6937,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem) obj;
 
       boolean result = true;
       result = result && (getTime()
@@ -6985,69 +6985,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -7059,7 +7059,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -7079,20 +7079,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItemOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItemOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -7122,23 +7122,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttGyroDataItem_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem(this);
         result.time_ = time_;
         result.x_ = x_;
         result.y_ = y_;
@@ -7174,16 +7174,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem.getDefaultInstance()) return this;
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
@@ -7209,11 +7209,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7341,12 +7341,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttGyroDataItem)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7369,7 +7369,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttGyroDataItem getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttGyroDataItem getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7458,14 +7458,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.Builder.class);
     }
 
     public static final int COLLECTFREQ_FIELD_NUMBER = 1;
@@ -7530,10 +7530,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData) obj;
 
       boolean result = true;
       result = result && (getCollectFreq()
@@ -7560,69 +7560,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -7634,7 +7634,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -7654,20 +7654,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttFreqData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -7693,23 +7693,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFreqData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData(this);
         result.collectFreq_ = collectFreq_;
         result.reportFreq_ = reportFreq_;
         onBuilt();
@@ -7743,16 +7743,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData.getDefaultInstance()) return this;
         if (other.getCollectFreq() != 0) {
           setCollectFreq(other.getCollectFreq());
         }
@@ -7772,11 +7772,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7852,12 +7852,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttFreqData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7880,7 +7880,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFreqData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFreqData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7893,12 +7893,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem> 
+    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem> 
         getItemsList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem getItems(int index);
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem getItems(int index);
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
@@ -7906,12 +7906,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder> 
+    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder> 
         getItemsOrBuilderList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder getItemsOrBuilder(
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder getItemsOrBuilder(
         int index);
   }
   /**
@@ -7960,11 +7960,11 @@ public final class CloudDriveMqttMessageCreator {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem>();
+                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem>();
                 mutable_bitField0_ |= 0x00000001;
               }
               items_.add(
-                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.parser(), extensionRegistry));
+                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.parser(), extensionRegistry));
               break;
             }
           }
@@ -7984,28 +7984,28 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.Builder.class);
     }
 
     public static final int ITEMS_FIELD_NUMBER = 1;
-    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem> items_;
+    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem> items_;
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem> getItemsList() {
+    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder> 
+    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
     }
@@ -8018,13 +8018,13 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem getItems(int index) {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder getItemsOrBuilder(
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
     }
@@ -8066,10 +8066,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData) obj;
 
       boolean result = true;
       result = result && getItemsList()
@@ -8094,69 +8094,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -8168,7 +8168,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -8188,20 +8188,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttFaceData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -8230,23 +8230,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -8288,16 +8288,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData.getDefaultInstance()) return this;
         if (itemsBuilder_ == null) {
           if (!other.items_.isEmpty()) {
             if (items_.isEmpty()) {
@@ -8337,11 +8337,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -8352,22 +8352,22 @@ public final class CloudDriveMqttMessageCreator {
       }
       private int bitField0_;
 
-      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem> items_ =
+      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem>(items_);
+          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem>(items_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder> itemsBuilder_;
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder> itemsBuilder_;
 
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem> getItemsList() {
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem> getItemsList() {
         if (itemsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(items_);
         } else {
@@ -8387,7 +8387,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem getItems(int index) {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem getItems(int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);
         } else {
@@ -8398,7 +8398,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8415,7 +8415,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.set(index, builderForValue.build());
@@ -8428,7 +8428,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem value) {
+      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8445,7 +8445,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -8462,7 +8462,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
       public Builder addItems(
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder builderForValue) {
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(builderForValue.build());
@@ -8476,7 +8476,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(index, builderForValue.build());
@@ -8490,7 +8490,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
       public Builder addAllItems(
-          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem> values) {
+          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem> values) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -8530,14 +8530,14 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder getItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder getItemsBuilder(
           int index) {
         return getItemsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder getItemsOrBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder getItemsOrBuilder(
           int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);  } else {
@@ -8547,7 +8547,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder> 
+      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder> 
            getItemsOrBuilderList() {
         if (itemsBuilder_ != null) {
           return itemsBuilder_.getMessageOrBuilderList();
@@ -8558,31 +8558,31 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder addItemsBuilder() {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder addItemsBuilder() {
         return getItemsFieldBuilder().addBuilder(
-            io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.getDefaultInstance());
+            io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder addItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder addItemsBuilder(
           int index) {
         return getItemsFieldBuilder().addBuilder(
-            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.getDefaultInstance());
+            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder> 
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder> 
            getItemsBuilderList() {
         return getItemsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder> 
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder> 
           getItemsFieldBuilder() {
         if (itemsBuilder_ == null) {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder>(
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder>(
                   items_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -8606,12 +8606,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttFaceData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8634,7 +8634,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -8723,14 +8723,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder.class);
     }
 
     public static final int TIME_FIELD_NUMBER = 1;
@@ -8795,10 +8795,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem) obj;
 
       boolean result = true;
       result = result && (getTime()
@@ -8826,69 +8826,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -8900,7 +8900,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -8920,20 +8920,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItemOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItemOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -8959,23 +8959,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttFaceDataItem_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem(this);
         result.time_ = time_;
         result.face_ = face_;
         onBuilt();
@@ -9009,16 +9009,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem.getDefaultInstance()) return this;
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
@@ -9038,11 +9038,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -9118,12 +9118,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttFaceDataItem)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9146,7 +9146,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttFaceDataItem getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttFaceDataItem getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9159,12 +9159,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem> 
+    java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem> 
         getItemsList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem getItems(int index);
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem getItems(int index);
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
@@ -9172,12 +9172,12 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder> 
+    java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder> 
         getItemsOrBuilderList();
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder getItemsOrBuilder(
+    io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder getItemsOrBuilder(
         int index);
   }
   /**
@@ -9226,11 +9226,11 @@ public final class CloudDriveMqttMessageCreator {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem>();
+                items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem>();
                 mutable_bitField0_ |= 0x00000001;
               }
               items_.add(
-                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.parser(), extensionRegistry));
+                  input.readMessage(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.parser(), extensionRegistry));
               break;
             }
           }
@@ -9250,28 +9250,28 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.Builder.class);
     }
 
     public static final int ITEMS_FIELD_NUMBER = 1;
-    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem> items_;
+    private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem> items_;
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem> getItemsList() {
+    public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem> getItemsList() {
       return items_;
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder> 
+    public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder> 
         getItemsOrBuilderList() {
       return items_;
     }
@@ -9284,13 +9284,13 @@ public final class CloudDriveMqttMessageCreator {
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem getItems(int index) {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem getItems(int index) {
       return items_.get(index);
     }
     /**
      * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
      */
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder getItemsOrBuilder(
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder getItemsOrBuilder(
         int index) {
       return items_.get(index);
     }
@@ -9332,10 +9332,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData) obj;
 
       boolean result = true;
       result = result && getItemsList()
@@ -9360,69 +9360,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -9434,7 +9434,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -9454,20 +9454,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttEmotionData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -9496,23 +9496,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData(this);
         int from_bitField0_ = bitField0_;
         if (itemsBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -9554,16 +9554,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData.getDefaultInstance()) return this;
         if (itemsBuilder_ == null) {
           if (!other.items_.isEmpty()) {
             if (items_.isEmpty()) {
@@ -9603,11 +9603,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -9618,22 +9618,22 @@ public final class CloudDriveMqttMessageCreator {
       }
       private int bitField0_;
 
-      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem> items_ =
+      private java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem> items_ =
         java.util.Collections.emptyList();
       private void ensureItemsIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem>(items_);
+          items_ = new java.util.ArrayList<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem>(items_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder> itemsBuilder_;
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder> itemsBuilder_;
 
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem> getItemsList() {
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem> getItemsList() {
         if (itemsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(items_);
         } else {
@@ -9653,7 +9653,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem getItems(int index) {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem getItems(int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);
         } else {
@@ -9664,7 +9664,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9681,7 +9681,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
       public Builder setItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.set(index, builderForValue.build());
@@ -9694,7 +9694,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem value) {
+      public Builder addItems(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9711,7 +9711,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem value) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem value) {
         if (itemsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -9728,7 +9728,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
       public Builder addItems(
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder builderForValue) {
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(builderForValue.build());
@@ -9742,7 +9742,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
       public Builder addItems(
-          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder builderForValue) {
+          int index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder builderForValue) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           items_.add(index, builderForValue.build());
@@ -9756,7 +9756,7 @@ public final class CloudDriveMqttMessageCreator {
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
       public Builder addAllItems(
-          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem> values) {
+          java.lang.Iterable<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem> values) {
         if (itemsBuilder_ == null) {
           ensureItemsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -9796,14 +9796,14 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder getItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder getItemsBuilder(
           int index) {
         return getItemsFieldBuilder().getBuilder(index);
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder getItemsOrBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder getItemsOrBuilder(
           int index) {
         if (itemsBuilder_ == null) {
           return items_.get(index);  } else {
@@ -9813,7 +9813,7 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder> 
+      public java.util.List<? extends io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder> 
            getItemsOrBuilderList() {
         if (itemsBuilder_ != null) {
           return itemsBuilder_.getMessageOrBuilderList();
@@ -9824,31 +9824,31 @@ public final class CloudDriveMqttMessageCreator {
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder addItemsBuilder() {
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder addItemsBuilder() {
         return getItemsFieldBuilder().addBuilder(
-            io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.getDefaultInstance());
+            io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder addItemsBuilder(
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder addItemsBuilder(
           int index) {
         return getItemsFieldBuilder().addBuilder(
-            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.getDefaultInstance());
+            index, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.getDefaultInstance());
       }
       /**
        * <code>repeated .io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem items = 1;</code>
        */
-      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder> 
+      public java.util.List<io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder> 
            getItemsBuilderList() {
         return getItemsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder> 
+          io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder> 
           getItemsFieldBuilder() {
         if (itemsBuilder_ == null) {
           itemsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder>(
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder>(
                   items_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -9872,12 +9872,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttEmotionData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9900,7 +9900,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -9995,14 +9995,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder.class);
     }
 
     public static final int TIME_FIELD_NUMBER = 1;
@@ -10091,10 +10091,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem) obj;
 
       boolean result = true;
       result = result && (getTime()
@@ -10122,69 +10122,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -10196,7 +10196,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -10216,20 +10216,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItemOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItemOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -10255,23 +10255,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttEmotionDataItem_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem(this);
         result.time_ = time_;
         result.emotion_ = emotion_;
         onBuilt();
@@ -10305,16 +10305,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem.getDefaultInstance()) return this;
         if (other.getTime() != 0L) {
           setTime(other.getTime());
         }
@@ -10335,11 +10335,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -10458,12 +10458,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttEmotionDataItem)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -10486,7 +10486,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttEmotionDataItem getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttEmotionDataItem getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -10587,14 +10587,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.Builder.class);
     }
 
     public static final int TYPE_FIELD_NUMBER = 1;
@@ -10707,10 +10707,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData) obj;
 
       boolean result = true;
       result = result && getType()
@@ -10737,69 +10737,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -10811,7 +10811,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -10831,20 +10831,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -10870,23 +10870,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttLogData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData(this);
         result.type_ = type_;
         result.msg_ = msg_;
         onBuilt();
@@ -10920,16 +10920,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData.getDefaultInstance()) return this;
         if (!other.getType().isEmpty()) {
           type_ = other.type_;
           onChanged();
@@ -10951,11 +10951,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -11117,12 +11117,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttLogData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -11145,7 +11145,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttLogData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttLogData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -11223,14 +11223,14 @@ public final class CloudDriveMqttMessageCreator {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_descriptor;
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_fieldAccessorTable
+      return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.Builder.class);
+              io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.Builder.class);
     }
 
     public static final int TYPE_FIELD_NUMBER = 1;
@@ -11279,10 +11279,10 @@ public final class CloudDriveMqttMessageCreator {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData)) {
+      if (!(obj instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData)) {
         return super.equals(obj);
       }
-      io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData) obj;
+      io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData other = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData) obj;
 
       boolean result = true;
       result = result && (getType()
@@ -11305,69 +11305,69 @@ public final class CloudDriveMqttMessageCreator {
       return hash;
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(byte[] data)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseDelimitedFrom(java.io.InputStream input)
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseDelimitedFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parseFrom(
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -11379,7 +11379,7 @@ public final class CloudDriveMqttMessageCreator {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData prototype) {
+    public static Builder newBuilder(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -11399,20 +11399,20 @@ public final class CloudDriveMqttMessageCreator {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusDataOrBuilder {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_fieldAccessorTable
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.Builder.class);
+                io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.class, io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.Builder.class);
       }
 
-      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.newBuilder()
+      // Construct using io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -11436,23 +11436,23 @@ public final class CloudDriveMqttMessageCreator {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_descriptor;
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.internal_static_io_nonda_onedata_proto_contract_CloudDriveMqttReportStatusData_descriptor;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData getDefaultInstanceForType() {
-        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.getDefaultInstance();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData getDefaultInstanceForType() {
+        return io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.getDefaultInstance();
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData build() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData result = buildPartial();
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData build() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData buildPartial() {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData(this);
+      public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData buildPartial() {
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData result = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData(this);
         result.type_ = type_;
         onBuilt();
         return result;
@@ -11485,16 +11485,16 @@ public final class CloudDriveMqttMessageCreator {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData) {
-          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData)other);
+        if (other instanceof io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData) {
+          return mergeFrom((io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData other) {
-        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData.getDefaultInstance()) return this;
+      public Builder mergeFrom(io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData other) {
+        if (other == io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData.getDefaultInstance()) return this;
         if (other.getType() != 0) {
           setType(other.getType());
         }
@@ -11511,11 +11511,11 @@ public final class CloudDriveMqttMessageCreator {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData parsedMessage = null;
+        io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData) e.getUnfinishedMessage();
+          parsedMessage = (io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -11565,12 +11565,12 @@ public final class CloudDriveMqttMessageCreator {
     }
 
     // @@protoc_insertion_point(class_scope:io.nonda.onedata.proto.contract.CloudDriveMqttReportStatusData)
-    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData DEFAULT_INSTANCE;
+    private static final io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData();
+      DEFAULT_INSTANCE = new io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData();
     }
 
-    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData getDefaultInstance() {
+    public static io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -11593,7 +11593,7 @@ public final class CloudDriveMqttMessageCreator {
       return PARSER;
     }
 
-    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator.CloudDriveMqttReportStatusData getDefaultInstanceForType() {
+    public io.nonda.onedata.proto.contract.CloudDriveMqttMessageOuterClass.CloudDriveMqttReportStatusData getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -11726,8 +11726,7 @@ public final class CloudDriveMqttMessageCreator {
       " \001(\003\022\017\n\007emotion\030\002 \001(\t\"2\n\025CloudDriveMqttL" +
       "ogData\022\014\n\004type\030\001 \001(\t\022\013\n\003msg\030\002 \001(\t\".\n\036Clo" +
       "udDriveMqttReportStatusData\022\014\n\004type\030\001 \001(" +
-      "\005B\036B\034CloudDriveMqttMessageCreatorb\006proto" +
-      "3"
+      "\005b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

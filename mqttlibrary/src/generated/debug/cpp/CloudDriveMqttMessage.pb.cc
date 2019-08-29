@@ -157,6 +157,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttBoxStatusData, fw_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttBoxStatusData, app_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttBoxStatusData, sim_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttBoxStatusData, lat_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttBoxStatusData, lng_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttBoxStatusData, acc_),
@@ -168,6 +169,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEventData, fw_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEventData, app_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEventData, sim_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEventData, lat_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEventData, lng_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CloudDriveMqttEventData, acc_),
@@ -271,20 +273,20 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_ATTRIBUTE_SECTION
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(CloudDriveMqttMessage)},
   { 8, -1, sizeof(CloudDriveMqttBoxStatusData)},
-  { 19, -1, sizeof(CloudDriveMqttEventData)},
-  { 32, -1, sizeof(CloudDriveMqttGpsData)},
-  { 38, -1, sizeof(CloudDriveMqttGpsDataItem)},
-  { 49, -1, sizeof(CloudDriveMqttGSensorData)},
-  { 55, -1, sizeof(CloudDriveMqttGSensorDataItem)},
-  { 64, -1, sizeof(CloudDriveMqttGyroData)},
-  { 70, -1, sizeof(CloudDriveMqttGyroDataItem)},
-  { 79, -1, sizeof(CloudDriveMqttFreqData)},
-  { 86, -1, sizeof(CloudDriveMqttFaceData)},
-  { 92, -1, sizeof(CloudDriveMqttFaceDataItem)},
-  { 99, -1, sizeof(CloudDriveMqttEmotionData)},
-  { 105, -1, sizeof(CloudDriveMqttEmotionDataItem)},
-  { 112, -1, sizeof(CloudDriveMqttLogData)},
-  { 119, -1, sizeof(CloudDriveMqttReportStatusData)},
+  { 20, -1, sizeof(CloudDriveMqttEventData)},
+  { 34, -1, sizeof(CloudDriveMqttGpsData)},
+  { 40, -1, sizeof(CloudDriveMqttGpsDataItem)},
+  { 51, -1, sizeof(CloudDriveMqttGSensorData)},
+  { 57, -1, sizeof(CloudDriveMqttGSensorDataItem)},
+  { 66, -1, sizeof(CloudDriveMqttGyroData)},
+  { 72, -1, sizeof(CloudDriveMqttGyroDataItem)},
+  { 81, -1, sizeof(CloudDriveMqttFreqData)},
+  { 88, -1, sizeof(CloudDriveMqttFaceData)},
+  { 94, -1, sizeof(CloudDriveMqttFaceDataItem)},
+  { 101, -1, sizeof(CloudDriveMqttEmotionData)},
+  { 107, -1, sizeof(CloudDriveMqttEmotionDataItem)},
+  { 114, -1, sizeof(CloudDriveMqttLogData)},
+  { 121, -1, sizeof(CloudDriveMqttReportStatusData)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -381,44 +383,45 @@ void AddDescriptorsImpl() {
       "onedata.proto.contract\032\031google/protobuf/"
       "any.proto\"V\n\025CloudDriveMqttMessage\022\013\n\003cm"
       "d\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\"\n\004data\030\003 \001(\0132\024.go"
-      "ogle.protobuf.Any\"j\n\033CloudDriveMqttBoxSt"
-      "atusData\022\n\n\002fw\030\001 \001(\t\022\013\n\003app\030\002 \001(\t\022\013\n\003lat"
-      "\030\003 \001(\001\022\013\n\003lng\030\004 \001(\001\022\013\n\003acc\030\005 \001(\002\022\013\n\003vol\030"
-      "\006 \001(\002\"\205\001\n\027CloudDriveMqttEventData\022\n\n\002fw\030"
-      "\001 \001(\t\022\013\n\003app\030\002 \001(\t\022\013\n\003lat\030\003 \001(\001\022\013\n\003lng\030\004"
-      " \001(\001\022\013\n\003acc\030\005 \001(\002\022\013\n\003vol\030\006 \001(\002\022\014\n\004type\030\007"
-      " \001(\005\022\017\n\007content\030\010 \001(\t\"b\n\025CloudDriveMqttG"
-      "psData\022I\n\005items\030\001 \003(\0132:.io.nonda.onedata"
-      ".proto.contract.CloudDriveMqttGpsDataIte"
-      "m\"j\n\031CloudDriveMqttGpsDataItem\022\014\n\004time\030\001"
-      " \001(\003\022\013\n\003lat\030\002 \001(\001\022\013\n\003lng\030\003 \001(\001\022\013\n\003spd\030\004 "
-      "\001(\002\022\013\n\003acc\030\005 \001(\002\022\013\n\003brg\030\006 \001(\002\"j\n\031CloudDr"
-      "iveMqttGSensorData\022M\n\005items\030\001 \003(\0132>.io.n"
-      "onda.onedata.proto.contract.CloudDriveMq"
-      "ttGSensorDataItem\"N\n\035CloudDriveMqttGSens"
-      "orDataItem\022\014\n\004time\030\001 \001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y"
-      "\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\"d\n\026CloudDriveMqttGyroD"
-      "ata\022J\n\005items\030\001 \003(\0132;.io.nonda.onedata.pr"
-      "oto.contract.CloudDriveMqttGyroDataItem\""
-      "K\n\032CloudDriveMqttGyroDataItem\022\014\n\004time\030\001 "
-      "\001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\"A\n\026"
-      "CloudDriveMqttFreqData\022\023\n\013collectFreq\030\001 "
-      "\001(\005\022\022\n\nreportFreq\030\002 \001(\005\"d\n\026CloudDriveMqt"
-      "tFaceData\022J\n\005items\030\001 \003(\0132;.io.nonda.oned"
-      "ata.proto.contract.CloudDriveMqttFaceDat"
-      "aItem\"8\n\032CloudDriveMqttFaceDataItem\022\014\n\004t"
-      "ime\030\001 \001(\003\022\014\n\004face\030\002 \001(\005\"j\n\031CloudDriveMqt"
-      "tEmotionData\022M\n\005items\030\001 \003(\0132>.io.nonda.o"
-      "nedata.proto.contract.CloudDriveMqttEmot"
-      "ionDataItem\">\n\035CloudDriveMqttEmotionData"
-      "Item\022\014\n\004time\030\001 \001(\003\022\017\n\007emotion\030\002 \001(\t\"2\n\025C"
-      "loudDriveMqttLogData\022\014\n\004type\030\001 \001(\t\022\013\n\003ms"
-      "g\030\002 \001(\t\".\n\036CloudDriveMqttReportStatusDat"
-      "a\022\014\n\004type\030\001 \001(\005B\036B\034CloudDriveMqttMessage"
-      "Creatorb\006proto3"
+      "ogle.protobuf.Any\"w\n\033CloudDriveMqttBoxSt"
+      "atusData\022\n\n\002fw\030\001 \001(\t\022\013\n\003app\030\002 \001(\t\022\013\n\003sim"
+      "\030\003 \001(\t\022\013\n\003lat\030\004 \001(\001\022\013\n\003lng\030\005 \001(\001\022\013\n\003acc\030"
+      "\006 \001(\002\022\013\n\003vol\030\007 \001(\002\"\222\001\n\027CloudDriveMqttEve"
+      "ntData\022\n\n\002fw\030\001 \001(\t\022\013\n\003app\030\002 \001(\t\022\013\n\003sim\030\003"
+      " \001(\t\022\013\n\003lat\030\004 \001(\001\022\013\n\003lng\030\005 \001(\001\022\013\n\003acc\030\006 "
+      "\001(\002\022\013\n\003vol\030\007 \001(\002\022\014\n\004type\030\010 \001(\005\022\017\n\007conten"
+      "t\030\t \001(\t\"b\n\025CloudDriveMqttGpsData\022I\n\005item"
+      "s\030\001 \003(\0132:.io.nonda.onedata.proto.contrac"
+      "t.CloudDriveMqttGpsDataItem\"j\n\031CloudDriv"
+      "eMqttGpsDataItem\022\014\n\004time\030\001 \001(\003\022\013\n\003lat\030\002 "
+      "\001(\001\022\013\n\003lng\030\003 \001(\001\022\013\n\003spd\030\004 \001(\002\022\013\n\003acc\030\005 \001"
+      "(\002\022\013\n\003brg\030\006 \001(\002\"j\n\031CloudDriveMqttGSensor"
+      "Data\022M\n\005items\030\001 \003(\0132>.io.nonda.onedata.p"
+      "roto.contract.CloudDriveMqttGSensorDataI"
+      "tem\"N\n\035CloudDriveMqttGSensorDataItem\022\014\n\004"
+      "time\030\001 \001(\003\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030\004 "
+      "\001(\002\"d\n\026CloudDriveMqttGyroData\022J\n\005items\030\001"
+      " \003(\0132;.io.nonda.onedata.proto.contract.C"
+      "loudDriveMqttGyroDataItem\"K\n\032CloudDriveM"
+      "qttGyroDataItem\022\014\n\004time\030\001 \001(\003\022\t\n\001x\030\002 \001(\002"
+      "\022\t\n\001y\030\003 \001(\002\022\t\n\001z\030\004 \001(\002\"A\n\026CloudDriveMqtt"
+      "FreqData\022\023\n\013collectFreq\030\001 \001(\005\022\022\n\nreportF"
+      "req\030\002 \001(\005\"d\n\026CloudDriveMqttFaceData\022J\n\005i"
+      "tems\030\001 \003(\0132;.io.nonda.onedata.proto.cont"
+      "ract.CloudDriveMqttFaceDataItem\"8\n\032Cloud"
+      "DriveMqttFaceDataItem\022\014\n\004time\030\001 \001(\003\022\014\n\004f"
+      "ace\030\002 \001(\005\"j\n\031CloudDriveMqttEmotionData\022M"
+      "\n\005items\030\001 \003(\0132>.io.nonda.onedata.proto.c"
+      "ontract.CloudDriveMqttEmotionDataItem\">\n"
+      "\035CloudDriveMqttEmotionDataItem\022\014\n\004time\030\001"
+      " \001(\003\022\017\n\007emotion\030\002 \001(\t\"2\n\025CloudDriveMqttL"
+      "ogData\022\014\n\004type\030\001 \001(\t\022\013\n\003msg\030\002 \001(\t\".\n\036Clo"
+      "udDriveMqttReportStatusData\022\014\n\004type\030\001 \001("
+      "\005B\036B\034CloudDriveMqttMessageCreatorb\006proto"
+      "3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1535);
+      descriptor, 1561);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "CloudDriveMqttMessage.proto", &protobuf_RegisterTypes);
   ::google::protobuf::protobuf_google_2fprotobuf_2fany_2eproto::AddDescriptors();
@@ -841,6 +844,7 @@ void CloudDriveMqttMessage::set_allocated_data(::google::protobuf::Any* data) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CloudDriveMqttBoxStatusData::kFwFieldNumber;
 const int CloudDriveMqttBoxStatusData::kAppFieldNumber;
+const int CloudDriveMqttBoxStatusData::kSimFieldNumber;
 const int CloudDriveMqttBoxStatusData::kLatFieldNumber;
 const int CloudDriveMqttBoxStatusData::kLngFieldNumber;
 const int CloudDriveMqttBoxStatusData::kAccFieldNumber;
@@ -868,6 +872,10 @@ CloudDriveMqttBoxStatusData::CloudDriveMqttBoxStatusData(const CloudDriveMqttBox
   if (from.app().size() > 0) {
     app_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.app_);
   }
+  sim_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.sim().size() > 0) {
+    sim_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sim_);
+  }
   ::memcpy(&lat_, &from.lat_,
     static_cast<size_t>(reinterpret_cast<char*>(&vol_) -
     reinterpret_cast<char*>(&lat_)) + sizeof(vol_));
@@ -877,6 +885,7 @@ CloudDriveMqttBoxStatusData::CloudDriveMqttBoxStatusData(const CloudDriveMqttBox
 void CloudDriveMqttBoxStatusData::SharedCtor() {
   fw_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   app_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sim_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&lat_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&vol_) -
       reinterpret_cast<char*>(&lat_)) + sizeof(vol_));
@@ -891,6 +900,7 @@ CloudDriveMqttBoxStatusData::~CloudDriveMqttBoxStatusData() {
 void CloudDriveMqttBoxStatusData::SharedDtor() {
   fw_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   app_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sim_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void CloudDriveMqttBoxStatusData::SetCachedSize(int size) const {
@@ -924,6 +934,7 @@ void CloudDriveMqttBoxStatusData::Clear() {
 
   fw_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   app_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sim_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&lat_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&vol_) -
       reinterpret_cast<char*>(&lat_)) + sizeof(vol_));
@@ -972,10 +983,26 @@ bool CloudDriveMqttBoxStatusData::MergePartialFromCodedStream(
         break;
       }
 
-      // double lat = 3;
+      // string sim = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sim()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sim().data(), static_cast<int>(this->sim().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // double lat = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -986,10 +1013,10 @@ bool CloudDriveMqttBoxStatusData::MergePartialFromCodedStream(
         break;
       }
 
-      // double lng = 4;
-      case 4: {
+      // double lng = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(41u /* 41 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1000,10 +1027,10 @@ bool CloudDriveMqttBoxStatusData::MergePartialFromCodedStream(
         break;
       }
 
-      // float acc = 5;
-      case 5: {
+      // float acc = 6;
+      case 6: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(45u /* 45 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(53u /* 53 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1014,10 +1041,10 @@ bool CloudDriveMqttBoxStatusData::MergePartialFromCodedStream(
         break;
       }
 
-      // float vol = 6;
-      case 6: {
+      // float vol = 7;
+      case 7: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(53u /* 53 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(61u /* 61 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1074,24 +1101,34 @@ void CloudDriveMqttBoxStatusData::SerializeWithCachedSizes(
       2, this->app(), output);
   }
 
-  // double lat = 3;
+  // string sim = 3;
+  if (this->sim().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sim().data(), static_cast<int>(this->sim().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->sim(), output);
+  }
+
+  // double lat = 4;
   if (this->lat() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->lat(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->lat(), output);
   }
 
-  // double lng = 4;
+  // double lng = 5;
   if (this->lng() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->lng(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->lng(), output);
   }
 
-  // float acc = 5;
+  // float acc = 6;
   if (this->acc() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->acc(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->acc(), output);
   }
 
-  // float vol = 6;
+  // float vol = 7;
   if (this->vol() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->vol(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->vol(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1130,24 +1167,35 @@ void CloudDriveMqttBoxStatusData::SerializeWithCachedSizes(
         2, this->app(), target);
   }
 
-  // double lat = 3;
+  // string sim = 3;
+  if (this->sim().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sim().data(), static_cast<int>(this->sim().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->sim(), target);
+  }
+
+  // double lat = 4;
   if (this->lat() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->lat(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->lat(), target);
   }
 
-  // double lng = 4;
+  // double lng = 5;
   if (this->lng() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->lng(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->lng(), target);
   }
 
-  // float acc = 5;
+  // float acc = 6;
   if (this->acc() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->acc(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->acc(), target);
   }
 
-  // float vol = 6;
+  // float vol = 7;
   if (this->vol() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->vol(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->vol(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1181,22 +1229,29 @@ size_t CloudDriveMqttBoxStatusData::ByteSizeLong() const {
         this->app());
   }
 
-  // double lat = 3;
+  // string sim = 3;
+  if (this->sim().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->sim());
+  }
+
+  // double lat = 4;
   if (this->lat() != 0) {
     total_size += 1 + 8;
   }
 
-  // double lng = 4;
+  // double lng = 5;
   if (this->lng() != 0) {
     total_size += 1 + 8;
   }
 
-  // float acc = 5;
+  // float acc = 6;
   if (this->acc() != 0) {
     total_size += 1 + 4;
   }
 
-  // float vol = 6;
+  // float vol = 7;
   if (this->vol() != 0) {
     total_size += 1 + 4;
   }
@@ -1238,6 +1293,10 @@ void CloudDriveMqttBoxStatusData::MergeFrom(const CloudDriveMqttBoxStatusData& f
 
     app_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.app_);
   }
+  if (from.sim().size() > 0) {
+
+    sim_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sim_);
+  }
   if (from.lat() != 0) {
     set_lat(from.lat());
   }
@@ -1278,6 +1337,7 @@ void CloudDriveMqttBoxStatusData::InternalSwap(CloudDriveMqttBoxStatusData* othe
   using std::swap;
   fw_.Swap(&other->fw_);
   app_.Swap(&other->app_);
+  sim_.Swap(&other->sim_);
   swap(lat_, other->lat_);
   swap(lng_, other->lng_);
   swap(acc_, other->acc_);
@@ -1400,7 +1460,60 @@ void CloudDriveMqttBoxStatusData::set_allocated_app(::std::string* app) {
   // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.app)
 }
 
-// double lat = 3;
+// string sim = 3;
+void CloudDriveMqttBoxStatusData::clear_sim() {
+  sim_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& CloudDriveMqttBoxStatusData::sim() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+  return sim_.GetNoArena();
+}
+void CloudDriveMqttBoxStatusData::set_sim(const ::std::string& value) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+#if LANG_CXX11
+void CloudDriveMqttBoxStatusData::set_sim(::std::string&& value) {
+  
+  sim_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+#endif
+void CloudDriveMqttBoxStatusData::set_sim(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+void CloudDriveMqttBoxStatusData::set_sim(const char* value, size_t size) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+::std::string* CloudDriveMqttBoxStatusData::mutable_sim() {
+  
+  // @@protoc_insertion_point(field_mutable:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+  return sim_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* CloudDriveMqttBoxStatusData::release_sim() {
+  // @@protoc_insertion_point(field_release:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+  
+  return sim_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void CloudDriveMqttBoxStatusData::set_allocated_sim(::std::string* sim) {
+  if (sim != NULL) {
+    
+  } else {
+    
+  }
+  sim_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sim);
+  // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.sim)
+}
+
+// double lat = 4;
 void CloudDriveMqttBoxStatusData::clear_lat() {
   lat_ = 0;
 }
@@ -1414,7 +1527,7 @@ void CloudDriveMqttBoxStatusData::set_lat(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.lat)
 }
 
-// double lng = 4;
+// double lng = 5;
 void CloudDriveMqttBoxStatusData::clear_lng() {
   lng_ = 0;
 }
@@ -1428,7 +1541,7 @@ void CloudDriveMqttBoxStatusData::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.lng)
 }
 
-// float acc = 5;
+// float acc = 6;
 void CloudDriveMqttBoxStatusData::clear_acc() {
   acc_ = 0;
 }
@@ -1442,7 +1555,7 @@ void CloudDriveMqttBoxStatusData::set_acc(float value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttBoxStatusData.acc)
 }
 
-// float vol = 6;
+// float vol = 7;
 void CloudDriveMqttBoxStatusData::clear_vol() {
   vol_ = 0;
 }
@@ -1463,6 +1576,7 @@ void CloudDriveMqttBoxStatusData::set_vol(float value) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CloudDriveMqttEventData::kFwFieldNumber;
 const int CloudDriveMqttEventData::kAppFieldNumber;
+const int CloudDriveMqttEventData::kSimFieldNumber;
 const int CloudDriveMqttEventData::kLatFieldNumber;
 const int CloudDriveMqttEventData::kLngFieldNumber;
 const int CloudDriveMqttEventData::kAccFieldNumber;
@@ -1492,6 +1606,10 @@ CloudDriveMqttEventData::CloudDriveMqttEventData(const CloudDriveMqttEventData& 
   if (from.app().size() > 0) {
     app_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.app_);
   }
+  sim_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.sim().size() > 0) {
+    sim_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sim_);
+  }
   content_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.content().size() > 0) {
     content_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.content_);
@@ -1505,6 +1623,7 @@ CloudDriveMqttEventData::CloudDriveMqttEventData(const CloudDriveMqttEventData& 
 void CloudDriveMqttEventData::SharedCtor() {
   fw_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   app_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sim_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   content_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&lat_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&type_) -
@@ -1520,6 +1639,7 @@ CloudDriveMqttEventData::~CloudDriveMqttEventData() {
 void CloudDriveMqttEventData::SharedDtor() {
   fw_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   app_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sim_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   content_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -1554,6 +1674,7 @@ void CloudDriveMqttEventData::Clear() {
 
   fw_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   app_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sim_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   content_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&lat_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&type_) -
@@ -1603,10 +1724,26 @@ bool CloudDriveMqttEventData::MergePartialFromCodedStream(
         break;
       }
 
-      // double lat = 3;
+      // string sim = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sim()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sim().data(), static_cast<int>(this->sim().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // double lat = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1617,10 +1754,10 @@ bool CloudDriveMqttEventData::MergePartialFromCodedStream(
         break;
       }
 
-      // double lng = 4;
-      case 4: {
+      // double lng = 5;
+      case 5: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(41u /* 41 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
@@ -1631,10 +1768,10 @@ bool CloudDriveMqttEventData::MergePartialFromCodedStream(
         break;
       }
 
-      // float acc = 5;
-      case 5: {
+      // float acc = 6;
+      case 6: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(45u /* 45 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(53u /* 53 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1645,10 +1782,10 @@ bool CloudDriveMqttEventData::MergePartialFromCodedStream(
         break;
       }
 
-      // float vol = 6;
-      case 6: {
+      // float vol = 7;
+      case 7: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(53u /* 53 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(61u /* 61 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1659,10 +1796,10 @@ bool CloudDriveMqttEventData::MergePartialFromCodedStream(
         break;
       }
 
-      // int32 type = 7;
-      case 7: {
+      // int32 type = 8;
+      case 8: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(56u /* 56 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(64u /* 64 & 0xFF */)) {
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1673,10 +1810,10 @@ bool CloudDriveMqttEventData::MergePartialFromCodedStream(
         break;
       }
 
-      // string content = 8;
-      case 8: {
+      // string content = 9;
+      case 9: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(66u /* 66 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(74u /* 74 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_content()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -1735,39 +1872,49 @@ void CloudDriveMqttEventData::SerializeWithCachedSizes(
       2, this->app(), output);
   }
 
-  // double lat = 3;
+  // string sim = 3;
+  if (this->sim().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sim().data(), static_cast<int>(this->sim().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->sim(), output);
+  }
+
+  // double lat = 4;
   if (this->lat() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->lat(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->lat(), output);
   }
 
-  // double lng = 4;
+  // double lng = 5;
   if (this->lng() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->lng(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->lng(), output);
   }
 
-  // float acc = 5;
+  // float acc = 6;
   if (this->acc() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->acc(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->acc(), output);
   }
 
-  // float vol = 6;
+  // float vol = 7;
   if (this->vol() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->vol(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->vol(), output);
   }
 
-  // int32 type = 7;
+  // int32 type = 8;
   if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->type(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->type(), output);
   }
 
-  // string content = 8;
+  // string content = 9;
   if (this->content().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->content().data(), static_cast<int>(this->content().length()),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "io.nonda.onedata.proto.contract.CloudDriveMqttEventData.content");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      8, this->content(), output);
+      9, this->content(), output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1806,32 +1953,43 @@ void CloudDriveMqttEventData::SerializeWithCachedSizes(
         2, this->app(), target);
   }
 
-  // double lat = 3;
+  // string sim = 3;
+  if (this->sim().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sim().data(), static_cast<int>(this->sim().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->sim(), target);
+  }
+
+  // double lat = 4;
   if (this->lat() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->lat(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->lat(), target);
   }
 
-  // double lng = 4;
+  // double lng = 5;
   if (this->lng() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->lng(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->lng(), target);
   }
 
-  // float acc = 5;
+  // float acc = 6;
   if (this->acc() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->acc(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->acc(), target);
   }
 
-  // float vol = 6;
+  // float vol = 7;
   if (this->vol() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->vol(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->vol(), target);
   }
 
-  // int32 type = 7;
+  // int32 type = 8;
   if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->type(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->type(), target);
   }
 
-  // string content = 8;
+  // string content = 9;
   if (this->content().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->content().data(), static_cast<int>(this->content().length()),
@@ -1839,7 +1997,7 @@ void CloudDriveMqttEventData::SerializeWithCachedSizes(
       "io.nonda.onedata.proto.contract.CloudDriveMqttEventData.content");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        8, this->content(), target);
+        9, this->content(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1873,34 +2031,41 @@ size_t CloudDriveMqttEventData::ByteSizeLong() const {
         this->app());
   }
 
-  // string content = 8;
+  // string sim = 3;
+  if (this->sim().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->sim());
+  }
+
+  // string content = 9;
   if (this->content().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->content());
   }
 
-  // double lat = 3;
+  // double lat = 4;
   if (this->lat() != 0) {
     total_size += 1 + 8;
   }
 
-  // double lng = 4;
+  // double lng = 5;
   if (this->lng() != 0) {
     total_size += 1 + 8;
   }
 
-  // float acc = 5;
+  // float acc = 6;
   if (this->acc() != 0) {
     total_size += 1 + 4;
   }
 
-  // float vol = 6;
+  // float vol = 7;
   if (this->vol() != 0) {
     total_size += 1 + 4;
   }
 
-  // int32 type = 7;
+  // int32 type = 8;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -1943,6 +2108,10 @@ void CloudDriveMqttEventData::MergeFrom(const CloudDriveMqttEventData& from) {
   if (from.app().size() > 0) {
 
     app_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.app_);
+  }
+  if (from.sim().size() > 0) {
+
+    sim_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sim_);
   }
   if (from.content().size() > 0) {
 
@@ -1991,6 +2160,7 @@ void CloudDriveMqttEventData::InternalSwap(CloudDriveMqttEventData* other) {
   using std::swap;
   fw_.Swap(&other->fw_);
   app_.Swap(&other->app_);
+  sim_.Swap(&other->sim_);
   content_.Swap(&other->content_);
   swap(lat_, other->lat_);
   swap(lng_, other->lng_);
@@ -2115,7 +2285,60 @@ void CloudDriveMqttEventData::set_allocated_app(::std::string* app) {
   // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.app)
 }
 
-// double lat = 3;
+// string sim = 3;
+void CloudDriveMqttEventData::clear_sim() {
+  sim_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& CloudDriveMqttEventData::sim() const {
+  // @@protoc_insertion_point(field_get:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+  return sim_.GetNoArena();
+}
+void CloudDriveMqttEventData::set_sim(const ::std::string& value) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+#if LANG_CXX11
+void CloudDriveMqttEventData::set_sim(::std::string&& value) {
+  
+  sim_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+#endif
+void CloudDriveMqttEventData::set_sim(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+void CloudDriveMqttEventData::set_sim(const char* value, size_t size) {
+  
+  sim_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+::std::string* CloudDriveMqttEventData::mutable_sim() {
+  
+  // @@protoc_insertion_point(field_mutable:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+  return sim_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* CloudDriveMqttEventData::release_sim() {
+  // @@protoc_insertion_point(field_release:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+  
+  return sim_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void CloudDriveMqttEventData::set_allocated_sim(::std::string* sim) {
+  if (sim != NULL) {
+    
+  } else {
+    
+  }
+  sim_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sim);
+  // @@protoc_insertion_point(field_set_allocated:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.sim)
+}
+
+// double lat = 4;
 void CloudDriveMqttEventData::clear_lat() {
   lat_ = 0;
 }
@@ -2129,7 +2352,7 @@ void CloudDriveMqttEventData::set_lat(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.lat)
 }
 
-// double lng = 4;
+// double lng = 5;
 void CloudDriveMqttEventData::clear_lng() {
   lng_ = 0;
 }
@@ -2143,7 +2366,7 @@ void CloudDriveMqttEventData::set_lng(double value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.lng)
 }
 
-// float acc = 5;
+// float acc = 6;
 void CloudDriveMqttEventData::clear_acc() {
   acc_ = 0;
 }
@@ -2157,7 +2380,7 @@ void CloudDriveMqttEventData::set_acc(float value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.acc)
 }
 
-// float vol = 6;
+// float vol = 7;
 void CloudDriveMqttEventData::clear_vol() {
   vol_ = 0;
 }
@@ -2171,7 +2394,7 @@ void CloudDriveMqttEventData::set_vol(float value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.vol)
 }
 
-// int32 type = 7;
+// int32 type = 8;
 void CloudDriveMqttEventData::clear_type() {
   type_ = 0;
 }
@@ -2185,7 +2408,7 @@ void CloudDriveMqttEventData::set_type(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:io.nonda.onedata.proto.contract.CloudDriveMqttEventData.type)
 }
 
-// string content = 8;
+// string content = 9;
 void CloudDriveMqttEventData::clear_content() {
   content_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

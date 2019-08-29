@@ -33,7 +33,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
     private val TAG = MqttManager::class.java.simpleName
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
-//    private var CLIENT_ID = "Android${DeviceUtils.getIMEICode(AppUtils.context)}"
+    //    private var CLIENT_ID = "Android${DeviceUtils.getIMEICode(AppUtils.context)}"
     private var CLIENT_ID = "nonda-vehiclebox-${DeviceUtils.getIMEICode(AppUtils.context)}"
     var mqttState = 0
     private val MQTTSTATE_CONNECTIONLOST = 0
@@ -239,8 +239,9 @@ class MqttManager : MqttCallback, IMqttActionListener {
         builderData.app = statusBean.app
         builderData.lat = statusBean.lat
         builderData.lng = statusBean.lng
-        builderData.acc = statusBean.acc!!
-        builderData.vol = statusBean.vol!!
+        builderData.acc = statusBean.acc ?: 0f
+        builderData.vol = statusBean.vol ?: 0f
+        builderData.sim = DeviceUtils.getSimNumber(AppUtils.context)
 
         val builderMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.newBuilder()
         builderMessage.data = Any.pack(builderData.build())
@@ -261,6 +262,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
         builderData.fw = "1.2"
         builderData.app = AppUtils.getVersionName(AppUtils.context)
+        builderData.sim = DeviceUtils.getSimNumber(AppUtils.context)
         builderData.lat = latitude ?: 0.0
         builderData.lng = longitude ?: 0.0
         builderData.acc = accuracy ?: 0.0f
@@ -286,6 +288,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
         builderData.fw = "1.2"
         builderData.app = AppUtils.getVersionName(AppUtils.context)
+        builderData.sim = DeviceUtils.getSimNumber(AppUtils.context)
         builderData.lat = latitude ?: 0.0
         builderData.lng = longitude ?: 0.0
         builderData.acc = accuracy ?: 0.0f

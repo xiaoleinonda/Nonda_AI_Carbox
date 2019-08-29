@@ -28,6 +28,7 @@ class NondaApp : Application() {
         AppUtils.init(this)
         DBManager.getInstance().init(this)
         checkVersion()
+        DBManager.getInstance().init(this)
     }
 
     /**

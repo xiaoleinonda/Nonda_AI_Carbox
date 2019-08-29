@@ -15,21 +15,23 @@ message CloudDriveMqttMessage {
 message CloudDriveMqttBoxStatusData {
     string fw = 1;
     string app = 2;
-    double lat = 3;
-    double lng = 4;
-    float acc = 5;
-    float vol = 6;
+    string sim = 3;
+    double lat = 4;
+    double lng = 5;
+    float acc = 6;
+    float vol = 7;
 }
 
 message CloudDriveMqttEventData {
     string fw = 1;
     string app = 2;
-    double lat = 3;
-    double lng = 4;
-    float acc = 5;
-    float vol = 6;
-    int32 type = 7;
-    string content = 8;
+    string sim = 3;
+    double lat = 4;
+    double lng = 5;
+    float acc = 6;
+    float vol = 7;
+    int32 type = 8;
+    string content = 9;
 }
 
 message CloudDriveMqttGpsData {

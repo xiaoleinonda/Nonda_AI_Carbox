@@ -6,6 +6,7 @@ import us.nonda.ai.app.crash.CrashHandler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.SPUtils
+import us.nonda.facelibrary.db.DBManager
 import java.io.File
 
 
@@ -25,6 +26,7 @@ class NondaApp : Application() {
 //       Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
         AppUtils.init(this)
         checkVersion()
+        DBManager.getInstance().init(this)
     }
 
     /**

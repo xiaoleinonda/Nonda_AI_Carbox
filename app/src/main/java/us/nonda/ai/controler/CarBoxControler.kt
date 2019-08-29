@@ -106,13 +106,17 @@ class CarBoxControler private constructor() : onDownloadListener {
      * 检测OTA升级
      */
     fun checkOTA() {
+
          sleep()
 
         //取消休眠
         cancelIPO()
 
         MyLog.d(TAG, "开始OTA")
-
+        if (getAccStatus() == 0) {
+            noticeIPO(AppUtils.context)
+        }
+/*
         NetModule.instance.provideAPIService()
             .getAppVersion("869455047237132")
             .subscribeOn(Schedulers.io())
@@ -133,6 +137,7 @@ class CarBoxControler private constructor() : onDownloadListener {
                     onNotDownLoad()
                 }
             })
+*/
 
 /*        var dis = Observable.interval(0, 1, TimeUnit.SECONDS)
             .subscribe {

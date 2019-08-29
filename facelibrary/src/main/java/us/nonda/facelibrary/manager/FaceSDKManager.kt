@@ -10,6 +10,7 @@ import com.baidu.idl.facesdk.model.BDFaceSDKCommon
 import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
 import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
+import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
@@ -36,6 +37,7 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.io.InputStreamReader
+import java.util.concurrent.ExecutorService
 
 
 class FaceSDKManager private constructor() {
@@ -53,6 +55,8 @@ class FaceSDKManager private constructor() {
 
 
     var config: FaceConfig? = null
+    private val initES: ExecutorService = Executors.newSingleThreadExecutor()
+    private var initFeature: Future<*>? = null
 
 
     private var status = STATUS_INIT
@@ -61,6 +65,8 @@ class FaceSDKManager private constructor() {
 
     private var faceCache: FaceStatusCache = FaceStatusCache.instance
 
+
+    var isRegisted = false
 
     companion object {
         const val TAG = "FaceSDKManager"
@@ -74,7 +80,6 @@ class FaceSDKManager private constructor() {
     }
 
 
-
     private var callback: FaceDetectCallBack? = null
 
     /**
@@ -84,8 +89,21 @@ class FaceSDKManager private constructor() {
 
 
     fun check() {
-        checkLicenceStatus()
+        if (status != STATUS_INIT) {
+            checkLicenceStatus()
+        }
+
         checkRegistFaceStatus()
+    }
+
+    fun check(checkRegist: Boolean) {
+        if (status != STATUS_INIT) {
+            checkLicenceStatus()
+        }
+
+        if (checkRegist) {
+            checkRegistFaceStatus()
+        }
     }
 
 
@@ -94,6 +112,18 @@ class FaceSDKManager private constructor() {
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
         }
+
+        if (initFeature != null && !initFeature!!.isDone) {
+            return
+        }
+
+        initFeature = initES.submit {
+            executeInitModel()
+        }
+
+    }
+
+    private fun executeInitModel(){
         if (status != STATUS_INIT) {
             log("已经在初始化状态status=$status")
             return
@@ -485,22 +515,22 @@ class FaceSDKManager private constructor() {
     ): Feature? {
         log("cache=${featureLRUCache.getAll().size}       curFeature=${curFeature.size}")
 
-           /* if (this.featureLRUCache.all.isNotEmpty()) {
-                for (featureEntry: Map.Entry<String, Feature> in featureLRUCache.all) {
-                    val feature = featureEntry.value
-                    val similariry: Float
+        /* if (this.featureLRUCache.all.isNotEmpty()) {
+             for (featureEntry: Map.Entry<String, Feature> in featureLRUCache.all) {
+                 val feature = featureEntry.value
+                 val similariry: Float
 
-                    if (featureType == FaceFeature.FeatureType.FEATURE_VIS) {
-                        similariry = featureCompare(feature.getFeature(), curFeature)
-                        log("similariry=$similariry")
-                        if (similariry > 0.8f) {
-                            liveModel.featureScore = similariry
-                            featureLRUCache.put(feature.getUserName(), feature)
-                            return feature
-                        }
-                    }
-                }
-            }*/
+                 if (featureType == FaceFeature.FeatureType.FEATURE_VIS) {
+                     similariry = featureCompare(feature.getFeature(), curFeature)
+                     log("similariry=$similariry")
+                     if (similariry > 0.8f) {
+                         liveModel.featureScore = similariry
+                         featureLRUCache.put(feature.getUserName(), feature)
+                         return feature
+                     }
+                 }
+             }
+         }*/
 
         val featureCpp = faceFeature.featureCompareCpp(
             curFeature, featureType, 90f
@@ -542,9 +572,11 @@ class FaceSDKManager private constructor() {
             log("setFeature: r人脸库的数量listFeatures.size()=" + listFeatures!!.size)
             faceFeature.setFeature(listFeatures)
 
-            log("faceFeature=$faceFeature  groupId=${listFeatures[0].groupId}" +
-                    "id=${listFeatures[0].id}" +
-                    "faceToken=${listFeatures[0].faceToken}")
+            log(
+                "faceFeature=$faceFeature  groupId=${listFeatures[0].groupId}" +
+                        "id=${listFeatures[0].id}" +
+                        "faceToken=${listFeatures[0].faceToken}"
+            )
             return listFeatures!!.size
         }
         return 0
@@ -576,16 +608,16 @@ class FaceSDKManager private constructor() {
 
     }
 
-    fun onCameraClose(){
+    fun onCameraClose() {
         faceLivenessManager?.stop()
         faceCache.clearFacePassStatus()
         featureLRUCache.clear()
-  /*      val listFeatures = DBManager.getInstance().queryFeature()
-        if (listFeatures != null && listFeatures.size > 0) {
-            for (listFeature in listFeatures) {
-                FaceApi.getInstance().featureDelete(listFeature)
-            }
-        }*/
+        /*      val listFeatures = DBManager.getInstance().queryFeature()
+              if (listFeatures != null && listFeatures.size > 0) {
+                  for (listFeature in listFeatures) {
+                      FaceApi.getInstance().featureDelete(listFeature)
+                  }
+              }*/
     }
 
     private var faceFreq: Long = 500
@@ -674,37 +706,32 @@ class FaceSDKManager private constructor() {
             return
         }
 
-        if (NetworkUtil.getConnectivityStatus(context)) {
-            log("开始激活")
-            activating = true
-
-            FaceAuthManager().initLicense(context, license!!, object : IFaceAuthCallback {
-                override fun onFailed(msg: String) {
-//                    listener?.onFailed("设备激活失败：$msg")
-//                    FaceStatusCache.instance.faceLicence = ""
-                    log("激活失败=$msg")
-                    activating = false
-                    MqttManager.getInstance().publishEventData(1002, "2")
-
-                }
-
-                override fun onSucceed() {
-                    MqttManager.getInstance().publishEventData(1002, "1")
-
-                    FaceStatusCache.instance.faceLicence = license
-                    log("激活成功")
-                    initModel()
-                    activating = false
-                }
-
-
-            })
-        } else {
+        if (!NetworkUtil.getConnectivityStatus(context)) {
             activating = false
-            log("net error")
+            log("initLicense net error")
         }
 
+        log("开始激活")
+        activating = true
 
+        FaceAuthManager().initLicense(context, license!!, object : IFaceAuthCallback {
+            override fun onFailed(msg: String) {
+//                    listener?.onFailed("设备激活失败：$msg")
+//                    FaceStatusCache.instance.faceLicence = ""
+                log("激活失败=$msg")
+                activating = false
+                MqttManager.getInstance().publishEventData(1002, "2")
+            }
+
+            override fun onSucceed() {
+                MqttManager.getInstance().publishEventData(1002, "1")
+
+                FaceStatusCache.instance.faceLicence = license
+                log("激活成功")
+                initModel()
+                activating = false
+            }
+        })
     }
 
 
@@ -713,6 +740,11 @@ class FaceSDKManager private constructor() {
 
     fun checkRegistFaceStatus() {
         if (CameraStatus.instance.getAccStatus() == 0) {
+            return
+        }
+
+        if (isRegisted) {
+            MyLog.d(TAG, "已经注册过人脸了")
             return
         }
         log("检测人脸图片状态")

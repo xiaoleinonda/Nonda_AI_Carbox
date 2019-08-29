@@ -46,10 +46,14 @@ class MainActivity : AppCompatActivity() {
 //        checkAccStatus(this)
 
         btn_location.setOnClickListener {
-            CarBoxControler.instance.startCamera(this@MainActivity)
+            CarBoxControler.instance.accOnMode(this, "首页")
+
         }
         btn_stop_location.setOnClickListener {
-            test()
+            CarBoxControler.instance.sleep()
+            FaceSDKManager.instance.isRegisted = false
+
+//            test()
         }
 
         val carBatteryInfo = CarBoxControler

@@ -27,7 +27,6 @@
              </intent-filter>-->
         </activity>
         <activity android:name=".app.ui.VideoRecordActivity"
-                  android:launchMode="singleTop"
                   android:screenOrientation="landscape"
         >
         </activity>

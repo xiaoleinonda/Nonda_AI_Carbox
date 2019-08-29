@@ -211,7 +211,9 @@ class FaceRegister constructor(
                 if (CameraStatus.instance.getAccStatus() == 0) {
                     return
                 }
+
                 FaceSDKManager.instance.setFeature()
+                FaceSDKManager.instance.isRegisted = true
                 FaceStatusCache.instance.facePicture = facePicture
                 mqttPulish("注册成功")
                 MyLog.d(TAG, "注册成功")

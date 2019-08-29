@@ -94,7 +94,7 @@ public class DBManager {
 
         try {
             mDatabase = mDBHelper.getWritableDatabase();
-            if (mDatabase== null)return false;
+            if (mDatabase == null) return false;
             beginTransaction(mDatabase);
 
             ContentValues cv = new ContentValues();
@@ -328,9 +328,11 @@ public class DBManager {
             if (!TextUtils.isEmpty(userId)) {
                 String where = "user_id = ? and group_id = ? and face_token = ? ";
                 String[] whereValue = {userId, groupId, faceToken};
+                if (mDatabase != null) {
 
-                if (mDatabase.delete(DBHelper.TABLE_FEATURE, where, whereValue) < 0) {
-                    return false;
+                    if (mDatabase.delete(DBHelper.TABLE_FEATURE, where, whereValue) < 0) {
+                        return false;
+                    }
                 }
                 setTransactionSuccessful(mDatabase);
                 success = true;
@@ -352,8 +354,10 @@ public class DBManager {
                 String where = "group_id = ? ";
                 String[] whereValue = {groupId};
 
-                if (mDatabase.delete(DBHelper.TABLE_FEATURE, where, whereValue) < 0) {
-                    return false;
+                if (mDatabase != null) {
+                    if (mDatabase.delete(DBHelper.TABLE_FEATURE, where, whereValue) < 0) {
+                        return false;
+                    }
                 }
                 setTransactionSuccessful(mDatabase);
                 success = true;
@@ -367,7 +371,10 @@ public class DBManager {
 
     private void beginTransaction(SQLiteDatabase mDatabase) {
         if (allowTransaction) {
-            mDatabase.beginTransaction();
+            if (mDatabase != null) {
+
+                mDatabase.beginTransaction();
+            }
         } else {
             writeLock.lock();
             writeLocked = true;
@@ -376,13 +383,18 @@ public class DBManager {
 
     private void setTransactionSuccessful(SQLiteDatabase mDatabase) {
         if (allowTransaction) {
-            mDatabase.setTransactionSuccessful();
+            if (mDatabase != null) {
+                mDatabase.setTransactionSuccessful();
+            }
         }
     }
 
     private void endTransaction(SQLiteDatabase mDatabase) {
+
         if (allowTransaction) {
-            mDatabase.endTransaction();
+            if (mDatabase != null) {
+                mDatabase.endTransaction();
+            }
         }
         if (writeLocked) {
             writeLock.unlock();

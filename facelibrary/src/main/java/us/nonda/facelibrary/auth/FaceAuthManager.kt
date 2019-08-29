@@ -5,11 +5,14 @@ import com.baidu.idl.facesdk.FaceAuth
 import com.baidu.idl.facesdk.callback.AuthCallback
 import com.baidu.idl.facesdk.callback.Callback
 import com.baidu.idl.facesdk.model.BDFaceSDKCommon
+import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class FaceAuthManager {
 
@@ -19,6 +22,9 @@ class FaceAuthManager {
     val WIFI_ID_NEW_ROM = "150364FC114FBFE5F1AF7E900C29DB5892"
 
     private var disposable: Disposable? = null
+
+    private val es: ExecutorService = Executors.newSingleThreadExecutor()
+
     fun initLicense(context: Context, licenseID: String, callback: IFaceAuthCallback) {
         val faceAuth = FaceAuth()
         faceAuth.setActiveLog(FaceAuth.BDFaceLogInfo.BDFACE_LOG_ALL_MESSAGE)
@@ -49,19 +55,25 @@ class FaceAuthManager {
         licenseID: String,
         callback: IFaceAuthCallback
     ) {
-        var str = "6HDB-HCPB-B4PW-RQVS"
-        faceAuth.initLicenseOnLine(context, str, object : AuthCallback {
-            override fun onResponse(p0: Int, p1: String?, p2: String?) {
-                if (p0 == 0) {
-                    callback.onSucceed()
-                    postLicenseSucceed()
-                } else {
-                    callback.onFailed(p1 ?: "")
+//        var str = "6HDB-HCPB-B4PW-RQVS"
+
+        es.execute {
+            faceAuth.initLicenseOnLine(context, licenseID, object : AuthCallback {
+                override fun onResponse(p0: Int, p1: String?, p2: String?) {
+                    if (p0 == 0) {
+                        callback.onSucceed()
+                        postLicenseSucceed()
+                    } else {
+                        callback.onFailed(p1 ?: "")
+                    }
                 }
-            }
 
 
-        })
+            })
+
+        }
+
+
     }
 
 

@@ -59,18 +59,49 @@ class CarboxConfigRepostory private constructor() {
 
     init {
         getGpsConfig()?.run {
-            gpsCollectFreq = collectFreq
-            gpsReportFreq = reportFreq
+
+            if (collectFreq < 1000) {
+                gpsCollectFreq = 1000
+            } else {
+                gpsCollectFreq = collectFreq
+            }
+
+            if (reportFreq < 1000) {
+                gpsReportFreq = 1000
+            } else {
+                gpsReportFreq = reportFreq
+            }
+
         }
 
         getGSensorConfig()?.run {
-            gSensorCollectFreq = collectFreq
-            gSensorReportFreq = reportFreq
+
+            if (collectFreq < 1000) {
+                gSensorCollectFreq = 1000
+            } else {
+                gSensorCollectFreq = collectFreq
+            }
+
+            if (reportFreq < 1000) {
+                gSensorReportFreq = 1000
+            } else {
+                gSensorReportFreq = reportFreq
+            }
         }
 
         getGyroConfig()?.run {
-            gyroCollectFreq = collectFreq
-            gyroReportFreq = reportFreq
+
+            if (collectFreq < 1000) {
+                gyroCollectFreq = 1000
+            } else {
+                gyroCollectFreq = collectFreq
+            }
+
+            if (reportFreq < 1000) {
+                gyroReportFreq = 1000
+            } else {
+                gyroReportFreq = reportFreq
+            }
         }
     }
 
@@ -120,8 +151,17 @@ class CarboxConfigRepostory private constructor() {
 
     fun putEmotionConfig(gpsConfig: EmotionConfig) {
         gpsConfig.run {
-            emotionCollectFreq = collectFreq
-            emotionReportFreq = reportFreq
+            if (collectFreq < 1000) {
+                emotionCollectFreq = 1000
+            } else {
+                emotionCollectFreq = collectFreq
+            }
+
+            if (reportFreq < 1000) {
+                emotionReportFreq = 1000
+            } else {
+                emotionReportFreq = reportFreq
+            }
         }
         SPUtils.put(context, SP_KEY_EMOTION_CONFIG, gpsConfig)
     }
@@ -134,8 +174,18 @@ class CarboxConfigRepostory private constructor() {
 
     fun putFaceConfig(gpsConfig: FaceConfig) {
         gpsConfig.run {
-            faceResultCollectFreq = collectFreq
-            faceResultReportFreq = reportFreq
+
+            if (collectFreq < 1000) {
+                faceResultCollectFreq = 1000
+            } else {
+                faceResultCollectFreq = collectFreq
+            }
+
+            if (reportFreq < 1000) {
+                faceResultReportFreq = 1000
+            } else {
+                faceResultReportFreq = reportFreq
+            }
         }
         SPUtils.put(context, SP_KEY_FACE_CONFIG, gpsConfig)
     }

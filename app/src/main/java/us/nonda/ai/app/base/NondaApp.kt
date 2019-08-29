@@ -6,6 +6,7 @@ import us.nonda.ai.app.crash.CrashHandler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.SPUtils
+import us.nonda.facelibrary.db.DBManager
 import java.io.File
 
 
@@ -21,10 +22,11 @@ class NondaApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        AppUtils.init(this)
+        DBManager.getInstance().init(this)
         MyLog.d(TAG, "onCreate")
 //       Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
         checkVersion()
-        AppUtils.init(this)
 
     }
 
@@ -36,7 +38,7 @@ class NondaApp : Application() {
         //如果不是第一次安装并且版本号不相等说明更新成功
         if (appVersion != null && AppUtils.getVersionName(this) != appVersion) {
             //更新成功删除安装包
-            val dirName = AppUtils.context.getExternalFilesDir(null)?.path + "/DownLoad/"
+            val dirName = getExternalFilesDir(null)?.path + "/DownLoad/"
             //下载后的文件名
             val fileName = dirName + "ZUS_AI.apk"
             val downloadFile = File(fileName)

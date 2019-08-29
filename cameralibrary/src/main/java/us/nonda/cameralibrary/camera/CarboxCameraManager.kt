@@ -198,6 +198,8 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
      */
     private fun openCamera(cameraId: Int, yuvData: Boolean, cameraType: Int) {
         try {
+
+            CarcorderManager.get().closeCameraDevice(cameraId)
             cameraDevice = CarcorderManager.get().openCameraDevice(cameraId)
 
             MyLog.d(TAG, "摄像头打开成功")
@@ -324,25 +326,26 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
         cameraDevice?.run {
 
             val cameraState = CarcorderManager.get().getCameraState(mCameraId)
-            if (cameraState != 1) {
-                setPreviewSurface(holder.surface)
+            setPreviewSurface(holder.surface)
+
+            if (cameraState == CameraDevice.STATE_IDLE) {
                 startPreview()
             }
 
             startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
             isPreviewed = true
 
-            if (cameraState != 2) {
+            if (CarcorderManager.get().getCameraState(mCameraId) == CameraDevice.STATE_PREVIEW) {
                 this@CarboxCameraManager.startRecord()
             }
         }
     }
 
     fun startRecord() {
-       /* if (cameraDevice?.state == 2) {
-            cameraDevice?.stopRecord()
-        }
-*/
+        /* if (cameraDevice?.state == 2) {
+             cameraDevice?.stopRecord()
+         }
+ */
         val record = cameraDevice?.startRecord()
         when (record) {
             null -> {
@@ -367,20 +370,35 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
      */
     open fun closeCamera() {
         cameraDevice?.run {
-            stopRecord()
-            stopYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
-            setYuvCallback(null)
-            release()
-            if (isPreviewed) {
-                stopPreview()
+            if (mCameraId != -1) {
+                val cameraState = CarcorderManager.get().getCameraState(mCameraId)
+
+                when (cameraState) {
+                    CameraDevice.STATE_PREVIEW -> {
+                        stopRecord()
+                    }
+                    CameraDevice.STATE_RECORDING -> {
+                        stopRecord()
+                        stopPreview()
+                    }
+
+                    else -> {
+                    }
+                }
+            } else {
+                stopRecord()
+                stopYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
+                setYuvCallback(null)
+                release()
+                if (isPreviewed) {
+                    stopPreview()
+                }
             }
+
             cameraCallback?.onCloseCamera()
 
         }
 
-        if (mCameraId != -1) {
-            CarcorderManager.get().closeCameraDevice(mCameraId)
-        }
 
     }
 

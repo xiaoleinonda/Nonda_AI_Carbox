@@ -9,6 +9,7 @@ import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.status.CarboxCacheManager
 import us.nonda.commonibrary.utils.FinishActivityManager
+import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.mqttlibrary.mqtt.MqttManager
 
 /**
@@ -43,6 +44,8 @@ class AccBroadcastReceiver : BroadcastReceiver() {
 
     private fun accOff() {
         MyLog.d(TAG, "accOff")
+        FaceSDKManager.instance.isRegisted = false
+
         CarBoxControler.instance.checkOTA()
 
     }

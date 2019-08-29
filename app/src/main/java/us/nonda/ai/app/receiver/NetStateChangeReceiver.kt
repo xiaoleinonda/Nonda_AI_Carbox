@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import android.nfc.Tag
 import us.nonda.ai.controler.CarBoxControler
 import com.yaoxiaowen.download.DownloadHelper
+import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.NetworkUtil
@@ -25,7 +26,7 @@ class NetStateChangeReceiver : BroadcastReceiver() {
                 MqttManager.getInstance().onStart()
 //                val mDownloadHelper = DownloadHelper.getInstance()
 //                mDownloadHelper.addCarBoxTask(AppUtils.context)
-            }else{
+            } else {
                 MyLog.d("网络", "断网")
 
                 MqttManager.getInstance().onStop()
@@ -34,8 +35,11 @@ class NetStateChangeReceiver : BroadcastReceiver() {
     }
 
     private fun initDevice() {
-      FaceSDKManager.instance.checkLicenceStatus()
-      FaceSDKManager.instance.checkRegistFaceStatus()
+        if (CameraStatus.instance.getAccStatus() == 0) {
+            return
+        }
+        FaceSDKManager.instance.checkLicenceStatus()
+        FaceSDKManager.instance.checkRegistFaceStatus()
 
     }
 

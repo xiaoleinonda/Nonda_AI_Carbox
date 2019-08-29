@@ -37,7 +37,7 @@ class NondaApp : Application() {
     private fun checkVersion() {
         val appVersion = SPUtils.get(this, SP_KEY_APP_VERSION, "")
         //如果不是第一次安装并且版本号不相等说明更新成功
-        if (appVersion != null && AppUtils.getVersionName(this) != appVersion) {
+        if (appVersion != null && !AppUtils.getVersionName(this)?.equals(appVersion)!!) {
             //更新成功删除安装包
             val dirName = getExternalFilesDir(null)?.path + "/DownLoad/"
             //下载后的文件名

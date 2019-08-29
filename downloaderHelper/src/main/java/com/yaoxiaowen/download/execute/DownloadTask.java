@@ -13,6 +13,7 @@ import com.yaoxiaowen.download.FileInfo;
 import com.yaoxiaowen.download.db.DbHolder;
 import com.yaoxiaowen.download.utils.InstallUtils;
 import com.yaoxiaowen.download.utils.LogUtils;
+import us.nonda.commonibrary.MyLog;
 import us.nonda.commonibrary.utils.AppUtils;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class DownloadTask implements Runnable {
     private FileInfo mFileInfo;
     private DbHolder dbHolder;
     private boolean isPause;
+    private float downloadPercent;
 
     public DownloadTask(Context context, DownloadInfo info, DbHolder dbHolder) {
         this.context = context;
@@ -188,6 +190,7 @@ public class DownloadTask implements Runnable {
                     millis = SystemClock.uptimeMillis();
                     dbHolder.saveFile(mFileInfo);
                     context.sendBroadcast(intent);
+                    MyLog.d("下载进度", "已下载" + mFileInfo.getDownloadLocation() * 1.0 / totalSize * 100 + "%");
                 }
             }// end of "while(..."
 

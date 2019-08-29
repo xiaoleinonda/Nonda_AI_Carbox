@@ -4,6 +4,7 @@ package com.yaoxiaowen.download.execute;
 import android.content.Intent;
 
 import com.yaoxiaowen.download.DownloadConstant;
+import com.yaoxiaowen.download.DownloadHelper;
 import com.yaoxiaowen.download.DownloadStatus;
 import com.yaoxiaowen.download.utils.InstallUtils;
 import com.yaoxiaowen.download.utils.LogUtils;
@@ -40,6 +41,8 @@ public class DownloadExecutor extends ThreadPoolExecutor {
         } else if (status == DownloadStatus.COMPLETE) {
             InstallUtils.installApk(task.getDownLoadInfo().getFile().getAbsolutePath());
         } else {
+            //下载失败回调通知
+            DownloadHelper.getInstance().onDownloadListener.onDownloadFailure();
             LogUtils.w(TAG, "文件状态不正确, 不进行下载 FileInfo=" + task.getFileInfo());
         }
     }

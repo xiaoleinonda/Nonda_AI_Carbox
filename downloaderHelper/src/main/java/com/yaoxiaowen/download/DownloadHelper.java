@@ -61,19 +61,33 @@ public class DownloadHelper {
     /**
      * 添加 新的下载任务
      *
-     * @param url    下载的url
-     * @param file   存储在某个位置上的文件
-     * @param action 下载过程会发出广播信息.该参数是广播的action
+     * @param url 下载的url
      * @return DownloadHelper自身 (方便链式调用)
      */
-    public DownloadHelper addTask(String url, File file, String action) {
-        RequestInfo requestInfo = createRequest(url, file, action, InnerConstant.Request.loading);
+//    public DownloadHelper addTask(String url, File file, String action) {
+//        RequestInfo requestInfo = createRequest(url, file, action, InnerConstant.Request.loading);
+//        LogUtils.i(TAG, "addTask() requestInfo=" + requestInfo);
+//
+//        requests.add(requestInfo);
+//        return this;
+//    }
+    public void addTask(Context context, String url) {
+        //创建文件夹DownLoad，在存储卡下
+        String dirName = AppUtils.context.getExternalFilesDir(null).getPath() + "/DownLoad/";
+        File file = new File(dirName);
+        //不存在创建
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        //下载后的文件名
+        String fileName = dirName + "ZUS_AI.apk";
+        File downloadFile = new File(fileName);
+        RequestInfo requestInfo = createRequest(url, downloadFile, "", InnerConstant.Request.loading);
         LogUtils.i(TAG, "addTask() requestInfo=" + requestInfo);
 
         requests.add(requestInfo);
-        return this;
+        this.submit(context);
     }
-
 
 
     public void addCarBoxTask(Context context) {
@@ -85,10 +99,9 @@ public class DownloadHelper {
             file.mkdir();
         }
         //下载后的文件名
-        String fileName = dirName + "meituan" + ".apk";
+        String fileName = dirName + "ZUS_AI.apk";
         File downloadFile = new File(fileName);
-        String url = "http://www.meituan.com/mobile/download/meituan/android/meituan?from=new";
-//        String url = "https://download.zus.ai/clouddrive/vehiclebox/app/app_v1.apk";
+        String url = "https://download.zus.ai/clouddrive/vehiclebox/app/app_v1.apk";
         RequestInfo requestInfo = createRequest(url, downloadFile, "", InnerConstant.Request.loading);
         LogUtils.i(TAG, "addTask() requestInfo=" + requestInfo);
 
@@ -126,5 +139,17 @@ public class DownloadHelper {
         request.setDictate(dictate);
         request.setDownloadInfo(new DownloadInfo(url, file, action));
         return request;
+    }
+
+    public interface onDownloadListener {
+        void onDownloadSuccess();
+
+        void onDownloadFailure();
+    }
+
+    public onDownloadListener onDownloadListener;
+
+    public void setOnDownloadListener(onDownloadListener onDownloadListener) {
+        this.onDownloadListener = onDownloadListener;
     }
 }

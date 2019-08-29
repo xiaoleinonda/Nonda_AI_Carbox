@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.yaoxiaowen.download.DownloadHelper
+import com.yaoxiaowen.download.DownloadHelper.onDownloadListener
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +27,7 @@ import us.nonda.mqttlibrary.model.StatusBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.concurrent.TimeUnit
 
-class CarBoxControler private constructor() {
+class CarBoxControler private constructor() : onDownloadListener {
 
     private val TAG = "CarBoxControler"
     private var timerDisposable: Disposable? = null
@@ -120,7 +123,8 @@ class CarBoxControler private constructor() {
                 if (it.code == 200 && it.data != null && it.data!!.isUpdate) {
                     val data = it.data
                     val appVersion = data?.appVersion
-                    checkDownLoad(appVersion)
+                    val url = data?.downUrl
+                    checkDownLoad(appVersion, url)
                 } else {
                     onNotDownLoad()
                 }
@@ -147,22 +151,26 @@ class CarBoxControler private constructor() {
     /**
      * 检测是否需要下载apk
      */
-    private fun checkDownLoad(appVersion: String?) {
-
-
+    private fun checkDownLoad(appVersion: String?, url: String?) {
+        if (appVersion != AppUtils.getVersionName(AppUtils.context)) {
+            DownloadHelper.getInstance().addTask(AppUtils.context, url)
+            DownloadHelper.getInstance().setOnDownloadListener(this)
+        } else {
+            onNotDownLoad()
+        }
     }
 
-    private fun downloadApk(url:String){
+    private fun downloadApk(url: String) {
         MqttManager.getInstance().publishEventData(1018, "")
     }
 
-    private fun onDownloadApkSucceed(){
-       updateApp("")
+    private fun onDownloadApkSucceed() {
+        updateApp("")
 
     }
 
 
-    private fun updateApp(path:String) {
+    private fun updateApp(path: String) {
         Observable.timer(10000, TimeUnit.MILLISECONDS, Schedulers.newThread())
             .subscribe {
                 onUpdateSucceed()
@@ -174,7 +182,7 @@ class CarBoxControler private constructor() {
     /**
      * 当更新成功时
      */
-    private fun onUpdateSucceed(){
+    private fun onUpdateSucceed() {
         MqttManager.getInstance().publishEventData(1019, "1")
         if (getAccStatus() == 0) {
             noticeIPO(AppUtils.context)
@@ -407,5 +415,12 @@ class CarBoxControler private constructor() {
 
     }
 
+    override fun onDownloadSuccess() {
+        //TODO 下载成功
+    }
+
+    override fun onDownloadFailure() {
+        //TODO 下载失败
+    }
 
 }

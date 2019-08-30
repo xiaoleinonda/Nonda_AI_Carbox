@@ -17,6 +17,7 @@ import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_FACE_RESULT
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GPS
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
+import java.util.*
 
 /**
  *MQTT客户端连接参数
@@ -42,6 +43,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
     private val mqttConnectOptions = MqttConnectOptions()
 
     public var isConnected = false
+    public var connectSuccessed = false
+    private val messageQueue = ArrayList<MqttMessage>()
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -143,6 +146,11 @@ class MqttManager : MqttCallback, IMqttActionListener {
         val mqttMessage = MqttMessage()
         mqttMessage.payload = byteArray
 
+        //如果还没有初始化，存在本地，连接成功之后上报
+        if (!connectSuccessed) {
+            messageQueue.add(mqttMessage)
+        }
+
         try {
             mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
             MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
@@ -211,6 +219,22 @@ class MqttManager : MqttCallback, IMqttActionListener {
         try {
             mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
             Log.d(TAG, "onSuccess发送成功")
+            connectSuccessed = true
+            //如果初始化连接成功,发送初始化之前缓存的消息
+            if (messageQueue.size > 0) {
+                for (i in 0 until messageQueue.size) {
+                    val mqttMessage = messageQueue[0]
+                    try {
+                        mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+                        MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
+                        messageQueue.remove(mqttMessage)
+                    } catch (e: Exception) {
+                        MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
+                    }
+                }
+            }
+
+
             MqttManager.getInstance().publishEventData(1014, "1")
 
         } catch (e: MqttException) {

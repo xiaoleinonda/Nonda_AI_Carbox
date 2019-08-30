@@ -222,12 +222,14 @@ class MqttManager : MqttCallback, IMqttActionListener {
             connectSuccessed = true
             //如果初始化连接成功,发送初始化之前缓存的消息
             if (messageQueue.size > 0) {
-                for (i in 0 until messageQueue.size) {
-                    val mqttMessage = messageQueue[0]
+                val iterator = messageQueue.iterator()
+
+                while (iterator.hasNext()) {
+                    val next = iterator.next()
                     try {
-                        mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
-                        MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
-                        messageQueue.remove(mqttMessage)
+                        mqttAndroidClient.publish(PUBLISH_TOPIC, next)
+                        iterator.remove()
+                        MyLog.d(TAG, "缓存数据发送成功=${mqttAndroidClient.isConnected}")
                     } catch (e: Exception) {
                         MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
                     }

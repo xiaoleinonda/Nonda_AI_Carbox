@@ -10,6 +10,7 @@ import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.commonibrary.utils.SPUtils
 import us.nonda.facelibrary.db.DBManager
+import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.io.File
 
@@ -27,11 +28,12 @@ class NondaApp : Application() {
         super.onCreate()
         instance = this
         MyLog.d(TAG, "onCreate")
-//       Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
+        Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
+
         AppUtils.init(this)
+
         DBManager.getInstance().init(this)
         checkVersion()
-        DBManager.getInstance().init(this)
     }
 
     /**

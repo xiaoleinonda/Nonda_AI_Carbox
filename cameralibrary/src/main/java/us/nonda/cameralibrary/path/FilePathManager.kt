@@ -58,5 +58,4 @@ class FilePathManager private constructor() {
         return "$sdcard/$path_main/$nowDateShort/image/face/back/"
     }
 
-
 }

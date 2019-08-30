@@ -2,6 +2,7 @@ package us.nonda.ai.app.base
 
 import android.app.Application
 import android.content.Context
+import android.text.TextUtils
 import us.nonda.ai.app.crash.CrashHandler
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
@@ -37,8 +38,8 @@ class NondaApp : Application() {
      * 检查版本号，判断是否更新
      */
     private fun checkVersion() {
-        MyLog.d(TAG, "checkVersion")
         val appVersion = SPUtils.get(this, SP_KEY_APP_VERSION, "")
+        MyLog.d(TAG, "checkVersion appVersion=$appVersion")
         //如果不是第一次安装并且版本号不相等说明更新成功
         if (appVersion != null && AppUtils.getVersionName(this) != appVersion) {
             MyLog.d(TAG, "更新成功")

@@ -3,6 +3,7 @@ package us.nonda.ai.app.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 
@@ -19,8 +20,11 @@ class IPOBroadcastReceiver : BroadcastReceiver() {
         if (action_ipo_on == intent?.action) {
             MyLog.d(TAG, "唤醒")
             onIpoON(context)
+            Log.d("NondaApp", "唤醒")
         } else if (action_ipo_off == intent?.action) {
             MyLog.d(TAG, "休眠")
+            Log.d("NondaApp", "休眠")
+
             onIpoOff()
         }
     }

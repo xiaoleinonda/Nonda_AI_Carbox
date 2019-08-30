@@ -11,8 +11,8 @@ android {
         applicationId "us.nonda.ai"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.00"
+        versionCode 3
+        versionName "3.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -38,8 +38,7 @@ class NetStateChangeReceiver : BroadcastReceiver() {
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
         }
-        FaceSDKManager.instance.checkLicenceStatus()
-        FaceSDKManager.instance.checkRegistFaceStatus()
+        FaceSDKManager.instance.check()
 
     }
 

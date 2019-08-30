@@ -13,7 +13,6 @@ import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.facelibrary.manager.FaceSDKManager2
 
 /**
  * 首页
@@ -50,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 //            FaceSDKManager.instance.isRegisted = false
             VideoRecordActivity.starter(this@MainActivity)
 //            test()
+            //分片上传视频文件
+//            UploadThread(this).start()
         }
 
         val carBatteryInfo = CarBoxControler

@@ -222,7 +222,7 @@ public class FileUtils {
         return result;
     }
 
-    public static String saveBitmapToSDCard(int[] argb,int width, int height,  String sdcardPath, String imgName){
+    public static String saveBitmapToSDCard(int[] argb, int width, int height, String sdcardPath, String imgName) {
         if (argb == null || argb.length <= 0) {
             return "";
         }
@@ -232,7 +232,7 @@ public class FileUtils {
             if (!dirFile.exists()) {                //如果不存在，那就建立这个文件夹
                 dirFile.mkdirs();
             }                            //文件夹有啦，就可以保存图片啦
-            File file = new File(sdcardPath,  imgName + ".jpeg");// 在SDcard的目录下创建图片文,以当前时间为其命名
+            File file = new File(sdcardPath, imgName + ".jpeg");// 在SDcard的目录下创建图片文,以当前时间为其命名
 
             Bitmap bitmap = Bitmap.createBitmap(width,
                     height, Bitmap.Config.ARGB_8888);
@@ -261,5 +261,26 @@ public class FileUtils {
 
     }
 
+    /**
+     * 文件转为二进制数组
+     *
+     * @param file
+     * @return
+     */
 
+    public static byte[] fileToByte(File file) throws IOException {
+        byte[] bytes = null;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            bytes = new byte[(int) file.length()];
+            fis.read(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            fis.close();
+        }
+        return bytes;
+    }
 }

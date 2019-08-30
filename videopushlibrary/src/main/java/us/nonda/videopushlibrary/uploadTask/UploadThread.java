@@ -1,0 +1,403 @@
+package us.nonda.videopushlibrary.uploadTask;
+
+import android.content.Context;
+import android.os.storage.StorageManager;
+import android.util.Log;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import us.nonda.cameralibrary.path.FilePathManager;
+import us.nonda.commonibrary.MyLog;
+import us.nonda.commonibrary.http.BaseResult;
+import us.nonda.commonibrary.http.NetModule;
+import us.nonda.commonibrary.model.*;
+import us.nonda.commonibrary.utils.AppUtils;
+import us.nonda.commonibrary.utils.DeviceUtils;
+import us.nonda.commonibrary.utils.FileUtils;
+import us.nonda.videopushlibrary.utlis.Md5Utlis;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class UploadThread extends Thread {
+    private Context context;
+
+    private static final String VIDEO_PATH = "/zusai";
+
+    private static final String TEMP_PATH = "/temp";
+
+    private static final int CHUNK_SIZE = 2 * 1024 * 1024;
+
+    private static final String TOKEN = "7c09b979489a4bca8684c0922bb8a0e7";
+
+    private static final String UPLOAD_URL = "https://api-clouddrive-qa.zus.ai/api/v1/vehiclebox/upload";
+
+    private static final int THREAD_COUNT = 10;
+
+    private ExecutorService mExecutor;
+
+
+    public UploadThread(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void run() {
+        File[] allFiles = getAllFileList();
+        mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+        for (final File file : allFiles) {
+            String fileMd5 = Md5Utlis.getMD5(file.getAbsolutePath());
+            int videoType = getVideoType(file.getAbsolutePath());
+            String imei = DeviceUtils.getIMEICode(AppUtils.context);
+            int chunks = getChunks(file);
+            //获取文件名（时间戳）
+            String createTime = file.getName().substring(0, file.getName().lastIndexOf("."));
+
+            final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5);
+            InitPartUploadBody initPartUploadBody = new InitPartUploadBody(imei, fileMd5, file.getName(), videoType, Long.valueOf(createTime), chunks);
+
+            //初始化分片上传，每个file都需要初始化一次
+            NetModule.Companion.getInstance().provideAPIService()
+                    .postInitPartUpload(initPartUploadBody)
+                    .subscribeOn(Schedulers.io())
+                    .unsubscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .retry(3).subscribe(new Observer<BaseResult<InitPartUploadResponseModel>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(BaseResult<InitPartUploadResponseModel> result) {
+                    boolean isUploaded = false;
+                    String uploadId = "";
+                    if (result.getData() != null) {
+                        isUploaded = result.getData().getUploaded();
+                        uploadId = result.getData().getUploadId();
+                        //如果没有上传过才上传
+                        if (!isUploaded) {
+                            partFileInfo.setUploadId(uploadId);
+                            submitUploadTask(file, partFileInfo);
+                            MyLog.d("分片上传", "初始化");
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+
+//
+//            mExecutor.submit(new Runnable() {
+//                @Override
+//                public void run() {
+//                    uploadTask(file);
+//                }
+//            });
+        }
+
+    }
+
+    private void submitUploadTask(final File file, final PartFileInfo partFileInfo) {
+        mExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+                uploadTask(file, partFileInfo);
+            }
+        });
+    }
+
+    private int getChunks(File file) {
+        long fileLength = file.length();
+        int chunks = (int) ((fileLength - 1) / CHUNK_SIZE + 1);
+        return chunks;
+    }
+
+    private int getVideoType(String absolutePath) {
+        if (absolutePath.contains("back")) {
+            return 2;
+        } else if (absolutePath.contains("front")) {
+            return 1;
+        }
+        return 2;
+    }
+
+    private void uploadTask(File file, PartFileInfo partFileInfo) {
+        try {
+            splitPart(file);
+            uploadFile(file, partFileInfo);
+        } catch (IOException e) {
+            Log.e("error", e.getMessage());
+        }
+    }
+
+    /**
+     * 获取前后摄像头然后合并成一个文件数组
+     */
+    private File[] getAllFileList() {
+        String videoBackVideoPath = FilePathManager.Companion.get().getBackVideoPath();
+        String videoFrontVideoPath = FilePathManager.Companion.get().getFrontVideoPath();
+        File[] allBackFiles = getFileListByPath(videoBackVideoPath);
+        File[] allFrontFiles = getFileListByPath(videoFrontVideoPath);
+        int frontFileSize = allFrontFiles == null ? 0 : allFrontFiles.length;
+        int backFileSize = allBackFiles == null ? 0 : allBackFiles.length;
+
+        File[] allFiles = new File[backFileSize + frontFileSize];
+        if (allBackFiles != null) {
+            System.arraycopy(allBackFiles, 0, allFiles, 0, backFileSize);
+        }
+
+        if (allFrontFiles != null) {
+            System.arraycopy(allFrontFiles, 0, allFiles, backFileSize, frontFileSize);
+        }
+        return allFiles;
+    }
+
+
+    private File[] getFileList() {
+        String videoFullPath = getVideoPath();
+        File videoDir = new File(videoFullPath);
+        if (!videoDir.exists()) {
+            Log.e("upload", "video path not exists");
+            return null;
+        }
+
+        File[] files = videoDir.listFiles();
+        return files;
+    }
+
+    private File[] getFileListByPath(String path) {
+        File videoDir = new File(path);
+        if (!videoDir.exists()) {
+            Log.e("upload", "video path not exists");
+            return null;
+        }
+
+        File[] files = videoDir.listFiles();
+        return files;
+    }
+
+    private String getVideoPath() {
+        String videoFullPath = getSdPath() + VIDEO_PATH;
+        return videoFullPath;
+    }
+
+    private String getPartFilePath(File file, int chunk) {
+        String partPath = getPartDir(file)
+                + "/" + file.getName() + ".part" + chunk;
+        return partPath;
+    }
+
+    private String getPartDir(File file) {
+        String partDir = getTempPath(file)
+                + "/" + file.getName().replace(".mp4", "");
+        File dir = new File(partDir);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        return partDir;
+    }
+
+    private String getTempPath(File file) {
+        String tempPath = getSdPath() + TEMP_PATH;
+        return tempPath;
+    }
+
+    private String getSdPath() {
+        String[] paths = null;
+        try {
+            paths = getAllExtPaths();
+        } catch (Exception e) {
+            Log.e("error", e.getMessage());
+            return "";
+        }
+        if (paths == null || paths.length == 0) {
+            return "";
+        }
+        if (paths.length == 1) {
+            return paths[0];
+        }
+        return paths[1];
+
+//        return Environment.getExternalStorageDirectory().getAbsolutePath();
+    }
+
+    private String[] getAllExtPaths() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        StorageManager storageManager = (StorageManager) context.getSystemService(context.STORAGE_SERVICE);
+
+        Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
+        getVolumePathsMethod.setAccessible(true);
+        Object result = getVolumePathsMethod.invoke(storageManager);
+
+        return (String[]) result;
+    }
+
+
+    private void uploadFile(File file, final PartFileInfo partFileInfo) {
+        final File[] partList = getPartList(file);
+        if (partList == null) return;
+
+        ExecutorService uploadPartFileExecutor = Executors.newFixedThreadPool(partList.length);
+
+        for (int i = 1; i <= partList.length; i++) {
+            final int partIndex = i;
+            uploadPartFileExecutor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    uploadPart(partList[partIndex - 1], partFileInfo, partIndex);
+                    MyLog.d("分片上传", partIndex + "开始");
+                }
+            });
+//            uploadPart(partList[i - 1], partFileInfo, i);
+        }
+    }
+
+    private File[] getPartList(File file) {
+        String partDirPath = getPartDir(file);
+        File partDir = new File(partDirPath);
+        if (!partDir.exists()) {
+            Log.e("upload", "part dir path not exists");
+            return null;
+        }
+
+        File[] files = partDir.listFiles();
+        return files;
+//        List<File> partFileList = new ArrayList<>();
+//        for (File part : files) {
+//            if (!part.getName().contains(file.getName())) {
+//                continue;
+//            }
+//            partFileList.add(part);
+//
+//        }
+//        return (File[]) partFileList.toArray();
+
+    }
+
+    private void splitPart(File file) throws IOException {
+        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
+        long fileLength = file.length();
+        long chunks = (fileLength - 1) / CHUNK_SIZE + 1;
+
+        long offset = 0;
+        int chunk = 1;
+        while (offset < fileLength) {
+            randomAccessFile.seek(offset);
+            long size = offset + CHUNK_SIZE > fileLength ? (fileLength - offset) : CHUNK_SIZE;
+            byte[] content = new byte[(int) size];
+            randomAccessFile.read(content);
+
+            FileOutputStream fos = new FileOutputStream(getPartFilePath(file, chunk));
+            fos.write(content, 0, content.length);
+            fos.flush();
+            fos.close();
+
+            offset = offset + CHUNK_SIZE;
+            chunk = chunk + 1;
+        }
+
+
+    }
+
+
+    private void uploadPart(File part, final PartFileInfo partFileInfo, final int partIndex) {
+        String partFileMd5 = Md5Utlis.getMD5(part.getAbsolutePath());
+        byte[] bytes = new byte[0];
+
+        try {
+            bytes = FileUtils.fileToByte(part);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        PartUploadBody partUploadBody = new PartUploadBody(
+                partFileInfo.getImei(), partFileInfo.getUploadId(),
+                partFileInfo.getChunks(), partIndex, partFileMd5,
+                partFileInfo.getFileMD5(), bytes);
+
+        //上传分片，每个分片都要调用
+        NetModule.Companion.getInstance().provideAPIService()
+                .postPartUpload(partUploadBody)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .retry(3).subscribe(new Observer<BaseResult<PartUploadResponseModel>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(BaseResult<PartUploadResponseModel> result) {
+                if (result.getData() != null && result.getData().getResult()) {
+                    handlePostPartUploadComplete(partFileInfo);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    /**
+     * 完成分片上传
+     */
+    private void handlePostPartUploadComplete(PartFileInfo partFileInfo) {
+
+        CompletePartUploadBody completePartUploadBody = new CompletePartUploadBody(
+                partFileInfo.getImei(), partFileInfo.getUploadId(), partFileInfo.getChunks(), partFileInfo.getFileMD5());
+        //上传分片完成，每个分片都要调用
+        NetModule.Companion.getInstance().provideAPIService()
+                .postCompletePartUpload(completePartUploadBody)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .retry(3).subscribe(new Observer<BaseResult<PartUploadResponseModel>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(BaseResult<PartUploadResponseModel> result) {
+                if (result.getData() != null && result.getData().getResult()) {
+//                    handlePostPartUploadComplete(partFileInfo);
+                    MyLog.d("分片上传", "完成");
+                    //TODO 分片上传完成
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+    }
+
+
+}
+

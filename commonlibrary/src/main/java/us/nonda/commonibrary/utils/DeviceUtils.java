@@ -56,6 +56,4 @@ public class DeviceUtils {
         return simSerialNumber;
 
     }
-
-
 }

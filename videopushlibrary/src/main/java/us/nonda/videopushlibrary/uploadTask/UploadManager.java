@@ -31,8 +31,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
-public class UploadManager  {
-    private Context context;
+public class UploadManager {
 
     private static final String VIDEO_PATH = "/zusai";
 
@@ -58,10 +57,6 @@ public class UploadManager  {
 
     }
 
-//    public UploadThread(Context context) {
-//        this.context = context;
-//    }
-
     public static synchronized UploadManager getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new UploadManager();
@@ -69,35 +64,47 @@ public class UploadManager  {
         return INSTANCE;
     }
 
-//    @Override
+    //    @Override
     public void start() {
         File[] allFiles = getAllFileList();
         mFileSize = allFiles.length;
         //如果没有未上传的视频说明上传完毕
-        if(mFileSize==0){
+        if (mFileSize == 0) {
             onVideoUploadListener.onVideoUploadSuccess();
             return;
         }
         //按照最后修改时间排序
         Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
-//        for (final File file : allFiles) {
-        final File file = allFiles[1];
-        try {
-            splitPart(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                submitUploadTask(file);
+        for (final File file : allFiles) {
+//        final File file = allFiles[1];
+            try {
+                splitPart(file);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
-//        }
+            mExecutor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    submitUploadTask(file);
+                }
+
+            });
+        }
+    }
+
+    public void stopUpload() {
+        mExecutor.shutdown();
     }
 
     private void submitUploadTask(final File file) {
+        Float carBattery = Float.valueOf(DeviceUtils.getCarBatteryInfo());
+        //如果电压小于11.5V停止上传
+        if (carBattery < 11.5) {
+            onVideoUploadListener.onLowBattery();
+            return;
+        }
+
         String fileMd5 = Md5Utlis.getMD5(file.getAbsolutePath());
         int videoType = getVideoType(file.getAbsolutePath());
         String imei = DeviceUtils.getIMEICode(AppUtils.context);
@@ -259,7 +266,7 @@ public class UploadManager  {
     }
 
     private String[] getAllExtPaths() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        StorageManager storageManager = (StorageManager) context.getSystemService(context.STORAGE_SERVICE);
+        StorageManager storageManager = (StorageManager) AppUtils.context.getSystemService(AppUtils.context.STORAGE_SERVICE);
 
         Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
         getVolumePathsMethod.setAccessible(true);
@@ -435,6 +442,8 @@ public class UploadManager  {
 
     public interface onVideoUploadListener {
         void onVideoUploadSuccess();
+
+        void onLowBattery();
     }
 
     public onVideoUploadListener onVideoUploadListener;

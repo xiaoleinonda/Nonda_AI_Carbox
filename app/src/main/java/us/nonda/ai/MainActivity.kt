@@ -13,7 +13,7 @@ import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.videopushlibrary.uploadTask.UploadThread
+import us.nonda.videopushlibrary.uploadTask.UploadManager
 
 /**
  * 首页
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 //            VideoRecordActivity.starter(this@MainActivity)
 //            test()
             //分片上传视频文件
-            UploadThread.getInstance().start()
+            UploadManager.getInstance().start()
         }
 
         val carBatteryInfo = CarBoxControler

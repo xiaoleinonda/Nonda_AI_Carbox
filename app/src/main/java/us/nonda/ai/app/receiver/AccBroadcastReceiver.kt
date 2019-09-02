@@ -3,14 +3,11 @@ package us.nonda.ai.app.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import us.nonda.ai.app.ui.VideoRecord2Activity
-import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
-import us.nonda.commonibrary.status.CarboxCacheManager
-import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.mqttlibrary.mqtt.MqttManager
 
 /**
@@ -39,18 +36,14 @@ class AccBroadcastReceiver : BroadcastReceiver() {
      */
     private fun accOn(context: Context?) {
         MyLog.d(TAG, "accOn")
-//        CarBoxControler.instance.accOnMode(context!!, "ACC广播")
-        VideoRecord2Activity.start(context!!)
-
+        CarBoxControler.instance.openCamera(context!!)
     }
 
 
     private fun accOff() {
         MyLog.d(TAG, "accOff")
-        FaceSDKManager.instance.isRegisted = false
-
-        CarBoxControler.instance.checkOTA()
-
+        FaceSDKManager2.instance.isRegisted = false
+        CarBoxControler.instance.onAccOff()
     }
 
 

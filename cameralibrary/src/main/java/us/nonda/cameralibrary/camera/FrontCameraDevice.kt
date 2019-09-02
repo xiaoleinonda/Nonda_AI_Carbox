@@ -125,12 +125,16 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
             startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
             isPreviewed = true
 
-            if (getCameraStatus(cameraID) == CameraDevice.STATE_PREVIEW) {
+            val cameraStatus = getCameraStatus(cameraID)
+            if (cameraStatus == CameraDevice.STATE_PREVIEW|| cameraStatus==CameraDevice.STATE_RECORDING) {
                 _startRecord()
             }
+
         }
 
     }
+
+    private var isFirst = true
 
     private fun _startRecord() {
         val cameraStatus = getCameraStatus(cameraID)
@@ -138,9 +142,20 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
             return
         }
         val record = cameraDevice?.startRecord()
+
         when (record) {
             null -> {
                 cameraCallback?.onRecordFailed(-100)
+            }
+            -1 -> {
+                MyLog.d("相机", "前路摄像头录制-1， 关闭录制")
+                if (isFirst) {
+                    cameraDevice?.stopRecord()
+                    MyLog.d("相机", "前路摄像头录制-1， 已关闭录制status=${getCameraStatus(cameraID)}  重新开启录制")
+
+                    isFirst = false
+                    _startRecord()
+                }
             }
             0 -> {
                 cameraCallback?.onRecordSucceed()

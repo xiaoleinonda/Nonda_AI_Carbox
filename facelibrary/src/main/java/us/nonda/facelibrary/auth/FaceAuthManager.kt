@@ -47,6 +47,7 @@ class FaceAuthManager {
             }
             "869455047237298" -> {
                 licenseIDNew =   "BJHH-JFNI-WYP2-FNTL"//wifi
+//                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//sim
 
             }
             else -> {

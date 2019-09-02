@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import us.nonda.ai.app.service.WakeUpService
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 
@@ -25,28 +26,27 @@ class IPOBroadcastReceiver : BroadcastReceiver() {
             MyLog.d(TAG, "休眠")
             Log.d("NondaApp", "休眠")
 
-            onIpoOff()
+            onIpoOff(context)
         }
     }
 
     /**
      * 休眠
      */
-    private fun onIpoOff() {
-        CarBoxControler.instance.sleep()
-
-//        CarBoxControler.instance.countDownNoticeIPO()
+    private fun onIpoOff(context: Context?) {
+        CarBoxControler.instance.onIpoOff(context)
     }
 
     /**
      * 唤醒
      */
     private fun onIpoON(context: Context?) {
-        val accStatus = CarBoxControler.instance.getAccStatus()
-        if (accStatus != 0) {//acc on
+        val accOff = CarBoxControler.instance.isAccOff()
+        WakeUpService.stopService(context!!)
+        if (!accOff) {//acc on
 //            CarBoxControler.instance.wakeUp(context!!)
         } else {
-            CarBoxControler.instance.onIpoON()
+            CarBoxControler.instance.onIpoONGetGps()
         }
 
     }

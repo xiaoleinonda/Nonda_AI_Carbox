@@ -1,9 +1,12 @@
 package us.nonda.ai.app.ui
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.IBinder
 import android.view.SurfaceView
 import kotlinx.android.synthetic.main.activity_video_record2.*
 import kotlinx.android.synthetic.main.activity_video_record2.draw_detect_face_view
@@ -36,28 +39,36 @@ class VideoRecord2Activity : AppCompatActivity() {
 
 
     companion object {
-        fun start(context: Context) {
+        fun starter(context: Context) {
             val intent = Intent(context, VideoRecord2Activity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
-        /*fun finish() {
-            FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
-        }*/
+        fun finish() {
+            FinishActivityManager.getManager().finishActivity(VideoRecord2Activity::class.java)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_video_record2)
+        FinishActivityManager.getManager().addActivity(this)
 
         FaceSDKManager2.instance.isRegisted = false
 
         btn.setOnClickListener {
             startActivity(Intent(this@VideoRecord2Activity, TestActivity::class.java))
         }
+
+
+        //开启服务
         service()
+
+        //开启摄像头录制
         initCamera()
+
 //        initkFace()
         FaceSDKManager2.instance.setCallback(object : FaceDetectCallBack {
             override fun onFaceDetectCallback(
@@ -190,8 +201,17 @@ class VideoRecord2Activity : AppCompatActivity() {
 
     }
 
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+        }
+
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+        }
+
+    }
+
     private fun service() {
-        SensorReportService.startService(this)
+        SensorReportService.bindService(this, serviceConnection)
 
     }
 
@@ -308,11 +328,12 @@ class VideoRecord2Activity : AppCompatActivity() {
 
         backCameraDevice?.closeCamera()
         frontCameraDevice?.closeCamera()
+        FinishActivityManager.getManager().removeActivity(this)
     }
 
     private fun closeService() {
 
-        SensorReportService.stopService(this)
+        SensorReportService.unbindService(this, serviceConnection)
     }
 
 

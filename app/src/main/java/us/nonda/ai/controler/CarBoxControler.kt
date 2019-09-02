@@ -13,6 +13,8 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
+import us.nonda.ai.app.service.WakeUpService
+import us.nonda.ai.app.ui.VideoRecord2Activity
 import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.ai.utils.SysProp
@@ -22,6 +24,7 @@ import us.nonda.commonibrary.event.ServiceEvent
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.CompareUtlis
+import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.commonibrary.utils.StringUtils
 import us.nonda.mqttlibrary.model.GPSBean
@@ -32,10 +35,17 @@ import java.util.concurrent.TimeUnit
 class CarBoxControler private constructor() : onDownloadListener {
 
     private val TAG = "CarBoxControler"
-    private var timerDisposable: Disposable? = null
 
-    private var ONING = false
-    private var OFFING = false
+
+
+    private var checkVersionDisposable: Disposable? = null
+    private var batteryInfoDisposable: Disposable? = null
+
+    /**
+     * 自动唤醒的时间
+     */
+//    private val TIME_IPO_ON:Long = 1*1000*60*60*4
+    private val TIME_IPO_ON: Long = 1 * 1000 * 60 * 30
 
     companion object {
         val instance: CarBoxControler by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
@@ -45,117 +55,42 @@ class CarBoxControler private constructor() : onDownloadListener {
 
 
     /**
-     * 唤醒应用
-     * 打开摄像头页面
-     * 开启gps和sensor
-     * check face
-     *
+     * 进入相机页面
      */
-    fun wakeUp(context: Context, msg: String) {
-        MyLog.d(TAG, "wakeUp 唤醒应用    $msg")
-        initConfig()
-        startCamera(context)
-//        initFace()
-        startLocation()
-        startSensor()
-    }
-
-    private fun startLocation() {
-        EventBus.getDefault().post(ServiceEvent(ServiceEvent.ACTION_GPS, ServiceEvent.OPEN))
-    }
-
-    /**
-     * 切换到ACC ON 模式
-     *
-     */
-    fun accOnMode(context: Context, msg: String) {
-        if (ONING) {
-            MyLog.d(TAG, "正在accOnMode 重复了")
+    fun openCamera(context: Context) {
+        MyLog.d(TAG, "startCamera")
+        if (getAccStatus() == 0) {
+            MyLog.d(TAG, "startCamera acc off 不开启摄像头")
             return
         }
-        ONING = true
-        wakeUp(context, msg)
-        ONING = false
+        VideoRecord2Activity.starter(context)
     }
 
-    /**
-     * 切换到ACC OFF 模式
-     * 延迟5秒进行任务
-     */
-    fun accOffMode() {
-        if (OFFING) {
-            MyLog.d(TAG, "正在accOffMode 重复了")
-            return
-        }
-        OFFING = true
-        cancelSleep()
-        checkOTA()
 
-        /*   if (timerDisposable != null && !timerDisposable!!.isDisposed) {
-               timerDisposable!!.dispose()
-           }
-           timerDisposable = Observable.timer(5000, TimeUnit.MILLISECONDS)
-               .subscribe({
-                   closeCamera()
-                   stopFace()
-                   stopSensor()
-                   OFFING = false
-               }, {})
-   */
+    /**
+     * 休眠时做的工作
+     * 1、检测是否需有新版本 然后做下载并安装， 安装完成后重启
+     * 2、无新版本时， 检测本地视频文件 有就上传视频 ， 无就进入真正的休眠 然后定时任务
+     *
+     */
+    fun accOffModeWork() {
+        checkVersion()
     }
 
-    /**
-     * 检测OTA升级
-     */
-    fun checkOTA() {
-        sleep()
 
+    /**
+     * 当ACC切成OFF时 触发
+     * 关闭视频录制和数据上报服务
+     * 先取消休眠
+     * 做休眠时工作
+     */
+    fun onAccOff() {
+        closeCamera()
         //取消休眠
         cancelIPO()
-
-        MyLog.d(TAG, "开始OTA")
-        //TODO  替换imei
-        AppUtils.getVersionName(AppUtils.context)?.let {
-            NetModule.instance.provideAPIService()
-                .getAppVersion("869455047237132", it)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .retry(2)
-                .subscribe({
-//                    it.code = 400
-                    if (it.code == 200 && it.data != null && it.data!!.updateStatus) {
-                        val data = it.data
-                        val appVersion = data?.appVersion
-                        val url = data?.downUrl
-                        MyLog.d("下载测试", data.toString())
-                        checkDownLoad(appVersion, url)
-                    } else {
-                        onNotDownLoad()
-                        MyLog.d("下载测试", it.code.toString())
-                    }
-                }, {
-                    it.message?.let { it1 ->
-
-                        onNotDownLoad()
-                        MyLog.d("下载测试", it.message)
-                    }
-                })
-        }
-
-/*        var dis = Observable.interval(0, 1, TimeUnit.SECONDS)
-            .subscribe {
-                if (it == 10L) {
-                    MyLog.d(TAG, "OTA结束")
-                    //进行升级校验
-                    if (getAccStatus() == 0) {
-                        noticeIPO(AppUtils.context)
-                    }
-                }
-            }*/
-
-
+        accOffModeWork()
     }
+
 
     /**
      * 检测是否需要下载apk
@@ -176,13 +111,9 @@ class CarBoxControler private constructor() : onDownloadListener {
     }
 
 
-
-
-
-
 /*
     */
-/**
+    /**
      * 当更新成功时
      *//*
 
@@ -199,53 +130,34 @@ class CarBoxControler private constructor() : onDownloadListener {
      * 不需要更新时
      */
     private fun onNotDownLoad() {
+        if (!isAccOff()) {
+            return
+        }
 
-        if (getAccStatus() == 0) {
+        checkUploadVideoFile()
+    }
+
+    /**
+     * 检查是否有需要上传的视频
+     */
+    private fun checkUploadVideoFile() {
+        onUploadVideoSucceed()
+    }
+
+    /**
+     * 当上传视频成功时 进入休眠
+     */
+    private fun onUploadVideoSucceed() {
+        if (isAccOff()) {
             noticeIPO(AppUtils.context)
         }
     }
 
     /**
-     * 停止sensor
+     * 当上传视频失败时
      */
-    private fun stopSensor() {
-        EventBus.getDefault().post(ServiceEvent(ServiceEvent.ACTION_GSENSOR, ServiceEvent.CLOSE))
-        EventBus.getDefault().post(ServiceEvent(ServiceEvent.ACTION_GYRO, ServiceEvent.CLOSE))
-    }
+    private fun onUploadVideoFailed() {
 
-    /**
-     * 停止人脸检测
-     */
-    private fun stopFace() {
-        FaceSDKManager.instance.stop()
-    }
-
-
-    /**
-     * 取消休眠
-     */
-    private fun cancelSleep() {
-
-
-    }
-
-
-    /**
-     * 打开服务
-     * 感应器上报
-     * gps上报
-     */
-    private fun startSensor() {
-        EventBus.getDefault().post(ServiceEvent(ServiceEvent.ACTION_GSENSOR, ServiceEvent.OPEN))
-        EventBus.getDefault().post(ServiceEvent(ServiceEvent.ACTION_GYRO, ServiceEvent.OPEN))
-    }
-
-
-    /**
-     * 初始化人脸
-     */
-    private fun initFace() {
-        FaceSDKManager.instance.check()
     }
 
 
@@ -257,18 +169,6 @@ class CarBoxControler private constructor() : onDownloadListener {
 
     }
 
-    /**
-     * 进入相机页面
-     */
-    fun startCamera(context: Context) {
-        MyLog.d(TAG, "startCamera")
-        if (getAccStatus() == 0) {
-            MyLog.d(TAG, "startCamera acc off 不开启摄像头")
-
-            return
-        }
-        VideoRecordActivity.starter(context)
-    }
 
     /**
      * 关闭摄像头页面
@@ -285,18 +185,15 @@ class CarBoxControler private constructor() : onDownloadListener {
 
     fun isAccOff(): Boolean = getAccStatus() == 0
 
-    /**
-     * 休眠应用
-     */
-    fun sleep() {
-        closeCamera()
-        stopSensor()
-        stopLocation()
-//        stopFace()
-    }
 
-    private fun stopLocation() {
-        EventBus.getDefault().post(ServiceEvent(ServiceEvent.ACTION_GPS, ServiceEvent.CLOSE))
+    /**
+     * 当设备休眠时会触发
+     */
+    fun onIpoOff(context: Context?) {
+        if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
+            batteryInfoDisposable!!.dispose()
+        }
+        WakeUpService.startService(context!!)
     }
 
     /**
@@ -325,18 +222,14 @@ class CarBoxControler private constructor() : onDownloadListener {
     fun exitIpo() = CameraStatus.instance.exitIpo()
 
 
-    private var time: Long = 0
-    private var gpsDisposable: Disposable? = null
-    private var batteryInfoDisposable: Disposable? = null
-
-
     /**
-     * 休眠时 开始计时唤醒
+     * 被唤醒时 获取gps
      */
     @SuppressLint("CheckResult")
-    fun onIpoON() {
+    fun onIpoONGetGps() {
         MyLog.d(TAG, "acc off下被唤醒了 开始上报GPS和电量")
 
+/*
         if (gpsDisposable != null && !gpsDisposable!!.isDisposed) {
             gpsDisposable!!.dispose()
         }
@@ -363,6 +256,7 @@ class CarBoxControler private constructor() : onDownloadListener {
                 }
 
             }
+*/
 
 
         if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
@@ -381,27 +275,12 @@ class CarBoxControler private constructor() : onDownloadListener {
                 MqttManager.getInstance()
                     .publishSleepStatus(StatusBean("fw", versionName, latitude, longitude, accuracy, vol))
                 batteryInfoDisposable?.dispose()
+                noticeIPO(AppUtils.context)
             }
 
 
     }
 
-    fun countDownNoticeIPO() {
-        if (timerDisposable != null && !timerDisposable!!.isDisposed) {
-            timerDisposable!!.dispose()
-        }
-        timerDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
-            .observeOn(Schedulers.io())
-            .subscribe {
-                if (it == 120L) {
-                    MyLog.d(TAG, "2分钟了开始唤醒设备")
-
-                    exitIpo()
-                    timerDisposable?.dispose()
-                }
-            }
-
-    }
 
 
     /**
@@ -436,5 +315,41 @@ class CarBoxControler private constructor() : onDownloadListener {
 //        CarBoxControler.instance.checkOTA()
 //        DownloadHelper.getInstance().addCarBoxTask(AppUtils.context)
     }
+
+
+    private fun checkVersion() {
+        val imeiCode = DeviceUtils.getIMEICode(AppUtils.context)
+
+        if (checkVersionDisposable != null && !checkVersionDisposable!!.isDisposed) {
+            checkVersionDisposable!!.dispose()
+        }
+        checkVersionDisposable = AppUtils.getVersionName(AppUtils.context)?.let {
+            NetModule.instance.provideAPIService()
+                .getAppVersion("869455047237132", it)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .retry(2)
+                .subscribe({
+                    //                    it.code = 400
+                    if (it.code == 200 && it.data != null && it.data!!.updateStatus) {
+                        val data = it.data
+                        val appVersion = data?.appVersion
+                        val url = data?.downUrl
+                        checkDownLoad(appVersion, url)
+                    } else {
+                        onNotDownLoad()
+                    }
+                }, {
+                    it.message?.let { it1 ->
+                        onNotDownLoad()
+                    }
+                })
+        }
+
+
+    }
+
+
 
 }

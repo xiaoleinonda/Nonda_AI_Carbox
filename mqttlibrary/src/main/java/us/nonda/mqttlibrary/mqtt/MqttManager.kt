@@ -79,7 +79,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
         // 设置超时时间，单位：秒
         mqttConnectOptions.connectionTimeout = 15
         // 心跳包发送间隔，单位：秒
-        mqttConnectOptions.keepAliveInterval = 180
+        mqttConnectOptions.keepAliveInterval = 60
         mqttConnectOptions.isAutomaticReconnect = true
 
         // last will message

@@ -1,28 +1,19 @@
 package us.nonda.ai
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telephony.TelephonyManager
-import android.util.Log
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
-import us.nonda.ai.app.service.SensorReportService
 import us.nonda.ai.app.ui.VideoRecord2Activity
 import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
-import us.nonda.commonibrary.http.NetModule
-import us.nonda.commonibrary.model.PostLicenceBody
 import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.commonibrary.utils.DateUtils
-import us.nonda.facelibrary.db.DBManager
-import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.facelibrary.manager.FaceSDKManager2
 
 /**
  * 首页
@@ -37,21 +28,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MyLog.d(TAG, "setContentView")
-
         setContentView(R.layout.activity_main)
-//        FaceSDKManager.instance.stop()
 
         registReceiver()
 //        checkAccStatus(this)
+//        FaceSDKManager2.instance.init()
 
 //        SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
-//        checkAccStatus(this)
+        checkAccStatus(this)
 
         btn_location.setOnClickListener {
 //            CarBoxControler.instance.accOnMode(this, "首页")
             it.postDelayed({
-                VideoRecord2Activity.start(this@MainActivity)
+                VideoRecord2Activity.starter(this@MainActivity)
 
             }, 5000)
         }
@@ -79,9 +69,9 @@ class MainActivity : AppCompatActivity() {
     private fun checkAccStatus(context: Context) {
         val accStatus = CarBoxControler.instance.getAccStatus()
         if (accStatus != 0) {//acc on
-            CarBoxControler.instance.accOnMode(this, "MainActivity页面初始化")
+            CarBoxControler.instance.openCamera(this)
         } else {
-            CarBoxControler.instance.checkOTA()
+            CarBoxControler.instance.accOffModeWork()
         }
 
     }
@@ -92,9 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         MyLog.d(TAG, "onDestroy")
-
         super.onDestroy()
-//        SensorReportService.stopService(this)
         unregisterReceiver(netStateChangeReceiver)
 
     }

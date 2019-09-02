@@ -26,7 +26,7 @@ class NondaApp : Application() {
     }
 
     override fun onCreate() {
-//        ANRWatchDog().start()
+//        ANRWatchDog().starter()
         super.onCreate()
         instance = this
         MyLog.d(TAG, "onCreate")

@@ -4,8 +4,10 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.os.Binder
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import org.greenrobot.eventbus.EventBus
@@ -27,14 +29,17 @@ import us.nonda.commonibrary.event.ServiceEvent
 class SensorReportService : Service() {
 
     companion object {
-        fun startService(context: Context) {
+        fun bindService(context: Context, serviceConnection: ServiceConnection) {
             context.startService(Intent(context, SensorReportService::class.java))
+            context.bindService(Intent(context, SensorReportService::class.java), serviceConnection, BIND_AUTO_CREATE)
         }
 
-        fun stopService(context: Context) {
+        fun unbindService(context: Context, serviceConnection: ServiceConnection) {
             context.stopService(Intent(context, SensorReportService::class.java))
+            context.unbindService(serviceConnection)
         }
     }
+
 
     private val TAG = "SensorReportService"
 
@@ -45,24 +50,26 @@ class SensorReportService : Service() {
     private var gSensorListener: CarGsensorListener? = null
     private var gyroListener: CarGyroListener? = null
 
-    override fun onBind(intent: Intent?): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder? {
+        return Binder()
+    }
 
     override fun onCreate() {
         super.onCreate()
         EventBus.getDefault().register(this)
-        val builder = NotificationCompat.Builder(this, "Zus")
-            .apply {
-                setContentTitle("ZusContentTitle")
-                setContentText("ZusContentText")
-                setSubText("ZusSubText")
-                setOngoing(false)
-                val notificationIntent = Intent(this@SensorReportService, MainActivity::class.java)
-                val pendingIntent = PendingIntent.getActivity(this@SensorReportService, 0, notificationIntent, 0)
-                setContentIntent(pendingIntent)
-                setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                setSmallIcon(R.mipmap.ic_launcher)
-            }
-        startForeground(1, builder.build())
+        /*     val builder = NotificationCompat.Builder(this, "Zus")
+                 .apply {
+                     setContentTitle("ZusContentTitle")
+                     setContentText("ZusContentText")
+                     setSubText("ZusSubText")
+                     setOngoing(false)
+                     val notificationIntent = Intent(this@SensorReportService, MainActivity::class.java)
+                     val pendingIntent = PendingIntent.getActivity(this@SensorReportService, 0, notificationIntent, 0)
+                     setContentIntent(pendingIntent)
+                     setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                     setSmallIcon(R.mipmap.ic_launcher)
+                 }
+             startForeground(1, builder.build())*/
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
     }
@@ -76,7 +83,7 @@ class SensorReportService : Service() {
         actionGSensor(false)
         super.onDestroy()
 
-        stopForeground(true);
+//        stopForeground(true);
         EventBus.getDefault().unregister(this)
     }
 

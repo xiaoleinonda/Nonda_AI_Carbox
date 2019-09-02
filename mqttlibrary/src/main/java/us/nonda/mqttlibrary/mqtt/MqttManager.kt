@@ -210,7 +210,7 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     override fun deliveryComplete(token: IMqttDeliveryToken?) {
-        Log.d(TAG, "deliveryComplete")
+        MyLog.d(TAG, "deliveryComplete")
         mqttState = MQTTSTATE_DELIVERYCOMPLETE
     }
 

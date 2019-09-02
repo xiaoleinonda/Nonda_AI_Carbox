@@ -3,7 +3,6 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="us.nonda.ai">
 
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
@@ -11,48 +10,54 @@
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
+            android:largeHeap="true"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:largeHeap="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".app.ui.TestActivity">
+        </activity>
+        <activity android:name=".app.ui.VideoRecord2Activity">
+        </activity>
+        <activity
+                android:name=".app.ui.AccActivity"
+                android:screenOrientation="landscape">
 
-
-        <activity android:name=".app.ui.AccActivity"
-
-                  android:screenOrientation="landscape">
-            <!-- <intent-filter>
+            <!--
+             <intent-filter>
                  <action android:name="android.intent.action.MAIN"/>
 
                  <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>-->
+             </intent-filter>
+            -->
         </activity>
-        <activity android:name=".app.ui.VideoRecordActivity"
-                  android:launchMode="singleTop"
-                  android:screenOrientation="landscape"
-        >
+        <activity
+                android:name=".app.ui.VideoRecordActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".MainActivity"
-                  android:launchMode="singleTask"
-        >
+        <activity
+                android:name=".MainActivity"
+                android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
         <service
                 android:name="us.nonda.otalibrary.Service.DownloadApkService"
                 android:enabled="true"
                 android:exported="true">
         </service>
+
         <receiver android:name=".app.receiver.AccBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
             </intent-filter>
         </receiver>
-
         <receiver android:name=".app.receiver.BootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -61,14 +66,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </receiver>
-
         <receiver android:name=".app.receiver.IPOBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_BOOT_IPO"/>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN_IPO"/>
             </intent-filter>
         </receiver>
-
 
         <service android:name=".app.service.SensorReportService"/>
     </application>

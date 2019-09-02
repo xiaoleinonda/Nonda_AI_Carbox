@@ -24,7 +24,7 @@ object AppUtils {
             e.printStackTrace()
         }
 
-        return null
+        return ""
     }
 
 }

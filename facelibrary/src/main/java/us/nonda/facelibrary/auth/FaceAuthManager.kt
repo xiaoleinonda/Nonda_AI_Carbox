@@ -1,6 +1,7 @@
 package us.nonda.facelibrary.auth
 
 import android.content.Context
+import android.text.TextUtils
 import com.baidu.idl.facesdk.FaceAuth
 import com.baidu.idl.facesdk.callback.AuthCallback
 import com.baidu.idl.facesdk.callback.Callback
@@ -11,6 +12,8 @@ import io.reactivex.schedulers.Schedulers
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
+import us.nonda.commonibrary.utils.AppUtils
+import us.nonda.commonibrary.utils.DeviceUtils
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -29,9 +32,28 @@ class FaceAuthManager {
         val faceAuth = FaceAuth()
         faceAuth.setActiveLog(FaceAuth.BDFaceLogInfo.BDFACE_LOG_ALL_MESSAGE)
         faceAuth.setAnakinThreadsConfigure(2, 0)
+        var licenseIDNew: String = ""
 
+        val imeiCode = DeviceUtils.getIMEICode(context)
+        when (imeiCode) {
+            "869455047237132" -> {
+                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
 
-        var deviceId = faceAuth.getDeviceId(context)
+            }
+            "869455047237124" -> {
+//                licenseIDNew =   "6HDB-HCPB-B4PW-RQVS"//sim卡
+                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
+
+            }
+            "869455047237298" -> {
+                licenseIDNew =   "BJHH-JFNI-WYP2-FNTL"//wifi
+
+            }
+            else -> {
+            }
+        }
+
+      /*  var deviceId = faceAuth.getDeviceId(context)
         var licenseIDNew: String = ""
         if (SIM_ID == deviceId) {
             licenseIDNew = "EEJK-DAFA-X7HG-LU2G"
@@ -44,7 +66,7 @@ class FaceAuthManager {
         } else {
             licenseIDNew = "LY77-J8DW-8YCZ-5X6L"
         }
-
+*/
         initLicenseOnLine(context, faceAuth, licenseIDNew, callback)
 
     }
@@ -57,21 +79,21 @@ class FaceAuthManager {
     ) {
 //        var str = "6HDB-HCPB-B4PW-RQVS"
 
-        es.execute {
-            faceAuth.initLicenseOnLine(context, licenseID, object : AuthCallback {
-                override fun onResponse(p0: Int, p1: String?, p2: String?) {
-                    if (p0 == 0) {
-                        callback.onSucceed()
-                        postLicenseSucceed()
-                    } else {
-                        callback.onFailed(p1 ?: "")
-                    }
+//        es.execute {
+        faceAuth.initLicenseOnLine(context, licenseID, object : AuthCallback {
+            override fun onResponse(p0: Int, p1: String?, p2: String?) {
+                if (p0 == 0) {
+                    callback.onSucceed()
+                    postLicenseSucceed()
+                } else {
+                    callback.onFailed(p1 ?: "")
                 }
+            }
 
 
-            })
+        })
 
-        }
+//        }
 
 
     }

@@ -268,6 +268,7 @@ abstract class CarboxCameraManager : SurfaceHolder.Callback {
         parameters.setMainVideoFrameMode(CameraDevice.VideoFrameMode.DISABLE) //保存为视频文件
         parameters.setOutputFileFormat(CameraDevice.OutputFormat.MPEG_4)
 
+
         if (yuvData) {
             cameraDevice!!.setYuvCallback { bytes, i, i1 ->
                 //                cameraCallback?.onYuvCbFrame(bytes)

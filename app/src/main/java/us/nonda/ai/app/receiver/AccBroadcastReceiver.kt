@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import us.nonda.ai.app.ui.VideoRecord2Activity
 import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
@@ -38,7 +39,9 @@ class AccBroadcastReceiver : BroadcastReceiver() {
      */
     private fun accOn(context: Context?) {
         MyLog.d(TAG, "accOn")
-        CarBoxControler.instance.accOnMode(context!!, "ACC广播")
+//        CarBoxControler.instance.accOnMode(context!!, "ACC广播")
+        VideoRecord2Activity.start(context!!)
+
     }
 
 

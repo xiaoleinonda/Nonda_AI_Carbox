@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".app.ui.VideoRecordActivity">
+
+
+    <Button
+            android:id="@+id/btn_camera"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="open"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toTopOf="@id/surfaceViewBack"
+            android:layout_height="wrap_content"/>
+
+    <SurfaceView
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_camera"
+            app:layout_constraintRight_toLeftOf="@id/surfaceViewFront"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/surfaceViewBack"
+            android:layout_height="0dp"/>
+
+    <SurfaceView
+            android:layout_width="0dp"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/surfaceViewBack"
+            app:layout_constraintLeft_toRightOf="@id/surfaceViewBack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/surfaceViewFront"
+            android:layout_height="0dp"/>
+
+    <us.nonda.facelibrary.wedght.FaceFrameView
+            android:id="@+id/draw_detect_face_view"
+            android:layout_width="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/surfaceViewBack"
+            app:layout_constraintTop_toTopOf="@id/surfaceViewBack"
+            app:layout_constraintRight_toRightOf="@id/surfaceViewBack"
+            app:layout_constraintBottom_toBottomOf="@id/surfaceViewBack"
+            android:layout_height="0dp"
+            />
+
+    <TextView
+            android:id="@+id/tv_emotion"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="open"
+            tools:text="sdfsdf"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_pass"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="sdfsdf"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:id="@+id/btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

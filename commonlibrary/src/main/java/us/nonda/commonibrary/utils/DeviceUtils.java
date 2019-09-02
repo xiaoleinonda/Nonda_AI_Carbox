@@ -16,9 +16,7 @@ public class DeviceUtils {
     @SuppressLint("MissingPermission")
     public static String getIMEICode(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-//        return tm.getDeviceId();
-        return "869455047237132";
-//        return "Androidzhimengchentest";
+        return tm.getDeviceId();
     }
 
 
@@ -52,6 +50,9 @@ public class DeviceUtils {
    public static String getSimNumber( Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE);
         String simSerialNumber = telephonyManager.getSimSerialNumber();
+        if (TextUtils.isEmpty(simSerialNumber)) {
+            return "";
+        }
         return simSerialNumber;
 
     }

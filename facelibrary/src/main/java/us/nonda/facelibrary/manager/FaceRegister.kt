@@ -31,7 +31,7 @@ class FaceRegister constructor(
     private var faceFeature: FaceFeature
 ) {
 
-    private val TAG = "FaceSDKManager"
+    private val TAG = "FaceSDKManager2"
     private var future: Future<*>? = null
     private val es: ExecutorService = Executors.newSingleThreadExecutor()
 
@@ -81,6 +81,7 @@ class FaceRegister constructor(
             MyLog.d(TAG, "解析图片失败")
 
             mqttPulish("解析图片失败")
+
         }
 
         }
@@ -212,8 +213,8 @@ class FaceRegister constructor(
                     return
                 }
 
-                FaceSDKManager.instance.setFeature()
-                FaceSDKManager.instance.isRegisted = true
+                FaceSDKManager2.instance.setFeature()
+                FaceSDKManager2.instance.isRegisted = true
                 FaceStatusCache.instance.facePicture = facePicture
                 mqttPulish("注册成功")
                 MyLog.d(TAG, "注册成功")
@@ -254,7 +255,7 @@ class FaceRegister constructor(
 
 
     private fun trackMaxFace(rgbArray: IntArray, width: Int, height: Int): Array<FaceInfo>? {
-        val minFaceSize = FaceSDKManager.instance.getMinFaceSize()
+        val minFaceSize = FaceSDKManager2.instance.getMinFaceSize()
         if (width < minFaceSize || height < minFaceSize) {
             return null
         }

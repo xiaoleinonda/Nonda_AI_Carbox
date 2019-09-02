@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.text.TextUtils
 import us.nonda.ai.app.crash.CrashHandler
+import us.nonda.ai.app.ui.ANRWatchDog
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
@@ -25,10 +26,11 @@ class NondaApp : Application() {
     }
 
     override fun onCreate() {
+//        ANRWatchDog().start()
         super.onCreate()
         instance = this
         MyLog.d(TAG, "onCreate")
-        Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
+//        Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
 
         AppUtils.init(this)
 

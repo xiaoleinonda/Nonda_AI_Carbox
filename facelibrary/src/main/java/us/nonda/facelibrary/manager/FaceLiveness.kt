@@ -82,11 +82,11 @@ class FaceLiveness constructor(
              return isLiveness
          }
  */
-        if (future != null && !future!!.isDone()) {
+       /* if (future != null && !future!!.isDone()) {
             return isLiveness
-        }
+        }*/
 
-        future = es.submit {
+//        future = es.submit {
             //  克隆基本数据，保证一致
 //            var cloneRgbArray = rgbArray!!.clone()
             Log.d("FaceLiveness", "开始识别=" + rgbArray.size)
@@ -123,7 +123,7 @@ class FaceLiveness constructor(
                 )
 
             }
-        }
+//        }
 
         return isLiveness
 
@@ -131,12 +131,12 @@ class FaceLiveness constructor(
 
 
     private fun livenessFeatures(livenessModel: LivenessModel) {
-        if (future2 != null && !future2!!.isDone) {
+        /*if (future2 != null && !future2!!.isDone) {
             return
-        }
+        }*/
 
         var liveType = 0
-        future2 = es2.submit {
+//        future2 = es2.submit {
             var rgbScore: Float = 0f
 
             when (liveType) {
@@ -169,7 +169,7 @@ class FaceLiveness constructor(
                 startEnmotion(livenessModel)
             }
 
-        }
+//        }
 
     }
 
@@ -244,7 +244,7 @@ class FaceLiveness constructor(
                 if (length == 128f) {
                     featureByte = visFeature
 
-                    val feature1 = FaceSDKManager.instance.getFaceFeature(
+                    val feature1 = FaceSDKManager2.instance.getFaceFeature(
                         FaceFeature.FeatureType.FEATURE_VIS,
                         getFeatureByte(),
                         this
@@ -329,7 +329,7 @@ class FaceLiveness constructor(
 
 
     private fun trackMaxFace(rgbArray: IntArray, width: Int, height: Int): Array<FaceInfo>? {
-        val minFaceSize = FaceSDKManager.instance.getMinFaceSize()
+        val minFaceSize = FaceSDKManager2.instance.getMinFaceSize()
         if (width < minFaceSize || height < minFaceSize) {
             return null
         }

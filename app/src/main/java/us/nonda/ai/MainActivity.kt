@@ -13,6 +13,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.app.service.SensorReportService
+import us.nonda.ai.app.ui.VideoRecord2Activity
+import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.http.NetModule
@@ -40,20 +42,23 @@ class MainActivity : AppCompatActivity() {
 //        FaceSDKManager.instance.stop()
 
         registReceiver()
-        checkAccStatus(this)
+//        checkAccStatus(this)
 
-        SensorReportService.startService(this)
+//        SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
 //        checkAccStatus(this)
 
         btn_location.setOnClickListener {
-            CarBoxControler.instance.accOnMode(this, "首页")
+//            CarBoxControler.instance.accOnMode(this, "首页")
+            it.postDelayed({
+                VideoRecord2Activity.start(this@MainActivity)
 
+            }, 5000)
         }
         btn_stop_location.setOnClickListener {
-            CarBoxControler.instance.sleep()
-            FaceSDKManager.instance.isRegisted = false
-
+//            CarBoxControler.instance.sleep()
+//            FaceSDKManager.instance.isRegisted = false
+            VideoRecordActivity.starter(this@MainActivity)
 //            test()
         }
 
@@ -89,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         MyLog.d(TAG, "onDestroy")
 
         super.onDestroy()
-        SensorReportService.stopService(this)
+//        SensorReportService.stopService(this)
         unregisterReceiver(netStateChangeReceiver)
 
     }

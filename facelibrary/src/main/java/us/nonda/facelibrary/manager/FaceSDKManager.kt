@@ -87,13 +87,39 @@ class FaceSDKManager private constructor() {
      */
     private var activating = false
 
+    private var future: Future<*>? = null
 
+    val threadForInit = Executors.newSingleThreadExecutor()
+    val futureForInit: Future<*>? = null
+
+    fun initttt() {
+        if (futureForInit!=null && !futureForInit.isDone){
+            return
+        }
+        threadForInit.submit {
+
+        }
+    }
+
+
+    var checking = false
     fun check() {
-        if (status != STATUS_INIT) {
+        if (checking) {
+            return
+        }
+/*
+        if (future != null && !future!!.isDone()) {
+            return
+        }
+        future = newSingleThreadExecutor.submit {*/
+        MyLog.d(TAG, "check  status=$status")
+        if (status == STATUS_INIT) {
             checkLicenceStatus()
         }
 
         checkRegistFaceStatus()
+//        }
+
     }
 
     fun check(checkRegist: Boolean) {
@@ -110,6 +136,7 @@ class FaceSDKManager private constructor() {
     @Synchronized
     fun initModel() {
         if (CameraStatus.instance.getAccStatus() == 0) {
+            checking = false
             return
         }
 
@@ -123,9 +150,10 @@ class FaceSDKManager private constructor() {
 
     }
 
-    private fun executeInitModel(){
+    private fun executeInitModel() {
         if (status != STATUS_INIT) {
             log("已经在初始化状态status=$status")
+            checking = false
             return
         }
         log("开始初始化模型")
@@ -303,7 +331,8 @@ class FaceSDKManager private constructor() {
     }
 */
 
-    private fun log(s: String) {
+    private fun
+            log(s: String) {
         MyLog.d(TAG, s)
     }
 
@@ -351,6 +380,8 @@ class FaceSDKManager private constructor() {
 
         status = STATUS_INIT
         log("初始化失败")
+        checking = false
+
     }
 /*
 
@@ -631,6 +662,8 @@ class FaceSDKManager private constructor() {
      * 查看激活状态
      */
     fun checkLicenceStatus() {
+        MyLog.d(TAG, "checkLicenceStatus  status=$status")
+
         if (faceCache.isLicence()) {
             log("已激活 直接初始化")
             initModel()
@@ -644,13 +677,16 @@ class FaceSDKManager private constructor() {
     private fun getLicenceStrHttp() {
         onGetSerialNumSucceed("123")// todo
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
+            checking = false
+
             return
         }
 
         if (TextUtils.isEmpty(deviceId)) {
             deviceId = FaceAuth().getDeviceId(context)
         }
-        val imeiCode = DeviceUtils.getIMEICode(context)
+        var imeiCode = DeviceUtils.getIMEICode(context)
+          imeiCode = "869455047237132"
         log("IMEI号=$imeiCode")
 
         if (requestSerialNumDisposable != null && !requestSerialNumDisposable!!.isDisposed) {
@@ -684,6 +720,7 @@ class FaceSDKManager private constructor() {
      */
     private fun onGetSerialNumFailed(content: String) {
         log("请求序列号失败=$content")
+        checking = false
 
     }
 
@@ -693,6 +730,8 @@ class FaceSDKManager private constructor() {
     private fun onGetSerialNumSucceed(serialNum: String) {
         log("请求序列号成功")
         initLicence(serialNum)
+        checking = false
+
     }
 
 
@@ -740,11 +779,15 @@ class FaceSDKManager private constructor() {
 
     fun checkRegistFaceStatus() {
         if (CameraStatus.instance.getAccStatus() == 0) {
+            checking = false
+
             return
         }
 
         if (isRegisted) {
             MyLog.d(TAG, "已经注册过人脸了")
+            checking = false
+
             return
         }
         log("检测人脸图片状态")
@@ -759,9 +802,13 @@ class FaceSDKManager private constructor() {
     fun registFace(facePicture: String) {
         if (status != STATUS_INITED || TextUtils.isEmpty(facePicture)) {
             log("sdk 还未初始化 不能注册")
+            checking = false
+
             return
         }
         if (CameraStatus.instance.getAccStatus() == 0) {
+            checking = false
+
             return
         }
 //        val string = StringUtils.getString(context?.assets?.open("imagedata2.txt"))
@@ -780,10 +827,14 @@ class FaceSDKManager private constructor() {
     @SuppressLint("CheckResult")
     fun getHttpFacePicture() {
         if (CameraStatus.instance.getAccStatus() == 0) {
+            checking = false
+
             return
         }
         log("开始请求人脸图片")
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
+            checking = false
+
             return
         }
 
@@ -830,6 +881,7 @@ class FaceSDKManager private constructor() {
         }
         log("请求人脸图片成功")
         registFace(facePicture!!)
+
     }
 
     /**

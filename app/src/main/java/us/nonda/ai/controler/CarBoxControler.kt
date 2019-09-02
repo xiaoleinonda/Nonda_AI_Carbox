@@ -30,12 +30,12 @@ import us.nonda.commonibrary.utils.StringUtils
 import us.nonda.mqttlibrary.model.GPSBean
 import us.nonda.mqttlibrary.model.StatusBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
+import us.nonda.videopushlibrary.uploadTask.UploadManager
 import java.util.concurrent.TimeUnit
 
-class CarBoxControler private constructor() : onDownloadListener {
+class CarBoxControler private constructor() : onDownloadListener, UploadManager.onVideoUploadListener {
 
     private val TAG = "CarBoxControler"
-
 
 
     private var checkVersionDisposable: Disposable? = null
@@ -141,8 +141,10 @@ class CarBoxControler private constructor() : onDownloadListener {
      * 检查是否有需要上传的视频
      */
     private fun checkUploadVideoFile() {
-        onUploadVideoSucceed()
+        UploadManager.getInstance().setOnVideoUploadListener(this)
+        UploadManager.getInstance().start()
     }
+
 
     /**
      * 当上传视频成功时 进入休眠
@@ -282,7 +284,6 @@ class CarBoxControler private constructor() : onDownloadListener {
     }
 
 
-
     /**
      * 获取电压
      */
@@ -350,6 +351,8 @@ class CarBoxControler private constructor() : onDownloadListener {
 
     }
 
-
+    override fun onVideoUploadSuccess() {
+        onUploadVideoSucceed()
+    }
 
 }

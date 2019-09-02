@@ -24,12 +24,14 @@ import us.nonda.videopushlibrary.utlis.Md5Utlis;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
-public class UploadThread extends Thread {
+public class UploadManager  {
     private Context context;
 
     private static final String VIDEO_PATH = "/zusai";
@@ -40,19 +42,44 @@ public class UploadThread extends Thread {
 
     private static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors() + 1;
 
+    private static UploadManager INSTANCE;
+
     private ExecutorService mExecutor;
+
+    private int completeUploadFileCount = 0;
 
     //已上传分片数
     private String FILE_UPLOAD_COUNT = "file_upload_count";
 
+    //全部要上传文件数
+    private int mFileSize;
 
-    public UploadThread(Context context) {
-        this.context = context;
+    private UploadManager() {
+
     }
 
-    @Override
-    public void run() {
+//    public UploadThread(Context context) {
+//        this.context = context;
+//    }
+
+    public static synchronized UploadManager getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new UploadManager();
+        }
+        return INSTANCE;
+    }
+
+//    @Override
+    public void start() {
         File[] allFiles = getAllFileList();
+        mFileSize = allFiles.length;
+        //如果没有未上传的视频说明上传完毕
+        if(mFileSize==0){
+            onVideoUploadListener.onVideoUploadSuccess();
+            return;
+        }
+        //按照最后修改时间排序
+        Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
 //        for (final File file : allFiles) {
         final File file = allFiles[1];
@@ -77,7 +104,7 @@ public class UploadThread extends Thread {
         int chunks = getChunks(file);
         //获取文件名（时间戳）
 //            String createTime = file.getName().substring(0, file.getName().lastIndexOf("."));
-        String createTime = String.valueOf(System.currentTimeMillis());
+        String createTime = String.valueOf(file.lastModified());
 
         final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5, file.getAbsolutePath());
         InitPartUploadBody initPartUploadBody = new InitPartUploadBody(imei, fileMd5, file.getName(), videoType, Long.valueOf(createTime), chunks);
@@ -376,12 +403,12 @@ public class UploadThread extends Thread {
             @Override
             public void onNext(BaseResult<PartUploadResponseModel> result) {
                 if (result.getData() != null && result.getData().getResult()) {
-//                    handlePostPartUploadComplete(partFileInfo);
                     File file = new File(partFileInfo.getFilePath());
-//                    if (file.exists()) {
-//                        file.delete();
-//                        MyLog.d("分片上传", "传完一个完整文件删除原视频");
-//                    }
+                    if (file.exists()) {
+                        file.delete();
+                        MyLog.d("分片上传", "传完一个完整文件删除原视频");
+                        uploadAllFileComplete();
+                    }
                 }
             }
 
@@ -395,6 +422,40 @@ public class UploadThread extends Thread {
                 MyLog.d("分片上传", "完成");
             }
         });
+    }
+
+    //判断是否上传完成，进入回调
+    private void uploadAllFileComplete() {
+        completeUploadFileCount++;
+        if (completeUploadFileCount >= mFileSize) {
+            onVideoUploadListener.onVideoUploadSuccess();
+        }
+    }
+
+
+    public interface onVideoUploadListener {
+        void onVideoUploadSuccess();
+    }
+
+    public onVideoUploadListener onVideoUploadListener;
+
+    public void setOnVideoUploadListener(onVideoUploadListener onVideoUploadListener) {
+        this.onVideoUploadListener = onVideoUploadListener;
+    }
+
+    //根据文件修改时间进行比较的内部类
+    static class CompratorByLastModified implements Comparator<File> {
+
+        public int compare(File f1, File f2) {
+            long diff = f1.lastModified() - f2.lastModified();
+            if (diff > 0) {
+                return 1;
+            } else if (diff == 0) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
     }
 }
 

@@ -40,10 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         btn_location.setOnClickListener {
 //            CarBoxControler.instance.accOnMode(this, "首页")
-            it.postDelayed({
                 VideoRecord2Activity.starter(this@MainActivity)
 
-            }, 5000)
         }
         btn_stop_location.setOnClickListener {
 //            CarBoxControler.instance.sleep()

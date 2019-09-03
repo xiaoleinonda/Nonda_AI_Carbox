@@ -94,7 +94,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     private fun initCamera() {
         val cameraID = getCameraID(CarcorderManager.get(), CameraInfo.CAMERA_USB_CAMERA)
-MyLog.d("相机", "内路cameraID=$cameraID")
+        MyLog.d("相机", "内路cameraID=$cameraID")
         val cameraDevice = openCamera(cameraID)
 
         if (cameraDevice == null) {
@@ -117,17 +117,17 @@ MyLog.d("相机", "内路cameraID=$cameraID")
 
         }
 
-        cameraDevice?.setRecordStatusCallback(object :CameraDevice.RecordStatusCallback{
+        cameraDevice?.setRecordStatusCallback(object : CameraDevice.RecordStatusCallback {
             override fun onRecordStatusChanged(p0: Int, p1: Int) {
                 MyLog.d("相机", "后路录制状态p0=$p0  p1=$p1")
             }
 
         })
 
-     /*   if (!isPreviewed && surfaceCreated) {
-            _startPreview(surfaceHolder)
-        }
-*/
+        /*   if (!isPreviewed && surfaceCreated) {
+               _startPreview(surfaceHolder)
+           }
+   */
 
     }
 
@@ -141,12 +141,16 @@ MyLog.d("相机", "内路cameraID=$cameraID")
             startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
             isPreviewed = true
 
-            if (getCameraStatus(cameraID) == CameraDevice.STATE_PREVIEW) {
+            val cameraStatus = getCameraStatus(cameraID)
+
+            if (cameraStatus == CameraDevice.STATE_PREVIEW || cameraStatus == CameraDevice.STATE_RECORDING) {
                 _startRecord()
             }
         }
 
     }
+
+    private var isFirst = true
 
 
     private fun _startRecord() {
@@ -158,6 +162,13 @@ MyLog.d("相机", "内路cameraID=$cameraID")
         when (record) {
             null -> {
                 cameraCallback?.onRecordFailed(-100)
+            }
+            -1 -> {
+                if (isFirst) {
+                    cameraDevice?.stopRecord()
+                    isFirst = false
+                    _startRecord()
+                }
             }
             0 -> {
                 cameraCallback?.onRecordSucceed()
@@ -281,7 +292,7 @@ MyLog.d("相机", "内路cameraID=$cameraID")
 
     override fun surfaceDestroyed(p0: SurfaceHolder?) {
 
-        synchronized(this){
+        synchronized(this) {
             MyLog.d(TAG, "相机后路surfaceDestroyed")
             isPreviewed = false
 
@@ -294,6 +305,7 @@ MyLog.d("相机", "内路cameraID=$cameraID")
 
         synchronized(this) {
             MyLog.d(TAG, "相机后路surfaceCreated")
+            surfaceCreated = true
 
             if (cameraDevice == null) {
                 initCamera()
@@ -301,13 +313,10 @@ MyLog.d("相机", "内路cameraID=$cameraID")
 
             if (!isPreviewed) {
                 _startPreview(p0!!)
-                surfaceCreated = true
             }
         }
 
     }
-
-
 
 
 }

@@ -20,7 +20,8 @@
 
         <activity android:name=".app.ui.TestActivity">
         </activity>
-        <activity android:name=".app.ui.VideoRecord2Activity">
+        <activity android:name=".app.ui.VideoRecord2Activity"
+                android:launchMode="singleTop">
         </activity>
         <activity
                 android:name=".app.ui.AccActivity"

@@ -358,4 +358,8 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     override fun onLowBattery() {
         noticeIPO(AppUtils.context)
     }
+
+    override fun onVideoUploadFail() {
+        noticeIPO(AppUtils.context)
+    }
 }

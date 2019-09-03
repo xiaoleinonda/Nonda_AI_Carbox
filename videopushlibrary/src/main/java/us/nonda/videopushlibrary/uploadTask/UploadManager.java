@@ -46,6 +46,10 @@ public class UploadManager {
 
     private int completeUploadFileCount = 0;
 
+    private int errorCount = 0;
+
+    private final int MAX_ERROR_COUNT = 50;
+
     //已上传分片数
     private String FILE_UPLOAD_COUNT = "file_upload_count";
 
@@ -76,7 +80,6 @@ public class UploadManager {
         Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
         for (final File file : allFiles) {
-//        final File file = allFiles[1];
             try {
                 splitPart(file);
             } catch (IOException e) {
@@ -85,7 +88,8 @@ public class UploadManager {
             mExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    submitUploadTask(file);
+                    String partFilePath = getPartDir(file) + "/" + file.getName();
+                    submitUploadTask(file, partFilePath);
                 }
 
             });
@@ -98,7 +102,7 @@ public class UploadManager {
         }
     }
 
-    private void submitUploadTask(final File file) {
+    private void submitUploadTask(final File file, final String partFilePath) {
         Float carBattery = Float.valueOf(DeviceUtils.getCarBatteryInfo());
         //如果电压小于11.5V停止上传
         if (carBattery < 11.5) {
@@ -114,7 +118,7 @@ public class UploadManager {
 //            String createTime = file.getName().substring(0, file.getName().lastIndexOf("."));
         String createTime = String.valueOf(file.lastModified());
 
-        final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5, file.getAbsolutePath());
+        final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5, file.getAbsolutePath(), partFilePath);
         InitPartUploadBody initPartUploadBody = new InitPartUploadBody(imei, fileMd5, file.getName(), videoType, Long.valueOf(createTime), chunks);
 
         //初始化分片上传，每个file都需要初始化一次
@@ -155,6 +159,7 @@ public class UploadManager {
             @Override
             public void onError(Throwable e) {
                 MyLog.d("分片上传", e);
+                needFinishUpload();
             }
 
             @Override
@@ -163,6 +168,13 @@ public class UploadManager {
             }
         });
 
+    }
+
+    private void needFinishUpload() {
+        errorCount++;
+        if (errorCount > MAX_ERROR_COUNT) {
+            onVideoUploadListener.onVideoUploadFail();
+        }
     }
 
     private int getChunks(File file) {
@@ -378,7 +390,7 @@ public class UploadManager {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                uploadPart(part, partFileInfo, partIndex, length);
+                needFinishUpload();
             }
 
             @Override
@@ -404,7 +416,7 @@ public class UploadManager {
     private void handlePostPartUploadComplete(final PartFileInfo partFileInfo) {
         CompletePartUploadBody completePartUploadBody = new CompletePartUploadBody(
                 partFileInfo.getImei(), partFileInfo.getUploadId(), partFileInfo.getChunks(), partFileInfo.getFileMD5());
-        //上传分片完成，每个分片都要调用
+        //上传分片完成，每个文件都要调用
         NetModule.Companion.getInstance().provideAPIService()
                 .postCompletePartUpload(completePartUploadBody)
                 .subscribeOn(Schedulers.io())
@@ -419,6 +431,11 @@ public class UploadManager {
             @Override
             public void onNext(BaseResult<PartUploadResponseModel> result) {
                 if (result.getData() != null && result.getData().getResult()) {
+                    File partfile = new File(partFileInfo.getPartFilePath());
+                    if (partfile.exists()) {
+                        partfile.delete();
+                        MyLog.d("分片上传", "传完一个完整文件删除临时文件夹");
+                    }
                     File file = new File(partFileInfo.getFilePath());
                     if (file.exists()) {
                         file.delete();
@@ -431,6 +448,7 @@ public class UploadManager {
             @Override
             public void onError(Throwable e) {
                 MyLog.d("分片上传", "完成时异常" + e);
+                needFinishUpload();
             }
 
             @Override
@@ -454,6 +472,8 @@ public class UploadManager {
         void onVideoUploadSuccess();
 
         void onLowBattery();
+
+        void onVideoUploadFail();
     }
 
     public onVideoUploadListener onVideoUploadListener;

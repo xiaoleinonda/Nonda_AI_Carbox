@@ -5,6 +5,7 @@ class PartFileInfo constructor(
     var uploadId: String,
     var chunks: Int,
     var fileMD5: String,
-    var filePath: String
+    var filePath: String,
+    var partFilePath: String
 ) {
 }

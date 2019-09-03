@@ -71,6 +71,7 @@ public class UploadManager {
     public void start() {
         File[] allFiles = getAllFileList();
         mFileSize = allFiles.length;
+        MyLog.d("分片上传", "总共上传" + mFileSize);
         //如果没有未上传的视频说明上传完毕
         if (mFileSize == 0) {
             onVideoUploadListener.onVideoUploadSuccess();
@@ -107,6 +108,7 @@ public class UploadManager {
         //如果电压小于11.5V停止上传
         if (carBattery < 11.5) {
             onVideoUploadListener.onLowBattery();
+            MyLog.d("分片上传", "电压过小" + carBattery);
             return;
         }
 
@@ -143,7 +145,7 @@ public class UploadManager {
                     //如果没有上传过才上传
                     if (!isUploaded) {
                         partFileInfo.setUploadId(uploadId);
-                        uploadTask(file, partFileInfo);
+                        uploadFile(file, partFileInfo);
                         MyLog.d("分片上传", "初始化");
                     } else {
                         File file = new File(partFileInfo.getFilePath());
@@ -192,9 +194,6 @@ public class UploadManager {
         return 2;
     }
 
-    private void uploadTask(File file, PartFileInfo partFileInfo) {
-        uploadFile(file, partFileInfo);
-    }
 
     /**
      * 获取前后摄像头然后合并成一个文件数组

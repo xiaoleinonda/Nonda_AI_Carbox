@@ -129,7 +129,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     /**
      * 不需要更新时
      */
-    private fun onNotDownLoad() {
+    public fun onNotDownLoad() {
         if (!isAccOff()) {
             return
         }

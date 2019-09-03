@@ -9,6 +9,7 @@ import us.nonda.commonibrary.MyLog
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.mqttlibrary.mqtt.MqttManager
+import us.nonda.videopushlibrary.uploadTask.UploadManager
 
 /**
  * Created by chenjun on 2019-06-12.
@@ -23,10 +24,12 @@ class AccBroadcastReceiver : BroadcastReceiver() {
 
         if (action_acc_on == intent?.action) {
             MqttManager.getInstance().publishEventData(1001, "1")
+            MyLog.d(TAG,"action_acc_on")
             accOn(context)
         } else if (action_acc_off == intent?.action) {
             MqttManager.getInstance().publishEventData(1001, "2")
             accOff()
+            MyLog.d(TAG,"action_acc_off")
         }
     }
 
@@ -36,6 +39,7 @@ class AccBroadcastReceiver : BroadcastReceiver() {
      */
     private fun accOn(context: Context?) {
         MyLog.d(TAG, "accOn")
+        UploadManager.getInstance().stopUpload()
         CarBoxControler.instance.openCamera(context!!)
     }
 

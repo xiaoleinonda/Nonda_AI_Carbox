@@ -13,7 +13,8 @@ import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.facelibrary.manager.FaceSDKManager2
+import us.nonda.commonibrary.utils.DeviceUtils
+import us.nonda.videopushlibrary.uploadTask.UploadManager
 
 /**
  * 首页
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
 //        SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
-        checkAccStatus(this)
+//        checkAccStatus(this)
 
         btn_location.setOnClickListener {
 //            CarBoxControler.instance.accOnMode(this, "首页")
@@ -46,12 +47,13 @@ class MainActivity : AppCompatActivity() {
         btn_stop_location.setOnClickListener {
 //            CarBoxControler.instance.sleep()
 //            FaceSDKManager.instance.isRegisted = false
-            VideoRecordActivity.starter(this@MainActivity)
+//            VideoRecordActivity.starter(this@MainActivity)
 //            test()
+            //分片上传视频文件
+            UploadManager.getInstance().start()
         }
 
-        val carBatteryInfo = CarBoxControler
-            .instance.getCarBatteryInfo()
+        val carBatteryInfo = DeviceUtils.getCarBatteryInfo()
 
         val simNumber = CarBoxControler.instance.getSimNumber(this)
         MyLog.d("设备信息", "电量=$carBatteryInfo   sim卡=$simNumber")

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
 //        SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
-//        checkAccStatus(this)
+        checkAccStatus(this)
 
         btn_location.setOnClickListener {
 //            CarBoxControler.instance.accOnMode(this, "首页")
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkAccStatus(context: Context) {
         val accStatus = CarBoxControler.instance.getAccStatus()
         if (accStatus != 0) {//acc on
-            CarBoxControler.instance.openCamera(this)
+//            CarBoxControler.instance.openCamera(this)
         } else {
             CarBoxControler.instance.accOffModeWork()
         }

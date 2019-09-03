@@ -141,8 +141,8 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      * 检查是否有需要上传的视频
      */
     private fun checkUploadVideoFile() {
-        UploadManager.getInstance().setOnVideoUploadListener(this)
         UploadManager.getInstance().start()
+        UploadManager.getInstance().setOnVideoUploadListener(this)
     }
 
 

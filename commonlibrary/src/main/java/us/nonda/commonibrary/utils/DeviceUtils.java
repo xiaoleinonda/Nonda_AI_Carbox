@@ -10,11 +10,12 @@ public class DeviceUtils {
 
     /**
      * 获取IMEI号
+     *
      * @param context
      * @return
      */
     @SuppressLint("MissingPermission")
-    public static String getIMEICode(Context context){
+    public static String getIMEICode(Context context) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getDeviceId();
     }
@@ -22,13 +23,13 @@ public class DeviceUtils {
 
     /**
      * 获取设备序列号
+     *
      * @return
      */
-    public static String getDeviceSN(){
+    public static String getDeviceSN() {
         String serialNumber = android.os.Build.SERIAL;
         return serialNumber;
     }
-
 
 
     /**
@@ -39,7 +40,11 @@ public class DeviceUtils {
         if (TextUtils.isEmpty(path)) {
             return "0";
         }
-        return StringUtils.getString(path);
+        try {
+            return StringUtils.getString(path);
+        } catch (Exception e) {
+            return "0";
+        }
     }
 
 
@@ -47,7 +52,7 @@ public class DeviceUtils {
      * 获取sim卡iccid
      */
     @SuppressLint("MissingPermission")
-   public static String getSimNumber( Context context) {
+    public static String getSimNumber(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE);
         String simSerialNumber = telephonyManager.getSimSerialNumber();
         if (TextUtils.isEmpty(simSerialNumber)) {

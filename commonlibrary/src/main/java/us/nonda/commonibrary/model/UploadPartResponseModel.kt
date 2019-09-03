@@ -17,6 +17,6 @@ class UploadPartResponseModel {
          * result : true
          */
 
-        var isResult: Boolean = false
+        var result: Boolean = false
     }
 }

@@ -13,7 +13,6 @@ import us.nonda.cameralibrary.path.FilePathManager;
 import us.nonda.commonibrary.MyLog;
 import us.nonda.commonibrary.http.BaseResult;
 import us.nonda.commonibrary.http.NetModule;
-import us.nonda.commonibrary.http.NetModuleTest;
 import us.nonda.commonibrary.model.*;
 import us.nonda.commonibrary.utils.AppUtils;
 import us.nonda.commonibrary.utils.DeviceUtils;
@@ -39,7 +38,7 @@ public class UploadManager {
 
     private static final int CHUNK_SIZE = 2 * 1024 * 1024;
 
-    private static final int THREAD_COUNT = Runtime.getRuntime().availableProcessors() + 1;
+    private static final int THREAD_COUNT = 3;
 
     private static UploadManager INSTANCE;
 
@@ -94,7 +93,9 @@ public class UploadManager {
     }
 
     public void stopUpload() {
-        mExecutor.shutdown();
+        if (mExecutor != null) {
+            mExecutor.shutdown();
+        }
     }
 
     private void submitUploadTask(final File file) {
@@ -117,7 +118,7 @@ public class UploadManager {
         InitPartUploadBody initPartUploadBody = new InitPartUploadBody(imei, fileMd5, file.getName(), videoType, Long.valueOf(createTime), chunks);
 
         //初始化分片上传，每个file都需要初始化一次
-        NetModuleTest.Companion.getInstance().provideAPIService()
+        NetModule.Companion.getInstance().provideAPIService()
                 .postInitPartUpload(initPartUploadBody)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -140,6 +141,13 @@ public class UploadManager {
                         partFileInfo.setUploadId(uploadId);
                         uploadTask(file, partFileInfo);
                         MyLog.d("分片上传", "初始化");
+                    } else {
+                        File file = new File(partFileInfo.getFilePath());
+                        if (file.exists()) {
+                            file.delete();
+                            MyLog.d("分片上传", "传完一个完整文件删除原视频");
+                            uploadAllFileComplete();
+                        }
                     }
                 }
             }
@@ -358,7 +366,8 @@ public class UploadManager {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://10.0.0.90:8081" + "/api/v1/vehiclebox/partupload/upload")
+//                .url("http://10.0.0.90:8081" + "/api/v1/vehiclebox/partupload/upload")
+                .url("https://api-clouddrive-qa.zus.ai" + "/api/v1/vehiclebox/partupload/upload")
                 .addHeader("token", "7c09b979489a4bca8684c0922bb8a0e7")
                 .post(fileBody)
                 .build();
@@ -376,7 +385,7 @@ public class UploadManager {
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
                 UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
-                if (partUploadResponseModel.getData().isResult()) {
+                if (partUploadResponseModel.getData().getResult()) {
                     int completeChunks = (int) SPUtils.get(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), 0);
                     completeChunks++;
                     if (completeChunks < length) {
@@ -396,7 +405,7 @@ public class UploadManager {
         CompletePartUploadBody completePartUploadBody = new CompletePartUploadBody(
                 partFileInfo.getImei(), partFileInfo.getUploadId(), partFileInfo.getChunks(), partFileInfo.getFileMD5());
         //上传分片完成，每个分片都要调用
-        NetModuleTest.Companion.getInstance().provideAPIService()
+        NetModule.Companion.getInstance().provideAPIService()
                 .postCompletePartUpload(completePartUploadBody)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -436,6 +445,7 @@ public class UploadManager {
         completeUploadFileCount++;
         if (completeUploadFileCount >= mFileSize) {
             onVideoUploadListener.onVideoUploadSuccess();
+            MyLog.d("分片上传", "全部上传完成");
         }
     }
 

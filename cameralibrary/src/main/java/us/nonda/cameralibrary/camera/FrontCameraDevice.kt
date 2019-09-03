@@ -22,7 +22,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private var width = 640
     private var height = 480
 
-    private var videoDurationMS = 1000 * 60 * 1
+    private var videoDurationMS = 1000 * 60 * 3
     private var rotation = 0
     private var videoFilePathName = FilePathManager.get().getFrontVideoPath()
     private var videoQuality: Int = CamcorderProfile.QUALITY_480P

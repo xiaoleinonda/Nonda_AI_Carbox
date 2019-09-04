@@ -90,7 +90,7 @@ public class UploadManager {
                 @Override
                 public void run() {
                     String partFilePath = getPartDir(file) + "/" + file.getName();
-                    submitUploadTask(file, partFilePath);
+                    submitUploadTask(file, partFilePath, getPartDir(file));
                 }
 
             });
@@ -103,7 +103,7 @@ public class UploadManager {
         }
     }
 
-    private void submitUploadTask(final File file, final String partFilePath) {
+    private void submitUploadTask(final File file, final String partFilePath, final String partFolderPath) {
         Float carBattery = Float.valueOf(DeviceUtils.getCarBatteryInfo());
         //如果电压小于11.5V停止上传
         if (carBattery < 11.5) {
@@ -120,7 +120,7 @@ public class UploadManager {
 //            String createTime = file.getName().substring(0, file.getName().lastIndexOf("."));
         String createTime = String.valueOf(file.lastModified());
 
-        final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5, file.getAbsolutePath(), partFilePath);
+        final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5, file.getAbsolutePath(), partFilePath, partFolderPath);
         InitPartUploadBody initPartUploadBody = new InitPartUploadBody(imei, fileMd5, file.getName(), videoType, Long.valueOf(createTime), chunks);
 
         //初始化分片上传，每个file都需要初始化一次
@@ -397,6 +397,11 @@ public class UploadManager {
                 Gson gson = new Gson();
                 UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
                 if (partUploadResponseModel.getData().getResult()) {
+                    File partfile = new File(part.getAbsolutePath());
+                    if (partfile.exists()) {
+                        partfile.delete();
+                        MyLog.d("分片上传", "传完一个分片删除一个");
+                    }
                     int completeChunks = (int) SPUtils.get(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), 0);
                     completeChunks++;
                     if (completeChunks < length) {
@@ -430,7 +435,7 @@ public class UploadManager {
             @Override
             public void onNext(BaseResult<PartUploadResponseModel> result) {
                 if (result.getData() != null && result.getData().getResult()) {
-                    File partfile = new File(partFileInfo.getPartFilePath());
+                    File partfile = new File(partFileInfo.getPartFolderPath());
                     if (partfile.exists()) {
                         partfile.delete();
                         MyLog.d("分片上传", "传完一个完整文件删除临时文件夹");

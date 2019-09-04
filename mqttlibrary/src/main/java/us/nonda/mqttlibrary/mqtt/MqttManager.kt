@@ -51,6 +51,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     public var isConnected = false
     public var connectSuccessed = false
     private val messageQueue = LinkedList<MqttMessage>()
+    private var isPublishLocalMessage = false
 
     private var failcount = 0
 
@@ -90,6 +91,9 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         // 心跳包发送间隔，单位：秒
         mqttConnectOptions.keepAliveInterval = 60
         mqttConnectOptions.isAutomaticReconnect = true
+        mqttConnectOptions.userName = "test"
+        mqttConnectOptions.password = "nonda123".toCharArray()
+
 
         // last will message
         val message = imei
@@ -222,6 +226,8 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
 
     override fun connectionLost(cause: Throwable?) {
+        //停止上传本地数据
+        isPublishLocalMessage = false
         Log.d(TAG, "connectionLost")
         isConnected = false
         mqttState = MQTTSTATE_CONNECTIONLOST
@@ -265,6 +271,14 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      */
     override fun connectComplete(reconnect: Boolean, serverURI: String?) {
         Log.d(TAG, "connectComplete:重连成功")
+        if (!isPublishLocalMessage) {
+            publishLocalMessage()
+        }
+    }
+
+    private fun publishLocalMessage() {
+        //开始发送本地消息，改变布尔值防止再次网络状态改变进入循环
+        isPublishLocalMessage = true
         //如果初始化连接成功,发送初始化之前缓存的消息
         if (messageQueue.size > 0) {
             val runnable = Runnable {
@@ -278,12 +292,14 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                         mqttMessage = messageQueue.poll()
 
                         //相隔一定时间发送一次，防止短时间发送过多收不到消息的回调
-                        Thread.sleep(1000)
+                        Thread.sleep(500)
                     } catch (e: Exception) {
                         MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
                     }
                 }
                 MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)
+                //发送结束
+                isPublishLocalMessage = false
             }
             Thread(runnable).start()
         }

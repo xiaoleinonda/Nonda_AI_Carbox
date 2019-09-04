@@ -22,7 +22,7 @@ import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
 import java.util.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
-import java.util.concurrent.CopyOnWriteArrayList
+import us.nonda.mqttlibrary.BuildConfig
 
 
 /**
@@ -39,7 +39,7 @@ Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - fal
 class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
     private val TAG = MqttManager::class.java.simpleName
-    private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
+    private var SERVER_HOST = BuildConfig.MQTT_URL
     //    private var CLIENT_ID = "Android${DeviceUtils.getIMEICode(AppUtils.context)}"
     private var CLIENT_ID = "nonda-vehiclebox-${DeviceUtils.getIMEICode(AppUtils.context)}"
     var mqttState = 0
@@ -91,8 +91,8 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         // 心跳包发送间隔，单位：秒
         mqttConnectOptions.keepAliveInterval = 60
         mqttConnectOptions.isAutomaticReconnect = true
-        mqttConnectOptions.userName = "test"
-        mqttConnectOptions.password = "nonda123".toCharArray()
+        mqttConnectOptions.userName = BuildConfig.MQTT_NAME
+        mqttConnectOptions.password = BuildConfig.MQTT_PASSWORD.toCharArray()
 
 
         // last will message
@@ -210,6 +210,8 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
         //过滤掉topic为publish的回调
         if (PUBLISH_TOPIC == topic) return
+
+        MyLog.d(TAG, "messageArrived" + message)
 
         if (message != null) {
             cloudDriveMqttMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(message.payload)

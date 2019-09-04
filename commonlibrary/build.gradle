@@ -21,6 +21,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField('String', 'API_URL', PROD_API_URL)
+        }
+
+        debug {
+            debuggable true
+            buildConfigField('String', 'API_URL', UAT_API_URL)
         }
     }
 

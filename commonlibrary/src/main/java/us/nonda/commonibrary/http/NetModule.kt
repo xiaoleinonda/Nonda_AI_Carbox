@@ -4,12 +4,13 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import us.nonda.commonibrary.BuildConfig
 import java.util.concurrent.TimeUnit
 
 class NetModule private constructor() {
 
     private val DEFAULT_TIMEOUT: Long = 30
-    private val BASE_URL = "https://api-clouddrive-qa.zus.ai/"
+    private val BASE_URL = BuildConfig.API_URL
 
     private  var retrofit: Retrofit
 

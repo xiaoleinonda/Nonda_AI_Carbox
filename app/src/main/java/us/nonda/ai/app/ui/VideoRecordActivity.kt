@@ -124,7 +124,7 @@ class VideoRecordActivity : AppCompatActivity() {
                 val time = emotionData[0].time
                 MyLog.d(
                     TAG,
-                    "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > 10000}"
+                    "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq}"
                 )
 
                 if (currentTimeMillis - time > 10000) {

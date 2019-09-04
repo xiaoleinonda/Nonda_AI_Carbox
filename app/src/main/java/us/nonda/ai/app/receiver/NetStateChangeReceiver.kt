@@ -24,8 +24,7 @@ class NetStateChangeReceiver : BroadcastReceiver() {
                 MyLog.d("网络", "有网")
                 initDevice()
                 MqttManager.getInstance().onStart()
-//                val mDownloadHelper = DownloadHelper.getInstance()
-//                mDownloadHelper.addCarBoxTask(AppUtils.context)
+                checkAccStatus()
             } else {
                 MyLog.d("网络", "断网")
 
@@ -46,5 +45,16 @@ class NetStateChangeReceiver : BroadcastReceiver() {
 //        FaceSDKManager.instance.init(context, "")
         FaceSDKManager.instance.checkLicenceStatus()
 
+    }
+
+    /**
+     *  acc off状态网络波动后重新监测下载新版本App
+     */
+    private fun checkAccStatus() {
+        val accStatus = CarBoxControler.instance.getAccStatus()
+        if (accStatus == 0) {//acc on
+            MyLog.d("下载","Acc off 状态下断网后重连成功")
+            CarBoxControler.instance.accOffModeWork()
+        }
     }
 }

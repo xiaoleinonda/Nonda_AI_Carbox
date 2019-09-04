@@ -1,6 +1,7 @@
 package us.nonda.mqttlibrary.handler
 
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
+import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.config.EmotionConfig
 import us.nonda.mqttlibrary.mqtt.IMqttMessageHandler
@@ -14,5 +15,6 @@ class EmotionHandler : IMqttMessageHandler {
             (cloudDriveMqttFreqData.reportFreq).toLong()
         )
         CarboxConfigRepostory.instance.putEmotionConfig(emotionConfig)
+        MyLog.d("收到消息","emotionConfig")
     }
 }

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class MyLog {
 
@@ -88,7 +89,12 @@ public class MyLog {
 
 
             if (MYLOG_WRITE_TO_FILE)//日志写入文件开关
-                writeLogtoFile(String.valueOf(level), tag, msg);
+                try {
+                    writeLogtoFile(String.valueOf(level), tag, msg);
+                } catch (Exception e) {
+                    Log.d("本地log日志异常", Objects.requireNonNull(e.getMessage()));
+                }
+
         }
     }
 

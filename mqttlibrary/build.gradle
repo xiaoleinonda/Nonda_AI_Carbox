@@ -24,6 +24,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField('String', 'MQTT_URL', MQTT_PROD_URL)
+            buildConfigField('String', 'MQTT_NAME', MQTT_PROD_NAME)
+            buildConfigField('String', 'MQTT_PASSWORD', MQTT_PROD_PASSWORD)
+        }
+
+        debug {
+            debuggable true
+            buildConfigField('String', 'MQTT_URL', MQTT_UAT_URL)
+            buildConfigField('String', 'MQTT_NAME', MQTT_UAT_NAME)
+            buildConfigField('String', 'MQTT_PASSWORD', MQTT_UAT_PASSWORD)
         }
     }
 
@@ -39,7 +49,6 @@ android {
             srcDir 'src/main/java'
         }
     }
-
 
 
     ///**修改2**：增加protobuf插件编译配置

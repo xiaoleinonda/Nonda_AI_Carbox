@@ -1,6 +1,7 @@
 package us.nonda.mqttlibrary.mqtt
 
 import android.annotation.SuppressLint
+import android.text.TextUtils
 import android.util.Log
 import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
@@ -339,7 +340,12 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         val longitude = bestLocation?.longitude
         val accuracy = bestLocation?.accuracy
 
-        builderData.fw = "1.2"
+        val romVersion = android.os.Build.DISPLAY
+        if (TextUtils.isEmpty(romVersion)) {
+            builderData.fw = ""
+        } else {
+            builderData.fw = romVersion
+        }
         builderData.app = AppUtils.getVersionName(AppUtils.context)
         builderData.sim = DeviceUtils.getSimNumber(AppUtils.context)
         builderData.lat = latitude ?: 0.0
@@ -364,8 +370,12 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         val latitude = bestLocation?.latitude
         val longitude = bestLocation?.longitude
         val accuracy = bestLocation?.accuracy
-
-        builderData.fw = "1.2"
+        val romVersion = android.os.Build.DISPLAY
+        if (TextUtils.isEmpty(romVersion)) {
+            builderData.fw = ""
+        } else {
+            builderData.fw = romVersion
+        }
         builderData.app = AppUtils.getVersionName(AppUtils.context)
         builderData.sim = DeviceUtils.getSimNumber(AppUtils.context)
         builderData.lat = latitude ?: 0.0

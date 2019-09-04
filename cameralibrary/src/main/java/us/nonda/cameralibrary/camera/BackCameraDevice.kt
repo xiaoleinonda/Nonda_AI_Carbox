@@ -73,8 +73,6 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
                 t.emotion
             }
             .doOnNext {
-
-
                 var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion + "/"
                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
 
@@ -142,10 +140,13 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             isPreviewed = true
 
             val cameraStatus = getCameraStatus(cameraID)
+            MyLog.d("相机", "usb  check是否需要开启录制cameraStatus=$cameraStatus")
 
-            if (cameraStatus == CameraDevice.STATE_PREVIEW || cameraStatus == CameraDevice.STATE_RECORDING) {
+            _startRecord()
+
+           /* if (cameraStatus == CameraDevice.STATE_PREVIEW || cameraStatus == CameraDevice.STATE_RECORDING) {
                 _startRecord()
-            }
+            }*/
         }
 
     }
@@ -156,7 +157,11 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     private fun _startRecord() {
         val cameraStatus = getCameraStatus(cameraID)
         if (cameraStatus == CameraDevice.STATE_RECORDING) {
-            return
+            MyLog.d("相机", "USB发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
+
+            cameraDevice?.stopRecord()
+
+//            return
         }
         val record = cameraDevice?.startRecord()
         when (record) {

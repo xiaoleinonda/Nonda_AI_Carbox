@@ -249,7 +249,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     override fun onSuccess(asyncActionToken: IMqttToken?) {
         isConnected = true
         try {
-            mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
+//            mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
             Log.d(TAG, "onSuccess发送成功")
             connectSuccessed = true
 
@@ -272,6 +272,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      * 链接和重连时都会走到的回调，初始化时晚于onSuccess
      */
     override fun connectComplete(reconnect: Boolean, serverURI: String?) {
+        mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
         Log.d(TAG, "connectComplete:重连成功")
         if (!isPublishLocalMessage) {
             publishLocalMessage()

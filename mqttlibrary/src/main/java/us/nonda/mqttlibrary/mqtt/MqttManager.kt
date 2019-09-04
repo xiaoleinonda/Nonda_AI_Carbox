@@ -237,7 +237,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      * 消息发送成功接收到的回调
      */
     override fun deliveryComplete(token: IMqttDeliveryToken?) {
-        MyLog.d(TAG, "deliveryComplete" + token?.message)
+        MyLog.d(TAG, "deliveryComplete")
         mqttState = MQTTSTATE_DELIVERYCOMPLETE
     }
 

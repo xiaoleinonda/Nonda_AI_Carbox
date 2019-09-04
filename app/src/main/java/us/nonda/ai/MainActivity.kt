@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         MyLog.d(TAG, "setContentView")
         setContentView(R.layout.activity_main)
-        ToastUtils.showToast(AppUtils.context, "MainActivity")
 
         registReceiver()
 //        checkAccStatus(this)

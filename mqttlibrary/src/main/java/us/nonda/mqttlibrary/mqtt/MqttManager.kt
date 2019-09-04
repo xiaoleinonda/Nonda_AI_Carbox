@@ -6,10 +6,13 @@ import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
+import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
+import us.nonda.commonibrary.utils.FileUtils
+import us.nonda.commonibrary.utils.PathUtils
 import us.nonda.mqttlibrary.model.*
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EMOTION
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EVENT
@@ -18,6 +21,9 @@ import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GPS
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
 import java.util.*
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
+import java.util.concurrent.CopyOnWriteArrayList
+
 
 /**
  *MQTT客户端连接参数
@@ -30,7 +36,7 @@ UserName: <username>
 Password: <password>
 Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - false
  */
-class MqttManager : MqttCallback, IMqttActionListener {
+class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
     private val TAG = MqttManager::class.java.simpleName
     private var SERVER_HOST = "tcp://mqtt-qa.zus.ai:1883"
@@ -44,7 +50,9 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
     public var isConnected = false
     public var connectSuccessed = false
-    private val messageQueue = ArrayList<MqttMessage>()
+    private val messageQueue = LinkedList<MqttMessage>()
+
+    private var failcount = 0
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -52,9 +60,9 @@ class MqttManager : MqttCallback, IMqttActionListener {
         var PUBLISH_TOPIC = "nonda/drive/$imei/report"//车机上报云端：
         var RESPONSE_TOPIC = "nonda/drive/$imei/issue"//云端下发车机:
         var LAST_WILL_TOPIC = "nonda/drive/$imei/will"//车机Last Wii：
-//        var mqttAndroidClient: MqttAndroidClient? = null
+        //        var mqttAndroidClient: MqttAndroidClient? = null
 //        private var mMqttConnectOptions: MqttConnectOptions? = null
-
+        var persistence = MemoryPersistence()
         @Volatile
         private var instance: MqttManager? = null
 
@@ -69,7 +77,8 @@ class MqttManager : MqttCallback, IMqttActionListener {
     private val mqttAndroidClient = MqttAndroidClient(
         AppUtils.context,
         SERVER_HOST,
-        CLIENT_ID
+        CLIENT_ID,
+        persistence
     )
 
 
@@ -148,11 +157,22 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
         //如果还没有初始化，存在本地，连接成功之后上报
         if (!connectSuccessed) {
-            messageQueue.add(mqttMessage)
+            failcount++
+            MyLog.d(TAG, "还没初始化存到本地" + failcount + "条消息")
+            messageQueue.offer(mqttMessage)
         }
+        publish(mqttMessage)
+    }
 
+    private fun publish(mqttMessage: MqttMessage) {
         try {
-            mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+            if (mqttAndroidClient.isConnected) {
+                mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+            } else {
+                messageQueue.offer(mqttMessage)
+                failcount++
+                MyLog.d(TAG, "存到本地" + failcount + "条消息")
+            }
             MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
         } catch (e: Exception) {
             MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
@@ -202,40 +222,28 @@ class MqttManager : MqttCallback, IMqttActionListener {
 
 
     override fun connectionLost(cause: Throwable?) {
-        MqttManager.getInstance().publishEventData(1014, "2")
-
         Log.d(TAG, "connectionLost")
         isConnected = false
         mqttState = MQTTSTATE_CONNECTIONLOST
     }
 
+    /**
+     * 消息发送成功接收到的回调
+     */
     override fun deliveryComplete(token: IMqttDeliveryToken?) {
-        MyLog.d(TAG, "deliveryComplete")
+        MyLog.d(TAG, "deliveryComplete" + token?.message)
         mqttState = MQTTSTATE_DELIVERYCOMPLETE
     }
 
+    /**
+     * mqtt初始化成功
+     */
     override fun onSuccess(asyncActionToken: IMqttToken?) {
         isConnected = true
         try {
             mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
             Log.d(TAG, "onSuccess发送成功")
             connectSuccessed = true
-            //如果初始化连接成功,发送初始化之前缓存的消息
-            if (messageQueue.size > 0) {
-                val iterator = messageQueue.iterator()
-
-                while (iterator.hasNext()) {
-                    val next = iterator.next()
-                    try {
-                        mqttAndroidClient.publish(PUBLISH_TOPIC, next)
-                        iterator.remove()
-                        MyLog.d(TAG, "缓存数据发送成功=${mqttAndroidClient.isConnected}")
-                    } catch (e: Exception) {
-                        MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
-                    }
-                }
-            }
-
 
             MqttManager.getInstance().publishEventData(1014, "1")
 
@@ -248,12 +256,38 @@ class MqttManager : MqttCallback, IMqttActionListener {
     }
 
     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-        MqttManager.getInstance().publishEventData(1014, "2")
-
         isConnected = false
         Log.d(TAG, "onFailure：${exception?.message}+mqttAndroidClient.isConnected")
     }
 
+    /**
+     * 链接和重连时都会走到的回调，初始化时晚于onSuccess
+     */
+    override fun connectComplete(reconnect: Boolean, serverURI: String?) {
+        Log.d(TAG, "connectComplete:重连成功")
+        //如果初始化连接成功,发送初始化之前缓存的消息
+        if (messageQueue.size > 0) {
+            val runnable = Runnable {
+                var mqttMessage = messageQueue.poll()
+                while (mqttMessage != null) {
+                    try {
+                        publish(mqttMessage)
+                        failcount--
+                        MyLog.d(TAG, "本地剩余" + failcount + "条消息")
+                        MyLog.d(TAG, "缓存数据发送成功=${mqttAndroidClient.isConnected}")
+                        mqttMessage = messageQueue.poll()
+
+                        //相隔一定时间发送一次，防止短时间发送过多收不到消息的回调
+                        Thread.sleep(1000)
+                    } catch (e: Exception) {
+                        MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
+                    }
+                }
+                MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)
+            }
+            Thread(runnable).start()
+        }
+    }
 
     /**
      * 上报状态
@@ -451,8 +485,6 @@ class MqttManager : MqttCallback, IMqttActionListener {
         MyLog.i(TAG, "上报情绪识别结果=${emotionBeans.size}")
 
     }
-
-
 }
 
 

@@ -60,9 +60,7 @@ class NondaApp : Application() {
 
             //TODO 更新成功后的其他操作
             MyLog.d(TAG, "更新成功了versionName=${AppUtils.getVersionName(instance)}")
-
-            CarBoxControler.instance.checkUploadVideoFile()
-//            CarBoxControler.instance.noticeIPO(this)
+            CarBoxControler.instance.onNotDownLoad()
         } else {
             MyLog.d(TAG, "没有更新")
         }

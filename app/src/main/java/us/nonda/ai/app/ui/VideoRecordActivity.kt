@@ -1,40 +1,34 @@
 package us.nonda.ai.app.ui
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_video_record.*
+import android.os.IBinder
+import kotlinx.android.synthetic.main.activity_video_record2.*
+import kotlinx.android.synthetic.main.activity_video_record2.draw_detect_face_view
+import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewBack
+import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewFront
 import us.nonda.ai.R
-import us.nonda.ai.cache.CameraConfig
-import us.nonda.cameralibrary.camera.BackCameraMananger
-import us.nonda.cameralibrary.camera.CameraCallback
-import us.nonda.cameralibrary.camera.FrontCameraMananger
+import us.nonda.ai.app.service.SensorReportService
+import us.nonda.cameralibrary.camera.*
 import us.nonda.cameralibrary.model.PictureModel
-import us.nonda.cameralibrary.path.FilePathManager
-import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.utils.FinishActivityManager
-import us.nonda.commonibrary.utils.PathUtils
 import us.nonda.facelibrary.callback.FaceDetectCallBack
-import us.nonda.facelibrary.db.DBManager
-import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.facelibrary.model.LivenessModel
 import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
-import us.nonda.mqttlibrary.model.GSensorBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 class VideoRecordActivity : AppCompatActivity() {
+
+    private var backCameraDevice: BackCameraDevice? = null
+    private var frontCameraDevice: FrontCameraDevice? = null
 
     private val TAG = "VideoRecordActivity"
 
@@ -44,26 +38,9 @@ class VideoRecordActivity : AppCompatActivity() {
 
     companion object {
         fun starter(context: Context) {
-            /*  val activitySum = FinishActivityManager.getManager().activitySum
-              if (activitySum > 0) {
-                  FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
-              }*/
             val intent = Intent(context, VideoRecordActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
-/*
-            Observable.timer(5, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .subscribe{
-                    val activitySum = FinishActivityManager.getManager().activitySum
-                    if (activitySum > 0) {
-                        FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
-                    }
-
-                    val intent = Intent(context, VideoRecordActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    context.startActivity(intent)
-                }
-*/
         }
 
         fun finish() {
@@ -73,110 +50,25 @@ class VideoRecordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_video_record)
 
+        setContentView(R.layout.activity_video_record2)
         FinishActivityManager.getManager().addActivity(this)
-        MyLog.d(TAG, "onCreate")
-        oepnCamera()
 
-        btn_camera.setOnClickListener {
-            //            oepnCamera()
-//            starterRecord()
-//
+        FaceSDKManager2.instance.isRegisted = false
+
+        btn.setOnClickListener {
+            startActivity(Intent(this@VideoRecordActivity, TestActivity::class.java))
         }
 
 
-//        initPublish()
-    }
+        //开启服务
+        service()
 
-    override fun onResume() {
-        super.onResume()
-        MyLog.d(TAG, "onResume")
-    }
+        //开启摄像头录制
+        initCamera()
 
-
-    fun starterRecord() {
-//        BackCameraMananger.instance.startRecord()
-//        FrontCameraMananger.instance.startRecord()
-    }
-
-    private fun openFrontCamera() {
-        FrontCameraMananger.instance.initBackCamera(surfaceViewFront, object :
-            CameraCallback {
-            override fun onCloseCamera() {
-                MqttManager.getInstance().publishEventData(1006, "1")
-                MqttManager.getInstance().publishEventData(1010, "1")
-            }
-
-            override fun onRecordSucceed() {
-                MqttManager.getInstance().publishEventData(1008, "1")
-
-            }
-
-            override fun onRecordFailed(code: Int) {
-                MqttManager.getInstance().publishEventData(1008, "2")
-
-            }
-
-            override fun onOpenCameraSucceed() {
-//                println("录制 Front  onOpenCameraSucceed")
-            }
-
-            override fun onOpenCameraFaile(msg: String) {
-//                println("录制  onOpenCameraFaile $msg")
-            }
-
-            override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
-//                println("Front  onYuvCbFrame $bytes")
-
-            }
-
-        })
-
-    }
-
-    private fun openBackCamera() {
-        BackCameraMananger.instance.initBackCamera(surfaceViewBack, object :
-            CameraCallback {
-            override fun onCloseCamera() {
-                MqttManager.getInstance().publishEventData(1011, "1")
-
-            }
-
-            override fun onRecordSucceed() {
-                MqttManager.getInstance().publishEventData(1009, "1")
-            }
-
-            override fun onRecordFailed(code: Int) {
-                MqttManager.getInstance().publishEventData(1009, "2")
-
-            }
-
-            override fun onOpenCameraSucceed() {
-                MyLog.d(TAG, "打开back摄像头成功， 开始初始化face")
-                FaceSDKManager.instance.check()
-//                println("录制 BACK  onOpenCameraSucceed")
-            }
-
-            override fun onOpenCameraFaile(msg: String) {
-//                println("录制 BACK  onOpenCameraFaile $msg")
-            }
-
-            override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
-//                println("百度BACK   onYuvCbFrame $bytes")
-                face(bytes, width, height)
-
-            }
-
-        })
-
-    }
-
-    private fun oepnCamera() {
-        openBackCamera()
-        openFrontCamera()
-
-        FaceSDKManager.instance.setCallback(object : FaceDetectCallBack {
+//        initkFace()
+        FaceSDKManager2.instance.setCallback(object : FaceDetectCallBack {
             override fun onFaceDetectCallback(
                 isDetect: Boolean,
                 faceWidth: Int,
@@ -204,88 +96,13 @@ class VideoRecordActivity : AppCompatActivity() {
 
             override fun onEnmotionCallback(livenessModel: LivenessModel?) {
                 println("识别  onEnmotionCallback=${livenessModel?.emotionsMsg}")
-                livenessModel?.run {
-                    val currentTimeMillis = System.currentTimeMillis()
-
-                    val fileName = "$currentTimeMillis$emotionsMsg"
-                    setEnmotion(emotionsMsg)
-                    MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
-
-
-                    if (emotionData.size > 0) {
-                        val time = emotionData[0].time
-                        MyLog.d(TAG, "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > 10000}")
-
-                        if (currentTimeMillis - time > 10000) {
-                            MyLog.d(TAG, "可以上报情绪了${emotionData.size}")
-                            var reportData = arrayListOf<EmotionBean>()
-                            reportData.addAll(emotionData)
-                            MqttManager.getInstance().publishEmotion(reportData)
-                            emotionData.clear()
-                            MyLog.d(TAG, "上报情绪完成${emotionData.size}")
-
-                        }
-                    }
-                    emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
-
-
-                    val pictureModel = PictureModel(
-                        emotionsMsg!!,
-                        imageFrame.width, imageFrame.height, imageFrame.argb, fileName
-                    )
-                    BackCameraMananger.instance.pictureProcessor.onNext(
-
-                        pictureModel
-                    )
-//                    val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + emotionsMsg + "/"
-//                    BackCameraMananger.instance.takePicture(folderPath, fileName)
-                    FrontCameraMananger.instance.pictureFrontProcessor.onNext(pictureModel)
-
-                }
+                reportEmotion(livenessModel)
 
             }
 
             override fun onFaceFeatureCallBack(livenessModel: LivenessModel?) {
+                reportFace(livenessModel)
                 println("识别  onFaceFeatureCallBack=${livenessModel?.featureStatus}")
-                livenessModel?.run {
-                    MyLog.d(TAG, "人脸比对结果=$featureStatus")
-
-                    val currentTimeMillis = System.currentTimeMillis()
-
-                    if (faceData.size > 0) {
-                        val time = faceData[0].time
-                        if (currentTimeMillis - time > CarboxConfigRepostory.instance.faceResultReportFreq) {
-                            var reportData = arrayListOf<FaceResultBean>()
-                            reportData.addAll(faceData)
-                            MqttManager.getInstance().publishFaceResult(reportData)
-                            faceData.clear()
-                        }
-                    }
-                    faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
-
-
-                    setResult("成功")
-                    var pictureModel: PictureModel
-                    if (featureStatus == 1) {
-                        var fileName = "${currentTimeMillis}ture"
-                        pictureModel = PictureModel(
-                            "ture", imageFrame.width, imageFrame.height, imageFrame.argb
-                            , fileName
-                        )
-                        setResult("成功")
-
-                    } else {
-                        var fileName = "${currentTimeMillis}false"
-                        pictureModel = PictureModel(
-                            "false", imageFrame.width, imageFrame.height, imageFrame.argb
-                            , fileName
-                        )
-                        setResult("失败=$featureStatus")
-
-                    }
-                    BackCameraMananger.instance.pictureFaceProcessor.onNext(pictureModel)
-
-                }
 
             }
 
@@ -294,9 +111,193 @@ class VideoRecordActivity : AppCompatActivity() {
 
     }
 
+    private fun reportEmotion(livenessModel: LivenessModel?) {
+        livenessModel?.run {
+            val currentTimeMillis = System.currentTimeMillis()
+
+            val fileName = "$currentTimeMillis$emotionsMsg"
+            setEnmotion(emotionsMsg)
+            MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
+
+
+            if (emotionData.size > 0) {
+                val time = emotionData[0].time
+                MyLog.d(
+                    TAG,
+                    "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > 10000}"
+                )
+
+                if (currentTimeMillis - time > 10000) {
+                    MyLog.d(TAG, "可以上报情绪了${emotionData.size}")
+                    var reportData = arrayListOf<EmotionBean>()
+                    reportData.addAll(emotionData)
+                    MqttManager.getInstance().publishEmotion(reportData)
+                    emotionData.clear()
+                    MyLog.d(TAG, "上报情绪完成${emotionData.size}")
+
+                }
+            }
+            emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
+
+
+            val pictureModel = PictureModel(
+                emotionsMsg!!,
+                imageFrame.width, imageFrame.height, imageFrame.argb, fileName
+            )
+            backCameraDevice?.pictureProcessor?.onNext(
+
+                pictureModel
+            )
+            frontCameraDevice?.pictureFrontProcessor?.onNext(pictureModel)
+
+        }
+
+
+    }
+
+    private fun reportFace(livenessModel: LivenessModel?) {
+        livenessModel?.run {
+            MyLog.d(TAG, "人脸比对结果=$featureStatus")
+
+            val currentTimeMillis = System.currentTimeMillis()
+
+            if (faceData.size > 0) {
+                val time = faceData[0].time
+                if (currentTimeMillis - time > CarboxConfigRepostory.instance.faceResultReportFreq) {
+                    var reportData = arrayListOf<FaceResultBean>()
+                    reportData.addAll(faceData)
+                    MqttManager.getInstance().publishFaceResult(reportData)
+                    faceData.clear()
+                }
+            }
+            faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
+
+
+            setResult("成功")
+            var pictureModel: PictureModel
+            if (featureStatus == 1) {
+                var fileName = "${currentTimeMillis}ture"
+                pictureModel = PictureModel(
+                    "ture", imageFrame.width, imageFrame.height, imageFrame.argb
+                    , fileName
+                )
+                setResult("成功")
+
+            } else {
+                var fileName = "${currentTimeMillis}false"
+                pictureModel = PictureModel(
+                    "false", imageFrame.width, imageFrame.height, imageFrame.argb
+                    , fileName
+                )
+                setResult("失败=$featureStatus")
+
+            }
+            backCameraDevice?.pictureFaceProcessor?.onNext(pictureModel)
+
+        }
+
+
+    }
+
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+        }
+
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+        }
+
+    }
+
+    private fun service() {
+        SensorReportService.bindService(this, serviceConnection)
+
+    }
+
+    private fun initCamera() {
+        backCameraDevice = BackCameraDevice(surfaceViewBack)
+        frontCameraDevice = FrontCameraDevice(surfaceViewFront)
+
+        backCameraDevice?.camera(object : CameraCallback {
+            override fun onRecordSucceed() {
+                MyLog.d("相机", "内路 onRecordSucceed")
+                MqttManager.getInstance().publishEventData(1009, "1")
+
+            }
+
+            override fun onRecordFailed(code: Int) {
+                MyLog.d("相机", "内路 onRecordFailed code=$code")
+                MqttManager.getInstance().publishEventData(1009, "2")
+
+            }
+
+            override fun onOpenCameraSucceed() {
+                initkFace()
+                MqttManager.getInstance().publishEventData(1005, "1")
+
+                MyLog.d("相机", "内路 onOpenCameraSucceed")
+            }
+
+            override fun onOpenCameraFaile(msg: String) {
+                MqttManager.getInstance().publishEventData(1005, "2")
+
+                MyLog.d("相机", "内路 onOpenCameraFaile= $msg")
+            }
+
+            override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
+//                MyLog.d("相机", "内路 onYuvCbFrame bytes=$bytes")
+                face(bytes, width, height)
+            }
+
+            override fun onCloseCamera() {
+                MyLog.d("相机", "内路 onCloseCamera")
+                MqttManager.getInstance().publishEventData(1011, "1")
+                MqttManager.getInstance().publishEventData(1007, "1")
+
+            }
+
+        })
+        frontCameraDevice?.camera(object : CameraCallback {
+            override fun onRecordSucceed() {
+                MyLog.d("相机", "外路 onRecordSucceed")
+                MqttManager.getInstance().publishEventData(1008, "1")
+
+            }
+
+            override fun onRecordFailed(code: Int) {
+                MyLog.d("相机", "外路 onRecordFailed code=$code")
+                MqttManager.getInstance().publishEventData(1008, "2")
+
+            }
+
+            override fun onOpenCameraSucceed() {
+                MqttManager.getInstance().publishEventData(1004, "1")
+
+                MyLog.d("相机", "外路 onOpenCameraSucceed")
+            }
+
+            override fun onOpenCameraFaile(msg: String) {
+                MqttManager.getInstance().publishEventData(1004, "2")
+
+                MyLog.d("相机", "外路 onOpenCameraFaile= $msg")
+            }
+
+            override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
+                MyLog.d("相机", "外路 onYuvCbFrame bytes=$bytes")
+            }
+
+            override fun onCloseCamera() {
+                MyLog.d("相机", "外路 onCloseCamera")
+                MqttManager.getInstance().publishEventData(1010, "1")
+                MqttManager.getInstance().publishEventData(1006, "1")
+
+            }
+
+        })
+    }
+
 
     private fun face(bytes: ByteArray, width: Int, height: Int) {
-        FaceSDKManager.instance.recognition(bytes, width, height)
+        FaceSDKManager2.instance.recognition(bytes, width, height)
     }
 
     private fun setEnmotion(emotion: String) {
@@ -311,23 +312,27 @@ class VideoRecordActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        MyLog.d(TAG, "onDestroy")
 
-        super.onDestroy()
-        us.nonda.cameralibrary.camera.BackCameraMananger.instance.closeCamera()
-        us.nonda.cameralibrary.camera.FrontCameraMananger.instance.closeCamera()
-
-
-        FinishActivityManager.getManager().removeActivity(this)
-
-        FaceSDKManager.instance.onCameraClose()
-
-        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")
-
-        val queryFeature = DBManager.getInstance().queryFeature()
-
-        MyLog.d("删除数据", "$deleteAllFeature   ---   ${queryFeature.size}")
-
+    private fun initkFace() {
+        FaceSDKManager2.instance.init()
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        FaceSDKManager2.instance.onCameraClose()
+        closeService()
+//        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")
+
+        backCameraDevice?.closeCamera()
+        frontCameraDevice?.closeCamera()
+        FinishActivityManager.getManager().removeActivity(this)
+    }
+
+    private fun closeService() {
+
+        SensorReportService.unbindService(this, serviceConnection)
+    }
+
+
 }

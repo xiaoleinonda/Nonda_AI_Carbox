@@ -3,10 +3,8 @@ package us.nonda.ai.app.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import us.nonda.ai.app.ui.VideoRecord2Activity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
-import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.videopushlibrary.uploadTask.UploadManager

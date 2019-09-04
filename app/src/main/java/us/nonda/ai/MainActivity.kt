@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
-import us.nonda.ai.app.ui.VideoRecord2Activity
 import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
@@ -37,17 +36,17 @@ class MainActivity : AppCompatActivity() {
 
 //        SensorReportService.startService(this)
         MyLog.d(TAG, "onCreate")
-//        checkAccStatus(this)
+        checkAccStatus(this)
 
         btn_location.setOnClickListener {
 //            CarBoxControler.instance.accOnMode(this, "首页")
-                VideoRecord2Activity.starter(this@MainActivity)
+                VideoRecordActivity.starter(this@MainActivity)
 
         }
         btn_stop_location.setOnClickListener {
 //            CarBoxControler.instance.sleep()
 //            FaceSDKManager.instance.isRegisted = false
-//            VideoRecordActivity.starter(this@MainActivity)
+//            VideoRecordActivityTest.starter(this@MainActivity)
 //            test()
             //分片上传视频文件
             UploadManager.getInstance().start()

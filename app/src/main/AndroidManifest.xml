@@ -20,7 +20,7 @@
 
         <activity android:name=".app.ui.TestActivity">
         </activity>
-        <activity android:name=".app.ui.VideoRecord2Activity"
+        <activity android:name=".app.ui.VideoRecordActivity"
                 android:launchMode="singleTop">
         </activity>
         <activity
@@ -36,7 +36,7 @@
             -->
         </activity>
         <activity
-                android:name=".app.ui.VideoRecordActivity"
+                android:name=".app.ui.VideoRecordActivityTest"
                 android:launchMode="singleTop"
                 android:screenOrientation="landscape">
         </activity>

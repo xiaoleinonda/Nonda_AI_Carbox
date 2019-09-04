@@ -4,30 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.yaoxiaowen.download.DownloadHelper
 import com.yaoxiaowen.download.DownloadHelper.onDownloadListener
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.greenrobot.eventbus.EventBus
 import us.nonda.ai.app.service.WakeUpService
-import us.nonda.ai.app.ui.VideoRecord2Activity
 import us.nonda.ai.app.ui.VideoRecordActivity
+import us.nonda.ai.app.ui.VideoRecordActivityTest
 import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.ai.utils.SysProp
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
-import us.nonda.commonibrary.event.ServiceEvent
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.commonibrary.utils.CompareUtlis
 import us.nonda.commonibrary.utils.DeviceUtils
-import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.commonibrary.utils.StringUtils
-import us.nonda.mqttlibrary.model.GPSBean
 import us.nonda.mqttlibrary.model.StatusBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.videopushlibrary.uploadTask.UploadManager
@@ -63,7 +56,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
             MyLog.d(TAG, "startCamera acc off 不开启摄像头")
             return
         }
-        VideoRecord2Activity.starter(context)
+        VideoRecordActivity.starter(context)
     }
 
 
@@ -140,7 +133,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     /**
      * 检查是否有需要上传的视频
      */
-    private fun checkUploadVideoFile() {
+    fun checkUploadVideoFile() {
         UploadManager.getInstance().start()
         UploadManager.getInstance().setOnVideoUploadListener(this)
     }
@@ -350,6 +343,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 
 
     }
+
 
     override fun onVideoUploadSuccess() {
         onUploadVideoSucceed()

@@ -37,7 +37,8 @@ class FaceAuthManager {
         val imeiCode = DeviceUtils.getIMEICode(context)
         when (imeiCode) {
             "869455047237132" -> {
-                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
+//                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
+                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//wifi
 
             }
             "869455047237124" -> {

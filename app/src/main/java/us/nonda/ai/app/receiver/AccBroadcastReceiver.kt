@@ -21,13 +21,13 @@ class AccBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if (action_acc_on == intent?.action) {
-            MqttManager.getInstance().publishEventData(1001, "1")
             MyLog.d(TAG,"action_acc_on")
+            MqttManager.getInstance().publishEventData(1001, "1")
             accOn(context)
         } else if (action_acc_off == intent?.action) {
+            MyLog.d(TAG,"action_acc_off")
             MqttManager.getInstance().publishEventData(1001, "2")
             accOff()
-            MyLog.d(TAG,"action_acc_off")
         }
     }
 
@@ -37,8 +37,8 @@ class AccBroadcastReceiver : BroadcastReceiver() {
      */
     private fun accOn(context: Context?) {
         MyLog.d(TAG, "accOn")
-        UploadManager.getInstance().stopUpload()
         CarBoxControler.instance.openCamera(context!!)
+        UploadManager.getInstance().stopUpload()
     }
 
 

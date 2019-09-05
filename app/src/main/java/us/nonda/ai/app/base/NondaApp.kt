@@ -29,10 +29,11 @@ class NondaApp : Application() {
 //        ANRWatchDog().starter()
         super.onCreate()
         instance = this
-        MyLog.d(TAG, "onCreate")
-//        Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
-
         AppUtils.init(this)
+
+        MyLog.d(TAG, "onCreate")
+        Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
+
 
         DBManager.getInstance().init(this)
         checkVersion()

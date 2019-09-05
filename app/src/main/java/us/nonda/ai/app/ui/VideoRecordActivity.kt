@@ -7,6 +7,10 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_video_record2.*
 import kotlinx.android.synthetic.main.activity_video_record2.draw_detect_face_view
 import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewBack
@@ -24,6 +28,7 @@ import us.nonda.facelibrary.model.LivenessModel
 import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
+import java.util.concurrent.TimeUnit
 
 class VideoRecordActivity : AppCompatActivity() {
 
@@ -50,8 +55,8 @@ class VideoRecordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_video_record2)
+        MyLog.d(TAG, "onCreate")
         FinishActivityManager.getManager().addActivity(this)
 
         FaceSDKManager2.instance.isRegisted = false
@@ -65,7 +70,9 @@ class VideoRecordActivity : AppCompatActivity() {
         service()
 
         //开启摄像头录制
+
         initCamera()
+
 
 //        initkFace()
         FaceSDKManager2.instance.setCallback(object : FaceDetectCallBack {
@@ -227,7 +234,10 @@ class VideoRecordActivity : AppCompatActivity() {
             override fun onRecordFailed(code: Int) {
                 MyLog.d("相机", "内路 onRecordFailed code=$code")
                 MqttManager.getInstance().publishEventData(1009, "2")
-
+                recordFailedBack = true
+                if (recordFailedBack && recordFailedFront) {
+                    resetCamera()
+                }
             }
 
             override fun onOpenCameraSucceed() {
@@ -244,7 +254,7 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
             override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
-//                MyLog.d("相机", "内路 onYuvCbFrame bytes=$bytes")
+                MyLog.d("yuv数据", "usb=$bytes")
                 face(bytes, width, height)
             }
 
@@ -267,6 +277,10 @@ class VideoRecordActivity : AppCompatActivity() {
                 MyLog.d("相机", "外路 onRecordFailed code=$code")
                 MqttManager.getInstance().publishEventData(1008, "2")
 
+                recordFailedBack = true
+                if (recordFailedBack && recordFailedFront) {
+                    resetCamera()
+                }
             }
 
             override fun onOpenCameraSucceed() {
@@ -293,6 +307,14 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
         })
+
+    }
+
+    private var recordFailedBack = false
+    private var recordFailedFront = false
+
+    private fun resetCamera() {
+
     }
 
 
@@ -317,9 +339,17 @@ class VideoRecordActivity : AppCompatActivity() {
         FaceSDKManager2.instance.init()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        MyLog.d(TAG, "onNewIntent")
+
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
+        MyLog.d(TAG, "onDestroy")
+
         FaceSDKManager2.instance.onCameraClose()
         closeService()
 //        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")
@@ -327,10 +357,11 @@ class VideoRecordActivity : AppCompatActivity() {
         backCameraDevice?.closeCamera()
         frontCameraDevice?.closeCamera()
         FinishActivityManager.getManager().removeActivity(this)
+
     }
 
-    private fun closeService() {
 
+    private fun closeService() {
         SensorReportService.unbindService(this, serviceConnection)
     }
 

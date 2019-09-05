@@ -6,13 +6,10 @@ import com.google.protobuf.Any
 import io.nonda.onedata.proto.contract.CloudDriveMqttMessageCreator
 import org.eclipse.paho.android.service.MqttAndroidClient
 import org.eclipse.paho.client.mqttv3.*
-import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
-import us.nonda.commonibrary.utils.FileUtils
-import us.nonda.commonibrary.utils.PathUtils
 import us.nonda.mqttlibrary.model.*
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EMOTION
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_EVENT

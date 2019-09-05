@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.yaoxiaowen.download.DownloadHelper
 import com.yaoxiaowen.download.DownloadHelper.onDownloadListener
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.app.service.WakeUpService
@@ -46,17 +47,31 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
         }
     }
 
+    private var cameraDisposable: Disposable? = null
 
     /**
      * 进入相机页面
      */
     fun openCamera(context: Context) {
-        MyLog.d(TAG, "startCamera")
-        if (getAccStatus() == 0) {
-            MyLog.d(TAG, "startCamera acc off 不开启摄像头")
-            return
+
+        if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
+            cameraDisposable!!.dispose()
         }
-        VideoRecordActivity.starter(context)
+        cameraDisposable = Observable.timer(2000, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+            .unsubscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doFinally {
+                if (!isAccOff()) {
+                    MyLog.d(TAG, "startCamera")
+                    VideoRecordActivity.starter(context)
+                }
+            }
+            .subscribe({
+
+            }, {
+
+            })
     }
 
 
@@ -355,5 +370,12 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 
     override fun onVideoUploadFail() {
         noticeIPO(AppUtils.context)
+    }
+
+
+    fun onDestroy(){
+        if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
+            cameraDisposable!!.dispose()
+        }
     }
 }

@@ -12,6 +12,7 @@ import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.NetworkUtil
 import us.nonda.facelibrary.manager.FaceSDKManager
+import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.mqttlibrary.mqtt.MqttManager
 
 
@@ -22,7 +23,7 @@ class NetStateChangeReceiver : BroadcastReceiver() {
             val connectivityStatus = NetworkUtil.getConnectivityStatus(context)
             if (connectivityStatus) {
                 MyLog.d("网络", "有网")
-                initDevice()
+//                initDevice()
                 MqttManager.getInstance().onStart()
                 checkAccStatus()
             } else {
@@ -33,28 +34,16 @@ class NetStateChangeReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun initDevice() {
-        if (CameraStatus.instance.getAccStatus() == 0) {
-            return
-        }
-//        FaceSDKManager.instance.check()
-
-    }
-
-    private fun initFace(context: Context) {
-//        FaceSDKManager.instance.init(context, "")
-        FaceSDKManager.instance.checkLicenceStatus()
-
-    }
 
     /**
      *  acc off状态网络波动后重新监测下载新版本App
      */
     private fun checkAccStatus() {
-        val accStatus = CarBoxControler.instance.getAccStatus()
-        if (accStatus == 0) {//acc on
-            MyLog.d("下载","Acc off 状态下断网后重连成功")
+        if (CarBoxControler.instance.isAccOff()) {//acc off
+            MyLog.d("下载", "Acc off 状态下断网后重连成功")
             CarBoxControler.instance.accOffModeWork()
+        } else {
+            FaceSDKManager2.instance.init()
         }
     }
 }

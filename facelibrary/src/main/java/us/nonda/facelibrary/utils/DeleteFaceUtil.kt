@@ -33,7 +33,7 @@ class UserListener : UserInfoManager.UserInfoListener() {
             for (item in listFeatureInfo) {
                 FaceApi.getInstance().featureDelete(item)
             }
-            FaceSDKManager.instance.getFeatureLRUCache().clear()
+//            FaceSDKManager.instance.getFeatureLRUCache().clear()
         }
         deleteSuccessCallback?.invoke()
     }

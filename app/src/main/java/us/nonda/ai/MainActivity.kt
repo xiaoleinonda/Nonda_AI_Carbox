@@ -34,15 +34,14 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MyLog.d(TAG, "setContentView")
         setContentView(R.layout.activity_main)
+        MyLog.d(TAG, "onCreate")
 
         registReceiver()
 //        checkAccStatus(this)
 //        FaceSDKManager2.instance.init()
 
 //        SensorReportService.startService(this)
-        MyLog.d(TAG, "onCreate")
         checkAccStatus(this)
 
         btn_location.setOnClickListener {
@@ -113,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         MyLog.d(TAG, "onDestroy")
         super.onDestroy()
         unregisterReceiver(netStateChangeReceiver)
-
+        CarBoxControler.instance.onDestroy()
     }
 
     private fun registReceiver() {

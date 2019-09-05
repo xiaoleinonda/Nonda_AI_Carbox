@@ -20,20 +20,20 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     private var subscribe: Disposable? = null
 
-    private val TAG = "BackCameraDevice"
+    private val TAG = "USB摄像头"
 
     /***       CONFIG               ***/
     private var width = 640
     private var height = 480
 
-    private var videoDurationMS = 1000 * 60 * 3
+    private var videoDurationMS = 1000 * 60 * 1
     private var rotation = 0
     private var videoFilePathName = FilePathManager.get().getBackVideoPath()
     private var videoQuality: Int = CamcorderProfile.QUALITY_480P
     private var videoFrameRate: Int = 15
     private var videoBitRate: Int = 1 * 500 * 1000
     private var videoSizeLimi: Int = 300//M
-    private var videoFileName: String = "NondaBack"
+    private var videoFileName: String = "back_"
 
     private var cameraDevice: CameraDevice? = null
     private var cameraID: Int = -1
@@ -92,7 +92,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     private fun initCamera() {
         val cameraID = getCameraID(CarcorderManager.get(), CameraInfo.CAMERA_USB_CAMERA)
-        MyLog.d("相机", "内路cameraID=$cameraID")
+        MyLog.d(TAG, "cameraID=$cameraID")
         val cameraDevice = openCamera(cameraID)
 
         if (cameraDevice == null) {
@@ -117,7 +117,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
         cameraDevice?.setRecordStatusCallback(object : CameraDevice.RecordStatusCallback {
             override fun onRecordStatusChanged(p0: Int, p1: Int) {
-                MyLog.d("相机", "后路录制状态p0=$p0  p1=$p1")
+                MyLog.d(TAG, "录制状态 recordStatus=$p0  cameraID=$p1")
             }
 
         })
@@ -132,17 +132,23 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     private fun _startPreview(surfaceHolder: SurfaceHolder) {
         cameraDevice?.run {
             setPreviewSurface(surfaceHolder.surface)
-            if (getCameraStatus(cameraID) == CameraDevice.STATE_IDLE) {
+            startPreview()
+            startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
+            isPreviewed = true
+            _startRecord()
+
+          /*  if (getCameraStatus(cameraID) == CameraDevice.STATE_IDLE) {
                 startPreview()
+                val cameraStatus = getCameraStatus(cameraID)
+                MyLog.d(TAG, "预览后 cameraStatus=$cameraStatus")
             }
 
             startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
             isPreviewed = true
 
-            val cameraStatus = getCameraStatus(cameraID)
-            MyLog.d("相机", "usb  check是否需要开启录制cameraStatus=$cameraStatus")
 
-            _startRecord()
+
+            _startRecord()*/
 
            /* if (cameraStatus == CameraDevice.STATE_PREVIEW || cameraStatus == CameraDevice.STATE_RECORDING) {
                 _startRecord()
@@ -153,29 +159,57 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     private var isFirst = true
 
+    private fun restartPreview(surfaceHolder: SurfaceHolder){
+        cameraDevice?.run {
+            setPreviewSurface(surfaceHolder.surface)
+            val cameraStatus1 = getCameraStatus(cameraID)
+            MyLog.d(TAG, "rrestartPreview开始预览 cameraStatus=$cameraStatus1")
+
+            if (cameraStatus1 == CameraDevice.STATE_IDLE) {
+                startPreview()
+                val cameraStatus2 = getCameraStatus(cameraID)
+                MyLog.d(TAG, "restartPreview预览结束  cameraStatus=$cameraStatus2")
+            }
+
+            startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
+            isPreviewed = true
+        }
+
+    }
 
     private fun _startRecord() {
-        val cameraStatus = getCameraStatus(cameraID)
+     /*   val cameraStatus = getCameraStatus(cameraID)
         if (cameraStatus == CameraDevice.STATE_RECORDING) {
             MyLog.d("相机", "USB发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
 
             cameraDevice?.stopRecord()
 
 //            return
-        }
+        }*/
         val record = cameraDevice?.startRecord()
+
+        val cameraStatus2 = getCameraStatus(cameraID)
+
+        MyLog.d(TAG, "开启录制结束 record=$record  cameraStatus=$cameraStatus2")
         when (record) {
             null -> {
                 cameraCallback?.onRecordFailed(-100)
             }
             -1 -> {
+                MyLog.d(TAG, "录制-1， 关闭录制")
+
                 if (isFirst) {
                     cameraDevice?.stopRecord()
+                    MyLog.d(TAG, "前路摄像头录制-1， 已关闭录制status=${getCameraStatus(cameraID)}  重新开启录制")
+
                     isFirst = false
                     _startRecord()
+                } else {
+                    cameraCallback?.onRecordFailed(record)
                 }
             }
             0 -> {
+                recording = true
                 cameraCallback?.onRecordSucceed()
             }
             else -> {
@@ -188,6 +222,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     fun closeCamera() {
         cameraDevice?.run {
+            setRecordStatusCallback(null)
             stopRecord()
             stopYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
             setYuvCallback(null)
@@ -197,7 +232,8 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             }
             isPreviewed = false
             cameraCallback?.onCloseCamera()
-            setRecordStatusCallback(null)
+            recording = false
+            MyLog.d(TAG, "closeCamera")
         }
     }
 
@@ -259,7 +295,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             if (numberOfCameras < 0) {
                 return cameraID
             }
-            MyLog.d("相机", "摄像头数量=$numberOfCameras")
+            MyLog.d(TAG, "摄像头数量=$numberOfCameras")
             val cameraInfo = CameraInfo()
             for (i in 0 until numberOfCameras) {
                 val cameraInfoResult = manager.getCameraInfo(i, cameraInfo)
@@ -291,14 +327,14 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     }
 
     override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {
-        MyLog.d(TAG, "相机后路surfaceChanged")
+        MyLog.d(TAG, "surfaceChanged")
 
     }
 
     override fun surfaceDestroyed(p0: SurfaceHolder?) {
 
         synchronized(this) {
-            MyLog.d(TAG, "相机后路surfaceDestroyed")
+            MyLog.d(TAG, "surfaceDestroyed")
             isPreviewed = false
 
             surfaceCreated = false
@@ -309,19 +345,32 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     override fun surfaceCreated(p0: SurfaceHolder?) {
 
         synchronized(this) {
-            MyLog.d(TAG, "相机后路surfaceCreated")
+            MyLog.d(TAG, "surfaceCreated")
             surfaceCreated = true
 
             if (cameraDevice == null) {
                 initCamera()
             }
 
-            if (!isPreviewed) {
-                _startPreview(p0!!)
+            if (cameraDevice != null) {
+                startPreview(p0!!)
             }
         }
 
     }
+
+    fun startPreview(surfaceHolder: SurfaceHolder){
+        if (!isPreviewed) {
+            if (recording) {
+                MyLog.d(TAG, "restartPreview")
+                restartPreview(surfaceHolder)
+            } else {
+                MyLog.d(TAG, "_startPreview")
+                _startPreview(surfaceHolder)
+            }
+        }
+    }
+    private var recording = false
 
 
 }

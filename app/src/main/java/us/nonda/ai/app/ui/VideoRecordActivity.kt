@@ -134,7 +134,7 @@ class VideoRecordActivity : AppCompatActivity() {
                     "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq}"
                 )
 
-                if (currentTimeMillis - time > 10000) {
+                if (currentTimeMillis - time >  CarboxConfigRepostory.instance.emotionReportFreq) {
                     MyLog.d(TAG, "可以上报情绪了${emotionData.size}")
                     var reportData = arrayListOf<EmotionBean>()
                     reportData.addAll(emotionData)
@@ -254,7 +254,7 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
             override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
-                MyLog.d("yuv数据", "usb=$bytes")
+//                Log.d("yuv数据", "usb=$bytes")
                 face(bytes, width, height)
             }
 

@@ -15,6 +15,7 @@ import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils
+import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
@@ -65,6 +66,9 @@ class MainActivity : AppCompatActivity() {
         MyLog.d("设备信息", "电量=$carBatteryInfo   sim卡=$simNumber")
 
         tv_version.text = AppUtils.getVersionName(this)
+
+        val baiduDeviceId = FaceSDKManager2.instance.getBaiduDeviceId()
+        MyLog.d(TAG, "当前百度设备指纹：deviceId=$baiduDeviceId")
     }
 
     private fun publishMessage() {

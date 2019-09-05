@@ -229,8 +229,10 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             release()
             if (isPreviewed) {
                 stopPreview()
-            }
             isPreviewed = false
+            }
+            CarcorderManager.get().closeCameraDevice(cameraID)
+
             cameraCallback?.onCloseCamera()
             recording = false
             MyLog.d(TAG, "closeCamera")

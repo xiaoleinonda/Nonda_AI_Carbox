@@ -19,6 +19,7 @@ import java.util.concurrent.Executors
 
 class FaceAuthManager {
 
+    private val TAG = "FaceAuthManager"
     val SIM_ID = "118BB9401E107C84AC1708900C29DBB6ED"
     val WIFI_ID = "15CDCF3615CFE44BFC4EB4900C29DBB6ED"
     val WIFI_ID2 = "150364FC114FBFE5F1AF7E900C29DBB6ED"

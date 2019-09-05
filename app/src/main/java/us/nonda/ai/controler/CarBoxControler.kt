@@ -229,7 +229,11 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     /**
      * 主动唤醒休眠
      */
-    fun exitIpo() = CameraStatus.instance.exitIpo()
+    fun exitIpo() = {
+        if (!isAccOff()) {
+            CameraStatus.instance.exitIpo()
+        }
+    }
 
 
     /**
@@ -375,7 +379,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     }
 
 
-    fun onDestroy(){
+    fun onDestroy() {
         if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
             cameraDisposable!!.dispose()
         }

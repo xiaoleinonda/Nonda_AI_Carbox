@@ -212,6 +212,8 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
                 stopPreview()
 //            }
             isPreviewed = false
+            CarcorderManager.get().closeCameraDevice(cameraID)
+
             cameraCallback?.onCloseCamera()
             recording = false
             MyLog.d(TAG, "closeCamera")

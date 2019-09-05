@@ -91,7 +91,7 @@ class FaceSDKManager2 private constructor() {
 
 
     fun recognition(data: ByteArray, srcWidth: Int, srcHeight: Int) {
-        if (status !=  STATUS_INITED) {
+        if (status != STATUS_INITED) {
             return
         }
 
@@ -109,11 +109,11 @@ class FaceSDKManager2 private constructor() {
 
 
     fun init() {
-        if (futureForInit!=null && !futureForInit.isDone){
+        if (futureForInit != null && !futureForInit.isDone) {
             return
         }
         threadForInit.submit {
-            if (status ==  STATUS_INITED) {
+            if (status == STATUS_INITED) {
                 checkRegistFaceStatus()
             } else {
                 checkLicenceStatus()
@@ -123,7 +123,7 @@ class FaceSDKManager2 private constructor() {
     }
 
     private fun checkLicenceStatus() {
-        MyLog.d( TAG, "checkLicenceStatus  status=$status")
+        MyLog.d(TAG, "checkLicenceStatus  status=$status")
         if (faceCache.isLicence()) {
             log("已激活 直接初始化")
             initModel()
@@ -181,7 +181,7 @@ class FaceSDKManager2 private constructor() {
             return
         }
 
-        if (status !=  STATUS_INIT) {
+        if (status != STATUS_INIT) {
             log("已经在激活状态status=$status  ")
             return
         }
@@ -216,12 +216,12 @@ class FaceSDKManager2 private constructor() {
             return
         }
 
-        if (status !=  STATUS_INIT) {
+        if (status != STATUS_INIT) {
             log("已经在初始化状态status=$status")
             return
         }
         log("开始初始化模型")
-        status =  STATUS_INITING
+        status = STATUS_INITING
         try {
             initSDK()
 
@@ -304,11 +304,10 @@ class FaceSDKManager2 private constructor() {
         } catch (e: UnsatisfiedLinkError) {
             //进到这里说明未激活， 需要重新激活
             log("激活状态失效 重新激活")
-            status =  STATUS_INIT
+            status = STATUS_INIT
             initLicence(FaceStatusCache.instance.faceLicence)
         }
     }
-
 
 
     fun initSDK() {
@@ -328,7 +327,7 @@ class FaceSDKManager2 private constructor() {
     private fun onInitSucceed() {
         MqttManager.getInstance().publishEventData(1003, "1")
 
-        status =  STATUS_INITED
+        status = STATUS_INITED
         log("初始化成功")
 //        setFeature()
         this.config = config ?: FaceConfig()
@@ -342,7 +341,7 @@ class FaceSDKManager2 private constructor() {
 
     private fun onInitFailed() {
         MqttManager.getInstance().publishEventData(1003, "2")
-        status =  STATUS_INIT
+        status = STATUS_INIT
         log("初始化失败")
     }
 
@@ -367,7 +366,7 @@ class FaceSDKManager2 private constructor() {
 
 
     fun registFace(facePicture: String) {
-        if (status !=STATUS_INITED || TextUtils.isEmpty(facePicture)) {
+        if (status != STATUS_INITED || TextUtils.isEmpty(facePicture)) {
             log("sdk 还未初始化 不能注册")
             return
         }
@@ -395,7 +394,7 @@ class FaceSDKManager2 private constructor() {
 
         val imeiCode = DeviceUtils.getIMEICode(context)
         NetModule.instance.provideAPIService()
-            .getFacepicture("869455047237132")
+            .getFacepicture(imeiCode)
             .retry(2)
             .subscribe({
                 if (it.code == 200 && it.data != null) {
@@ -508,6 +507,7 @@ class FaceSDKManager2 private constructor() {
         }
         return 0
     }
+
     fun getFaceFeature(
         featureType: FaceFeature.FeatureType,
         curFeature: ByteArray,
@@ -556,6 +556,10 @@ class FaceSDKManager2 private constructor() {
 
     private fun log(msg: String) {
         MyLog.d(TAG, "$msg  Thread=${Thread.currentThread().name}")
+    }
+
+    fun getBaiduDeviceId(): String {
+        return FaceAuth().getDeviceId(context)
     }
 
 }

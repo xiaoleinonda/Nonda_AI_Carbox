@@ -110,7 +110,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
 
         cameraDevice.setRecordStatusCallback(object : RecordStatusCallback{
             override fun onRecordStatusChanged(p0: Int, p1: Int) {
-                MyLog.d("相机", "外路录制状态p0=$p0  p1=$p1")
+                MyLog.d("相机", "MAIN录制状态p0=$p0  p1=$p1")
             }
 
         })
@@ -120,13 +120,13 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
         cameraDevice?.run {
             setPreviewSurface(surfaceHolder.surface)
             val cameraStatus1 = getCameraStatus(cameraID)
-            MyLog.d("相机", "开始预览cameraStatus=$cameraStatus1")
+            MyLog.d("相机", "MAIN开始预览cameraStatus=$cameraStatus1")
             if (cameraStatus1 == STATE_IDLE) {
 
                 startPreview()
                 val cameraStatus2 = getCameraStatus(cameraID)
 
-                MyLog.d("相机", "预览成功cameraStatus=$cameraStatus2")
+                MyLog.d("相机", "MAIN预览成功cameraStatus=$cameraStatus2")
 
             }
 
@@ -134,12 +134,20 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
             isPreviewed = true
 
             val cameraStatus = getCameraStatus(cameraID)
-            MyLog.d("相机", "check是否需要开启录制cameraStatus=$cameraStatus")
+            MyLog.d("相机", "MAINcheck是否需要开启录制cameraStatus=$cameraStatus")
 
-            if (cameraStatus == STATE_PREVIEW || cameraStatus== STATE_RECORDING) {
+            _startRecord()
+
+
+            /*  if ( cameraStatus== STATE_RECORDING) {
+                  cameraDevice?.stopRecord()
+                  _startRecord()
+
+              }*/
+           /* if (cameraStatus == STATE_PREVIEW || cameraStatus== STATE_RECORDING) {
                 MyLog.d("相机", "准备去开启录制cameraStatus=$cameraStatus")
                 _startRecord()
-            }
+            }*/
 
         }
 
@@ -150,9 +158,9 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private fun _startRecord() {
         val cameraStatus = getCameraStatus(cameraID)
         if (cameraStatus == STATE_RECORDING) {
-            MyLog.d("相机", "发现正在录制开时 retrue cameraStatus=$cameraStatus")
 
-            return
+            MyLog.d("相机", "MAIN发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
+            cameraDevice?.stopRecord()
         }
         val record = cameraDevice?.startRecord()
         val cameraStatus2 = getCameraStatus(cameraID)

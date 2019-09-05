@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import kotlin.jvm.Volatile;
 import okhttp3.*;
 import us.nonda.cameralibrary.path.FilePathManager;
 import us.nonda.commonibrary.BuildConfig;
@@ -41,6 +42,7 @@ public class UploadManager {
 
     private ExecutorService mExecutor;
 
+    @Volatile
     private int completeUploadFileCount = 0;
 
     private int errorCount = 0;

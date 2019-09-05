@@ -134,8 +134,8 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      * 检查是否有需要上传的视频
      */
     fun checkUploadVideoFile() {
-        UploadManager.getInstance().start()
         UploadManager.getInstance().setOnVideoUploadListener(this)
+        UploadManager.getInstance().start()
     }
 
 
@@ -351,9 +351,11 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 
     override fun onLowBattery() {
         noticeIPO(AppUtils.context)
+        MyLog.d("分片上传", "电压过低")
     }
 
     override fun onVideoUploadFail() {
         noticeIPO(AppUtils.context)
+        MyLog.d("分片上传", "上传失败过多")
     }
 }

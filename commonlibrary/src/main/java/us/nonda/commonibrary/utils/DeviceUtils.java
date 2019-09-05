@@ -5,6 +5,8 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import androidx.appcompat.app.AppCompatActivity;
+import us.nonda.commonibrary.MyLog;
+import us.nonda.commonibrary.SysProp;
 
 public class DeviceUtils {
 
@@ -60,5 +62,13 @@ public class DeviceUtils {
         }
         return simSerialNumber;
 
+    }
+
+    /**
+     * 熄火时不进休眠控制属性值
+     */
+    public static void cancelIPO() {
+        SysProp.set("sys.need.update", "true");
+        MyLog.d("上传视频取消休眠", "取消自动休眠");
     }
 }

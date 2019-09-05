@@ -79,6 +79,9 @@ public class UploadManager {
         }
         //按照最后修改时间排序
         Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
+
+        //唤醒设备
+        DeviceUtils.cancelIPO();
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
         for (final File file : allFiles) {
             try {

@@ -13,11 +13,10 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import us.nonda.ai.app.service.WakeUpService
 import us.nonda.ai.app.ui.VideoRecordActivity
-import us.nonda.ai.app.ui.VideoRecordActivityTest
 import us.nonda.commonibrary.location.LocationUtils
-import us.nonda.ai.utils.SysProp
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.SysProp
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceUtils

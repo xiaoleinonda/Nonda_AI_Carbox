@@ -106,42 +106,65 @@ class CarboxConfigRepostory private constructor() {
     }
 
     private fun getGSensorConfig(): GSensorConfig? {
-        val json = SPUtils.get(context, SP_KEY_GSENSOR_CONFIG, "") as String
-        return Gson().fromJson(json, GSensorConfig::class.java)
+        try {
+            val json = SPUtils.get(context, SP_KEY_GSENSOR_CONFIG, "") as String
+            return Gson().fromJson(json, GSensorConfig::class.java)
+        } catch (e: Exception) {
+            return null
+        }
+
     }
 
     fun putGSensorConfig(gSensorConfig: GSensorConfig) {
-        gSensorConfig.run {
-            gSensorCollectFreq = collectFreq
-            gSensorReportFreq = reportFreq
+        try {
+            gSensorConfig.run {
+                gSensorCollectFreq = collectFreq
+                gSensorReportFreq = reportFreq
+            }
+            SPUtils.put(context, SP_KEY_GSENSOR_CONFIG, gSensorConfig)
+        } catch (e: Exception) {
         }
-        SPUtils.put(context, SP_KEY_GSENSOR_CONFIG, gSensorConfig)
     }
 
     private fun getGyroConfig(): GyroConfig? {
-        val json = SPUtils.get(context, SP_KEY_GYRO_CONFIG, "") as String
-        return Gson().fromJson(json, GyroConfig::class.java)
+        try {
+            val json = SPUtils.get(context, SP_KEY_GYRO_CONFIG, "") as String
+            return Gson().fromJson(json, GyroConfig::class.java)
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     fun putGyroConfig(gyroConfig: GyroConfig) {
-        gyroConfig.run {
-            gyroCollectFreq = collectFreq
-            gyroReportFreq = reportFreq
+        try {
+            gyroConfig.run {
+                gyroCollectFreq = collectFreq
+                gyroReportFreq = reportFreq
+            }
+            SPUtils.put(context, SP_KEY_GYRO_CONFIG, gyroConfig)
+        } catch (e: Exception) {
         }
-        SPUtils.put(context, SP_KEY_GYRO_CONFIG, gyroConfig)
     }
 
     private fun getGpsConfig(): GpsConfig? {
-        val json = SPUtils.get(context, SP_KEY_GPS_CONFIG, "") as String
-        return Gson().fromJson(json, GpsConfig::class.java)
+        try {
+            val json = SPUtils.get(context, SP_KEY_GPS_CONFIG, "") as String
+            val bean = Gson().fromJson(json, GpsConfig::class.java)
+            return bean
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     fun putGpsConfig(gpsConfig: GpsConfig) {
-        gpsConfig.run {
-            gpsCollectFreq = collectFreq
-            gpsReportFreq = reportFreq
+        try {
+            gpsConfig.run {
+                gpsCollectFreq = collectFreq
+                gpsReportFreq = reportFreq
+            }
+            SPUtils.put(context, SP_KEY_GPS_CONFIG, gpsConfig)
+        } catch (e: Exception) {
         }
-        SPUtils.put(context, SP_KEY_GPS_CONFIG, gpsConfig)
     }
 
     private fun getEmotionConfig(): EmotionConfig? {
@@ -150,20 +173,24 @@ class CarboxConfigRepostory private constructor() {
     }
 
     fun putEmotionConfig(gpsConfig: EmotionConfig) {
-        gpsConfig.run {
-            if (collectFreq < 1000) {
-                emotionCollectFreq = 1000
-            } else {
-                emotionCollectFreq = collectFreq
-            }
+        try {
+            gpsConfig.run {
+                if (collectFreq < 1000) {
+                    emotionCollectFreq = 1000
+                } else {
+                    emotionCollectFreq = collectFreq
+                }
 
-            if (reportFreq < 1000) {
-                emotionReportFreq = 1000
-            } else {
-                emotionReportFreq = reportFreq
+                if (reportFreq < 1000) {
+                    emotionReportFreq = 1000
+                } else {
+                    emotionReportFreq = reportFreq
+                }
             }
+            SPUtils.put(context, SP_KEY_EMOTION_CONFIG, gpsConfig)
+        } catch (e: Exception) {
+            return
         }
-        SPUtils.put(context, SP_KEY_EMOTION_CONFIG, gpsConfig)
     }
 
 
@@ -173,20 +200,23 @@ class CarboxConfigRepostory private constructor() {
     }
 
     fun putFaceConfig(gpsConfig: FaceConfig) {
-        gpsConfig.run {
+        try {
+            gpsConfig.run {
 
-            if (collectFreq < 1000) {
-                faceResultCollectFreq = 1000
-            } else {
-                faceResultCollectFreq = collectFreq
-            }
+                if (collectFreq < 1000) {
+                    faceResultCollectFreq = 1000
+                } else {
+                    faceResultCollectFreq = collectFreq
+                }
 
-            if (reportFreq < 1000) {
-                faceResultReportFreq = 1000
-            } else {
-                faceResultReportFreq = reportFreq
+                if (reportFreq < 1000) {
+                    faceResultReportFreq = 1000
+                } else {
+                    faceResultReportFreq = reportFreq
+                }
             }
+            SPUtils.put(context, SP_KEY_FACE_CONFIG, gpsConfig)
+        } catch (e: Exception) {
         }
-        SPUtils.put(context, SP_KEY_FACE_CONFIG, gpsConfig)
     }
 }

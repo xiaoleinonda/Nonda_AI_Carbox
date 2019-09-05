@@ -1,22 +1,19 @@
 package us.nonda.videopushlibrary.uploadTask;
 
-import android.content.Context;
 import android.os.storage.StorageManager;
 import android.util.Log;
 import com.google.gson.Gson;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.*;
-import org.json.JSONObject;
 import us.nonda.cameralibrary.path.FilePathManager;
+import us.nonda.commonibrary.BuildConfig;
 import us.nonda.commonibrary.MyLog;
 import us.nonda.commonibrary.http.BaseResult;
 import us.nonda.commonibrary.http.NetModule;
 import us.nonda.commonibrary.model.*;
 import us.nonda.commonibrary.utils.AppUtils;
 import us.nonda.commonibrary.utils.DeviceUtils;
-import us.nonda.commonibrary.utils.FileUtils;
 import us.nonda.commonibrary.utils.SPUtils;
 import us.nonda.videopushlibrary.utlis.Md5Utlis;
 
@@ -38,7 +35,7 @@ public class UploadManager {
 
     private static final int CHUNK_SIZE = 2 * 1024 * 1024;
 
-    private static final int THREAD_COUNT = 3;
+    private static final int THREAD_COUNT = 10;
 
     private static UploadManager INSTANCE;
 
@@ -74,6 +71,7 @@ public class UploadManager {
         MyLog.d("分片上传", "总共上传" + mFileSize);
         //如果没有未上传的视频说明上传完毕
         if (mFileSize == 0) {
+            MyLog.d("分片上传", "没有需要上传的视频");
             onVideoUploadListener.onVideoUploadSuccess();
             return;
         }
@@ -126,9 +124,6 @@ public class UploadManager {
         //初始化分片上传，每个file都需要初始化一次
         NetModule.Companion.getInstance().provideAPIService()
                 .postInitPartUpload(initPartUploadBody)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
                 .retry(3).subscribe(new Observer<BaseResult<InitPartUploadResponseModel>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -160,13 +155,12 @@ public class UploadManager {
 
             @Override
             public void onError(Throwable e) {
-                MyLog.d("分片上传", e);
+                MyLog.d("分片上传初始化异常", e);
                 needFinishUpload();
             }
 
             @Override
             public void onComplete() {
-
             }
         });
 
@@ -174,6 +168,7 @@ public class UploadManager {
 
     private void needFinishUpload() {
         errorCount++;
+        MyLog.d("分片上传失败次数", errorCount);
         if (errorCount > MAX_ERROR_COUNT) {
             onVideoUploadListener.onVideoUploadFail();
         }
@@ -298,18 +293,18 @@ public class UploadManager {
     private void uploadFile(final File file, final PartFileInfo partFileInfo) {
         final File[] partList = getPartList(file);
         if (partList == null) return;
-
-        ExecutorService uploadPartFileExecutor = Executors.newFixedThreadPool(partList.length);
+        MyLog.d("分片上传", file.getName() + "共有" + partList.length);
+//        ExecutorService uploadPartFileExecutor = Executors.newFixedThreadPool(partList.length);
 
         for (int i = 1; i <= partList.length; i++) {
             final int partIndex = i;
-            uploadPartFileExecutor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    uploadPart(partList[partIndex - 1], partFileInfo, partIndex, partList.length);
-                    MyLog.d("分片上传", file.getName() + "第" + partIndex + "片开始上传");
-                }
-            });
+//            uploadPartFileExecutor.submit(new Runnable() {
+//                @Override
+//                public void run() {
+            uploadPart(partList[partIndex - 1], partFileInfo, partIndex, partList.length);
+            MyLog.d("分片上传", file.getName() + "第" + partIndex + "片开始上传");
+//                }
+//            });
         }
     }
 
@@ -378,22 +373,22 @@ public class UploadManager {
 
         Request request = new Request.Builder()
 //                .url("http://10.0.0.90:8081" + "/api/v1/vehiclebox/partupload/upload")
-                .url("https://api-clouddrive-qa.zus.ai" + "/api/v1/vehiclebox/partupload/upload")
+                .url(BuildConfig.API_URL + "/api/v1/vehiclebox/partupload/upload")
                 .addHeader("token", "7c09b979489a4bca8684c0922bb8a0e7")
                 .post(fileBody)
                 .build();
 
         MyLog.d("分片上传", "上传分片" + partIndex);
-
         Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                needFinishUpload();
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+
+        Response response = null;
+        try {
+            response = call.execute();
+            if (!response.isSuccessful()) {
+                MyLog.d("分片上传上传错误", response.body().string());
+                needFinishUpload();
+            } else {
                 Gson gson = new Gson();
                 UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
                 if (partUploadResponseModel.getData().getResult()) {
@@ -411,7 +406,38 @@ public class UploadManager {
                     }
                 }
             }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//
+//
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                MyLog.d("分片上传", e);
+//                needFinishUpload();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Gson gson = new Gson();
+//                UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
+//                if (partUploadResponseModel.getData().getResult()) {
+//                    File partfile = new File(part.getAbsolutePath());
+//                    if (partfile.exists()) {
+//                        partfile.delete();
+//                        MyLog.d("分片上传", "传完一个分片删除一个");
+//                    }
+//                    int completeChunks = (int) SPUtils.get(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), 0);
+//                    completeChunks++;
+//                    if (completeChunks < length) {
+//                        SPUtils.put(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), completeChunks);
+//                    } else {
+//                        handlePostPartUploadComplete(partFileInfo);
+//                    }
+//                }
+//            }
+//        });
     }
 
     /**
@@ -423,9 +449,6 @@ public class UploadManager {
         //上传分片完成，每个文件都要调用
         NetModule.Companion.getInstance().provideAPIService()
                 .postCompletePartUpload(completePartUploadBody)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
                 .retry(3).subscribe(new Observer<BaseResult<PartUploadResponseModel>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -444,7 +467,6 @@ public class UploadManager {
                     if (file.exists()) {
                         file.delete();
                         MyLog.d("分片上传", "传完一个完整文件删除原视频");
-                        uploadAllFileComplete();
                     }
                 }
             }
@@ -458,6 +480,7 @@ public class UploadManager {
             @Override
             public void onComplete() {
                 MyLog.d("分片上传", "完成");
+                uploadAllFileComplete();
             }
         });
     }

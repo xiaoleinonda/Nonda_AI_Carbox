@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
 
         tv_version.text = AppUtils.getVersionName(this)
 
-        val baiduDeviceId = FaceSDKManager2.instance.getBaiduDeviceId()
-        MyLog.d(TAG, "当前百度设备指纹：deviceId=$baiduDeviceId")
+//        val baiduDeviceId = FaceSDKManager2.instance.getBaiduDeviceId()
+//        MyLog.d(TAG, "当前百度设备指纹：deviceId=$baiduDeviceId")
     }
 
     private fun publishMessage() {

@@ -141,12 +141,12 @@ public class UploadManager {
                     if (!isUploaded) {
                         partFileInfo.setUploadId(uploadId);
                         uploadFile(file, partFileInfo);
-                        MyLog.d("分片上传", "初始化");
+                        MyLog.d("分片上传", "初始化"+uploadId);
                     } else {
                         File file = new File(partFileInfo.getFilePath());
                         if (file.exists()) {
                             file.delete();
-                            MyLog.d("分片上传", "传完一个完整文件删除原视频");
+                            MyLog.d("分片上传", "传完一个完整文件删除原视频(已上传)" + partFileInfo.getUploadId());
                             uploadAllFileComplete();
                         }
                     }
@@ -294,17 +294,9 @@ public class UploadManager {
         final File[] partList = getPartList(file);
         if (partList == null) return;
         MyLog.d("分片上传", file.getName() + "共有" + partList.length);
-//        ExecutorService uploadPartFileExecutor = Executors.newFixedThreadPool(partList.length);
-
         for (int i = 1; i <= partList.length; i++) {
             final int partIndex = i;
-//            uploadPartFileExecutor.submit(new Runnable() {
-//                @Override
-//                public void run() {
             uploadPart(partList[partIndex - 1], partFileInfo, partIndex, partList.length);
-            MyLog.d("分片上传", file.getName() + "第" + partIndex + "片开始上传");
-//                }
-//            });
         }
     }
 
@@ -378,7 +370,6 @@ public class UploadManager {
                 .post(fileBody)
                 .build();
 
-        MyLog.d("分片上传", "上传分片" + partIndex);
         Call call = client.newCall(request);
 
 
@@ -395,7 +386,7 @@ public class UploadManager {
                     File partfile = new File(part.getAbsolutePath());
                     if (partfile.exists()) {
                         partfile.delete();
-                        MyLog.d("分片上传", "传完一个分片删除一个");
+                        MyLog.d("分片上传", "传完一个分片删除一个" + partFileInfo.getUploadId() + "第" + partIndex);
                     }
                     int completeChunks = (int) SPUtils.get(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), 0);
                     completeChunks++;
@@ -409,35 +400,6 @@ public class UploadManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//
-//
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                MyLog.d("分片上传", e);
-//                needFinishUpload();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                Gson gson = new Gson();
-//                UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
-//                if (partUploadResponseModel.getData().getResult()) {
-//                    File partfile = new File(part.getAbsolutePath());
-//                    if (partfile.exists()) {
-//                        partfile.delete();
-//                        MyLog.d("分片上传", "传完一个分片删除一个");
-//                    }
-//                    int completeChunks = (int) SPUtils.get(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), 0);
-//                    completeChunks++;
-//                    if (completeChunks < length) {
-//                        SPUtils.put(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), completeChunks);
-//                    } else {
-//                        handlePostPartUploadComplete(partFileInfo);
-//                    }
-//                }
-//            }
-//        });
     }
 
     /**

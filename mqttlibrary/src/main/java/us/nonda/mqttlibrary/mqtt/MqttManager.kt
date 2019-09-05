@@ -21,6 +21,8 @@ import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
 import java.util.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import us.nonda.mqttlibrary.BuildConfig
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 
 /**
@@ -50,8 +52,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     public var connectSuccessed = false
     private val messageQueue = LinkedList<MqttMessage>()
     private var isPublishLocalMessage = false
-
-    private var failcount = 0
+    val executorService = Executors.newSingleThreadExecutor()
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -159,8 +160,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
         //如果还没有初始化，存在本地，连接成功之后上报
         if (!connectSuccessed) {
-            failcount++
-            MyLog.d(TAG, "还没初始化存到本地" + failcount + "条消息")
+            MyLog.d(TAG, "还没初始化存到本地" + messageQueue.size + "条消息")
             messageQueue.offer(mqttMessage)
         }
         publish(mqttMessage)
@@ -172,8 +172,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                 mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
             } else {
                 messageQueue.offer(mqttMessage)
-                failcount++
-                MyLog.d(TAG, "存到本地" + failcount + "条消息")
+                MyLog.d(TAG, "存到本地" + messageQueue.size + "条消息")
             }
             MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
         } catch (e: Exception) {
@@ -273,7 +272,9 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
         Log.d(TAG, "connectComplete:重连成功")
         if (!isPublishLocalMessage) {
-            publishLocalMessage()
+            executorService.submit(Runnable {
+                publishLocalMessage()
+            })
         }
     }
 
@@ -282,27 +283,27 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         isPublishLocalMessage = true
         //如果初始化连接成功,发送初始化之前缓存的消息
         if (messageQueue.size > 0) {
-            val runnable = Runnable {
-                var mqttMessage = messageQueue.poll()
-                while (mqttMessage != null) {
-                    try {
-                        publish(mqttMessage)
-                        failcount--
-                        MyLog.d(TAG, "本地剩余" + failcount + "条消息")
-                        MyLog.d(TAG, "缓存数据发送成功=${mqttAndroidClient.isConnected}")
-                        mqttMessage = messageQueue.poll()
+            var mqttMessage = messageQueue.poll()
+            while (mqttMessage != null) {
+                try {
+                    publish(mqttMessage)
+                    MyLog.d(TAG, "本地剩余" + messageQueue.size + "条消息")
+                    MyLog.d(TAG, "缓存数据发送成功=${mqttAndroidClient.isConnected}")
+                    mqttMessage = messageQueue.poll()
 
-                        //相隔一定时间发送一次，防止短时间发送过多收不到消息的回调
-                        Thread.sleep(500)
-                    } catch (e: Exception) {
-                        MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
+                    //相隔一定时间发送一次，防止短时间发送过多收不到消息的回调
+                    Thread.sleep(500)
+                    if (messageQueue.size == 0) {
+                        //发送结束
+                        isPublishLocalMessage = false
                     }
+                } catch (e: Exception) {
+                    MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
                 }
-                MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)
-                //发送结束
-                isPublishLocalMessage = false
             }
-            Thread(runnable).start()
+            MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)
+        }else{
+            isPublishLocalMessage = false
         }
     }
 

@@ -10,13 +10,13 @@ android {
             storePassword 'nondasmart'
             keyPassword 'nondasmart'
             keyAlias = 'nonda_ai_carbox'
-            storeFile file('/nonda_ai_carbox')
+            storeFile file('../nonda_ai_carbox')
         }
         debug {
             storePassword 'nondasmart'
             keyPassword 'nondasmart'
             keyAlias = 'nonda_ai_carbox'
-            storeFile file('/nonda_ai_carbox')
+            storeFile file('../nonda_ai_carbox')
         }
     }
     compileSdkVersion 29

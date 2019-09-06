@@ -24,6 +24,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -56,6 +57,8 @@ public class UploadManager {
     //全部要上传文件数
     private int mFileSize;
 
+    private CountDownLatch countDownLatch;
+
     private UploadManager() {
 
     }
@@ -85,6 +88,7 @@ public class UploadManager {
         //唤醒设备
         DeviceUtils.cancelIPO();
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+        countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {
             try {
                 splitPart(file);
@@ -94,12 +98,26 @@ public class UploadManager {
             mExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    String partFilePath = getPartDir(file) + "/" + file.getName();
-                    submitUploadTask(file, partFilePath, getPartDir(file));
+                    try {
+                        String partFilePath = getPartDir(file) + "/" + file.getName();
+                        submitUploadTask(file, partFilePath, getPartDir(file));
+                    } catch (Exception e) {
+
+                    } finally {
+                        countDownLatch.countDown();
+                        MyLog.d("分片上传", "完成countDownLatch" + countDownLatch.getCount());
+                    }
                 }
 
             });
         }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        uploadAllFileComplete();
+
     }
 
     public void stopUpload() {
@@ -154,7 +172,7 @@ public class UploadManager {
                         if (file.exists()) {
                             file.delete();
                             MyLog.d("分片上传", "传完一个完整文件删除原视频(已上传)" + partFileInfo.getUploadId());
-                            uploadAllFileComplete();
+//                            uploadAllFileComplete();
                         }
                     }
                 }
@@ -449,19 +467,15 @@ public class UploadManager {
             @Override
             public void onComplete() {
                 MyLog.d("分片上传", "完成");
-                uploadAllFileComplete();
+                completeUploadFileCount++;
             }
         });
     }
 
-    //判断是否上传完成，进入回调
+    //判断是否上传完成，进入回调，上报结果，删除临时文件夹
     private void uploadAllFileComplete() {
-        completeUploadFileCount++;
-        MyLog.d("分片上传", "成功数" + completeUploadFileCount + "总数" + mFileSize);
-        if (completeUploadFileCount >= mFileSize) {
-            MyLog.d("分片上传", "全部上传完成");
-            onVideoUploadListener.onVideoUploadSuccess();
-        }
+        MyLog.d("分片上传", "全部上传完成");
+        onVideoUploadListener.onVideoUploadSuccess();
     }
 
 

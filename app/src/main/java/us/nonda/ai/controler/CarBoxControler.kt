@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
+import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.yaoxiaowen.download.DownloadHelper
 import com.yaoxiaowen.download.DownloadHelper.onDownloadListener
@@ -54,6 +55,17 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      */
     fun openCamera(context: Context) {
 
+        /**
+         * 1是模式开启
+         */
+        val mode = SysProp.get("persist.calibration.mode", "-1")//自己的调试模式
+        val oqcMode = SysProp.get("persist.installation.test.mode", "-1")//锐承自己的OQC模式
+
+        if (TextUtils.equals(mode, "1") || TextUtils.equals(oqcMode, "1")) {
+            return
+        }
+
+
         if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
             cameraDisposable!!.dispose()
         }
@@ -82,6 +94,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      *
      */
     fun accOffModeWork() {
+        cancelIPO()
         checkVersion()
     }
 
@@ -338,7 +351,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
         }
         checkVersionDisposable = AppUtils.getVersionName(AppUtils.context)?.let {
             NetModule.instance.provideAPIService()
-                .getAppVersion("869455047237132", it)
+                .getAppVersion(imeiCode, it)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())

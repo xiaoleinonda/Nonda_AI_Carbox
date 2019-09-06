@@ -136,19 +136,20 @@ class FaceSDKManager2 private constructor() {
 
     @SuppressLint("CheckResult")
     private fun getLicenceStrHttp() {
-        onGetSerialNumSucceed("123")// todo
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
             return
         }
 
         val deviceId = FaceAuth().getDeviceId(context)
         val imeiCode = DeviceUtils.getIMEICode(context)
+        MyLog.d(TAG, "获取序列号， 指纹ID=$deviceId")
 
-/*
         NetModule.instance.provideAPIService()
-            .getSerialNum("869455047237132", deviceId!!)
+            .getSerialNum(imeiCode, deviceId!!)
             .retry(2)
             .subscribe({
+                MyLog.d(TAG, "获取序列号，成功 it=${it.toString()}")
+
                 if (it.code == 200 && it.data != null) {
                     val data = it.data
                     if (data!!.reslut) {
@@ -160,9 +161,10 @@ class FaceSDKManager2 private constructor() {
                     onGetSerialNumFailed(it.msg)
                 }
             }, {
+                MyLog.d(TAG, "获取序列号， 异常it=${it.message}")
+
                 it.message?.let { it1 -> onGetSerialNumFailed(it1) }
             })
-*/
 
     }
 
@@ -242,7 +244,7 @@ class FaceSDKManager2 private constructor() {
                         }
                     } else {
 //                        listener?.onFailed(response)
-                        onInitFailed()
+                        onInitFailed(response)
                     }
                 })
 
@@ -260,7 +262,7 @@ class FaceSDKManager2 private constructor() {
                         }
                     } else {
 //                        listener?.onFailed(response)
-                        onInitFailed()
+                        onInitFailed(response)
                     }
                 })
 
@@ -279,7 +281,7 @@ class FaceSDKManager2 private constructor() {
                     }
                 } else {
 //                    listener?.onFailed(response)
-                    onInitFailed()
+                    onInitFailed(response)
                 }
             }
 
@@ -297,7 +299,7 @@ class FaceSDKManager2 private constructor() {
                     }
                 } else {
 //                    listener?.onFailed(response)
-                    onInitFailed()
+                    onInitFailed(response)
                 }
             }
 
@@ -339,10 +341,10 @@ class FaceSDKManager2 private constructor() {
         checkRegistFaceStatus()
     }
 
-    private fun onInitFailed() {
+    private fun onInitFailed(msg:String) {
         MqttManager.getInstance().publishEventData(1003, "2")
         status = STATUS_INIT
-        log("初始化失败")
+        log("初始化失败:$msg")
     }
 
 
@@ -480,8 +482,8 @@ class FaceSDKManager2 private constructor() {
 
     fun onCameraClose() {
         faceLivenessManager?.stop()
-        faceCache.clearFacePassStatus()
         featureLRUCache.clear()
+        clearFace()
         /*      val listFeatures = DBManager.getInstance().queryFeature()
               if (listFeatures != null && listFeatures.size > 0) {
                   for (listFeature in listFeatures) {
@@ -553,13 +555,21 @@ class FaceSDKManager2 private constructor() {
         return null
     }
 
+    fun clearFace(){
+        val listFeatures = DBManager.getInstance().queryFeature()
+        if (listFeatures != null && listFeatures.size > 0) {
+            for (listFeature in listFeatures) {
+                FaceApi.getInstance().featureDelete(listFeature)
+            }
+        }
+        isRegisted = false
+        faceCache.clearFacePicture()
+        faceCache.clearFacePassStatus()
+        MyLog.d(TAG, "人脸删除成功")
+
+    }
 
     private fun log(msg: String) {
         MyLog.d(TAG, "$msg  Thread=${Thread.currentThread().name}")
     }
-
-    fun getBaiduDeviceId(): String {
-        return FaceAuth().getDeviceId(context)
-    }
-
 }

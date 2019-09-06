@@ -1,12 +1,8 @@
 package us.nonda.facelibrary.auth
 
 import android.content.Context
-import android.text.TextUtils
 import com.baidu.idl.facesdk.FaceAuth
 import com.baidu.idl.facesdk.callback.AuthCallback
-import com.baidu.idl.facesdk.callback.Callback
-import com.baidu.idl.facesdk.model.BDFaceSDKCommon
-import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import us.nonda.commonibrary.MyLog
@@ -33,49 +29,50 @@ class FaceAuthManager {
         val faceAuth = FaceAuth()
         faceAuth.setActiveLog(FaceAuth.BDFaceLogInfo.BDFACE_LOG_ALL_MESSAGE)
         faceAuth.setAnakinThreadsConfigure(2, 0)
-        var licenseIDNew: String = ""
-
-        val imeiCode = DeviceUtils.getIMEICode(context)
+//        var licenseIDNew: String = ""
+        val deviceId = faceAuth.getDeviceId(context)
+       /* val imeiCode = DeviceUtils.getIMEICode(context)
         when (imeiCode) {
             "869455047237132" -> {
 //                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
-                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//wifi
+                licenseIDNew = "GSVT-TSMR-SU0B-KIHP"//wifi
 
             }
             "869455047237124" -> {
 //                licenseIDNew =   "6HDB-HCPB-B4PW-RQVS"//sim卡
-                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
+                licenseIDNew = "LY77-J8DW-8YCZ-5X6L"//wifi
 
             }
             "869455047237298" -> {
-                licenseIDNew =   "BJHH-JFNI-WYP2-FNTL"//wifi
+                licenseIDNew = "BJHH-JFNI-WYP2-FNTL"//wifi
 //                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//sim
 
             }
             else -> {
             }
         }
-
-      /*  var deviceId = faceAuth.getDeviceId(context)
-        var licenseIDNew: String = ""
-        if (SIM_ID == deviceId) {
-            licenseIDNew = "EEJK-DAFA-X7HG-LU2G"
-        } else if (WIFI_ID == deviceId) {
-            licenseIDNew = "JJXH-SEIJ-EGF3-PWEQ"
-        } else if (WIFI_ID2 == deviceId) {
-            licenseIDNew = "EZMH-DDPY-KBZO-HCCA"
-        } else if (WIFI_ID_NEW_ROM == deviceId) {
-            licenseIDNew = "BHM9-9ODP-GD5M-2DOM"
-        } else {
-            licenseIDNew = "LY77-J8DW-8YCZ-5X6L"
-        }
 */
-        initLicenseOnLine(context, faceAuth, licenseIDNew, callback)
+        /*  var deviceId = faceAuth.getDeviceId(context)
+          var licenseIDNew: String = ""
+          if (SIM_ID == deviceId) {
+              licenseIDNew = "EEJK-DAFA-X7HG-LU2G"
+          } else if (WIFI_ID == deviceId) {
+              licenseIDNew = "JJXH-SEIJ-EGF3-PWEQ"
+          } else if (WIFI_ID2 == deviceId) {
+              licenseIDNew = "EZMH-DDPY-KBZO-HCCA"
+          } else if (WIFI_ID_NEW_ROM == deviceId) {
+              licenseIDNew = "BHM9-9ODP-GD5M-2DOM"
+          } else {
+              licenseIDNew = "LY77-J8DW-8YCZ-5X6L"
+          }
+  */
+        initLicenseOnLine(context, deviceId, faceAuth, licenseID, callback)
 
     }
 
     private fun initLicenseOnLine(
         context: Context,
+        deviceId: String,
         faceAuth: FaceAuth,
         licenseID: String,
         callback: IFaceAuthCallback
@@ -87,7 +84,7 @@ class FaceAuthManager {
             override fun onResponse(p0: Int, p1: String?, p2: String?) {
                 if (p0 == 0) {
                     callback.onSucceed()
-                    postLicenseSucceed()
+                    postLicenseSucceed(licenseID, deviceId)
                 } else {
                     callback.onFailed(p1 ?: "")
                 }
@@ -102,13 +99,14 @@ class FaceAuthManager {
     }
 
 
-    private fun postLicenseSucceed() {
+    private fun postLicenseSucceed(licenseID: String, deviceId: String) {
         if (disposable != null && !disposable!!.isDisposed) {
             disposable!!.dispose()
         }
 
+        val imeiCode = DeviceUtils.getIMEICode(AppUtils.context)
         disposable = NetModule.instance.provideAPIService()
-            .postLicenceSucceed(PostLicenceBody("869455047237132", "111", "123"))
+            .postLicenceSucceed(PostLicenceBody(imeiCode, licenseID, deviceId))
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

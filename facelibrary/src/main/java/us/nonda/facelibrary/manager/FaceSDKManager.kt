@@ -93,7 +93,7 @@ class FaceSDKManager private constructor() {
     val futureForInit: Future<*>? = null
 
     fun initttt() {
-        if (futureForInit!=null && !futureForInit.isDone){
+        if (futureForInit != null && !futureForInit.isDone) {
             return
         }
         threadForInit.submit {
@@ -675,7 +675,6 @@ class FaceSDKManager private constructor() {
 
     private var requestSerialNumDisposable: Disposable? = null
     private fun getLicenceStrHttp() {
-        onGetSerialNumSucceed("123")// todo
         if (!NetworkUtil.getConnectivityStatus(AppUtils.context)) {
             checking = false
 
@@ -686,7 +685,6 @@ class FaceSDKManager private constructor() {
             deviceId = FaceAuth().getDeviceId(context)
         }
         var imeiCode = DeviceUtils.getIMEICode(context)
-          imeiCode = "869455047237132"
         log("IMEI号=$imeiCode")
 
         if (requestSerialNumDisposable != null && !requestSerialNumDisposable!!.isDisposed) {
@@ -699,6 +697,8 @@ class FaceSDKManager private constructor() {
             .observeOn(Schedulers.io())
             .retry(2)
             .subscribe({
+                MyLog.d(TAG, "获取序列号，成功 it=${it.toString()}")
+
                 if (it.code == 200 && it.data != null) {
                     val data = it.data
                     if (data!!.reslut) {
@@ -710,6 +710,8 @@ class FaceSDKManager private constructor() {
                     onGetSerialNumFailed(it.msg)
                 }
             }, {
+                MyLog.d(TAG, "获取序列号， 异常it=${it.message}")
+
                 it.message?.let { it1 -> onGetSerialNumFailed(it1) }
             })
 
@@ -847,7 +849,7 @@ class FaceSDKManager private constructor() {
 
 
         requestFacePicDisposable = NetModule.instance.provideAPIService()
-            .getFacepicture("869455047237132")
+            .getFacepicture(imeiCode)
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

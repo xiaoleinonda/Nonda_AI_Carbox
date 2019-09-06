@@ -120,6 +120,8 @@ class FaceRegister constructor(
                 registFace(livenessModel, facePic)
 
             } else {
+                MqttManager.getInstance().publishEventData(1013, "2")
+
                 MyLog.d(TAG, "注册的人脸未提取到人脸")
 
                 mqttPulish("注册的人脸未提取到人脸")
@@ -172,7 +174,7 @@ class FaceRegister constructor(
             if (facePicDir != null) {
                 val savePicPath = File(facePicDir, picFile)
                 if (FileUtils.saveFile(savePicPath, registBmp)) {
-                    Log.i("注册", "图片保存成功")
+                    MyLog.i("注册", "图片保存成功")
                     feature.imageName = picFile
                 }
             }
@@ -197,7 +199,7 @@ class FaceRegister constructor(
             if (faceCropDir != null && cropBitmap != null) {
                 val saveCropPath = File(faceCropDir, cropImgName!!)
                 if (FileUtils.saveFile(saveCropPath, cropBitmap)) {
-                    Log.i("注册", "抠图图片保存成功")
+                    MyLog.i("注册", "抠图图片保存成功")
                     feature.cropImageName = cropImgName
                 }
             }
@@ -222,6 +224,7 @@ class FaceRegister constructor(
             } else {
                 mqttPulish("注册特征提取失败")
                 MyLog.d(TAG, "注册特征提取失败")
+                MqttManager.getInstance().publishEventData(1013, "2")
 
             }
             userId = ""

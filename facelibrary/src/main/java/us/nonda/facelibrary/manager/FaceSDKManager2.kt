@@ -123,6 +123,7 @@ class FaceSDKManager2 private constructor() {
     }
 
     private fun checkLicenceStatus() {
+        FaceStatusCache.instance.faceLicence = ""
         MyLog.d(TAG, "checkLicenceStatus  status=$status")
         if (faceCache.isLicence()) {
             log("已激活 直接初始化")
@@ -151,6 +152,8 @@ class FaceSDKManager2 private constructor() {
                 MyLog.d(TAG, "获取序列号，成功 it=${it.toString()}")
 
                 if (it.code == 200 && it.data != null) {
+                    MyLog.d(TAG, "获取序列号，成功 serialNum=${it.data!!.serialNum}")
+
                     val data = it.data
                     if (data!!.reslut) {
                         onGetSerialNumSucceed(data.serialNum)
@@ -341,7 +344,7 @@ class FaceSDKManager2 private constructor() {
         checkRegistFaceStatus()
     }
 
-    private fun onInitFailed(msg:String) {
+    private fun onInitFailed(msg: String) {
         MqttManager.getInstance().publishEventData(1003, "2")
         status = STATUS_INIT
         log("初始化失败:$msg")
@@ -555,7 +558,7 @@ class FaceSDKManager2 private constructor() {
         return null
     }
 
-    fun clearFace(){
+    fun clearFace() {
         val listFeatures = DBManager.getInstance().queryFeature()
         if (listFeatures != null && listFeatures.size > 0) {
             for (listFeature in listFeatures) {

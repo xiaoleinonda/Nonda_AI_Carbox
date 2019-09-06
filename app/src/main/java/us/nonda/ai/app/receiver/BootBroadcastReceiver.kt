@@ -19,11 +19,11 @@ class BootBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (action == intent?.action) {
             MyLog.d(TAG, "开机")
-
+/*
             Intent(context, MainActivity::class.java).run {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context?.startActivity(this)
-            }
+            }*/
         }else if (actionShutSown == intent?.action) {
             MyLog.d(TAG, "关机")
         }

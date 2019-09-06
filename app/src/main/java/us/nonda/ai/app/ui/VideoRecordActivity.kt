@@ -43,12 +43,15 @@ class VideoRecordActivity : AppCompatActivity() {
 
     companion object {
         fun starter(context: Context) {
+            MyLog.d("VideoRecordActivity", "starter")
+
             val intent = Intent(context, VideoRecordActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun finish() {
+            MyLog.d("VideoRecordActivity", "finish")
             FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
         }
     }

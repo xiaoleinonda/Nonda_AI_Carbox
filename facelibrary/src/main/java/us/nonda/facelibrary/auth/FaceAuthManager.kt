@@ -31,27 +31,27 @@ class FaceAuthManager {
         faceAuth.setAnakinThreadsConfigure(2, 0)
 //        var licenseIDNew: String = ""
         val deviceId = faceAuth.getDeviceId(context)
-       /* val imeiCode = DeviceUtils.getIMEICode(context)
-        when (imeiCode) {
-            "869455047237132" -> {
-//                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
-                licenseIDNew = "GSVT-TSMR-SU0B-KIHP"//wifi
+        /* val imeiCode = DeviceUtils.getIMEICode(context)
+         when (imeiCode) {
+             "869455047237132" -> {
+ //                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
+                 licenseIDNew = "GSVT-TSMR-SU0B-KIHP"//wifi
 
-            }
-            "869455047237124" -> {
-//                licenseIDNew =   "6HDB-HCPB-B4PW-RQVS"//sim卡
-                licenseIDNew = "LY77-J8DW-8YCZ-5X6L"//wifi
+             }
+             "869455047237124" -> {
+ //                licenseIDNew =   "6HDB-HCPB-B4PW-RQVS"//sim卡
+                 licenseIDNew = "LY77-J8DW-8YCZ-5X6L"//wifi
 
-            }
-            "869455047237298" -> {
-                licenseIDNew = "BJHH-JFNI-WYP2-FNTL"//wifi
-//                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//sim
+             }
+             "869455047237298" -> {
+                 licenseIDNew = "BJHH-JFNI-WYP2-FNTL"//wifi
+ //                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//sim
 
-            }
-            else -> {
-            }
-        }
-*/
+             }
+             else -> {
+             }
+         }
+ */
         /*  var deviceId = faceAuth.getDeviceId(context)
           var licenseIDNew: String = ""
           if (SIM_ID == deviceId) {
@@ -105,6 +105,9 @@ class FaceAuthManager {
         }
 
         val imeiCode = DeviceUtils.getIMEICode(AppUtils.context)
+        MyLog.d(TAG, "百度激活成功 开始提交激活状态imeiCode=$imeiCode")
+        MyLog.d(TAG, "百度激活成功 开始提交激活状态licenseID=$licenseID")
+        MyLog.d(TAG, "百度激活成功 开始提交激活状态deviceId=$deviceId")
         disposable = NetModule.instance.provideAPIService()
             .postLicenceSucceed(PostLicenceBody(imeiCode, licenseID, deviceId))
             .subscribeOn(Schedulers.io())
@@ -112,6 +115,7 @@ class FaceAuthManager {
             .observeOn(Schedulers.io())
             .retry(3)
             .subscribe({
+                MyLog.d(TAG, "百度激活成功 开始提交激活状态imeiCode=$imeiCode")
                 val data = it.data
                 if (it.code == 200 && data != null) {
                     if (data.reslut) {
@@ -120,9 +124,14 @@ class FaceAuthManager {
                         MyLog.d("激活状态", "激活失败=${data.content}")
                     }
                 } else {
+                    MyLog.d(TAG, "百度激活成功 提交激活状态失败")
+
                     MyLog.d("激活状态", "激活失败=${it.msg}")
 
                 }
-            }, { println("失败${it.message}") })
+            }, {
+                MyLog.d(TAG, "百度激活成功 提交激活状态异常=${it.message}")
+
+            })
     }
 }

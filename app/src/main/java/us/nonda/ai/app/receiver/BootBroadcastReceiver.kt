@@ -6,6 +6,7 @@ import android.content.Intent
 import us.nonda.ai.MainActivity
 import us.nonda.ai.app.ui.AccActivity
 import us.nonda.commonibrary.MyLog
+import us.nonda.facelibrary.manager.FaceSDKManager2
 
 /**
  * Created by chenjun on 2019-06-12.
@@ -17,6 +18,8 @@ class BootBroadcastReceiver : BroadcastReceiver() {
     private val TAG="BootBroadcastReceiver"
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        FaceSDKManager2.instance.clearFace()
+
         if (action == intent?.action) {
             MyLog.d(TAG, "开机")
 /*
@@ -25,6 +28,7 @@ class BootBroadcastReceiver : BroadcastReceiver() {
                 context?.startActivity(this)
             }*/
         }else if (actionShutSown == intent?.action) {
+
             MyLog.d(TAG, "关机")
         }
     }

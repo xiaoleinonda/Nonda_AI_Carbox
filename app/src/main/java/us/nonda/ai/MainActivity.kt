@@ -39,10 +39,6 @@ class MainActivity : AppCompatActivity() {
         MyLog.d(TAG, "onCreate")
 
         registReceiver()
-//        checkAccStatus(this)
-//        FaceSDKManager2.instance.init()
-
-//        SensorReportService.startService(this)
         checkAccStatus(this)
 
         btn_location.setOnClickListener {
@@ -50,51 +46,9 @@ class MainActivity : AppCompatActivity() {
             VideoRecordActivity.starter(this@MainActivity)
 
         }
-        btn_stop_location.setOnClickListener {
-            //            CarBoxControler.instance.sleep()
-//            FaceSDKManager.instance.isRegisted = false
-//            VideoRecordActivityTest.starter(this@MainActivity)
-//            test()
-            //分片上传视频文件
-//            UploadManager.getInstance().start()
-            publishMessage()
-        }
-
-        val carBatteryInfo = DeviceUtils.getCarBatteryInfo()
-
-        val simNumber = CarBoxControler.instance.getSimNumber(this)
-        MyLog.d("设备信息", "电量=$carBatteryInfo   sim卡=$simNumber")
-
-        tv_version.text = AppUtils.getVersionName(this)
 
 //        val baiduDeviceId = FaceSDKManager2.instance.getBaiduDeviceId()
 //        MyLog.d(TAG, "当前百度设备指纹：deviceId=$baiduDeviceId")
-    }
-
-    private fun publishMessage() {
-        count++
-        val lists = ArrayList<EmotionBean>()
-        val faceResultBean = EmotionBean("发送次数=$count", System.currentTimeMillis())
-        lists.add(faceResultBean)
-        MqttManager.getInstance().publishEmotion(lists)
-        handler.postDelayed(runnable, 1000)
-    }
-
-
-    var handler = Handler()
-    var runnable: Runnable = object : Runnable {
-        override fun run() {
-            count++
-            val lists = ArrayList<EmotionBean>()
-            val faceResultBean = EmotionBean("发送次数=$count", System.currentTimeMillis())
-            lists.add(faceResultBean)
-            MqttManager.getInstance().publishEmotion(lists)
-            handler.postDelayed(this, 2000)
-        }
-    }
-
-    private fun test() {
-        checkAccStatus(this)
     }
 
 

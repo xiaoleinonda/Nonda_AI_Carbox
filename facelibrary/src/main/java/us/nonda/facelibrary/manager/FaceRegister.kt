@@ -116,7 +116,6 @@ class FaceRegister constructor(
                 livenessModel.faceInfo = faceInfo
                 livenessModel.faceID = faceInfo.face_id
 
-
                 registFace(livenessModel, facePic)
 
             } else {

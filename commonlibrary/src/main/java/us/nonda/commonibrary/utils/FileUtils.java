@@ -334,4 +334,26 @@ public class FileUtils {
             return null;
         }
     }
+
+    /**
+     * 迭代删除文件夹
+     *
+     * @param dirPath 文件夹路径
+     */
+    public static void deleteDir(String dirPath) {
+        File file = new File(dirPath);
+        if (file.isFile()) {
+            file.delete();
+        } else {
+            File[] files = file.listFiles();
+            if (files == null) {
+                file.delete();
+            } else {
+                for (File file1 : files) {
+                    deleteDir(file1.getAbsolutePath());
+                }
+                file.delete();
+            }
+        }
+    }
 }

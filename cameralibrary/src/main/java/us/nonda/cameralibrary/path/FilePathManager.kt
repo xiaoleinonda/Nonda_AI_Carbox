@@ -49,4 +49,8 @@ class FilePathManager private constructor() {
         return "$sdcard/$path_main/$nowDateShort/image/face/back/"
     }
 
+   fun getAllVideoPath(): String {
+        return "$sdcard/$path_main/"
+    }
+
 }

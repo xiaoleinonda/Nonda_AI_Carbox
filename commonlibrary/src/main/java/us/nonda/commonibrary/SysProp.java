@@ -1,4 +1,4 @@
-package us.nonda.ai.utils;
+package us.nonda.commonibrary;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

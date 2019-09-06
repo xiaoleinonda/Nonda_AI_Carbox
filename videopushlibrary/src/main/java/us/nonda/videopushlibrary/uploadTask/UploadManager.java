@@ -15,22 +15,21 @@ import us.nonda.commonibrary.http.NetModule;
 import us.nonda.commonibrary.model.*;
 import us.nonda.commonibrary.utils.AppUtils;
 import us.nonda.commonibrary.utils.DeviceUtils;
+import us.nonda.commonibrary.utils.FileUtils;
 import us.nonda.commonibrary.utils.SPUtils;
+import us.nonda.mqttlibrary.mqtt.MqttManager;
 import us.nonda.videopushlibrary.utlis.Md5Utlis;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
 public class UploadManager {
-
-    private static final String VIDEO_PATH = "/zusai";
 
     private static final String TEMP_PATH = "/temp";
 
@@ -55,6 +54,8 @@ public class UploadManager {
     //全部要上传文件数
     private int mFileSize;
 
+    private CountDownLatch countDownLatch;
+
     private UploadManager() {
 
     }
@@ -66,20 +67,25 @@ public class UploadManager {
         return INSTANCE;
     }
 
-    //    @Override
     public void start() {
-        File[] allFiles = getAllFileList();
-        mFileSize = allFiles.length;
+        File[] allFiles = FileUtils.traverseFolderGetMP4(FilePathManager.Companion.get().getAllVideoPath());
         MyLog.d("分片上传", "总共上传" + mFileSize);
         //如果没有未上传的视频说明上传完毕
-        if (mFileSize == 0) {
+        if (allFiles == null || allFiles.length == 0) {
             MyLog.d("分片上传", "没有需要上传的视频");
             onVideoUploadListener.onVideoUploadSuccess();
             return;
         }
+
+        mFileSize = allFiles.length;
+        MqttManager.Companion.getInstance().publishEventData(1020, String.valueOf(mFileSize));
         //按照最后修改时间排序
         Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
+
+        //唤醒设备
+        DeviceUtils.cancelIPO();
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+        countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {
             try {
                 splitPart(file);
@@ -89,12 +95,26 @@ public class UploadManager {
             mExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
-                    String partFilePath = getPartDir(file) + "/" + file.getName();
-                    submitUploadTask(file, partFilePath, getPartDir(file));
+                    try {
+                        String partFilePath = getPartDir(file) + "/" + file.getName();
+                        submitUploadTask(file, partFilePath, getPartDir(file));
+                    } catch (Exception e) {
+
+                    } finally {
+                        countDownLatch.countDown();
+                        MyLog.d("分片上传", "完成countDownLatch" + countDownLatch.getCount());
+                    }
                 }
 
             });
         }
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        uploadAllFileComplete();
+
     }
 
     public void stopUpload() {
@@ -142,14 +162,13 @@ public class UploadManager {
                     //如果没有上传过才上传
                     if (!isUploaded) {
                         partFileInfo.setUploadId(uploadId);
+                        MyLog.d("分片上传", "初始化" + uploadId);
                         uploadFile(file, partFileInfo);
-                        MyLog.d("分片上传", "初始化"+uploadId);
                     } else {
                         File file = new File(partFileInfo.getFilePath());
                         if (file.exists()) {
                             file.delete();
                             MyLog.d("分片上传", "传完一个完整文件删除原视频(已上传)" + partFileInfo.getUploadId());
-                            uploadAllFileComplete();
                         }
                     }
                 }
@@ -191,58 +210,6 @@ public class UploadManager {
         return 2;
     }
 
-
-    /**
-     * 获取前后摄像头然后合并成一个文件数组
-     */
-    private File[] getAllFileList() {
-        String videoBackVideoPath = FilePathManager.Companion.get().getBackVideoPath();
-        String videoFrontVideoPath = FilePathManager.Companion.get().getFrontVideoPath();
-        File[] allBackFiles = getFileListByPath(videoBackVideoPath);
-        File[] allFrontFiles = getFileListByPath(videoFrontVideoPath);
-        int frontFileSize = allFrontFiles == null ? 0 : allFrontFiles.length;
-        int backFileSize = allBackFiles == null ? 0 : allBackFiles.length;
-
-        File[] allFiles = new File[backFileSize + frontFileSize];
-        if (allBackFiles != null) {
-            System.arraycopy(allBackFiles, 0, allFiles, 0, backFileSize);
-        }
-
-        if (allFrontFiles != null) {
-            System.arraycopy(allFrontFiles, 0, allFiles, backFileSize, frontFileSize);
-        }
-        return allFiles;
-    }
-
-
-    private File[] getFileList() {
-        String videoFullPath = getVideoPath();
-        File videoDir = new File(videoFullPath);
-        if (!videoDir.exists()) {
-            Log.e("upload", "video path not exists");
-            return null;
-        }
-
-        File[] files = videoDir.listFiles();
-        return files;
-    }
-
-    private File[] getFileListByPath(String path) {
-        File videoDir = new File(path);
-        if (!videoDir.exists()) {
-            Log.e("upload", "video path not exists");
-            return null;
-        }
-
-        File[] files = videoDir.listFiles();
-        return files;
-    }
-
-    private String getVideoPath() {
-        String videoFullPath = getSdPath() + VIDEO_PATH;
-        return videoFullPath;
-    }
-
     private String getPartFilePath(File file, int chunk) {
         String partPath = getPartDir(file)
                 + "/" + file.getName() + ".part" + chunk;
@@ -250,7 +217,7 @@ public class UploadManager {
     }
 
     private String getPartDir(File file) {
-        String partDir = getTempPath(file)
+        String partDir = getTempPath()
                 + "/" + file.getName().replace(".mp4", "");
         File dir = new File(partDir);
         if (!dir.exists()) {
@@ -259,38 +226,10 @@ public class UploadManager {
         return partDir;
     }
 
-    private String getTempPath(File file) {
+    private String getTempPath() {
         String tempPath = FilePathManager.Companion.get().getSdcard() + TEMP_PATH;
         return tempPath;
     }
-
-    private String getSdPath() {
-        String[] paths = null;
-        try {
-            paths = getAllExtPaths();
-        } catch (Exception e) {
-            Log.e("error", e.getMessage());
-            return "";
-        }
-        if (paths == null || paths.length == 0) {
-            return "";
-        }
-        if (paths.length == 1) {
-            return paths[0];
-        }
-        return paths[1];
-    }
-
-    private String[] getAllExtPaths() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        StorageManager storageManager = (StorageManager) AppUtils.context.getSystemService(AppUtils.context.STORAGE_SERVICE);
-
-        Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
-        getVolumePathsMethod.setAccessible(true);
-        Object result = getVolumePathsMethod.invoke(storageManager);
-
-        return (String[]) result;
-    }
-
 
     private void uploadFile(final File file, final PartFileInfo partFileInfo) {
         final File[] partList = getPartList(file);
@@ -312,16 +251,6 @@ public class UploadManager {
 
         File[] files = partDir.listFiles();
         return files;
-//        List<File> partFileList = new ArrayList<>();
-//        for (File part : files) {
-//            if (!part.getName().contains(file.getName()))
-//                continue;
-//            }
-//            partFileList.add(part);
-//
-//        }
-//        return (File[]) partFileList.toArray();
-
     }
 
     private void splitPart(File file) throws IOException {
@@ -366,7 +295,6 @@ public class UploadManager {
                 .build();
 
         Request request = new Request.Builder()
-//                .url("http://10.0.0.90:8081" + "/api/v1/vehiclebox/partupload/upload")
                 .url(BuildConfig.API_URL + "/api/v1/vehiclebox/partupload/upload")
                 .addHeader("token", "7c09b979489a4bca8684c0922bb8a0e7")
                 .post(fileBody)
@@ -386,10 +314,7 @@ public class UploadManager {
                 UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
                 if (partUploadResponseModel.getData().getResult()) {
                     File partfile = new File(part.getAbsolutePath());
-                    if (partfile.exists()) {
-                        partfile.delete();
-                        MyLog.d("分片上传", "传完一个分片删除一个" + partFileInfo.getUploadId() + "第" + partIndex);
-                    }
+                    MyLog.d("分片上传", "传完一个分片" + partFileInfo.getUploadId() + "第" + partIndex);
                     int completeChunks = (int) SPUtils.get(AppUtils.context, FILE_UPLOAD_COUNT + partFileInfo.getUploadId(), 0);
                     completeChunks++;
                     if (completeChunks < length) {
@@ -422,11 +347,6 @@ public class UploadManager {
             @Override
             public void onNext(BaseResult<PartUploadResponseModel> result) {
                 if (result.getData() != null && result.getData().getResult()) {
-                    File partfile = new File(partFileInfo.getPartFolderPath());
-                    if (partfile.exists()) {
-                        partfile.delete();
-                        MyLog.d("分片上传", "传完一个完整文件删除临时文件夹");
-                    }
                     File file = new File(partFileInfo.getFilePath());
                     if (file.exists()) {
                         file.delete();
@@ -444,18 +364,17 @@ public class UploadManager {
             @Override
             public void onComplete() {
                 MyLog.d("分片上传", "完成");
-                uploadAllFileComplete();
+                completeUploadFileCount++;
             }
         });
     }
 
-    //判断是否上传完成，进入回调
+    //判断是否上传完成，进入回调，上报结果，删除临时文件夹
     private void uploadAllFileComplete() {
-        completeUploadFileCount++;
-        if (completeUploadFileCount >= mFileSize) {
-            onVideoUploadListener.onVideoUploadSuccess();
-            MyLog.d("分片上传", "全部上传完成");
-        }
+        MyLog.d("分片上传", "全部上传执行完成，成功" + completeUploadFileCount + "个");
+        MqttManager.Companion.getInstance().publishEventData(1021, String.valueOf(completeUploadFileCount));
+        FileUtils.deleteDir(getTempPath());
+        onVideoUploadListener.onVideoUploadSuccess();
     }
 
 

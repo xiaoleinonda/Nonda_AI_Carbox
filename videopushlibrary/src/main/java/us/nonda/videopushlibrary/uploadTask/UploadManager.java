@@ -15,6 +15,7 @@ import us.nonda.commonibrary.http.NetModule;
 import us.nonda.commonibrary.model.*;
 import us.nonda.commonibrary.utils.AppUtils;
 import us.nonda.commonibrary.utils.DeviceUtils;
+import us.nonda.commonibrary.utils.FileUtils;
 import us.nonda.commonibrary.utils.SPUtils;
 import us.nonda.videopushlibrary.utlis.Md5Utlis;
 
@@ -68,15 +69,16 @@ public class UploadManager {
 
     //    @Override
     public void start() {
-        File[] allFiles = getAllFileList();
-        mFileSize = allFiles.length;
+        File[] allFiles = FileUtils.traverseFolderGetMP4(FilePathManager.Companion.get().getAllVideoPath());
         MyLog.d("分片上传", "总共上传" + mFileSize);
         //如果没有未上传的视频说明上传完毕
-        if (mFileSize == 0) {
+        if (allFiles == null || allFiles.length == 0) {
             MyLog.d("分片上传", "没有需要上传的视频");
             onVideoUploadListener.onVideoUploadSuccess();
             return;
         }
+
+        mFileSize = allFiles.length;
         //按照最后修改时间排序
         Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
 
@@ -145,8 +147,8 @@ public class UploadManager {
                     //如果没有上传过才上传
                     if (!isUploaded) {
                         partFileInfo.setUploadId(uploadId);
+                        MyLog.d("分片上传", "初始化" + uploadId);
                         uploadFile(file, partFileInfo);
-                        MyLog.d("分片上传", "初始化"+uploadId);
                     } else {
                         File file = new File(partFileInfo.getFilePath());
                         if (file.exists()) {
@@ -455,9 +457,10 @@ public class UploadManager {
     //判断是否上传完成，进入回调
     private void uploadAllFileComplete() {
         completeUploadFileCount++;
+        MyLog.d("分片上传", "成功数" + completeUploadFileCount + "总数" + mFileSize);
         if (completeUploadFileCount >= mFileSize) {
-            onVideoUploadListener.onVideoUploadSuccess();
             MyLog.d("分片上传", "全部上传完成");
+            onVideoUploadListener.onVideoUploadSuccess();
         }
     }
 

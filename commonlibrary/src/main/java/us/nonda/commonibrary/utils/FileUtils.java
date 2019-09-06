@@ -2,8 +2,10 @@ package us.nonda.commonibrary.utils;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+import us.nonda.commonibrary.MyLog;
 
 import java.io.*;
+import java.util.LinkedList;
 
 /**
  * author : shangrong
@@ -282,5 +284,54 @@ public class FileUtils {
             fis.close();
         }
         return bytes;
+    }
+
+    /**
+     * 遍历获取文件夹下所有MP4文件
+     *
+     * @param path
+     */
+    public static File[] traverseFolderGetMP4(String path) {
+        int fileNum = 0, folderNum = 0;
+
+        File file = new File(path);
+        if (file.exists()) {
+            LinkedList<File> fileList = new LinkedList<File>();
+            LinkedList<File> list = new LinkedList<File>();
+
+            File[] files = file.listFiles();
+            for (File file2 : files) {
+                if (file2.isDirectory()) {
+                    list.add(file2);
+                    folderNum++;
+                } else {
+                    if (file2.getName().endsWith("mp4")) {
+                        fileList.add(file2);
+                        fileNum++;
+                    }
+                }
+            }
+            File temp_file;
+            while (!list.isEmpty()) {
+                temp_file = list.removeFirst();
+                files = temp_file.listFiles();
+                for (File file2 : files) {
+                    if (file2.isDirectory()) {
+                        list.add(file2);
+                        folderNum++;
+                    } else {
+                        if (file2.getName().endsWith("mp4")) {
+                            fileList.add(file2);
+                            fileNum++;
+                        }
+                    }
+                }
+            }
+            MyLog.d("上传文件", "文件夹共有:" + folderNum + ",文件共有:" + fileNum);
+            return fileList.toArray(new File[0]);
+        } else {
+            MyLog.d("上传文件", "文件不存在!");
+            return null;
+        }
     }
 }

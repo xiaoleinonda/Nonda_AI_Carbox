@@ -17,6 +17,7 @@ import us.nonda.commonibrary.utils.AppUtils;
 import us.nonda.commonibrary.utils.DeviceUtils;
 import us.nonda.commonibrary.utils.FileUtils;
 import us.nonda.commonibrary.utils.SPUtils;
+import us.nonda.mqttlibrary.mqtt.MqttManager;
 import us.nonda.videopushlibrary.utlis.Md5Utlis;
 
 import java.io.*;
@@ -82,6 +83,7 @@ public class UploadManager {
         }
 
         mFileSize = allFiles.length;
+        MqttManager.Companion.getInstance().publishEventData(1020, String.valueOf(mFileSize));
         //按照最后修改时间排序
         Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
 
@@ -474,7 +476,8 @@ public class UploadManager {
 
     //判断是否上传完成，进入回调，上报结果，删除临时文件夹
     private void uploadAllFileComplete() {
-        MyLog.d("分片上传", "全部上传完成");
+        MyLog.d("分片上传", "全部上传执行完成，成功" + completeUploadFileCount + "个");
+        MqttManager.Companion.getInstance().publishEventData(1021, String.valueOf(completeUploadFileCount));
         onVideoUploadListener.onVideoUploadSuccess();
     }
 

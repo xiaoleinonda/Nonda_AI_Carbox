@@ -38,6 +38,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api project(path: ':commonlibrary')
     implementation project(path: ':cameralibrary')
+    implementation project(path: ':mqttlibrary')
 }
 repositories {
     mavenCentral()

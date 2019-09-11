@@ -312,8 +312,12 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      */
     fun publishSleepStatus(statusBean: StatusBean) {
         val builderData = CloudDriveMqttMessageCreator.CloudDriveMqttBoxStatusData.newBuilder()
-
-        builderData.fw = statusBean.fw
+        val romVersion = android.os.Build.DISPLAY
+        if (TextUtils.isEmpty(romVersion)) {
+            builderData.fw = ""
+        } else {
+            builderData.fw = romVersion
+        }
         builderData.app = statusBean.app
         builderData.lat = statusBean.lat
         builderData.lng = statusBean.lng

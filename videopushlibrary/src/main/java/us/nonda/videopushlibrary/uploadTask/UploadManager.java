@@ -41,6 +41,7 @@ public class UploadManager {
     @Volatile
     private int completeUploadFileCount = 0;
 
+    @Volatile
     private int errorCount = 0;
 
     private final int MAX_ERROR_COUNT = 50;
@@ -50,8 +51,6 @@ public class UploadManager {
 
     //全部要上传文件数
     private int mFileSize;
-
-    private CountDownLatch countDownLatch;
 
     private UploadManager() {
 
@@ -65,8 +64,12 @@ public class UploadManager {
     }
 
     public void start() {
+        //每次重置需要上传文件数，上传成功文件数，上传失败数
+        mFileSize = 0;
+        completeUploadFileCount = 0;
+        errorCount = 0;
+        //获取所有mp4文件
         File[] allFiles = FileUtils.traverseFolderGetMP4(FilePathManager.Companion.get().getAllVideoPath());
-        MyLog.d("分片上传", "总共上传" + mFileSize);
         //如果没有未上传的视频说明上传完毕
         if (allFiles == null || allFiles.length == 0) {
             MyLog.d("分片上传", "没有需要上传的视频");
@@ -84,7 +87,8 @@ public class UploadManager {
         //唤醒设备
         DeviceUtils.cancelIPO();
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
-        countDownLatch = new CountDownLatch(mFileSize);
+
+        final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {
             try {
                 splitPart(file);

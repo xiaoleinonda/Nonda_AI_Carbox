@@ -162,8 +162,9 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         if (!connectSuccessed) {
             MyLog.d(TAG, "还没初始化存到本地" + messageQueue.size + "条消息")
             messageQueue.offer(mqttMessage)
+        } else {
+            publish(mqttMessage)
         }
-        publish(mqttMessage)
     }
 
     private fun publish(mqttMessage: MqttMessage) {
@@ -227,7 +228,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     override fun connectionLost(cause: Throwable?) {
         //停止上传本地数据
         isPublishLocalMessage = false
-        Log.d(TAG, "connectionLost")
+        MyLog.d(TAG, "connectionLost")
         isConnected = false
         mqttState = MQTTSTATE_CONNECTIONLOST
     }
@@ -236,7 +237,9 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      * 消息发送成功接收到的回调
      */
     override fun deliveryComplete(token: IMqttDeliveryToken?) {
-        MyLog.d(TAG, "deliveryComplete")
+        val cloudDriveMqttMessage =
+            CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(token?.message?.payload)
+        MyLog.d(TAG, "deliveryComplete" + cloudDriveMqttMessage.cmd)
         mqttState = MQTTSTATE_DELIVERYCOMPLETE
     }
 
@@ -247,7 +250,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         isConnected = true
         try {
 //            mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
-            Log.d(TAG, "onSuccess发送成功")
+            Log.d(TAG, "mqtt初始化成功")
             connectSuccessed = true
 
             MqttManager.getInstance().publishEventData(1014, "1")
@@ -270,7 +273,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      */
     override fun connectComplete(reconnect: Boolean, serverURI: String?) {
         mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
-        Log.d(TAG, "connectComplete:重连成功")
+        MyLog.d(TAG, "connectComplete:重连成功"+"是否重连"+reconnect)
         if (!isPublishLocalMessage) {
             executorService.submit(Runnable {
                 publishLocalMessage()
@@ -298,7 +301,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                         isPublishLocalMessage = false
                     }
                 } catch (e: Exception) {
-                    MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
+                    MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected + e)
                 }
             }
             MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)

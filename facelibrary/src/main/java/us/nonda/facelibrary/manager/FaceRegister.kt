@@ -46,8 +46,6 @@ class FaceRegister constructor(
     private var width = 640
     private var height = 480
 
-//        private var width = 480
-//    private var height = 640
     fun registFace(faceImage: FaceImage) {
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
@@ -65,8 +63,8 @@ class FaceRegister constructor(
             val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
             val matrix = Matrix()
             matrix.postScale(
-                width.toFloat() / serverBitmap.width,
-                height.toFloat() / serverBitmap.height
+                width.toFloat() / serverBitmap.height,
+                height.toFloat() / serverBitmap.width
             )
             matrix.postRotate(270f)
             val bitmap = Bitmap.createBitmap(serverBitmap, 0, 0, serverBitmap.width, serverBitmap.height, matrix, false)

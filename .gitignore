@@ -36,3 +36,6 @@ facelibrary/src/main/assets/recognize_rgb_idcard_pytorch_anakin_2.0.2.bin
 facelibrary/src/main/assets/recognize_rgb_live_pytorch_anakin_2.0.2.bin
 facelibrary/src/main/assets/remove_texture.model_fix
 facelibrary/src/main/assets/super_resolution.model_fix
+app/debug/output.json
+app/release/NondaFace_v1.0.1.apk
+app/release/output.json

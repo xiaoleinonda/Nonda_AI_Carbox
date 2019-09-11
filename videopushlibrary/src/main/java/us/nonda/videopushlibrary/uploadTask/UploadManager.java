@@ -52,8 +52,6 @@ public class UploadManager {
     //全部要上传文件数
     private int mFileSize;
 
-    private CountDownLatch countDownLatch;
-
     private UploadManager() {
 
     }
@@ -89,7 +87,8 @@ public class UploadManager {
         //唤醒设备
         DeviceUtils.cancelIPO();
         mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
-        countDownLatch = new CountDownLatch(mFileSize);
+
+        final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {
             try {
                 splitPart(file);

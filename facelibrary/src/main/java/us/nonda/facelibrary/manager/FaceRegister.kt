@@ -11,6 +11,8 @@ import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.utils.AppUtils
+import us.nonda.commonibrary.utils.PathUtils
 import us.nonda.facelibrary.db.DBManager
 import us.nonda.facelibrary.db.FaceApi
 import us.nonda.facelibrary.model.FaceImage
@@ -41,10 +43,11 @@ class FaceRegister constructor(
     /**
      * 宽高反转
      */
-    private var width = 480
-    private var height = 640
+    private var width = 640
+    private var height = 480
 
-
+//        private var width = 480
+//    private var height = 640
     fun registFace(faceImage: FaceImage) {
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
@@ -56,33 +59,34 @@ class FaceRegister constructor(
         mqttPulish("特征提取中...")
 
         removeFace {
-        mqttPulish("start register face")
-        MyLog.d(TAG, "start register face")
-        this.userId = userId
-        val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
-        val matrix = Matrix()
-        matrix.postScale(
-            width.toFloat() / serverBitmap.width,
-            height.toFloat() / serverBitmap.height
-        )
-        val bitmap = Bitmap.createBitmap(serverBitmap, 0, 0, serverBitmap.width, serverBitmap.height, matrix, false)
-
-        if (bitmap != null) {
-            val rgbArray = IntArray(bitmap.width * bitmap.height)
-            bitmap.getPixels(
-                rgbArray, 0, bitmap.width, 0, 0,
-                bitmap.width, bitmap.height
+            mqttPulish("start register face")
+            MyLog.d(TAG, "start register face")
+            this.userId = userId
+            val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
+            val matrix = Matrix()
+            matrix.postScale(
+                width.toFloat() / serverBitmap.width,
+                height.toFloat() / serverBitmap.height
             )
+            matrix.postRotate(270f)
+            val bitmap = Bitmap.createBitmap(serverBitmap, 0, 0, serverBitmap.width, serverBitmap.height, matrix, false)
 
-            checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
+            if (bitmap != null) {
+                val rgbArray = IntArray(bitmap.width * bitmap.height)
+                bitmap.getPixels(
+                    rgbArray, 0, bitmap.width, 0, 0,
+                    bitmap.width, bitmap.height
+                )
+
+                checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
 
 
-        } else {
-            MyLog.d(TAG, "解析图片失败")
+            } else {
+                MyLog.d(TAG, "解析图片失败")
 
-            mqttPulish("解析图片失败")
+                mqttPulish("解析图片失败")
 
-        }
+            }
 
         }
 
@@ -110,6 +114,9 @@ class FaceRegister constructor(
             livenessModel.imageFrame.height = height
 
             if (maxFace != null && maxFace.size > 0) {
+                val faceInfo1 = maxFace[0]
+                val mAngle = faceInfo1.mAngle
+                MyLog.d(TAG, "人脸角度=$mAngle")
                 livenessModel.trackFaceInfo = maxFace
                 val faceInfo = maxFace[0]
                 livenessModel.landmarks = faceInfo.landmarks
@@ -258,9 +265,20 @@ class FaceRegister constructor(
 
     private fun trackMaxFace(rgbArray: IntArray, width: Int, height: Int): Array<FaceInfo>? {
         val minFaceSize = FaceSDKManager2.instance.getMinFaceSize()
+
         if (width < minFaceSize || height < minFaceSize) {
             return null
         }
+        val sdCardPath = PathUtils.getSDCardPath(AppUtils.context)
+
+        val saveBitmapToSDCard = us.nonda.commonibrary.utils.FileUtils.saveBitmapToSDCard(
+            rgbArray,
+            width,
+            height,
+            sdCardPath + "/maxFaceSize/",
+            "${System.currentTimeMillis()}ni"
+        )
+        MyLog.d(TAG, "人脸注册的图片：$saveBitmapToSDCard")
 
         return faceDetect.trackMaxFace(rgbArray, height, width)
     }
@@ -269,7 +287,7 @@ class FaceRegister constructor(
 
         val listFeatures = DBManager.getInstance().queryFeature()
 
-        if (listFeatures!=null &&listFeatures.size > 0) {
+        if (listFeatures != null && listFeatures.size > 0) {
             DeleteFaceUtil.deleteFace(deleteSuccessCallback)
         } else {
             deleteSuccessCallback.invoke()

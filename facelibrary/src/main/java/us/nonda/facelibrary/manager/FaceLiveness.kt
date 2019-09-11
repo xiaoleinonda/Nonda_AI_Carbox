@@ -48,7 +48,7 @@ class FaceLiveness constructor(
     /******   config   ****/
     private var EMOTION_FREQ_TIME: Long = 1000
     private var FACEFEATURE_FREQ_TIME: Long = 1000
-    private var rotation = 0
+    private var rotation = 180
     private var mirror = 0
 
     private var emotionPreTime: Long = 0
@@ -246,7 +246,7 @@ class FaceLiveness constructor(
 
                     val feature1 = FaceSDKManager2.instance.getFaceFeature(
                         FaceFeature.FeatureType.FEATURE_VIS,
-                        getFeatureByte(),
+                        featureByte,
                         this
                     )
 

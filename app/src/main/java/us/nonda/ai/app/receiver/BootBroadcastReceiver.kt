@@ -21,7 +21,7 @@ class BootBroadcastReceiver : BroadcastReceiver() {
         FaceSDKManager2.instance.clearFace()
 
         if (action == intent?.action) {
-            MyLog.d(TAG, "开机")
+            MyLog.d("广播", "开机")
 /*
             Intent(context, MainActivity::class.java).run {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -29,7 +29,7 @@ class BootBroadcastReceiver : BroadcastReceiver() {
             }*/
         }else if (actionShutSown == intent?.action) {
 
-            MyLog.d(TAG, "关机")
+            MyLog.d("广播", "关机")
         }
     }
 }

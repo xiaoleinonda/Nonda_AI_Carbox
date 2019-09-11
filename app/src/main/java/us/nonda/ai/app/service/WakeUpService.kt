@@ -11,6 +11,7 @@ import us.nonda.ai.controler.CarBoxControler
 import java.util.concurrent.TimeUnit
 
 class WakeUpService : Service() {
+
     override fun onBind(p0: Intent?): IBinder? {
          return null
     }
@@ -19,6 +20,8 @@ class WakeUpService : Service() {
     private val TIME_IPO_ON: Long = 1 * 1000 * 60 * 30
 
     companion object {
+        var isWakeUp = false
+
         fun startService(context: Context) {
             context.startService(Intent(context, WakeUpService::class.java))
         }
@@ -43,12 +46,14 @@ class WakeUpService : Service() {
         if (timerDisposable != null && !timerDisposable!!.isDisposed) {
             timerDisposable!!.dispose()
         }
-        timerDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+        isWakeUp = false
+        timerDisposable = Observable.interval(0, 20, TimeUnit.MINUTES)
             .observeOn(Schedulers.io())
             .subscribe {
                 if (it == TIME_IPO_ON) {
                     timerDisposable?.dispose()
                     CarBoxControler.instance.exitIpo()
+                    isWakeUp = true
                     stopSelf()
                 }
             }

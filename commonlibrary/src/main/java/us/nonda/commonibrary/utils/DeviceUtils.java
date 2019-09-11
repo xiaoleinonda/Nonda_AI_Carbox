@@ -71,4 +71,16 @@ public class DeviceUtils {
         SysProp.set("sys.need.update", "true");
         MyLog.d("上传视频取消休眠", "取消自动休眠");
     }
+
+    /**
+     * true是休眠
+     * false是未休眠
+     * @return
+     */
+    public static boolean getIpoStatus() {
+        String ipo = SysProp.get("sys.ipo.shutdown", "0");
+        return TextUtils.equals("1", ipo);
+    }
+
+
 }

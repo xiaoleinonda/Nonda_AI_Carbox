@@ -4,9 +4,14 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import org.greenrobot.eventbus.EventBus
+import us.nonda.ai.app.base.NondaApp
 import us.nonda.ai.app.service.WakeUpService
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.event.IpoEvent
+import us.nonda.commonibrary.utils.DeviceLightUtils
+import us.nonda.commonibrary.utils.DeviceUtils
 
 /**
  * IPO广播
@@ -19,37 +24,16 @@ class IPOBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if (action_ipo_on == intent?.action) {
-            MyLog.d(TAG, "唤醒")
-            onIpoON(context)
-            Log.d("NondaApp", "唤醒")
+            NondaApp.ipoStatus = true
+            MyLog.d("广播", "唤醒  ")
+            EventBus.getDefault().post(IpoEvent(1))
         } else if (action_ipo_off == intent?.action) {
-            MyLog.d(TAG, "休眠")
-            Log.d("NondaApp", "休眠")
-
-            onIpoOff(context)
+            NondaApp.ipoStatus = false
+            MyLog.d("广播", "休眠   ")
+            EventBus.getDefault().post(IpoEvent(2))
         }
     }
 
-    /**
-     * 休眠
-     */
-    private fun onIpoOff(context: Context?) {
-        CarBoxControler.instance.onIpoOff(context)
-    }
-
-    /**
-     * 唤醒
-     */
-    private fun onIpoON(context: Context?) {
-        val accOff = CarBoxControler.instance.isAccOff()
-        WakeUpService.stopService(context!!)
-        if (!accOff) {//acc on
-//            CarBoxControler.instance.wakeUp(context!!)
-        } else {
-            CarBoxControler.instance.onIpoONGetGps()
-        }
-
-    }
 
 
 }

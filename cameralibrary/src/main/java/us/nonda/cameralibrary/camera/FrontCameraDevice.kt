@@ -106,11 +106,11 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
 
          }*/
 
-       /* if (!isPreviewed && surfaceCreated) {
-            _startPreview(surfaceHolder)
-        }*/
+        /* if (!isPreviewed && surfaceCreated) {
+             _startPreview(surfaceHolder)
+         }*/
 
-        cameraDevice.setRecordStatusCallback(object : RecordStatusCallback{
+        cameraDevice.setRecordStatusCallback(object : RecordStatusCallback {
             override fun onRecordStatusChanged(p0: Int, p1: Int) {
                 MyLog.d(TAG, "录制状态 recordStatus=$p0  cameraID=$p1")
             }
@@ -130,19 +130,19 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
             isPreviewed = true
             _startRecord()
 
-          /*  if (cameraStatus1 == STATE_IDLE) {
-                startPreview()
-                val cameraStatus2 = getCameraStatus(cameraID)
-                MyLog.d(TAG, "预览结束  cameraStatus=$cameraStatus2")
-            }
+            /*  if (cameraStatus1 == STATE_IDLE) {
+                  startPreview()
+                  val cameraStatus2 = getCameraStatus(cameraID)
+                  MyLog.d(TAG, "预览结束  cameraStatus=$cameraStatus2")
+              }
 
-            startYuvVideoFrame(YUVFrameType.yuvPreviewFrame)
-            isPreviewed = true
+              startYuvVideoFrame(YUVFrameType.yuvPreviewFrame)
+              isPreviewed = true
 
-//            val cameraStatus = getCameraStatus(cameraID)
+  //            val cameraStatus = getCameraStatus(cameraID)
 
-//            MyLog.d("相机", "MAINcheck是否需要开启录制cameraStatus=$cameraStatus")
-            _startRecord()*/
+  //            MyLog.d("相机", "MAINcheck是否需要开启录制cameraStatus=$cameraStatus")
+              _startRecord()*/
 
 
             /*  if ( cameraStatus== STATE_RECORDING) {
@@ -150,10 +150,10 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
                   _startRecord()
 
               }*/
-           /* if (cameraStatus == STATE_PREVIEW || cameraStatus== STATE_RECORDING) {
-                MyLog.d("相机", "准备去开启录制cameraStatus=$cameraStatus")
-                _startRecord()
-            }*/
+            /* if (cameraStatus == STATE_PREVIEW || cameraStatus== STATE_RECORDING) {
+                 MyLog.d("相机", "准备去开启录制cameraStatus=$cameraStatus")
+                 _startRecord()
+             }*/
 
         }
 
@@ -162,12 +162,12 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private var isFirst = true
 
     private fun _startRecord() {
-      /*  val cameraStatus = getCameraStatus(cameraID)
-        if (cameraStatus == STATE_RECORDING) {
+        /*  val cameraStatus = getCameraStatus(cameraID)
+          if (cameraStatus == STATE_RECORDING) {
 
-            MyLog.d("相机", "MAIN发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
-            cameraDevice?.stopRecord()
-        }*/
+              MyLog.d("相机", "MAIN发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
+              cameraDevice?.stopRecord()
+          }*/
         val record = cameraDevice?.startRecord()
         val cameraStatus2 = getCameraStatus(cameraID)
 
@@ -177,24 +177,19 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
             null -> {
                 cameraCallback?.onRecordFailed(-100)
             }
-            -1 -> {
-                MyLog.d(TAG, "录制-1， 关闭录制")
-                if (isFirst) {
-                    cameraDevice?.stopRecord()
-                    MyLog.d(TAG, "前路摄像头录制-1， 已关闭录制status=${getCameraStatus(cameraID)}  重新开启录制")
-
-                    isFirst = false
-                    _startRecord()
-                }else {
-                    cameraCallback?.onRecordFailed(record)
-                }
-            }
             0 -> {
                 recording = true
                 cameraCallback?.onRecordSucceed()
             }
             else -> {
-                cameraCallback?.onRecordFailed(record)
+                if (isFirst) {
+                    cameraDevice?.stopRecord()
+                    MyLog.d(TAG, "摄像头录制失败record=$record， 已关闭录制status=${getCameraStatus(cameraID)}  重新开启录制")
+                    isFirst = false
+                    _startRecord()
+                } else {
+                    cameraCallback?.onRecordFailed(record)
+                }
             }
         }
         MyLog.d(TAG, "录制结果=" + record)
@@ -209,7 +204,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
             setYuvCallback(null)
             release()
 //            if (isPreviewed) {
-                stopPreview()
+            stopPreview()
 //            }
             isPreviewed = false
             CarcorderManager.get().closeCameraDevice(cameraID)
@@ -302,7 +297,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private fun getCameraStatus(cameraId: Int) = CarcorderManager.get().getCameraState(cameraId)
 
 
-    private fun restartPreview(surfaceHolder: SurfaceHolder){
+    private fun restartPreview(surfaceHolder: SurfaceHolder) {
         cameraDevice?.run {
             setPreviewSurface(surfaceHolder.surface)
             val cameraStatus1 = getCameraStatus(cameraID)
@@ -360,7 +355,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
 
     }
 
-    fun startPreview(surfaceHolder: SurfaceHolder){
+    fun startPreview(surfaceHolder: SurfaceHolder) {
         if (!isPreviewed) {
             if (recording) {
                 MyLog.d(TAG, "restartPreview")

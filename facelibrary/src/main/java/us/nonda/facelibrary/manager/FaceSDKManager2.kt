@@ -413,7 +413,7 @@ class FaceSDKManager2 private constructor() {
                     onGetFacePictureFailed(it.msg)
                 }
             }, {
-                it.message?.let { it1 -> onGetFacePictureFailed(it1) }
+                it.message?.let { it1 -> onGetFacePictureFailed("异常："+it1) }
             })
 
     }
@@ -536,8 +536,22 @@ class FaceSDKManager2 private constructor() {
                  }
              }
          }*/
+        val queryFeature = DBManager.getInstance().queryFeature()
+        if (queryFeature != null && queryFeature.size > 0) {
+            val feature = queryFeature[0]
+            val v = faceFeature.featureCompare(FaceFeature.FeatureType.FEATURE_VIS, feature.feature, curFeature)
+            liveModel.featureScore = feature.score
+            MyLog.d(TAG, "比对结果featureCompare=$v")
 
-        val featureCpp = faceFeature.featureCompareCpp(
+            if (v >= 70f) {
+                return feature;
+            }
+        } else {
+            MyLog.d(TAG, "还没有注册人脸")
+
+        }
+
+    /*    val featureCpp = faceFeature.featureCompareCpp(
             curFeature, featureType, 90f
         )
         log("faceFeature=$faceFeature   featureCpp=$featureCpp")
@@ -554,7 +568,7 @@ class FaceSDKManager2 private constructor() {
                 featureLRUCache.put(feature.getUserName(), feature)
                 return feature
             }
-        }
+        }*/
         return null
     }
 

@@ -13,10 +13,7 @@ import us.nonda.commonibrary.MyLog;
 import us.nonda.commonibrary.http.BaseResult;
 import us.nonda.commonibrary.http.NetModule;
 import us.nonda.commonibrary.model.*;
-import us.nonda.commonibrary.utils.AppUtils;
-import us.nonda.commonibrary.utils.DeviceUtils;
-import us.nonda.commonibrary.utils.FileUtils;
-import us.nonda.commonibrary.utils.SPUtils;
+import us.nonda.commonibrary.utils.*;
 import us.nonda.mqttlibrary.mqtt.MqttManager;
 import us.nonda.videopushlibrary.utlis.Md5Utlis;
 
@@ -77,6 +74,8 @@ public class UploadManager {
             return;
         }
 
+        DeviceLightUtils.Companion.putLightStatus();
+        DeviceLightUtils.Companion.flashWathet();
         mFileSize = allFiles.length;
         MqttManager.Companion.getInstance().publishEventData(1020, String.valueOf(mFileSize));
         //按照最后修改时间排序

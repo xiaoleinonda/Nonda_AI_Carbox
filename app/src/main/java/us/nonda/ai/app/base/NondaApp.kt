@@ -23,6 +23,9 @@ class NondaApp : Application() {
     companion object {
         lateinit var instance: Context
         private val SP_KEY_APP_VERSION = "sp_key_app_version"
+
+        var accStatus:Boolean = true
+        var ipoStatus:Boolean = true
     }
 
     override fun onCreate() {

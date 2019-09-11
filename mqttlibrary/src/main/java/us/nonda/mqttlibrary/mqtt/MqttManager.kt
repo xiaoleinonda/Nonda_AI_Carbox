@@ -302,7 +302,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                 }
             }
             MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)
-        }else{
+        } else {
             isPublishLocalMessage = false
         }
     }

@@ -42,7 +42,11 @@ class VideoRecordActivity : AppCompatActivity() {
 
 
     companion object {
+        var isOpen = false
         fun starter(context: Context) {
+            if (isOpen) {
+                return
+            }
             MyLog.d("VideoRecordActivity", "starter")
 
             val intent = Intent(context, VideoRecordActivity::class.java)
@@ -51,6 +55,7 @@ class VideoRecordActivity : AppCompatActivity() {
         }
 
         fun finish() {
+            isOpen = false
             MyLog.d("VideoRecordActivity", "finish")
             FinishActivityManager.getManager().finishActivity(VideoRecordActivity::class.java)
         }
@@ -61,7 +66,7 @@ class VideoRecordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_video_record2)
         MyLog.d(TAG, "onCreate")
         FinishActivityManager.getManager().addActivity(this)
-
+        isOpen = true
         FaceSDKManager2.instance.isRegisted = false
 
         btn.setOnClickListener {
@@ -352,6 +357,7 @@ class VideoRecordActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         MyLog.d(TAG, "onDestroy")
+        isOpen = false
 
         FaceSDKManager2.instance.onCameraClose()
         closeService()

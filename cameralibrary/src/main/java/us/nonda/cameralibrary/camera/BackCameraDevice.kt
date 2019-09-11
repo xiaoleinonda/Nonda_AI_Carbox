@@ -195,25 +195,19 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             null -> {
                 cameraCallback?.onRecordFailed(-100)
             }
-            -1 -> {
-                MyLog.d(TAG, "录制-1， 关闭录制")
-
-                if (isFirst) {
-                    cameraDevice?.stopRecord()
-                    MyLog.d(TAG, "前路摄像头录制-1， 已关闭录制status=${getCameraStatus(cameraID)}  重新开启录制")
-
-                    isFirst = false
-                    _startRecord()
-                } else {
-                    cameraCallback?.onRecordFailed(record)
-                }
-            }
             0 -> {
                 recording = true
                 cameraCallback?.onRecordSucceed()
             }
             else -> {
-                cameraCallback?.onRecordFailed(record)
+                if (isFirst) {
+                    cameraDevice?.stopRecord()
+                    MyLog.d(TAG, "摄像头录制失败record=$record， 已关闭录制status=${getCameraStatus(cameraID)}  重新开启录制")
+                    isFirst = false
+                    _startRecord()
+                } else {
+                    cameraCallback?.onRecordFailed(record)
+                }
             }
         }
         MyLog.d(TAG, "录制结果=" + record)

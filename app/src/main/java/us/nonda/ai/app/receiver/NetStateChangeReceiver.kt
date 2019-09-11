@@ -10,6 +10,7 @@ import com.yaoxiaowen.download.DownloadHelper
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.utils.AppUtils
+import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.commonibrary.utils.NetworkUtil
 import us.nonda.facelibrary.manager.FaceSDKManager
 import us.nonda.facelibrary.manager.FaceSDKManager2
@@ -22,13 +23,12 @@ class NetStateChangeReceiver : BroadcastReceiver() {
         if (ConnectivityManager.CONNECTIVITY_ACTION == intent.action) {
             val connectivityStatus = NetworkUtil.getConnectivityStatus(context)
             if (connectivityStatus) {
-                MyLog.d("网络", "有网")
+                MyLog.d("广播", "有网")
 //                initDevice()
                 MqttManager.getInstance().onStart()
                 checkAccStatus()
             } else {
-                MyLog.d("网络", "断网")
-
+                MyLog.d("广播", "断网")
                 MqttManager.getInstance().onStop()
             }
         }

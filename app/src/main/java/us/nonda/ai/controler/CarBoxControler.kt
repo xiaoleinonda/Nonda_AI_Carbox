@@ -12,7 +12,9 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import us.nonda.ai.app.base.NondaApp
 import us.nonda.ai.app.service.WakeUpService
+import us.nonda.ai.app.service.WakeUpService.Companion.isWakeUp
 import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.cameralibrary.status.CameraStatus
@@ -20,6 +22,7 @@ import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.SysProp
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.utils.AppUtils
+import us.nonda.commonibrary.utils.DeviceLightUtils
 import us.nonda.commonibrary.utils.DeviceUtils
 import us.nonda.commonibrary.utils.StringUtils
 import us.nonda.mqttlibrary.model.StatusBean
@@ -59,13 +62,19 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
          */
         val mode = SysProp.get("persist.calibration.mode", "-1")//自己的调试模式
         val oqcMode = SysProp.get("persist.installation.test.mode", "-1")//锐承自己的OQC模式
+        MyLog.d(TAG, "openCamera  mode=$mode  oqcMode=$oqcMode")
 
         if (TextUtils.equals(mode, "1") || TextUtils.equals(oqcMode, "1")) {
             return
         }
+        MyLog.d(TAG, "openCamera  NondaApp.accStatus=${NondaApp.accStatus}  NondaApp.ipoStatus=${NondaApp.ipoStatus}")
 
+        if (!NondaApp.accStatus || !NondaApp.ipoStatus) {
+            return
+        }
 
         if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
+            MyLog.d(TAG, "dispose")
             cameraDisposable!!.dispose()
         }
         cameraDisposable = Observable.timer(2000, TimeUnit.MILLISECONDS)
@@ -107,7 +116,6 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     fun onAccOff() {
         closeCamera()
         //取消休眠
-        cancelIPO()
         accOffModeWork()
     }
 
@@ -122,7 +130,9 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
             MyLog.d("需要下载", "当前版本号" + AppUtils.getVersionName(AppUtils.context))
 
             MqttManager.getInstance().publishEventData(1018, "")
-
+//下载
+            DeviceLightUtils.putLightStatus()
+            DeviceLightUtils.flashPink()
             DownloadHelper.getInstance().setOnDownloadListener(this)
             DownloadHelper.getInstance().addTask(AppUtils.context, url, appVersion)
         } else {
@@ -172,6 +182,8 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     private fun onUploadVideoSucceed() {
         if (isAccOff()) {
             noticeIPO(AppUtils.context)
+        } else {
+            DeviceLightUtils.restoreLastLightStatus()
         }
     }
 
@@ -205,7 +217,11 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      */
     fun getAccStatus() = CameraStatus.instance.getAccStatus()
 
-    fun isAccOff(): Boolean = getAccStatus() == 0
+    fun isAccOff(): Boolean {
+        val accStatus = getAccStatus()
+        MyLog.d("acc状态", "accStatus=$accStatus")
+        return accStatus == 0
+    }
 
 
     /**
@@ -253,6 +269,9 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      */
     @SuppressLint("CheckResult")
     fun onIpoONGetGps() {
+        if (!isWakeUp) {
+            return
+        }
         MyLog.d(TAG, "acc off下被唤醒了 开始上报GPS和电量")
 
 /*
@@ -331,11 +350,12 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 
     override fun onDownloadSuccess() {
         MyLog.d(TAG, "下载apk成功")
-
+        DeviceLightUtils.restoreLastLightStatus()
     }
 
     override fun onDownloadFailure() {
         MyLog.d(TAG, "下载apk失败")
+        DeviceLightUtils.restoreLastLightStatus()
 
 //        CarBoxControler.instance.checkOTA()
 //        DownloadHelper.getInstance().addCarBoxTask(AppUtils.context)
@@ -377,15 +397,18 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 
 
     override fun onVideoUploadSuccess() {
+//        DeviceLightUtils.restoreLastLightStatus()
         onUploadVideoSucceed()
     }
 
     override fun onLowBattery() {
+//        DeviceLightUtils.restoreLastLightStatus()
         noticeIPO(AppUtils.context)
         MyLog.d("分片上传", "电压过低")
     }
 
     override fun onVideoUploadFail() {
+//        DeviceLightUtils.restoreLastLightStatus()
         noticeIPO(AppUtils.context)
         MyLog.d("分片上传", "上传失败过多")
     }

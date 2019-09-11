@@ -1,5 +1,7 @@
 package us.nonda.commonibrary.utils;
 
+import android.text.TextUtils;
+
 import java.io.*;
 
 public class StringUtils {
@@ -47,5 +49,27 @@ public class StringUtils {
         }
 
         return str;
+    }
+
+    public static void writeString(String path, String str) {
+        if (TextUtils.isEmpty(path)) {
+            return;
+        }
+        BufferedWriter bufferedWriter = null;
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(path));
+            bufferedWriter.write(str);
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

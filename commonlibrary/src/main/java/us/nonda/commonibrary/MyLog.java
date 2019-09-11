@@ -90,7 +90,9 @@ public class MyLog {
 
             if (MYLOG_WRITE_TO_FILE)//日志写入文件开关
                 try {
-                    writeLogtoFile(String.valueOf(level), tag, msg);
+//                    if (TextUtils.equals("广播", tag)) {
+                        writeLogtoFile(String.valueOf(level), tag, msg);
+//                    }
                 } catch (Exception e) {
                     Log.d("本地log日志异常", Objects.requireNonNull(e.getMessage()));
                 }

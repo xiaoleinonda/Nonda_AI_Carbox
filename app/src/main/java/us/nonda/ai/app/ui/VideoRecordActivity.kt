@@ -21,6 +21,7 @@ import us.nonda.cameralibrary.camera.*
 import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
+import us.nonda.commonibrary.utils.DeviceLightUtils
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.manager.FaceSDKManager2
@@ -307,10 +308,6 @@ class VideoRecordActivity : AppCompatActivity() {
 
     }
 
-    private var recordFailedBack = false
-    private var recordFailedFront = false
-
-
     private fun face(bytes: ByteArray, width: Int, height: Int) {
         FaceSDKManager2.instance.recognition(bytes, width, height)
     }
@@ -329,6 +326,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
 
     private fun initkFace() {
+        DeviceLightUtils.normallYellow()
         FaceSDKManager2.instance.init()
     }
 

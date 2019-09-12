@@ -8,6 +8,7 @@ import com.mediatek.carcorder.CameraDevice
 import com.mediatek.carcorder.CameraDevice.*
 import com.mediatek.carcorder.CameraInfo
 import com.mediatek.carcorder.CarcorderManager
+import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import us.nonda.cameralibrary.model.PictureModel
@@ -44,6 +45,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private var cameraCallback: CameraCallback? = null
 
     private var recording = false
+    private var subscribeEmotion: Disposable? = null
 
     fun camera(callback: CameraCallback) {
         cameraCallback = callback
@@ -55,8 +57,10 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
         }
 */
 
-
-        pictureFrontProcessor.subscribeOn(Schedulers.io())
+        if (subscribeEmotion?.isDisposed == false) {
+            subscribeEmotion?.dispose()
+        }
+        subscribeEmotion = pictureFrontProcessor.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
@@ -364,6 +368,13 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
                 MyLog.d(TAG, "_startPreview")
                 _startPreview(surfaceHolder)
             }
+        }
+    }
+
+    fun onDestroy() {
+        closeCamera()
+        if (subscribeEmotion?.isDisposed == false) {
+            subscribeEmotion?.dispose()
         }
     }
 }

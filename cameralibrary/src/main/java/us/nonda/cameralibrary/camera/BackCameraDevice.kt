@@ -18,7 +18,8 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 
 class BackCameraDevice constructor(private var surfaceView: SurfaceView) : SurfaceHolder.Callback {
 
-    private var subscribe: Disposable? = null
+    private var subscribeEmotion: Disposable? = null
+    private var subscribeFace: Disposable? = null
 
     private val TAG = "USB摄像头"
 
@@ -47,15 +48,44 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
     var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
 
+    private var cameraAvailableCallback: CarcorderManager.CameraAvailableCallback? = null
+
     fun camera(callback: CameraCallback) {
         cameraCallback = callback
         val surfaceHolder = initPreview()
 
+        if (cameraAvailableCallback == null) {
+            cameraAvailableCallback = object : CarcorderManager.CameraAvailableCallback {
+                override fun onAvailable(cameraid: Int, status: Int) {
+                    MyLog.d(TAG, "热插拔：p0=$cameraid  p1=$status")
+                    if (cameraid == 1) {
+                        when (status) {
+                            CarcorderManager.CameraAvailableCallback.STATUS_CAMERA_ADDED -> {
+                                initCamera()
+                                if (!isPreviewed && surfaceCreated) {
+                                    _startPreview(surfaceHolder)
+                                }
+                            }
+                            CarcorderManager.CameraAvailableCallback.STATUS_CAMERA_REMOVED -> {
+                                closeCamera()
+                            }
+                            else -> {
+                            }
+                        }
 
-        if (subscribe?.isDisposed == false) {
-            subscribe?.dispose()
+                    }
+                }
+
+            }
+
         }
-        subscribe = pictureProcessor.subscribeOn(Schedulers.io())
+        CarcorderManager.get().addCameraAvailableCallback(cameraAvailableCallback)
+
+        if (subscribeEmotion?.isDisposed == false) {
+            subscribeEmotion?.dispose()
+        }
+
+        subscribeEmotion = pictureProcessor.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
@@ -66,7 +96,10 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
             }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
 
-        pictureFaceProcessor.subscribeOn(Schedulers.io())
+        if (subscribeFace?.isDisposed == false) {
+            subscribeFace?.dispose()
+        }
+        subscribeFace = pictureFaceProcessor.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
@@ -122,10 +155,6 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
         })
 
-        /*   if (!isPreviewed && surfaceCreated) {
-               _startPreview(surfaceHolder)
-           }
-   */
 
     }
 
@@ -137,29 +166,29 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             isPreviewed = true
             _startRecord()
 
-          /*  if (getCameraStatus(cameraID) == CameraDevice.STATE_IDLE) {
-                startPreview()
-                val cameraStatus = getCameraStatus(cameraID)
-                MyLog.d(TAG, "预览后 cameraStatus=$cameraStatus")
-            }
+            /*  if (getCameraStatus(cameraID) == CameraDevice.STATE_IDLE) {
+                  startPreview()
+                  val cameraStatus = getCameraStatus(cameraID)
+                  MyLog.d(TAG, "预览后 cameraStatus=$cameraStatus")
+              }
 
-            startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
-            isPreviewed = true
+              startYuvVideoFrame(CameraDevice.YUVFrameType.yuvPreviewFrame)
+              isPreviewed = true
 
 
 
-            _startRecord()*/
+              _startRecord()*/
 
-           /* if (cameraStatus == CameraDevice.STATE_PREVIEW || cameraStatus == CameraDevice.STATE_RECORDING) {
-                _startRecord()
-            }*/
+            /* if (cameraStatus == CameraDevice.STATE_PREVIEW || cameraStatus == CameraDevice.STATE_RECORDING) {
+                 _startRecord()
+             }*/
         }
 
     }
 
     private var isFirst = true
 
-    private fun restartPreview(surfaceHolder: SurfaceHolder){
+    private fun restartPreview(surfaceHolder: SurfaceHolder) {
         cameraDevice?.run {
             setPreviewSurface(surfaceHolder.surface)
             val cameraStatus1 = getCameraStatus(cameraID)
@@ -178,14 +207,14 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     }
 
     private fun _startRecord() {
-     /*   val cameraStatus = getCameraStatus(cameraID)
-        if (cameraStatus == CameraDevice.STATE_RECORDING) {
-            MyLog.d("相机", "USB发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
+        /*   val cameraStatus = getCameraStatus(cameraID)
+           if (cameraStatus == CameraDevice.STATE_RECORDING) {
+               MyLog.d("相机", "USB发现正在录制开时 retrue cameraStatus=$cameraStatus 开始关闭录制重新打开")
 
-            cameraDevice?.stopRecord()
+               cameraDevice?.stopRecord()
 
-//            return
-        }*/
+   //            return
+           }*/
         val record = cameraDevice?.startRecord()
 
         val cameraStatus2 = getCameraStatus(cameraID)
@@ -223,7 +252,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             release()
             if (isPreviewed) {
                 stopPreview()
-            isPreviewed = false
+                isPreviewed = false
             }
             CarcorderManager.get().closeCameraDevice(cameraID)
 
@@ -231,6 +260,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             recording = false
             MyLog.d(TAG, "closeCamera")
         }
+        cameraDevice = null
     }
 
     private fun initParameters(cameraDevice: CameraDevice, cameraID: Int) {
@@ -355,7 +385,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     }
 
-    fun startPreview(surfaceHolder: SurfaceHolder){
+    fun startPreview(surfaceHolder: SurfaceHolder) {
         if (!isPreviewed) {
             if (recording) {
                 MyLog.d(TAG, "restartPreview")
@@ -366,7 +396,21 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
             }
         }
     }
+
     private var recording = false
 
+    fun onDestroy() {
+        closeCamera()
+        if (cameraAvailableCallback != null) {
+            CarcorderManager.get().removeCameraAvailableCallback(cameraAvailableCallback)
+        }
+        if (subscribeEmotion?.isDisposed == false) {
+            subscribeEmotion?.dispose()
+        }
+        if (subscribeFace?.isDisposed == false) {
+            subscribeFace?.dispose()
+        }
+
+    }
 
 }

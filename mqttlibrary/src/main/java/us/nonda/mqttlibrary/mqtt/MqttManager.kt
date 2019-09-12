@@ -104,7 +104,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
             try {
                 mqttConnectOptions.setWill(topic, message.toByteArray(), qos, retained)
             } catch (e: Exception) {
-                Log.i(TAG, "Exception Occured", e)
+                MyLog.d(TAG, "Exception Occured=$e")
                 onFailure(null, e)
             }
         }
@@ -115,12 +115,12 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         if (!mqttAndroidClient.isConnected) {
             try {
                 mqttAndroidClient.connect(mqttConnectOptions, null, this)
-                Log.d(TAG, "mqtt建立连接")
+                MyLog.d(TAG, "mqtt建立连接")
             } catch (e: MqttException) {
                 e.printStackTrace()
             }
         } else {
-            Log.d(TAG, "网络重新连接" + mqttAndroidClient.isConnected)
+            MyLog.d(TAG, "网络重新连接" + mqttAndroidClient.isConnected)
         }
     }
 
@@ -129,7 +129,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         if (mqttAndroidClient.isConnected) {
             mqttAndroidClient.disconnect()
         }
-        Log.d(TAG, "网络断开" + mqttAndroidClient.isConnected)
+        MyLog.d(TAG, "网络断开" + mqttAndroidClient.isConnected)
 
     }
 
@@ -250,7 +250,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         isConnected = true
         try {
 //            mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
-            Log.d(TAG, "mqtt初始化成功")
+            MyLog.d(TAG, "mqtt初始化成功")
             connectSuccessed = true
 
             MqttManager.getInstance().publishEventData(1014, "1")
@@ -259,13 +259,13 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
             MqttManager.getInstance().publishEventData(1014, "2")
 
             e.printStackTrace()
-            Log.d(TAG, "onSuccess：${e?.message}" + mqttAndroidClient.isConnected)
+            MyLog.d(TAG, "onSuccess：${e?.message}" + mqttAndroidClient.isConnected)
         }
     }
 
     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
         isConnected = false
-        Log.d(TAG, "onFailure：${exception?.message}+mqttAndroidClient.isConnected")
+        MyLog.d(TAG, "onFailure：${exception?.message}+mqttAndroidClient.isConnected")
     }
 
     /**
@@ -302,6 +302,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                     }
                 } catch (e: Exception) {
                     MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected + e)
+                    return
                 }
             }
             MyLog.d(TAG, "补发结束" + mqttAndroidClient.isConnected)

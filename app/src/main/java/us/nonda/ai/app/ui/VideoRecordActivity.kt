@@ -142,7 +142,7 @@ class VideoRecordActivity : AppCompatActivity() {
                     "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq}"
                 )
 
-                if (currentTimeMillis - time >  CarboxConfigRepostory.instance.emotionReportFreq) {
+                if (currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq) {
                     MyLog.d(TAG, "可以上报情绪了${emotionData.size}")
                     var reportData = arrayListOf<EmotionBean>()
                     reportData.addAll(emotionData)
@@ -236,28 +236,21 @@ class VideoRecordActivity : AppCompatActivity() {
             override fun onRecordSucceed() {
                 MyLog.d("相机", "内路 onRecordSucceed")
                 MqttManager.getInstance().publishEventData(1009, "1")
-
             }
 
             override fun onRecordFailed(code: Int) {
                 MyLog.d("相机", "内路 onRecordFailed code=$code")
                 MqttManager.getInstance().publishEventData(1009, "2")
-                recordFailedBack = true
-                if (recordFailedBack && recordFailedFront) {
-                    resetCamera()
-                }
             }
 
             override fun onOpenCameraSucceed() {
                 initkFace()
                 MqttManager.getInstance().publishEventData(1005, "1")
-
                 MyLog.d("相机", "内路 onOpenCameraSucceed")
             }
 
             override fun onOpenCameraFaile(msg: String) {
                 MqttManager.getInstance().publishEventData(1005, "2")
-
                 MyLog.d("相机", "内路 onOpenCameraFaile= $msg")
             }
 
@@ -285,10 +278,6 @@ class VideoRecordActivity : AppCompatActivity() {
                 MyLog.d("相机", "外路 onRecordFailed code=$code")
                 MqttManager.getInstance().publishEventData(1008, "2")
 
-                recordFailedBack = true
-                if (recordFailedBack && recordFailedFront) {
-                    resetCamera()
-                }
             }
 
             override fun onOpenCameraSucceed() {
@@ -320,10 +309,6 @@ class VideoRecordActivity : AppCompatActivity() {
 
     private var recordFailedBack = false
     private var recordFailedFront = false
-
-    private fun resetCamera() {
-
-    }
 
 
     private fun face(bytes: ByteArray, width: Int, height: Int) {
@@ -363,8 +348,8 @@ class VideoRecordActivity : AppCompatActivity() {
         closeService()
 //        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")
 
-        backCameraDevice?.closeCamera()
-        frontCameraDevice?.closeCamera()
+        backCameraDevice?.onDestroy()
+        frontCameraDevice?.onDestroy()
         FinishActivityManager.getManager().removeActivity(this)
 
     }

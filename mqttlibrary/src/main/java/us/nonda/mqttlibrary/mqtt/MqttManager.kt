@@ -412,7 +412,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                 builderItem.spd = this.spd!!
                 builderItem.acc = this.acc!!
                 builderItem.brg = this.brg!!
-                builderItem.time = System.currentTimeMillis()
+                builderItem.time = this.time
                 builderData.addItems(builderItem)
             }
         }

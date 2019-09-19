@@ -170,13 +170,15 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     private fun publish(mqttMessage: MqttMessage) {
         try {
             if (mqttAndroidClient.isConnected) {
-                mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+                val token = mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+                token.waitForCompletion(5000)
             } else {
                 messageQueue.offer(mqttMessage)
                 MyLog.d(TAG, "存到本地" + messageQueue.size + "条消息")
             }
             MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
         } catch (e: Exception) {
+            messageQueue.offer(mqttMessage)
             MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
         }
     }
@@ -273,7 +275,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      */
     override fun connectComplete(reconnect: Boolean, serverURI: String?) {
         mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
-        MyLog.d(TAG, "connectComplete:重连成功"+"是否重连"+reconnect)
+        MyLog.d(TAG, "connectComplete:重连成功" + "是否重连" + reconnect)
         if (!isPublishLocalMessage) {
             executorService.submit(Runnable {
                 publishLocalMessage()

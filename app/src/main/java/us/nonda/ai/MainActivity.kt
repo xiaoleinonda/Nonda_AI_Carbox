@@ -33,6 +33,7 @@ import us.nonda.mqttlibrary.model.GPSBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.videopushlibrary.uploadTask.UploadManager
 import java.util.ArrayList
+import java.util.concurrent.Executors
 
 /**
  * 首页
@@ -73,6 +74,9 @@ class MainActivity : AppCompatActivity() {
 //            }
 //            MqttManager.getInstance().publishGPS(lists)
 //        }
+
+
+
     }
 
     private fun checkAccStatus() {

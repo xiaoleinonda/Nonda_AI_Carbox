@@ -34,108 +34,93 @@ class FaceRegister constructor(
 ) {
 
     private val TAG = "FaceSDKManager2"
-    private var future: Future<*>? = null
-    private val es: ExecutorService = Executors.newSingleThreadExecutor()
+
 
     private var userId: String = ""
 
-    private var imageArray: ByteArray? = null
     /**
      * 宽高反转
      */
     private var width = 640
     private var height = 480
 
-    fun registFace(faceImage: FaceImage) {
+    /**
+     * -1：失败
+     * 0:成功
+     * 1：中断
+     */
+    fun registFace(faceImage: FaceImage): Int {
         if (CameraStatus.instance.getAccStatus() == 0) {
-            return
+            return 1
         }
         val imageArray = Base64.decode(faceImage.image, Base64.DEFAULT)
         val userId = faceImage.userId
 
         //特征提取中...
-        mqttPulish("特征提取中...")
+        MyLog.d(TAG, "图片解析中...")
+        this.userId = userId
+        val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
+        val matrix = Matrix()
+        matrix.postScale(
+            width.toFloat() / serverBitmap.height,
+            height.toFloat() / serverBitmap.width
+        )
+        matrix.postRotate(270f)
+        val bitmap = Bitmap.createBitmap(serverBitmap, 0, 0, serverBitmap.width, serverBitmap.height, matrix, false)
 
-        removeFace {
-            MyLog.d(TAG, "start register face")
-            this.userId = userId
-            val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
-            val matrix = Matrix()
-            matrix.postScale(
-                width.toFloat() / serverBitmap.height,
-                height.toFloat() / serverBitmap.width
+        if (bitmap != null) {
+            val rgbArray = IntArray(bitmap.width * bitmap.height)
+            bitmap.getPixels(
+                rgbArray, 0, bitmap.width, 0, 0,
+                bitmap.width, bitmap.height
             )
-            matrix.postRotate(270f)
-            val bitmap = Bitmap.createBitmap(serverBitmap, 0, 0, serverBitmap.width, serverBitmap.height, matrix, false)
 
-            if (bitmap != null) {
-                val rgbArray = IntArray(bitmap.width * bitmap.height)
-                bitmap.getPixels(
-                    rgbArray, 0, bitmap.width, 0, 0,
-                    bitmap.width, bitmap.height
-                )
-
-                checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
+            return checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
 
 
-            } else {
-                MyLog.d(TAG, "解析图片失败")
-
-                mqttPulish("解析图片失败")
-
-            }
-
+        } else {
+            MyLog.d(TAG, "解析图片失败 ")
+            return -1
         }
-
     }
 
 
     /**
      * 检测人脸
      */
-    private fun checkFace(imageArray: IntArray, width: Int, height: Int, facePic: String) {
+    private fun checkFace(imageArray: IntArray, width: Int, height: Int, facePic: String): Int {
 
 
-        if (future != null && !future!!.isDone) {
-            return
-        }
+        /* for (i in 0..2) {
+             var maxFace = trackMaxFace(imageArray, width, height)
+             MyLog.d(TAG, "注册的人脸第$i 次maxFace=" + maxFace)
+         }
+*/
+        var maxFace = trackMaxFace(imageArray, width, height)
+        MyLog.d(TAG, "注册的人脸第一次maxFace=" + maxFace)
 
-        future = es.submit {
-            var maxFace = trackMaxFace(imageArray, width, height)
-            MyLog.d(TAG, "注册的人脸第一次maxFace=" + maxFace)
 
-            if (maxFace == null) {
-                maxFace = trackMaxFace(imageArray, width, height)
-                MyLog.d(TAG, "注册的人脸第二次maxFace=" + maxFace)
+        val livenessModel = LivenessModel()
+        livenessModel.imageFrame.argb = imageArray
+        livenessModel.imageFrame.width = width
+        livenessModel.imageFrame.height = height
 
-            }
+        if (maxFace != null && maxFace.size > 0) {
+            val faceInfo1 = maxFace[0]
+            val mAngle = faceInfo1.mAngle
+            MyLog.d(TAG, "人脸角度=$mAngle")
+            livenessModel.trackFaceInfo = maxFace
+            val faceInfo = maxFace[0]
+            livenessModel.landmarks = faceInfo.landmarks
+            livenessModel.faceInfo = faceInfo
+            livenessModel.faceID = faceInfo.face_id
+            val mConf = faceInfo1.mConf
+            MyLog.d(TAG, "人脸mConf=$mConf")
+            return registFace(livenessModel, facePic)
 
-            val livenessModel = LivenessModel()
-            livenessModel.imageFrame.argb = imageArray
-            livenessModel.imageFrame.width = width
-            livenessModel.imageFrame.height = height
-
-            if (maxFace != null && maxFace.size > 0) {
-                val faceInfo1 = maxFace[0]
-                val mAngle = faceInfo1.mAngle
-                MyLog.d(TAG, "人脸角度=$mAngle")
-                livenessModel.trackFaceInfo = maxFace
-                val faceInfo = maxFace[0]
-                livenessModel.landmarks = faceInfo.landmarks
-                livenessModel.faceInfo = faceInfo
-                livenessModel.faceID = faceInfo.face_id
-                val mConf = faceInfo1.mConf
-                MyLog.d(TAG, "人脸mConf=$mConf")
-                registFace(livenessModel, facePic)
-
-            } else {
-                MqttManager.getInstance().publishEventData(1013, "2")
-
-                MyLog.d(TAG, "注册的人脸未提取到人脸")
-
-                mqttPulish("注册的人脸未提取到人脸")
-
-            }
+        } else {
+            MqttManager.getInstance().publishEventData(1013, "2")
+            return -1
         }
 
     }
@@ -144,7 +129,7 @@ class FaceRegister constructor(
 
     }
 
-    private fun registFace(livenessModel: LivenessModel, facePicture: String) {
+    private fun registFace(livenessModel: LivenessModel, facePicture: String): Int {
         val visFeature = ByteArray(512)
         val lenght = livenessModel.run {
             extractFeature(
@@ -217,7 +202,6 @@ class FaceRegister constructor(
                 }
             }
 
-
             logBuilder.append(userId + "\t" + picFile + "\t" + "成功\n")
 
             /**
@@ -225,25 +209,25 @@ class FaceRegister constructor(
              */
             if (FaceApi.getInstance().featureAdd(feature)) {
                 if (CameraStatus.instance.getAccStatus() == 0) {
-                    return
+                    return 1
                 }
 
                 FaceSDKManager2.instance.setFeature()
                 FaceSDKManager2.instance.isRegisted = true
                 FaceStatusCache.instance.facePicture = facePicture
-                mqttPulish("注册成功")
                 MyLog.d(TAG, "注册成功")
 
+                return 0
             } else {
-                mqttPulish("注册特征提取失败")
                 MyLog.d(TAG, "注册特征提取失败")
                 MqttManager.getInstance().publishEventData(1013, "2")
+                return -1
 
             }
             userId = ""
         } else {
             MqttManager.getInstance().publishEventData(1013, "2")
-
+            return -1
         }
 
     }

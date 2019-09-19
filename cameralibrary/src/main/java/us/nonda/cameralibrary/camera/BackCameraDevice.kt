@@ -18,8 +18,8 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 
 class BackCameraDevice constructor(private var surfaceView: SurfaceView) : SurfaceHolder.Callback {
 
-    private var subscribeEmotion: Disposable? = null
-    private var subscribeFace: Disposable? = null
+//    private var subscribeEmotion: Disposable? = null
+//    private var subscribeFace: Disposable? = null
 
     private val TAG = "USB摄像头"
 
@@ -45,8 +45,8 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     private var cameraCallback: CameraCallback? = null
 
-    var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
-    var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+//    var pictureProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+//    var pictureFaceProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
 
     private var cameraAvailableCallback: CarcorderManager.CameraAvailableCallback? = null
 
@@ -81,7 +81,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
         }
         CarcorderManager.get().addCameraAvailableCallback(cameraAvailableCallback)
 
-        if (subscribeEmotion?.isDisposed == false) {
+       /* if (subscribeEmotion?.isDisposed == false) {
             subscribeEmotion?.dispose()
         }
 
@@ -110,7 +110,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
 
             }.subscribe({ Log.d("图片", "保存人脸图片成功") }, {})
-
+*/
     }
 
 
@@ -404,12 +404,12 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
         if (cameraAvailableCallback != null) {
             CarcorderManager.get().removeCameraAvailableCallback(cameraAvailableCallback)
         }
-        if (subscribeEmotion?.isDisposed == false) {
+     /*   if (subscribeEmotion?.isDisposed == false) {
             subscribeEmotion?.dispose()
         }
         if (subscribeFace?.isDisposed == false) {
             subscribeFace?.dispose()
-        }
+        }*/
 
     }
 

@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class MyLog {
 
-//    private static Boolean MYLOG_SWITCH = BuildConfig.MYLOG_SWITCH; // 日志文件总开关
+    //    private static Boolean MYLOG_SWITCH = BuildConfig.MYLOG_SWITCH; // 日志文件总开关
     private static Boolean MYLOG_SWITCH = true; // 日志文件总开关
     private static Boolean MYLOG_WRITE_TO_FILE = true;// 日志写入文件开关
     private static char MYLOG_TYPE = 'v';// 输入日志类型，w代表只输出告警信息等，v代表输出所有信息
@@ -75,6 +75,7 @@ public class MyLog {
      * @param level
      */
     private static void log(String tag, String msg, char level) {
+        msg = msg + "  Thread=" + Thread.currentThread().getName();
         if (MYLOG_SWITCH) {//日志文件总开关
             if ('e' == level && ('e' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) { // 输出错误信息
                 Log.e(tag, msg);
@@ -89,16 +90,25 @@ public class MyLog {
             }
 
 
+
             if (MYLOG_WRITE_TO_FILE)//日志写入文件开关
                 try {
 //                    if (TextUtils.equals("广播", tag)) {
-                        writeLogtoFile(String.valueOf(level), tag, msg);
+                    writeLogtoFile(String.valueOf(level), tag, msg);
 //                    }
                 } catch (Exception e) {
                     Log.d("本地log日志异常", Objects.requireNonNull(e.getMessage()));
                 }
 
         }
+    }
+
+    private static String childPath = "MyLog";
+
+    public static void initFile() {
+        Date nowtime = new Date();
+        String needWriteFiel = logfile.format(nowtime);
+        childPath = needWriteFiel + MYLOGFILEName;
     }
 
     /**
@@ -110,16 +120,14 @@ public class MyLog {
      */
     private static void writeLogtoFile(String mylogtype, String tag, String text) {// 新建或打开日志文件
         Date nowtime = new Date();
-        String needWriteFiel = logfile.format(nowtime);
         String needWriteMessage = myLogSdf.format(nowtime) + "    " + mylogtype + "    " + tag + "    " + text;
-        File dirPath = Environment.getExternalStorageDirectory();
 
         File dirsFile = new File(MYLOG_PATH_SDCARD_DIR);
         if (!dirsFile.exists()) {
             dirsFile.mkdirs();
         }
         //Log.i("创建文件","创建文件");
-        File file = new File(dirsFile.toString(), needWriteFiel + MYLOGFILEName);// MYLOG_PATH_SDCARD_DIR
+        File file = new File(dirsFile.toString(), childPath);// MYLOG_PATH_SDCARD_DIR
         if (!file.exists()) {
             try {
                 //在指定的文件夹中创建文件

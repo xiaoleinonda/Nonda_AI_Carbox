@@ -131,7 +131,6 @@ class VideoRecordActivity : AppCompatActivity() {
             setEnmotion(emotionsMsg)
             MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
 
-
             if (emotionData.size > 0) {
                 val time = emotionData[0].time
                 MyLog.d(
@@ -151,7 +150,7 @@ class VideoRecordActivity : AppCompatActivity() {
             }
             emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
 
-
+/*
             val pictureModel = PictureModel(
                 emotionsMsg!!,
                 imageFrame.width, imageFrame.height, imageFrame.argb, fileName
@@ -160,7 +159,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
                 pictureModel
             )
-            frontCameraDevice?.pictureFrontProcessor?.onNext(pictureModel)
+            frontCameraDevice?.pictureFrontProcessor?.onNext(pictureModel)*/
 
         }
 
@@ -186,7 +185,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
 
             setResult("成功")
-            var pictureModel: PictureModel
+           /* var pictureModel: PictureModel
             if (featureStatus == 1) {
                 var fileName = "${currentTimeMillis}ture"
                 pictureModel = PictureModel(
@@ -205,7 +204,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
             }
             backCameraDevice?.pictureFaceProcessor?.onNext(pictureModel)
-
+*/
         }
 
 

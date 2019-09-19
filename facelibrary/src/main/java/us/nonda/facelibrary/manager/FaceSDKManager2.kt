@@ -369,8 +369,9 @@ class FaceSDKManager2 private constructor() {
         }
     }
 
+    private var registerRetryCount = 0
 
-    fun registFace(facePicture: String) {
+    fun registFace(facePicture: String)  {
         if (status != STATUS_INITED || TextUtils.isEmpty(facePicture)) {
             log("sdk 还未初始化 不能注册")
             return
@@ -379,9 +380,20 @@ class FaceSDKManager2 private constructor() {
             return
         }
         val faceImage = FaceImage(facePicture, "nonda")
-        val register = FaceRegister(faceDetect, faceFeature)
-        register.registFace(faceImage)
+        faceRegister = FaceRegister(faceDetect, faceFeature)
+        val registResult = faceRegister!!.registFace(faceImage)
+
+        /**
+         * 如果注册失败 就重试2次
+         */
+        if (registResult == -1 && registerRetryCount<2) {
+            registerRetryCount++
+            MyLog.d(TAG, "人脸注册失败， 开始重新请求接口注册。 重试次数=$registerRetryCount")
+            getHttpFacePicture()
+        }
     }
+
+    private var faceRegister: FaceRegister? = null
 
     /**
      * http请求注册人脸的图片
@@ -413,7 +425,7 @@ class FaceSDKManager2 private constructor() {
                     onGetFacePictureFailed(it.msg)
                 }
             }, {
-                it.message?.let { it1 -> onGetFacePictureFailed("异常："+it1) }
+                it.message?.let { it1 -> onGetFacePictureFailed("异常：" + it1) }
             })
 
     }
@@ -548,27 +560,32 @@ class FaceSDKManager2 private constructor() {
             }
         } else {
             MyLog.d(TAG, "还没有注册人脸")
+            /*if (faceRegister != null) {
+                if (faceRegister!!.registError && faceRegister!!.retryCount <= 3) {
+                    checkRegistFaceStatus()
+                }
+            }*/
 
         }
 
-    /*    val featureCpp = faceFeature.featureCompareCpp(
-            curFeature, featureType, 90f
-        )
-        log("faceFeature=$faceFeature   featureCpp=$featureCpp")
+        /*    val featureCpp = faceFeature.featureCompareCpp(
+                curFeature, featureType, 90f
+            )
+            log("faceFeature=$faceFeature   featureCpp=$featureCpp")
 
-        if (featureCpp != null) {
-            liveModel.featureScore = featureCpp.score
-            log("Id=" + featureCpp.id)
-            val queryFeature = DBManager.getInstance().queryFeature()
-            val features = DBManager.getInstance().queryFeatureById(featureCpp.id)
-            if (features != null && features.size > 0) {
-                val feature = features.get(0)
-                log("注册成功" + features.size)
+            if (featureCpp != null) {
+                liveModel.featureScore = featureCpp.score
+                log("Id=" + featureCpp.id)
+                val queryFeature = DBManager.getInstance().queryFeature()
+                val features = DBManager.getInstance().queryFeatureById(featureCpp.id)
+                if (features != null && features.size > 0) {
+                    val feature = features.get(0)
+                    log("注册成功" + features.size)
 
-                featureLRUCache.put(feature.getUserName(), feature)
-                return feature
-            }
-        }*/
+                    featureLRUCache.put(feature.getUserName(), feature)
+                    return feature
+                }
+            }*/
         return null
     }
 

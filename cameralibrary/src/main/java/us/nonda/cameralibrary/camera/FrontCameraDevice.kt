@@ -39,13 +39,13 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
 
     private var isPreviewed = false
     private var surfaceCreated = false
-    var pictureFrontProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
+//    var pictureFrontProcessor: PublishProcessor<PictureModel> = PublishProcessor.create()
 
 
     private var cameraCallback: CameraCallback? = null
 
     private var recording = false
-    private var subscribeEmotion: Disposable? = null
+//    private var subscribeEmotion: Disposable? = null
 
     fun camera(callback: CameraCallback) {
         cameraCallback = callback
@@ -57,7 +57,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
         }
 */
 
-        if (subscribeEmotion?.isDisposed == false) {
+      /*  if (subscribeEmotion?.isDisposed == false) {
             subscribeEmotion?.dispose()
         }
         subscribeEmotion = pictureFrontProcessor.subscribeOn(Schedulers.io())
@@ -74,7 +74,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
                 val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
                 takePicture(folderPath, it.fileName)
             }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
-
+*/
 
     }
 
@@ -373,8 +373,8 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
 
     fun onDestroy() {
         closeCamera()
-        if (subscribeEmotion?.isDisposed == false) {
+       /* if (subscribeEmotion?.isDisposed == false) {
             subscribeEmotion?.dispose()
-        }
+        }*/
     }
 }

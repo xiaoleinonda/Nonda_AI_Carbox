@@ -30,8 +30,8 @@ class CarGsensorListener() : SensorEventListener {
                         if (currentTimeMillis - time > CarboxConfigRepostory.instance.gSensorReportFreq) {
                             var reportData = arrayListOf<GSensorBean>()
                             reportData.addAll(data)
-                            MqttManager.getInstance().publishGSensor(reportData)
                             data.clear()
+                            MqttManager.getInstance().publishGSensor(reportData)
 
                         }
                     }

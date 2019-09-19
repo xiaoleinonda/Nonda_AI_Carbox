@@ -85,11 +85,6 @@
         </activity>
 
         <service android:name="org.eclipse.paho.android.service.MqttService"/>
-        <service
-                android:name="us.nonda.otalibrary.Service.DownloadApkService"
-                android:enabled="true"
-                android:exported="true">
-        </service>
 
         <receiver android:name=".app.receiver.AccBroadcastReceiver">
             <intent-filter>

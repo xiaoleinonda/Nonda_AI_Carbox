@@ -57,7 +57,6 @@ class FaceRegister constructor(
         mqttPulish("特征提取中...")
 
         removeFace {
-            mqttPulish("start register face")
             MyLog.d(TAG, "start register face")
             this.userId = userId
             val serverBitmap = BitmapFactory.decodeByteArray(imageArray, 0, imageArray.size)
@@ -90,21 +89,26 @@ class FaceRegister constructor(
 
     }
 
+
     /**
      * 检测人脸
      */
     private fun checkFace(imageArray: IntArray, width: Int, height: Int, facePic: String) {
+
 
         if (future != null && !future!!.isDone) {
             return
         }
 
         future = es.submit {
-            val maxFace = trackMaxFace(imageArray, width, height)
+            var maxFace = trackMaxFace(imageArray, width, height)
+            MyLog.d(TAG, "注册的人脸第一次maxFace=" + maxFace)
 
-            mqttPulish("注册的人脸maxFace=" + maxFace)
-            MyLog.d(TAG, "注册的人脸maxFace=" + maxFace)
+            if (maxFace == null) {
+                maxFace = trackMaxFace(imageArray, width, height)
+                MyLog.d(TAG, "注册的人脸第二次maxFace=" + maxFace)
 
+            }
 
             val livenessModel = LivenessModel()
             livenessModel.imageFrame.argb = imageArray
@@ -120,7 +124,8 @@ class FaceRegister constructor(
                 livenessModel.landmarks = faceInfo.landmarks
                 livenessModel.faceInfo = faceInfo
                 livenessModel.faceID = faceInfo.face_id
-
+                val mConf = faceInfo1.mConf
+                MyLog.d(TAG, "人脸mConf=$mConf")
                 registFace(livenessModel, facePic)
 
             } else {
@@ -132,6 +137,10 @@ class FaceRegister constructor(
 
             }
         }
+
+    }
+
+    private fun trackFace(imageArray: IntArray, width: Int, height: Int, facePic: String) {
 
     }
 

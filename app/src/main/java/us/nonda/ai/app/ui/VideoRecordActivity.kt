@@ -70,10 +70,6 @@ class VideoRecordActivity : AppCompatActivity() {
         isOpen = true
         FaceSDKManager2.instance.isRegisted = false
 
-        btn.setOnClickListener {
-            startActivity(Intent(this@VideoRecordActivity, TestActivity::class.java))
-        }
-
 
         //开启服务
         service()

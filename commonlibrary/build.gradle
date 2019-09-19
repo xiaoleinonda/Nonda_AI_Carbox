@@ -22,11 +22,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField('String', 'API_URL', PROD_API_URL)
+            buildConfigField('boolean', 'MYLOG_SWITCH', "false")
         }
 
         debug {
             debuggable true
             buildConfigField('String', 'API_URL', UAT_API_URL)
+            buildConfigField('boolean', 'MYLOG_SWITCH', "true")
         }
     }
 
@@ -43,7 +45,7 @@ dependencies {
     api 'io.reactivex.rxjava2:rxjava:2.1.1'
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
     api 'com.google.code.gson:gson:2.8.5'
-    compile "androidx.core:core-ktx:+"
+    implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     api 'com.squareup.retrofit2:retrofit:2.6.1'

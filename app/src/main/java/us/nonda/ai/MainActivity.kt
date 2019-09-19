@@ -50,63 +50,13 @@ class MainActivity : AppCompatActivity() {
 
         EventBus.getDefault().register(this)
         MqttManager.getInstance().onStart()
-        checkAccStatus(this)
+        checkAccStatus()
         registReceiver()
-
-        btn_location.setOnClickListener {
-            //            CarBoxControler.instance.accOnMode(this, "首页")
-            VideoRecordActivity.starter(this@MainActivity)
-
-        }
-        println("MainActivity安装成功")
-        lightTest()
-
-//        val baiduDeviceId = FaceSDKManager2.instance.getBaiduDeviceId()
-//        MyLog.d(TAG, "当前百度设备指纹：deviceId=$baiduDeviceId")
-    }
-
-    private fun lightTest() {
-        btn_red_normall.setOnClickListener {
-            FaceSDKManager2.instance.init()
-        }
-
-        btn_g_normall.setOnClickListener {
-            DeviceLightUtils.flashYellow()
-        }
-        btn_b_normall.setOnClickListener {
-            DeviceLightUtils.flashWathet()
-        }
-        btn_w_normall.setOnClickListener {
-            //            DeviceLightUtils.normallyWhite()
-
-        }
-
-        btn_red_flash.setOnClickListener {
-            //            DeviceLightUtils.flashRed()
-            val string = StringUtils.getString("/sys/devices/leds_ctl/R_leds_control")
-            println("灯：$string")
-        }
-        btn_g_flash.setOnClickListener {
-            DeviceLightUtils.flashGreen()
-        }
-        btn_b_flash.setOnClickListener {
-            DeviceLightUtils.flashBlue()
-        }
-        btn_w_flash.setOnClickListener {
-            DeviceLightUtils.flashWhite()
-        }
-
-        btn_close.setOnClickListener {
-            DeviceLightUtils.closeBlue()
-            DeviceLightUtils.closeRed()
-            DeviceLightUtils.closeGreen()
-
-        }
-
     }
 
 
-    private fun checkAccStatus(context: Context) {
+
+    private fun checkAccStatus() {
 //        val ipoStatus = DeviceUtils.getIpoStatus()
         val accOf = CarBoxControler.instance.isAccOff()
         if (!accOf) {//acc on

@@ -56,7 +56,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      * 进入相机页面
      */
     fun openCamera(context: Context) {
-
+        MyLog.d(TAG, "openCamera")
         /**
          * 1是模式开启
          */

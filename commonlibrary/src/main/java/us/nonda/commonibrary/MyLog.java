@@ -16,6 +16,7 @@ import java.util.Objects;
 
 public class MyLog {
 
+//    private static Boolean MYLOG_SWITCH = BuildConfig.MYLOG_SWITCH; // 日志文件总开关
     private static Boolean MYLOG_SWITCH = true; // 日志文件总开关
     private static Boolean MYLOG_WRITE_TO_FILE = true;// 日志写入文件开关
     private static char MYLOG_TYPE = 'v';// 输入日志类型，w代表只输出告警信息等，v代表输出所有信息

@@ -33,8 +33,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    compile 'com.squareup.okhttp3:okhttp:3.12.0'
-    compile "androidx.core:core-ktx:+"
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api project(path: ':commonlibrary')
     implementation project(path: ':cameralibrary')

@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import com.yaoxiaowen.download.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -28,6 +29,7 @@ import us.nonda.commonibrary.utils.StringUtils
 import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
+import us.nonda.mqttlibrary.model.GPSBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.videopushlibrary.uploadTask.UploadManager
 import java.util.ArrayList
@@ -55,6 +57,23 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    fun onClickNonda(view: View) {
+//        for (i in 0..10) {
+//            val lists = ArrayList<GPSBean>()
+//            for (i in 0..3000) {
+//                val gps = GPSBean(
+//                    120.111,
+//                    120.121311,
+//                    3213.12f,
+//                    3123.213f,
+//                    121231f,
+//                    System.currentTimeMillis()
+//                )
+//                lists.add(gps)
+//            }
+//            MqttManager.getInstance().publishGPS(lists)
+//        }
+    }
 
     private fun checkAccStatus() {
 //        val ipoStatus = DeviceUtils.getIpoStatus()

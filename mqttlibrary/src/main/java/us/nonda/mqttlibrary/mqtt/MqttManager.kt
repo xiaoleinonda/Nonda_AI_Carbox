@@ -53,6 +53,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     private val messageQueue = LinkedList<MqttMessage>()
     private var isPublishLocalMessage = false
     val executorService = Executors.newSingleThreadExecutor()
+    private var mExecutor: ExecutorService? = null
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -108,6 +109,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                 onFailure(null, e)
             }
         }
+        mExecutor = Executors.newFixedThreadPool(5)
     }
 
     @Synchronized
@@ -168,18 +170,24 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     }
 
     private fun publish(mqttMessage: MqttMessage) {
-        try {
-            if (mqttAndroidClient.isConnected) {
-                val token = mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
-                token.waitForCompletion(5000)
-            } else {
+
+        mExecutor?.submit {
+            try {
+                if (mqttAndroidClient.isConnected) {
+                    val cloudDriveMqttMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(mqttMessage.payload)
+                    val token = mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
+                    token.waitForCompletion(15000)
+                    MyLog.d(TAG, "waitForCompletion之后cmd"+cloudDriveMqttMessage.cmd)
+                } else {
+                    messageQueue.offer(mqttMessage)
+                    MyLog.d(TAG, "存到本地" + messageQueue.size + "条消息")
+                }
+                MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
+            } catch (e: Exception) {
                 messageQueue.offer(mqttMessage)
-                MyLog.d(TAG, "存到本地" + messageQueue.size + "条消息")
+                val cloudDriveMqttMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(mqttMessage.payload)
+                MyLog.d(TAG, "发送失败之后cmd"+cloudDriveMqttMessage.cmd +"异常"+e)
             }
-            MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
-        } catch (e: Exception) {
-            messageQueue.offer(mqttMessage)
-            MyLog.d(TAG, "发送失败" + mqttAndroidClient.isConnected)
         }
     }
 
@@ -292,8 +300,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
             while (mqttMessage != null) {
                 try {
                     publish(mqttMessage)
-                    MyLog.d(TAG, "本地剩余" + messageQueue.size + "条消息")
-                    MyLog.d(TAG, "缓存数据发送成功=${mqttAndroidClient.isConnected}")
+                    MyLog.d(TAG, "缓存数据发送成功"+"本地剩余" + messageQueue.size + "条消息")
                     mqttMessage = messageQueue.poll()
 
                     //相隔一定时间发送一次，防止短时间发送过多收不到消息的回调

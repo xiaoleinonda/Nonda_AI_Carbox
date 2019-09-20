@@ -25,17 +25,44 @@ class AccBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if (action_acc_on == intent?.action) {
+            MyLog.d("广播", "action_acc_on")
             NondaApp.accStatus = true
+
+            accOn(context!!)
             EventBus.getDefault().post(AccEvent(1))
-            MyLog.d("广播","action_acc_on IPO=${DeviceUtils.getIpoStatus()}")
         } else if (action_acc_off == intent?.action) {
+            MyLog.d("广播", "action_acc_off ")
             NondaApp.accStatus = false
+
+            accOff()
             EventBus.getDefault().post(AccEvent(2))
-            MyLog.d("广播","action_acc_off  IPO=${DeviceUtils.getIpoStatus()}")
         }
     }
 
 
+    /**
+     * 初始化
+     * 开启摄像头
+     */
+    private fun accOn(context: Context) {
+        MyLog.d(TAG, "广播 ACC ON   accStatus=${NondaApp.accStatus} ipoStatus=${NondaApp.ipoStatus}")
+        MqttManager.getInstance().publishEventData(1001, "1")
+        if (NondaApp.accStatus && NondaApp.ipoStatus) {
+            MyLog.d(TAG, "accOn openCamera")
+            CarBoxControler.instance.openCamera(context)
+        }
+
+    }
+
+
+    /**
+     * acc off之后就直接关闭业务
+     */
+    private fun accOff() {
+        MyLog.d(TAG, "广播 ACC OFF   accStatus=${NondaApp.accStatus} ipoStatus=${NondaApp.ipoStatus}  ")
+        MqttManager.getInstance().publishEventData(1001, "2")
+        FaceSDKManager2.instance.isRegisted = false
+    }
 
 
 }

@@ -67,11 +67,11 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
         if (TextUtils.equals(mode, "1") || TextUtils.equals(oqcMode, "1")) {
             return
         }
-        MyLog.d(TAG, "openCamera  NondaApp.accStatus=${NondaApp.accStatus}  NondaApp.ipoStatus=${NondaApp.ipoStatus}")
+      /*  MyLog.d(TAG, "openCamera  NondaApp.accStatus=${NondaApp.accStatus}  NondaApp.ipoStatus=${NondaApp.ipoStatus}")
 
         if (!NondaApp.accStatus || !NondaApp.ipoStatus) {
             return
-        }
+        }*/
 
         if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
             MyLog.d(TAG, "dispose")

@@ -37,6 +37,7 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.io.InputStreamReader
+import java.lang.Exception
 import java.util.concurrent.ExecutorService
 
 
@@ -123,7 +124,7 @@ class FaceSDKManager2 private constructor() {
     }
 
     private fun checkLicenceStatus() {
-        FaceStatusCache.instance.faceLicence = ""
+//        FaceStatusCache.instance.faceLicence = ""
         MyLog.d(TAG, "checkLicenceStatus  status=$status")
         if (faceCache.isLicence()) {
             log("已激活 直接初始化")
@@ -355,12 +356,12 @@ class FaceSDKManager2 private constructor() {
         if (CameraStatus.instance.getAccStatus() == 0) {
             return
         }
-
         if (isRegisted) {
             MyLog.d(TAG, "已经注册过人脸了")
             return
         }
         log("检测人脸图片状态")
+        registerRetryCount = 0
         val facePicture = faceCache.facePicture
         if (TextUtils.isEmpty(facePicture)) {
             getHttpFacePicture()
@@ -371,7 +372,7 @@ class FaceSDKManager2 private constructor() {
 
     private var registerRetryCount = 0
 
-    fun registFace(facePicture: String)  {
+    fun registFace(facePicture: String) {
         if (status != STATUS_INITED || TextUtils.isEmpty(facePicture)) {
             log("sdk 还未初始化 不能注册")
             return
@@ -380,20 +381,26 @@ class FaceSDKManager2 private constructor() {
             return
         }
         val faceImage = FaceImage(facePicture, "nonda")
-        faceRegister = FaceRegister(faceDetect, faceFeature)
-        val registResult = faceRegister!!.registFace(faceImage)
+        val faceRegister = FaceRegister(faceDetect, faceFeature)
+        val registResult = faceRegister.registFace(faceImage)
+
+
+        MyLog.d(TAG, "人脸注册结束  registResult=$registResult， registerRetryCount=$registerRetryCount")
 
         /**
          * 如果注册失败 就重试2次
          */
-        if (registResult == -1 && registerRetryCount<2) {
+        if (registResult == -1 && registerRetryCount < 4) {
             registerRetryCount++
+            try {
+                Thread.sleep(3000)
+            } catch (e: Exception) {
+            }
             MyLog.d(TAG, "人脸注册失败， 开始重新请求接口注册。 重试次数=$registerRetryCount")
             getHttpFacePicture()
         }
     }
 
-    private var faceRegister: FaceRegister? = null
 
     /**
      * http请求注册人脸的图片
@@ -560,12 +567,6 @@ class FaceSDKManager2 private constructor() {
             }
         } else {
             MyLog.d(TAG, "还没有注册人脸")
-            /*if (faceRegister != null) {
-                if (faceRegister!!.registError && faceRegister!!.retryCount <= 3) {
-                    checkRegistFaceStatus()
-                }
-            }*/
-
         }
 
         /*    val featureCpp = faceFeature.featureCompareCpp(

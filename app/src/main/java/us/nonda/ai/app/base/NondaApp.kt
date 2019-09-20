@@ -24,8 +24,8 @@ class NondaApp : Application() {
         lateinit var instance: Context
         private val SP_KEY_APP_VERSION = "sp_key_app_version"
 
-        var accStatus: Boolean = true
-        var ipoStatus: Boolean = true
+        var accStatus: Boolean = false
+        var ipoStatus: Boolean = false
     }
 
     override fun onCreate() {
@@ -36,8 +36,6 @@ class NondaApp : Application() {
         MyLog.initFile()
         MyLog.d(TAG, "onCreate")
         Thread.setDefaultUncaughtExceptionHandler(CrashHandler.instance)
-
-
         DBManager.getInstance().init(this)
         checkVersion()
     }

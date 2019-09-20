@@ -34,6 +34,7 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.videopushlibrary.uploadTask.UploadManager
 import java.util.ArrayList
 import java.util.concurrent.Executors
+import kotlin.concurrent.thread
 
 /**
  * 首页
@@ -74,8 +75,9 @@ class MainActivity : AppCompatActivity() {
 //            }
 //            MqttManager.getInstance().publishGPS(lists)
 //        }
-
-
+        thread {
+            FaceSDKManager2.instance.getHttpFacePicture()
+        }
 
     }
 
@@ -84,9 +86,9 @@ class MainActivity : AppCompatActivity() {
         val accOf = CarBoxControler.instance.isAccOff()
         if (!accOf) {//acc on
 //            if (!ipoStatus) {
-                //未休眠时开启业务
-                CarBoxControler.instance.openCamera(this)
-                UploadManager.getInstance().stopUpload()
+            //未休眠时开启业务
+            CarBoxControler.instance.openCamera(this)
+            UploadManager.getInstance().stopUpload()
 //            }
         } else {
             CarBoxControler.instance.accOffModeWork()
@@ -149,12 +151,6 @@ class MainActivity : AppCompatActivity() {
      * 休眠
      */
     private fun ipoOff() {
-        val ipoStatus = DeviceUtils.getIpoStatus()
-
-        val accOff = CarBoxControler.instance.isAccOff()
-
-        MyLog.d(TAG, "休眠 isAccOff=$accOff  accStatus=${NondaApp.accStatus} ipoStatus=${NondaApp.ipoStatus} DeviceIPO=$ipoStatus")
-
         WakeUpService.isWakeUp = false
         CarBoxControler.instance.onIpoOff(this)
         unregisterReceiver(netStateChangeReceiver)
@@ -165,22 +161,17 @@ class MainActivity : AppCompatActivity() {
      * 唤醒状态下 如果acc 是on的时候就打开业务
      */
     private fun ipoOn() {
-        val ipoStatus = DeviceUtils.getIpoStatus()
-
-        val accOff = CarBoxControler.instance.isAccOff()
-        MyLog.d(TAG, "唤醒 isAccOff=$accOff  accStatus=${NondaApp.accStatus} ipoStatus=${NondaApp.ipoStatus} DeviceIPO=$ipoStatus")
         if (!NondaApp.accStatus) {//acc off
             CarBoxControler.instance.onIpoONGetGps()
         }
 
-
+        /*   if (NondaApp.accStatus && NondaApp.ipoStatus) {
+               CarBoxControler.instance.openCamera(this)
+           }
+   */
         WakeUpService.stopService(this)
         registReceiver()
-
-        CarBoxControler.instance.openCamera(this)
         UploadManager.getInstance().stopUpload()
-
-
     }
 
 
@@ -189,16 +180,10 @@ class MainActivity : AppCompatActivity() {
      * 开启摄像头
      */
     private fun accOn() {
-        val accOff = CarBoxControler.instance.isAccOff()
-        val ipoStatus = DeviceUtils.getIpoStatus()
-
-        MyLog.d(TAG, "ACC ON isAccOff=$accOff  accStatus=${NondaApp.accStatus} ipoStatus=${NondaApp.ipoStatus} DeviceIPO=$ipoStatus")
-
-        MqttManager.getInstance().publishEventData(1001, "1")
-        CarBoxControler.instance.openCamera(this)
-
-//        CarBoxControler.instance.openCamera(this)
-//        UploadManager.getInstance().stopUpload()
+        /*  if (NondaApp.accStatus && NondaApp.ipoStatus) {
+              MyLog.d(TAG, "accOn openCamera")
+              CarBoxControler.instance.openCamera(this)
+          }*/
     }
 
 
@@ -206,12 +191,6 @@ class MainActivity : AppCompatActivity() {
      * acc off之后就直接关闭业务
      */
     private fun accOff() {
-        val ipoStatus = DeviceUtils.getIpoStatus()
-        val accOff = CarBoxControler.instance.isAccOff()
-        MyLog.d(TAG, "ACC OFF isAccOff=$accOff  accStatus=${NondaApp.accStatus} ipoStatus=${NondaApp.ipoStatus} DeviceIPO=$ipoStatus")
-
-        MqttManager.getInstance().publishEventData(1001, "2")
-        FaceSDKManager2.instance.isRegisted = false
         CarBoxControler.instance.onAccOff()
     }
 

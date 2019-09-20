@@ -77,7 +77,6 @@ class FaceRegister constructor(
 
             return checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
 
-
         } else {
             MyLog.d(TAG, "解析图片失败 ")
             return -1
@@ -216,7 +215,6 @@ class FaceRegister constructor(
                 FaceSDKManager2.instance.isRegisted = true
                 FaceStatusCache.instance.facePicture = facePicture
                 MyLog.d(TAG, "注册成功")
-
                 return 0
             } else {
                 MyLog.d(TAG, "注册特征提取失败")
@@ -285,7 +283,4 @@ class FaceRegister constructor(
         }
     }
 
-    private fun mqttPulish(msg: String) {
-        Log.d("注册", msg)
-    }
 }

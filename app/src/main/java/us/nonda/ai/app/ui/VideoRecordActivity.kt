@@ -133,19 +133,11 @@ class VideoRecordActivity : AppCompatActivity() {
 
             if (emotionData.size > 0) {
                 val time = emotionData[0].time
-                MyLog.d(
-                    TAG,
-                    "情绪结果size=${emotionData.size}  time=$time   currentTimeMillis=$currentTimeMillis 结果=${currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq}"
-                )
-
                 if (currentTimeMillis - time > CarboxConfigRepostory.instance.emotionReportFreq) {
-                    MyLog.d(TAG, "可以上报情绪了${emotionData.size}")
                     var reportData = arrayListOf<EmotionBean>()
                     reportData.addAll(emotionData)
                     MqttManager.getInstance().publishEmotion(reportData)
                     emotionData.clear()
-                    MyLog.d(TAG, "上报情绪完成${emotionData.size}")
-
                 }
             }
             emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
@@ -321,8 +313,8 @@ class VideoRecordActivity : AppCompatActivity() {
 
 
     private fun initkFace() {
-        DeviceLightUtils.normallYellow()
         FaceSDKManager2.instance.init()
+        DeviceLightUtils.normallYellow()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -336,7 +328,7 @@ class VideoRecordActivity : AppCompatActivity() {
         super.onDestroy()
         MyLog.d(TAG, "onDestroy")
         isOpen = false
-
+        FaceSDKManager2.instance.setCallback(null)
         FaceSDKManager2.instance.onCameraClose()
         closeService()
 //        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")

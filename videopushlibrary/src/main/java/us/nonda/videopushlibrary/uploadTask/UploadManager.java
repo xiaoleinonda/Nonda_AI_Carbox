@@ -21,10 +21,7 @@ import us.nonda.videopushlibrary.utlis.Md5Utlis;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 
 public class UploadManager {
@@ -53,6 +50,10 @@ public class UploadManager {
     //全部要上传文件数
     private int mFileSize;
 
+    private ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+
+    private Future future;
+
     private UploadManager() {
 
     }
@@ -64,85 +65,110 @@ public class UploadManager {
         return INSTANCE;
     }
 
-    public void start() {
-        //每次重置需要上传文件数，上传成功文件数，上传失败数
-        mFileSize = 0;
-        completeUploadFileCount = 0;
-        errorCount = 0;
-        //获取所有mp4文件
-        File[] allFiles = FileUtils.traverseFolderGetMP4(FilePathManager.Companion.get().getAllVideoPath());
-        //如果没有未上传的视频说明上传完毕
-        if (allFiles == null || allFiles.length == 0) {
-            MyLog.d("分片上传", "没有需要上传的视频");
-            onVideoUploadListener.onVideoUploadSuccess();
-            return;
-        }
-
-        DeviceLightUtils.Companion.putLightStatus();
-        DeviceLightUtils.Companion.flashWathet();
-        mFileSize = allFiles.length;
-        MqttManager.Companion.getInstance().publishEventData(1020, String.valueOf(mFileSize));
-        //按照最后修改时间排序
-        Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
-
-        //唤醒设备
-        DeviceUtils.cancelIPO();
-
-        if (mExecutor != null) {
-            mExecutor.shutdownNow();
-        }else{
-            mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
-        }
-
-        final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
-        for (final File file : allFiles) {
-            mExecutor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        splitPart(file);
-                        String partFilePath = getPartDir(file) + "/" + file.getName();
-                        submitUploadTask(file, partFilePath, getPartDir(file));
-                    } catch (Exception e) {
-
-                    } finally {
-                        countDownLatch.countDown();
-                        MyLog.d("分片上传", "完成countDownLatch" + countDownLatch.getCount());
-                    }
-                }
-
-            });
-        }
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        uploadAllFileComplete();
-
-    }
-
-    public void stopUpload() {
-        if (mExecutor != null) {
-            mExecutor.shutdown();
-        }
-    }
-
-    private void submitUploadTask(final File file, final String partFilePath, final String partFolderPath) {
+    private boolean checkUploadValid() {
         Float carBattery = Float.valueOf(DeviceUtils.getCarBatteryInfo());
         //如果电压小于11.5V停止上传
         if (carBattery < 11.5) {
             onVideoUploadListener.onLowBattery();
             MyLog.d("分片上传", "电压过小" + carBattery);
-            return;
+            return false;
         }
 
         //acc打开
-        if(CameraStatus.Companion.getInstance().getAccStatus()!=0){
+        if (CameraStatus.Companion.getInstance().getAccStatus() != 0) {
             MyLog.d("分片上传", "accon结束上传");
-            return;
+            return false;
         }
 
+        return true;
+    }
+
+    public void start() {
+        if (future != null && !future.isDone()) {
+            return;
+        }
+        future = singleThreadExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+                MyLog.d("分片上传", "开始上传视频");
+                //每次重置需要上传文件数，上传成功文件数，上传失败数
+                mFileSize = 0;
+                completeUploadFileCount = 0;
+                errorCount = 0;
+                //获取所有mp4文件
+                File[] allFiles = FileUtils.traverseFolderGetMP4(FilePathManager.Companion.get().getAllVideoPath());
+                //如果没有未上传的视频说明上传完毕
+                if (allFiles == null || allFiles.length == 0) {
+                    MyLog.d("分片上传", "没有需要上传的视频");
+                    onVideoUploadListener.onVideoUploadSuccess();
+                    return;
+                }
+
+                DeviceLightUtils.Companion.putLightStatus();
+                DeviceLightUtils.Companion.flashWathet();
+                mFileSize = allFiles.length;
+                MqttManager.Companion.getInstance().publishEventData(1020, String.valueOf(mFileSize));
+                //按照最后修改时间排序
+                Arrays.sort(allFiles, new UploadManager.CompratorByLastModified());
+
+                //唤醒设备
+                DeviceUtils.cancelIPO();
+
+                if (mExecutor != null) {
+                    mExecutor.shutdownNow();
+                }
+                mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+
+                final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
+
+                final int[] count = {0};
+                for (final File file : allFiles) {
+                    mExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                if (checkUploadValid()) {
+                                    splitPart(file);
+                                    String partFilePath = getPartDir(file) + "/" + file.getName();
+                                    submitUploadTask(file, partFilePath, getPartDir(file));
+                                } else {
+//                                    stopUpload();
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                countDownLatch.countDown();
+                                MyLog.d("分片上传", "完成countDownLatch" + countDownLatch.getCount());
+                            }
+                        }
+
+                    });
+                }
+                try {
+                    countDownLatch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                uploadAllFileComplete();
+            }
+        });
+
+
+    }
+
+    public void stopUpload() {
+        MyLog.d("分片上传", "停止上传任务");
+        if (mExecutor != null) {
+            mExecutor.shutdownNow();
+        }
+        if (future != null && !future.isDone()) {
+            future.cancel(true);
+        }
+
+    }
+
+    private void submitUploadTask(final File file, final String partFilePath, final String partFolderPath) {
         String fileMd5 = Md5Utlis.getMD5(file.getAbsolutePath());
         int videoType = getVideoType(file.getAbsolutePath());
         String imei = DeviceUtils.getIMEICode(AppUtils.context);
@@ -374,9 +400,7 @@ public class UploadManager {
         MyLog.d("分片上传", "全部上传执行完成，成功" + completeUploadFileCount + "个");
         MqttManager.Companion.getInstance().publishEventData(1021, String.valueOf(completeUploadFileCount));
         FileUtils.deleteDir(getTempPath());
-        if(mExecutor!=null) {
-            mExecutor.shutdownNow();
-        }
+        stopUpload();
         onVideoUploadListener.onVideoUploadSuccess();
     }
 

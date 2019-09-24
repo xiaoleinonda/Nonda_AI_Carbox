@@ -180,6 +180,8 @@ class MainActivity : AppCompatActivity() {
      * 开启摄像头
      */
     private fun accOn() {
+        UploadManager.getInstance().stopUpload()
+
         /*  if (NondaApp.accStatus && NondaApp.ipoStatus) {
               MyLog.d(TAG, "accOn openCamera")
               CarBoxControler.instance.openCamera(this)

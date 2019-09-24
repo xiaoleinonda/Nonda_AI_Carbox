@@ -89,7 +89,7 @@ public class UploadManager {
         DeviceUtils.cancelIPO();
 
         if (mExecutor != null) {
-            mExecutor.shutdown();
+            mExecutor.shutdownNow();
         }else{
             mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
         }
@@ -374,6 +374,9 @@ public class UploadManager {
         MyLog.d("分片上传", "全部上传执行完成，成功" + completeUploadFileCount + "个");
         MqttManager.Companion.getInstance().publishEventData(1021, String.valueOf(completeUploadFileCount));
         FileUtils.deleteDir(getTempPath());
+        if(mExecutor!=null) {
+            mExecutor.shutdownNow();
+        }
         onVideoUploadListener.onVideoUploadSuccess();
     }
 

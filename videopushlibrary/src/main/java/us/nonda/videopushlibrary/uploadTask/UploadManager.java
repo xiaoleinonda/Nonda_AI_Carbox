@@ -8,6 +8,7 @@ import io.reactivex.disposables.Disposable;
 import kotlin.jvm.Volatile;
 import okhttp3.*;
 import us.nonda.cameralibrary.path.FilePathManager;
+import us.nonda.cameralibrary.status.CameraStatus;
 import us.nonda.commonibrary.BuildConfig;
 import us.nonda.commonibrary.MyLog;
 import us.nonda.commonibrary.http.BaseResult;
@@ -86,19 +87,20 @@ public class UploadManager {
 
         //唤醒设备
         DeviceUtils.cancelIPO();
-        mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+
+        if (mExecutor != null) {
+            mExecutor.shutdownNow();
+        }else{
+            mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+        }
 
         final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {
-            try {
-                splitPart(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             mExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
                     try {
+                        splitPart(file);
                         String partFilePath = getPartDir(file) + "/" + file.getName();
                         submitUploadTask(file, partFilePath, getPartDir(file));
                     } catch (Exception e) {
@@ -132,6 +134,12 @@ public class UploadManager {
         if (carBattery < 11.5) {
             onVideoUploadListener.onLowBattery();
             MyLog.d("分片上传", "电压过小" + carBattery);
+            return;
+        }
+
+        //acc打开
+        if(CameraStatus.Companion.getInstance().getAccStatus()!=0){
+            MyLog.d("分片上传", "accon结束上传");
             return;
         }
 
@@ -180,7 +188,6 @@ public class UploadManager {
             @Override
             public void onError(Throwable e) {
                 MyLog.d("分片上传初始化异常", e);
-                needFinishUpload();
             }
 
             @Override
@@ -188,14 +195,6 @@ public class UploadManager {
             }
         });
 
-    }
-
-    private void needFinishUpload() {
-        errorCount++;
-        MyLog.d("分片上传失败次数", errorCount);
-        if (errorCount > MAX_ERROR_COUNT) {
-            onVideoUploadListener.onVideoUploadFail();
-        }
     }
 
     private int getChunks(File file) {
@@ -311,7 +310,6 @@ public class UploadManager {
             response = call.execute();
             if (!response.isSuccessful()) {
                 MyLog.d("分片上传上传错误", response.body().string());
-                needFinishUpload();
             } else {
                 Gson gson = new Gson();
                 UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
@@ -361,7 +359,6 @@ public class UploadManager {
             @Override
             public void onError(Throwable e) {
                 MyLog.d("分片上传", "完成时异常" + e);
-                needFinishUpload();
             }
 
             @Override
@@ -377,6 +374,9 @@ public class UploadManager {
         MyLog.d("分片上传", "全部上传执行完成，成功" + completeUploadFileCount + "个");
         MqttManager.Companion.getInstance().publishEventData(1021, String.valueOf(completeUploadFileCount));
         FileUtils.deleteDir(getTempPath());
+        if(mExecutor!=null) {
+            mExecutor.shutdownNow();
+        }
         onVideoUploadListener.onVideoUploadSuccess();
     }
 

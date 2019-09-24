@@ -197,6 +197,7 @@ public class UploadManager {
         errorCount++;
         MyLog.d("分片上传失败次数", errorCount);
         if (errorCount > MAX_ERROR_COUNT) {
+            stopUpload();
             onVideoUploadListener.onVideoUploadFail();
         }
     }

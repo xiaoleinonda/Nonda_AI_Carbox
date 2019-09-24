@@ -24,8 +24,8 @@ class NondaApp : Application() {
         lateinit var instance: Context
         private val SP_KEY_APP_VERSION = "sp_key_app_version"
 
-        var accStatus: Boolean = false
-        var ipoStatus: Boolean = false
+        var accStatus: Boolean = true
+        var ipoStatus: Boolean = true
     }
 
     override fun onCreate() {

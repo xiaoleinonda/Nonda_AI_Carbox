@@ -8,6 +8,7 @@ import io.reactivex.disposables.Disposable;
 import kotlin.jvm.Volatile;
 import okhttp3.*;
 import us.nonda.cameralibrary.path.FilePathManager;
+import us.nonda.cameralibrary.status.CameraStatus;
 import us.nonda.commonibrary.BuildConfig;
 import us.nonda.commonibrary.MyLog;
 import us.nonda.commonibrary.http.BaseResult;
@@ -90,15 +91,11 @@ public class UploadManager {
 
         final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {
-            try {
-                splitPart(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             mExecutor.submit(new Runnable() {
                 @Override
                 public void run() {
                     try {
+                        splitPart(file);
                         String partFilePath = getPartDir(file) + "/" + file.getName();
                         submitUploadTask(file, partFilePath, getPartDir(file));
                     } catch (Exception e) {
@@ -132,6 +129,12 @@ public class UploadManager {
         if (carBattery < 11.5) {
             onVideoUploadListener.onLowBattery();
             MyLog.d("分片上传", "电压过小" + carBattery);
+            return;
+        }
+
+        //acc打开
+        if(CameraStatus.Companion.getInstance().getAccStatus()!=0){
+            MyLog.d("分片上传", "accon结束上传");
             return;
         }
 

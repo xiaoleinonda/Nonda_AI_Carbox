@@ -87,7 +87,12 @@ public class UploadManager {
 
         //唤醒设备
         DeviceUtils.cancelIPO();
-        mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+
+        if (mExecutor != null) {
+            mExecutor.shutdown();
+        }else{
+            mExecutor = Executors.newFixedThreadPool(THREAD_COUNT);
+        }
 
         final CountDownLatch countDownLatch = new CountDownLatch(mFileSize);
         for (final File file : allFiles) {

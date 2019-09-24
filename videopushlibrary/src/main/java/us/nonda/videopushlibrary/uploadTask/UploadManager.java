@@ -188,7 +188,6 @@ public class UploadManager {
             @Override
             public void onError(Throwable e) {
                 MyLog.d("分片上传初始化异常", e);
-                needFinishUpload();
             }
 
             @Override
@@ -196,15 +195,6 @@ public class UploadManager {
             }
         });
 
-    }
-
-    private void needFinishUpload() {
-        errorCount++;
-        MyLog.d("分片上传失败次数", errorCount);
-        if (errorCount > MAX_ERROR_COUNT) {
-            stopUpload();
-            onVideoUploadListener.onVideoUploadFail();
-        }
     }
 
     private int getChunks(File file) {
@@ -320,7 +310,6 @@ public class UploadManager {
             response = call.execute();
             if (!response.isSuccessful()) {
                 MyLog.d("分片上传上传错误", response.body().string());
-                needFinishUpload();
             } else {
                 Gson gson = new Gson();
                 UploadPartResponseModel partUploadResponseModel = gson.fromJson(response.body().string(), UploadPartResponseModel.class);
@@ -370,7 +359,6 @@ public class UploadManager {
             @Override
             public void onError(Throwable e) {
                 MyLog.d("分片上传", "完成时异常" + e);
-                needFinishUpload();
             }
 
             @Override

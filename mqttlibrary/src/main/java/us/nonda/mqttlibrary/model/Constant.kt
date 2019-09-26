@@ -18,5 +18,8 @@ class Constant {
         const val RESPONSE_GYRO = 20004
         const val RESPONSE_FACE_RESULT = 20005
         const val RESPONSE_EMOTION = 20006
+        const val RESPONSE_LOG_SWITCH = 20007
+        const val RESPONSE_MQTT_URL = 20008
+        const val RESPONSE_HTTP_URL= 20009
     }
 }

@@ -25,6 +25,16 @@ class MqttHandlerFactory {
                 Constant.RESPONSE_EMOTION -> {
                     return EmotionHandler()
                 }
+                Constant.RESPONSE_LOG_SWITCH -> {
+                    return LogSwitchHandler()
+                }
+                Constant.RESPONSE_MQTT_URL -> {
+                    return MqttUrlHandler()
+                }
+                Constant.RESPONSE_HTTP_URL -> {
+                    return HttpUrlHandler()
+                }
+
             }
             return IMqttMessageHandler { }
         }

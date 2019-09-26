@@ -1,6 +1,7 @@
 package us.nonda.cameralibrary.status
 
 import com.mediatek.carcorder.CarcorderManager
+import us.nonda.commonibrary.MyLog
 
 class CameraStatus private constructor(){
 
@@ -46,7 +47,18 @@ class CameraStatus private constructor(){
     /**
      * 主动唤醒休眠
      */
-    fun exitIpo() = CarcorderManager.get().ipodProxy?.exitIpod(0)
+    fun exitIpo() {
+        MyLog.d("系统", "主动唤醒休眠")
+        CarcorderManager.get().ipodProxy?.exitIpod(0)
+    }
+
+
+    /**
+     * 是否打开碰撞检测
+     */
+    fun setSuspendCollision(boolean: Boolean){
+        CarcorderManager.get().suspendCollision = boolean
+    }
 
 
     fun resetStatus() {

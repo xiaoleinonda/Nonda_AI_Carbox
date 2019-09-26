@@ -100,3 +100,7 @@ message CloudDriveMqttLogData {
 message CloudDriveMqttReportStatusData {
     int32 type = 1;
 }
+
+message CloudDriveConfigChangeData {
+    string content = 1;
+}

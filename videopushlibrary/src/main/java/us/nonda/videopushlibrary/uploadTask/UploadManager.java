@@ -11,6 +11,7 @@ import us.nonda.cameralibrary.path.FilePathManager;
 import us.nonda.cameralibrary.status.CameraStatus;
 import us.nonda.commonibrary.BuildConfig;
 import us.nonda.commonibrary.MyLog;
+import us.nonda.commonibrary.config.CarboxConfigRepostory;
 import us.nonda.commonibrary.http.BaseResult;
 import us.nonda.commonibrary.http.NetModule;
 import us.nonda.commonibrary.model.*;
@@ -180,9 +181,11 @@ public class UploadManager {
         final PartFileInfo partFileInfo = new PartFileInfo(imei, "", chunks, fileMd5, file.getAbsolutePath(), partFilePath, partFolderPath);
         InitPartUploadBody initPartUploadBody = new InitPartUploadBody(imei, fileMd5, file.getName(), videoType, Long.valueOf(createTime), chunks);
 
+        String url = CarboxConfigRepostory.Companion.getInstance().getHttpUrl() + CarboxConfigRepostory.Companion.getURL_PARTUPLOAD_INIT();
+
         //初始化分片上传，每个file都需要初始化一次
         NetModule.Companion.getInstance().provideAPIService()
-                .postInitPartUpload(initPartUploadBody)
+                .postInitPartUpload(url, initPartUploadBody)
                 .retry(3).subscribe(new Observer<BaseResult<InitPartUploadResponseModel>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -323,8 +326,8 @@ public class UploadManager {
                 .build();
 
         Request request = new Request.Builder()
-                .url(BuildConfig.API_URL + "/api/v1/vehiclebox/partupload/upload")
-                .addHeader("token", "7c09b979489a4bca8684c0922bb8a0e7")
+                .url(CarboxConfigRepostory.Companion.getInstance().getHttpUrl() + CarboxConfigRepostory.Companion.getURL_PARTUPLOAD_UPLOAD())
+                .addHeader("token", CarboxConfigRepostory.Companion.getHTTP_TOKEN())
                 .post(fileBody)
                 .build();
 
@@ -363,8 +366,9 @@ public class UploadManager {
         CompletePartUploadBody completePartUploadBody = new CompletePartUploadBody(
                 partFileInfo.getImei(), partFileInfo.getUploadId(), partFileInfo.getChunks(), partFileInfo.getFileMD5());
         //上传分片完成，每个文件都要调用
+        String url = CarboxConfigRepostory.Companion.getInstance().getHttpUrl() + CarboxConfigRepostory.Companion.getURL_PARTUPLOAD_COMPLETE();
         NetModule.Companion.getInstance().provideAPIService()
-                .postCompletePartUpload(completePartUploadBody)
+                .postCompletePartUpload(url, completePartUploadBody)
                 .retry(3).subscribe(new Observer<BaseResult<PartUploadResponseModel>>() {
             @Override
             public void onSubscribe(Disposable d) {

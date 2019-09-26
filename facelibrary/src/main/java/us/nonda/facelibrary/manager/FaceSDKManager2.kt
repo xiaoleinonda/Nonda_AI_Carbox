@@ -16,6 +16,7 @@ import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
 import us.nonda.commonibrary.utils.AppUtils
@@ -145,9 +146,9 @@ class FaceSDKManager2 private constructor() {
         val deviceId = FaceAuth().getDeviceId(context)
         val imeiCode = DeviceUtils.getIMEICode(context)
         MyLog.d(TAG, "获取序列号， 指纹ID=$deviceId")
-
+        val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_SERIALNUM
         NetModule.instance.provideAPIService()
-            .getSerialNum(imeiCode, deviceId!!)
+            .getSerialNum(url, imeiCode, deviceId!!)
             .retry(2)
             .subscribe({
                 MyLog.d(TAG, "获取序列号，成功 it=${it.toString()}")
@@ -415,10 +416,11 @@ class FaceSDKManager2 private constructor() {
             return
         }
 
+        val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_FACE_PICTURE
 
         val imeiCode = DeviceUtils.getIMEICode(context)
         NetModule.instance.provideAPIService()
-            .getFacepicture(imeiCode)
+            .getFacepicture(url, imeiCode)
             .retry(2)
             .subscribe({
                 if (it.code == 200 && it.data != null) {

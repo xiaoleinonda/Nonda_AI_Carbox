@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import us.nonda.commonibrary.config.CarboxConfigRepostory;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,10 +18,10 @@ import java.util.Objects;
 public class MyLog {
 
     //    private static Boolean MYLOG_SWITCH = BuildConfig.MYLOG_SWITCH; // 日志文件总开关
-    private static Boolean MYLOG_SWITCH = true; // 日志文件总开关
+    private static Boolean MYLOG_SWITCH = CarboxConfigRepostory.Companion.getInstance().getLogSwitch(); // 日志文件总开关
     private static Boolean MYLOG_WRITE_TO_FILE = true;// 日志写入文件开关
     private static char MYLOG_TYPE = 'v';// 输入日志类型，w代表只输出告警信息等，v代表输出所有信息
-    private static String MYLOG_PATH_SDCARD_DIR = "/storage/sdcard1/nonda/Log222";// 日志文件在sdcard中的路径
+    private static String MYLOG_PATH_SDCARD_DIR = "/storage/sdcard1/nonda/AppLog";// 日志文件在sdcard中的路径
     private static int SDCARD_LOG_FILE_SAVE_DAYS = 0;// sd卡中日志文件的最多保存天数
     private static String MYLOGFILEName = "LOGLog.txt";// 本类输出的日志文件名称
     private static SimpleDateFormat myLogSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 日志的输出格式
@@ -67,6 +68,7 @@ public class MyLog {
         log(tag, text, 'v');
     }
 
+
     /**
      * 根据tag, msg和等级，输出日志
      *
@@ -75,8 +77,8 @@ public class MyLog {
      * @param level
      */
     private static void log(String tag, String msg, char level) {
-        msg = msg + "  Thread=" + Thread.currentThread().getName();
         if (MYLOG_SWITCH) {//日志文件总开关
+            msg = msg + "  Thread=" + Thread.currentThread().getName();
             if ('e' == level && ('e' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) { // 输出错误信息
                 Log.e(tag, msg);
             } else if ('w' == level && ('w' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) {
@@ -92,9 +94,7 @@ public class MyLog {
 
             if (MYLOG_WRITE_TO_FILE)//日志写入文件开关
                 try {
-//                    if (TextUtils.equals("广播", tag) || TextUtils.equals("MainActivity", tag) || TextUtils.equals("FaceSDKManager2", tag)) {
-                        writeLogtoFile(String.valueOf(level), tag, msg);
-//                    }
+                    writeLogtoFile(String.valueOf(level), tag, msg);
                 } catch (Exception e) {
                     Log.d("本地log日志异常", Objects.requireNonNull(e.getMessage()));
                 }
@@ -108,6 +108,11 @@ public class MyLog {
         Date nowtime = new Date();
         String needWriteFiel = logfile.format(nowtime);
         childPath = needWriteFiel + MYLOGFILEName;
+    }
+
+    public static void initSwitch() {
+        MYLOG_SWITCH = CarboxConfigRepostory.Companion.getInstance().getLogSwitch(); // 日志文件总开关
+
     }
 
     /**

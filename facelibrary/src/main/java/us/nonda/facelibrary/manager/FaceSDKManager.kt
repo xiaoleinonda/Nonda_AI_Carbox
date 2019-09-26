@@ -16,6 +16,7 @@ import io.reactivex.processors.PublishProcessor
 import io.reactivex.schedulers.Schedulers
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
 import us.nonda.commonibrary.utils.AppUtils
@@ -690,8 +691,10 @@ class FaceSDKManager private constructor() {
         if (requestSerialNumDisposable != null && !requestSerialNumDisposable!!.isDisposed) {
             requestSerialNumDisposable!!.dispose()
         }
+        val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_SERIALNUM
+
         requestSerialNumDisposable = NetModule.instance.provideAPIService()
-            .getSerialNum(imeiCode, deviceId!!)
+            .getSerialNum(url,imeiCode, deviceId!!)
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -847,9 +850,10 @@ class FaceSDKManager private constructor() {
             requestFacePicDisposable!!.dispose()
         }
 
+        val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_FACE_PICTURE
 
         requestFacePicDisposable = NetModule.instance.provideAPIService()
-            .getFacepicture(imeiCode)
+            .getFacepicture(url, imeiCode)
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

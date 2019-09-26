@@ -20,6 +20,7 @@ import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_GYRO
 import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
 import java.util.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.mqttlibrary.BuildConfig
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -39,7 +40,7 @@ Will: topic - nonda/drive/<imei>/will, payload - <imei>, qos - 1, retained - fal
 class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
     private val TAG = MqttManager::class.java.simpleName
-    private var SERVER_HOST = BuildConfig.MQTT_URL
+    private var SERVER_HOST = CarboxConfigRepostory.instance.getMqttUrl()
     //    private var CLIENT_ID = "Android${DeviceUtils.getIMEICode(AppUtils.context)}"
     private var CLIENT_ID = "nonda-vehiclebox-${DeviceUtils.getIMEICode(AppUtils.context)}"
     var mqttState = 0

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import com.yaoxiaowen.download.utils.ToastUtils
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -22,6 +23,7 @@ import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.event.AccEvent
 import us.nonda.commonibrary.event.IpoEvent
 import us.nonda.commonibrary.event.ServiceEvent
+import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceLightUtils
 import us.nonda.commonibrary.utils.DeviceUtils
@@ -34,6 +36,7 @@ import us.nonda.mqttlibrary.mqtt.MqttManager
 import us.nonda.videopushlibrary.uploadTask.UploadManager
 import java.util.ArrayList
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 
 /**
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         MyLog.d(TAG, "onCreate")
-
+//        CarBoxControler.instance.setSuspendCollision(false)
         EventBus.getDefault().register(this)
         MqttManager.getInstance().onStart()
         checkAccStatus()
@@ -161,17 +164,12 @@ class MainActivity : AppCompatActivity() {
      * 唤醒状态下 如果acc 是on的时候就打开业务
      */
     private fun ipoOn() {
-        if (!NondaApp.accStatus) {//acc off
-            CarBoxControler.instance.onIpoONGetGps()
-        }
-
-        /*   if (NondaApp.accStatus && NondaApp.ipoStatus) {
-               CarBoxControler.instance.openCamera(this)
-           }
-   */
         WakeUpService.stopService(this)
         registReceiver()
         UploadManager.getInstance().stopUpload()
+        if (!NondaApp.accStatus) {//acc off
+//            CarBoxControler.instance.onIpoONGetGps()
+        }
     }
 
 
@@ -181,7 +179,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun accOn() {
         UploadManager.getInstance().stopUpload()
-
+        MyLog.initSwitch()//初始化日志开关
         /*  if (NondaApp.accStatus && NondaApp.ipoStatus) {
               MyLog.d(TAG, "accOn openCamera")
               CarBoxControler.instance.openCamera(this)

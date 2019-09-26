@@ -6,6 +6,7 @@ import com.baidu.idl.facesdk.callback.AuthCallback
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.model.PostLicenceBody
 import us.nonda.commonibrary.utils.AppUtils
@@ -108,8 +109,11 @@ class FaceAuthManager {
         MyLog.d(TAG, "百度激活成功 开始提交激活状态imeiCode=$imeiCode")
         MyLog.d(TAG, "百度激活成功 开始提交激活状态licenseID=$licenseID")
         MyLog.d(TAG, "百度激活成功 开始提交激活状态deviceId=$deviceId")
+
+        val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_CONFIRMACTIVATION
+
         disposable = NetModule.instance.provideAPIService()
-            .postLicenceSucceed(PostLicenceBody(imeiCode, licenseID, deviceId))
+            .postLicenceSucceed(url, PostLicenceBody(imeiCode, licenseID, deviceId))
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

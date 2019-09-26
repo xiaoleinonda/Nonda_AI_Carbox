@@ -1,6 +1,8 @@
 package us.nonda.commonibrary.config
 
+import android.text.TextUtils
 import com.google.gson.Gson
+import us.nonda.commonibrary.BuildConfig
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.SPUtils
 
@@ -51,6 +53,18 @@ class CarboxConfigRepostory private constructor() {
         private val SP_KEY_GPS_CONFIG = "sp_key_gps_config"
         private val SP_KEY_EMOTION_CONFIG = "sp_key_emotion_config"
         private val SP_KEY_FACE_CONFIG = "sp_key_face_config"
+        private val SP_KEY_HTTP_HOST = "sp_key_http_host"
+        private val SP_KEY_MQTT_HOST = "sp_key_mqtt_host"
+        private val SP_KEY_LOG_SWITCH = "sp_key_log_switch"
+
+        val URL_APP_VERSION = "/api/v1/vehiclebox/check/appversion"
+        val URL_FACE_PICTURE = "/api/v1/vehiclebox/download/facepic"
+        val URL_SERIALNUM = "/api/v1/vehiclebox/getserialnum"
+        val URL_CONFIRMACTIVATION = "/api/v1/vehiclebox/confirmactivation"
+        val URL_PARTUPLOAD_INIT = "/api/v1/vehiclebox/partupload/init"
+        val URL_PARTUPLOAD_COMPLETE = "/api/v1/vehiclebox/partupload/complete"
+        val URL_PARTUPLOAD_UPLOAD = "/api/v1/vehiclebox/partupload/upload"
+        val HTTP_TOKEN = "7c09b979489a4bca8684c0922bb8a0e7"
         val instance: CarboxConfigRepostory by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             CarboxConfigRepostory()
         }
@@ -218,5 +232,33 @@ class CarboxConfigRepostory private constructor() {
             SPUtils.put(context, SP_KEY_FACE_CONFIG, gpsConfig)
         } catch (e: Exception) {
         }
+    }
+
+    fun putHttpUrl(host: String) {
+        SPUtils.put(context, SP_KEY_HTTP_HOST, host)
+    }
+
+    fun getHttpUrl(): String {
+        return SPUtils.get(context, SP_KEY_HTTP_HOST, BuildConfig.API_URL) as String
+    }
+
+    fun putMqttUrl(host: String) {
+        SPUtils.put(context, SP_KEY_MQTT_HOST, host)
+    }
+
+    fun getMqttUrl(): String {
+        return SPUtils.get(context, SP_KEY_MQTT_HOST, BuildConfig.MQTT_URL) as String
+    }
+
+    /**
+     * switch  // 0关闭，1开启
+     */
+    fun putLogSwitch(switch: String) {
+        SPUtils.put(context, SP_KEY_LOG_SWITCH, switch)
+    }
+
+    fun getLogSwitch(): Boolean {
+        val content = SPUtils.get(context, SP_KEY_LOG_SWITCH, "0") as String
+        return TextUtils.equals("1", content)
     }
 }

@@ -20,6 +20,7 @@ import us.nonda.commonibrary.location.LocationUtils
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.SysProp
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.http.NetModule
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.DeviceLightUtils
@@ -36,7 +37,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 
 
     private var checkVersionDisposable: Disposable? = null
-    private var batteryInfoDisposable: Disposable? = null
+//    private var batteryInfoDisposable: Disposable? = null
 
     /**
      * 自动唤醒的时间
@@ -67,11 +68,11 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
         if (TextUtils.equals(mode, "1") || TextUtils.equals(oqcMode, "1")) {
             return
         }
-      /*  MyLog.d(TAG, "openCamera  NondaApp.accStatus=${NondaApp.accStatus}  NondaApp.ipoStatus=${NondaApp.ipoStatus}")
+        /*  MyLog.d(TAG, "openCamera  NondaApp.accStatus=${NondaApp.accStatus}  NondaApp.ipoStatus=${NondaApp.ipoStatus}")
 
-        if (!NondaApp.accStatus || !NondaApp.ipoStatus) {
-            return
-        }*/
+          if (!NondaApp.accStatus || !NondaApp.ipoStatus) {
+              return
+          }*/
 
         if (cameraDisposable != null && !cameraDisposable!!.isDisposed) {
             MyLog.d(TAG, "dispose")
@@ -92,6 +93,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
             }, {
 
             })
+
     }
 
 
@@ -228,9 +230,9 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      * 当设备休眠时会触发
      */
     fun onIpoOff(context: Context?) {
-        if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
+        /*if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
             batteryInfoDisposable!!.dispose()
-        }
+        }*/
         WakeUpService.startService(context!!)
     }
 
@@ -240,6 +242,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     fun noticeIPO(context: Context) {
         if (CameraStatus.instance.getAccStatus() == 0) {
             MyLog.d(TAG, "主动进入休眠")
+            SysProp.set("sys.need.update", "false")
             val intent = Intent("com.reacheng.action.SYNC_NOTICE_IPO")
             context.sendBroadcast(intent)
         }
@@ -257,10 +260,17 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     /**
      * 主动唤醒休眠
      */
-    fun exitIpo() = {
-        if (!isAccOff()) {
+    fun exitIpo() {
+        if (isAccOff()) {
             CameraStatus.instance.exitIpo()
         }
+    }
+
+    /**
+     * 是否打开碰撞检测
+     */
+    fun setSuspendCollision(boolean: Boolean){
+        CameraStatus.instance.setSuspendCollision(boolean)
     }
 
 
@@ -272,8 +282,19 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
         if (!isWakeUp) {
             return
         }
+        isWakeUp = false
         MyLog.d(TAG, "acc off下被唤醒了 开始上报GPS和电量")
 
+        val carBatteryInfo = getCarBatteryInfo()
+        val vol = java.lang.Float.valueOf(carBatteryInfo ?: "0.0")
+        val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
+        val versionName = AppUtils.getVersionName(AppUtils.context)
+        val latitude = (bestLocation?.latitude) ?: 0.0
+        val longitude = (bestLocation?.longitude) ?: 0.0
+        val accuracy = bestLocation?.accuracy
+        MqttManager.getInstance()
+            .publishSleepStatus(StatusBean("", versionName, latitude, longitude, accuracy, vol))
+        noticeIPO(AppUtils.context)
 /*
         if (gpsDisposable != null && !gpsDisposable!!.isDisposed) {
             gpsDisposable!!.dispose()
@@ -304,24 +325,24 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
 */
 
 
-        if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
-            batteryInfoDisposable!!.dispose()
-        }
-        batteryInfoDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
-            .observeOn(Schedulers.io())
-            .subscribe {
-                val carBatteryInfo = getCarBatteryInfo()
-                val vol = java.lang.Float.valueOf(carBatteryInfo ?: "0.0")
-                val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
-                val versionName = AppUtils.getVersionName(AppUtils.context)
-                val latitude = (bestLocation?.latitude)?.toDouble() ?: -1.0
-                val longitude = (bestLocation?.longitude)?.toDouble() ?: -1.0
-                val accuracy = bestLocation?.accuracy
-                MqttManager.getInstance()
-                    .publishSleepStatus(StatusBean("fw", versionName, latitude, longitude, accuracy, vol))
-                batteryInfoDisposable?.dispose()
-                noticeIPO(AppUtils.context)
-            }
+        /* if (batteryInfoDisposable != null && !batteryInfoDisposable!!.isDisposed) {
+             batteryInfoDisposable!!.dispose()
+         }
+         batteryInfoDisposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+             .observeOn(Schedulers.io())
+             .subscribe {
+                 val carBatteryInfo = getCarBatteryInfo()
+                 val vol = java.lang.Float.valueOf(carBatteryInfo ?: "0.0")
+                 val bestLocation = LocationUtils.getBestLocation(AppUtils.context, null)
+                 val versionName = AppUtils.getVersionName(AppUtils.context)
+                 val latitude = (bestLocation?.latitude)?.toDouble() ?: -1.0
+                 val longitude = (bestLocation?.longitude)?.toDouble() ?: -1.0
+                 val accuracy = bestLocation?.accuracy
+                 MqttManager.getInstance()
+                     .publishSleepStatus(StatusBean("fw", versionName, latitude, longitude, accuracy, vol))
+                 batteryInfoDisposable?.dispose()
+                 noticeIPO(AppUtils.context)
+             }*/
 
 
     }
@@ -368,9 +389,11 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
         if (checkVersionDisposable != null && !checkVersionDisposable!!.isDisposed) {
             checkVersionDisposable!!.dispose()
         }
+
+        val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_APP_VERSION
         checkVersionDisposable = AppUtils.getVersionName(AppUtils.context)?.let {
             NetModule.instance.provideAPIService()
-                .getAppVersion(imeiCode, it)
+                .getAppVersion(url, imeiCode, it)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())

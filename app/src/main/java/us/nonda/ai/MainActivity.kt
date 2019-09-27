@@ -20,6 +20,7 @@ import us.nonda.ai.app.service.WakeUpService
 import us.nonda.ai.app.ui.VideoRecordActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.event.AccEvent
 import us.nonda.commonibrary.event.IpoEvent
 import us.nonda.commonibrary.event.ServiceEvent
@@ -46,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     var netStateChangeReceiver: NetStateChangeReceiver? = null
 
     private val TAG = "MainActivity"
-    private var count = 0
     /**
      * 只会执行一次
      */
@@ -54,7 +54,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         MyLog.d(TAG, "onCreate")
-//        CarBoxControler.instance.setSuspendCollision(false)
+        //关闭碰撞检测
+        CarBoxControler.instance.setSuspendCollision(false)
+
         EventBus.getDefault().register(this)
         MqttManager.getInstance().onStart()
         checkAccStatus()
@@ -178,6 +180,7 @@ class MainActivity : AppCompatActivity() {
      * 开启摄像头
      */
     private fun accOn() {
+        MqttManager.getInstance().onStart()
         UploadManager.getInstance().stopUpload()
         MyLog.initSwitch()//初始化日志开关
         /*  if (NondaApp.accStatus && NondaApp.ipoStatus) {

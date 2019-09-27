@@ -115,6 +115,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
 
     @Synchronized
     fun onStart() {
+        MyLog.d(TAG, "onStart  connect=${mqttAndroidClient.isConnected}")
         if (!mqttAndroidClient.isConnected) {
             try {
                 mqttAndroidClient.connect(mqttConnectOptions, null, this)
@@ -133,7 +134,6 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
             mqttAndroidClient.disconnect()
         }
         MyLog.d(TAG, "网络断开" + mqttAndroidClient.isConnected)
-
     }
 
     /**
@@ -175,10 +175,11 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         mExecutor?.submit {
             try {
                 if (mqttAndroidClient.isConnected) {
-                    val cloudDriveMqttMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(mqttMessage.payload)
+                    val cloudDriveMqttMessage =
+                        CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(mqttMessage.payload)
                     val token = mqttAndroidClient.publish(PUBLISH_TOPIC, mqttMessage)
                     token.waitForCompletion(15000)
-                    MyLog.d(TAG, "waitForCompletion之后cmd"+cloudDriveMqttMessage.cmd)
+                    MyLog.d(TAG, "waitForCompletion之后cmd" + cloudDriveMqttMessage.cmd)
                 } else {
                     messageQueue.offer(mqttMessage)
                     MyLog.d(TAG, "存到本地" + messageQueue.size + "条消息")
@@ -186,8 +187,9 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
                 MyLog.d(TAG, "mqttAndroidClient=${mqttAndroidClient.isConnected}")
             } catch (e: Exception) {
                 messageQueue.offer(mqttMessage)
-                val cloudDriveMqttMessage = CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(mqttMessage.payload)
-                MyLog.d(TAG, "发送失败之后cmd"+cloudDriveMqttMessage.cmd +"异常"+e)
+                val cloudDriveMqttMessage =
+                    CloudDriveMqttMessageCreator.CloudDriveMqttMessage.parseFrom(mqttMessage.payload)
+                MyLog.d(TAG, "发送失败之后cmd" + cloudDriveMqttMessage.cmd + "异常" + e)
             }
         }
     }
@@ -301,7 +303,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
             while (mqttMessage != null) {
                 try {
                     publish(mqttMessage)
-                    MyLog.d(TAG, "缓存数据发送成功"+"本地剩余" + messageQueue.size + "条消息")
+                    MyLog.d(TAG, "缓存数据发送成功" + "本地剩余" + messageQueue.size + "条消息")
                     mqttMessage = messageQueue.poll()
 
                     //相隔一定时间发送一次，防止短时间发送过多收不到消息的回调

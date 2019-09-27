@@ -13,6 +13,7 @@ class LogSwitchHandler : IMqttMessageHandler {
         val content = cloudDriveConfigChangeData.content
 
         CarboxConfigRepostory.instance.putLogSwitch(content)
+        MyLog.initSwitch()
         MyLog.d("收到消息","下发log开关 content=$content")
     }
 }

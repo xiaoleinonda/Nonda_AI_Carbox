@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         MyLog.d(TAG, "onCreate")
         //关闭碰撞检测
         CarBoxControler.instance.setSuspendCollision(false)
-//develop
+
         EventBus.getDefault().register(this)
         MqttManager.getInstance().onStart()
         checkAccStatus()

@@ -561,9 +561,8 @@ class FaceSDKManager2 private constructor() {
         if (queryFeature != null && queryFeature.size > 0) {
             val feature = queryFeature[0]
             val v = faceFeature.featureCompare(FaceFeature.FeatureType.FEATURE_VIS, feature.feature, curFeature)
-            liveModel.featureScore = feature.score
+            liveModel.featureScore = v
             MyLog.d(TAG, "比对结果featureCompare=$v")
-
             if (v >= 70f) {
                 return feature;
             }

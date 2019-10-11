@@ -176,7 +176,7 @@ class VideoRecordActivity : AppCompatActivity() {
             faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
 
 
-            setResult("成功")
+            setResult("相似度：$featureScore  ")
            /* var pictureModel: PictureModel
             if (featureStatus == 1) {
                 var fileName = "${currentTimeMillis}ture"

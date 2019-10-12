@@ -62,10 +62,10 @@
             android:id="@+id/tv_pass"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="sdfsdf"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintRight_toRightOf="parent"
-            android:textColor="#006400"
+            android:textColor="#f00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

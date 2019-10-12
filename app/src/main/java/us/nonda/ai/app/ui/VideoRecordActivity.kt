@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_video_record2.*
 import kotlinx.android.synthetic.main.activity_video_record2.draw_detect_face_view
 import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewBack
 import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewFront
+import us.nonda.ai.BuildConfig
 import us.nonda.ai.R
 import us.nonda.ai.app.service.SensorReportService
 import us.nonda.cameralibrary.camera.*
@@ -128,7 +129,9 @@ class VideoRecordActivity : AppCompatActivity() {
             val currentTimeMillis = System.currentTimeMillis()
 
             val fileName = "$currentTimeMillis$emotionsMsg"
-            setEnmotion(emotionsMsg)
+            if (BuildConfig.DEBUG) {
+                setEnmotion(emotionsMsg)
+            }
             MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
 
             if (emotionData.size > 0) {
@@ -160,7 +163,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
     private fun reportFace(livenessModel: LivenessModel?) {
         livenessModel?.run {
-            MyLog.d(TAG, "人脸比对结果=$featureStatus")
+            MyLog.d(TAG, "人脸比对结果=$featureStatus   相似度值=$featureScore")
 
             val currentTimeMillis = System.currentTimeMillis()
 
@@ -175,28 +178,29 @@ class VideoRecordActivity : AppCompatActivity() {
             }
             faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
 
-
-            setResult("相似度：$featureScore  ")
-           /* var pictureModel: PictureModel
-            if (featureStatus == 1) {
-                var fileName = "${currentTimeMillis}ture"
-                pictureModel = PictureModel(
-                    "ture", imageFrame.width, imageFrame.height, imageFrame.argb
-                    , fileName
-                )
-                setResult("成功")
-
-            } else {
-                var fileName = "${currentTimeMillis}false"
-                pictureModel = PictureModel(
-                    "false", imageFrame.width, imageFrame.height, imageFrame.argb
-                    , fileName
-                )
-                setResult("失败=$featureStatus")
-
+            if (BuildConfig.DEBUG) {
+                setResult("相似度：$featureScore  ")
             }
-            backCameraDevice?.pictureFaceProcessor?.onNext(pictureModel)
-*/
+            /* var pictureModel: PictureModel
+             if (featureStatus == 1) {
+                 var fileName = "${currentTimeMillis}ture"
+                 pictureModel = PictureModel(
+                     "ture", imageFrame.width, imageFrame.height, imageFrame.argb
+                     , fileName
+                 )
+                 setResult("成功")
+
+             } else {
+                 var fileName = "${currentTimeMillis}false"
+                 pictureModel = PictureModel(
+                     "false", imageFrame.width, imageFrame.height, imageFrame.argb
+                     , fileName
+                 )
+                 setResult("失败=$featureStatus")
+
+             }
+             backCameraDevice?.pictureFaceProcessor?.onNext(pictureModel)
+ */
         }
 
 

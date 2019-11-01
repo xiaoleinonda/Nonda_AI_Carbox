@@ -29,6 +29,17 @@ android {
         versionName "1.0.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+ /*   flavorDimensions 'url'
+
+    productFlavors {
+        product {
+            dimension 'url'
+        }
+        develop {
+            dimension 'url'
+        }
+    }*/
     buildTypes {
         release {
             minifyEnabled false
@@ -40,9 +51,24 @@ android {
         debug {
             debuggable true
             minifyEnabled false
-
             signingConfig signingConfigs.debug
         }
+
+       /* productDebug{
+            minifyEnabled false
+            debuggable true
+
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug'] *//* 其他 lib 没有这个 buildType，使用 debug 模式*//*
+        }
+
+        developRelease{
+            minifyEnabled false
+            debuggable false
+            signingConfig signingConfigs.release
+            matchingFallbacks = ['release'] *//* 其他 lib 没有这个 buildType，使用 debug 模式*//*
+        }*/
+
     }
 
     /*  android.applicationVariants.all { variant ->

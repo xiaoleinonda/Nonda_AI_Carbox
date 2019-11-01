@@ -136,6 +136,9 @@ class FaceSDKManager2 private constructor() {
         }
     }
 
+    fun getLicence(): String {
+        return FaceAuth().getDeviceId(context)
+    }
 
     @SuppressLint("CheckResult")
     private fun getLicenceStrHttp() {
@@ -143,7 +146,7 @@ class FaceSDKManager2 private constructor() {
             return
         }
 
-        val deviceId = FaceAuth().getDeviceId(context)
+        val deviceId = getLicence()
         val imeiCode = DeviceUtils.getIMEICode(context)
         MyLog.d(TAG, "获取序列号， 指纹ID=$deviceId")
         val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_SERIALNUM
@@ -352,6 +355,17 @@ class FaceSDKManager2 private constructor() {
         log("初始化失败:$msg")
     }
 
+    fun isInitSucceed(): Boolean {
+        return status == STATUS_INITED
+    }
+
+    fun isActiveSucceed(): Boolean {
+        return FaceStatusCache.instance.isLicence()
+    }
+
+    fun getFaceLicence(): String? {
+        return FaceStatusCache.instance.faceLicence
+    }
 
     fun checkRegistFaceStatus() {
         if (CameraStatus.instance.getAccStatus() == 0) {

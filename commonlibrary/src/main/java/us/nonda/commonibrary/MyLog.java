@@ -77,7 +77,7 @@ public class MyLog {
      * @param level
      */
     private static void log(String tag, String msg, char level) {
-        if (MYLOG_SWITCH) {//日志文件总开关
+        if (MYLOG_SWITCH || BuildConfig.DEBUG) {//日志文件总开关
             msg = msg + "  Thread=" + Thread.currentThread().getName();
             if ('e' == level && ('e' == MYLOG_TYPE || 'v' == MYLOG_TYPE)) { // 输出错误信息
                 Log.e(tag, msg);

@@ -18,6 +18,7 @@ import us.nonda.ai.app.base.NondaApp
 import us.nonda.ai.app.receiver.NetStateChangeReceiver
 import us.nonda.ai.app.service.WakeUpService
 import us.nonda.ai.app.ui.VideoRecordActivity
+import us.nonda.ai.app.ui.debug.DebugActivity
 import us.nonda.ai.controler.CarBoxControler
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
@@ -61,30 +62,14 @@ class MainActivity : AppCompatActivity() {
         MqttManager.getInstance().onStart()
         checkAccStatus()
         registReceiver()
-    }
 
-
-    fun onClickNonda(view: View) {
-//        for (i in 0..10) {
-//            val lists = ArrayList<GPSBean>()
-//            for (i in 0..3000) {
-//                val gps = GPSBean(
-//                    120.111,
-//                    120.121311,
-//                    3213.12f,
-//                    3123.213f,
-//                    121231f,
-//                    System.currentTimeMillis()
-//                )
-//                lists.add(gps)
-//            }
-//            MqttManager.getInstance().publishGPS(lists)
-//        }
-        thread {
-            FaceSDKManager2.instance.getHttpFacePicture()
+        main_container.setOnLongClickListener {
+            DebugActivity.starter(this)
+            return@setOnLongClickListener true
         }
-
     }
+
+
 
     private fun checkAccStatus() {
 //        val ipoStatus = DeviceUtils.getIpoStatus()

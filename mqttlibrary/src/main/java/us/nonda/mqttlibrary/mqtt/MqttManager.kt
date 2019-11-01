@@ -21,7 +21,7 @@ import us.nonda.mqttlibrary.model.Constant.Companion.PUBLISH_STATUS
 import java.util.*
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 import us.nonda.commonibrary.config.CarboxConfigRepostory
-import us.nonda.mqttlibrary.BuildConfig
+import us.nonda.commonibrary.BuildConfig
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -49,8 +49,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     private val MQTTSTATE_DELIVERYCOMPLETE = 2
     private val mqttConnectOptions = MqttConnectOptions()
 
-    public var isConnected = false
-    public var connectSuccessed = false
+    private var initSuccessed = false
     private val messageQueue = LinkedList<MqttMessage>()
     private var isPublishLocalMessage = false
     val executorService = Executors.newSingleThreadExecutor()
@@ -129,11 +128,14 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     }
 
     fun onStop() {
-        isConnected = false
         if (mqttAndroidClient.isConnected) {
             mqttAndroidClient.disconnect()
         }
         MyLog.d(TAG, "网络断开" + mqttAndroidClient.isConnected)
+    }
+
+    fun isConnected(): Boolean {
+        return mqttAndroidClient.isConnected
     }
 
     /**
@@ -162,7 +164,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         mqttMessage.payload = byteArray
 
         //如果还没有初始化，存在本地，连接成功之后上报
-        if (!connectSuccessed) {
+        if (!initSuccessed) {
             MyLog.d(TAG, "还没初始化存到本地" + messageQueue.size + "条消息")
             messageQueue.offer(mqttMessage)
         } else {
@@ -242,7 +244,6 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
         //停止上传本地数据
         isPublishLocalMessage = false
         MyLog.d(TAG, "connectionLost")
-        isConnected = false
         mqttState = MQTTSTATE_CONNECTIONLOST
     }
 
@@ -260,11 +261,10 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
      * mqtt初始化成功
      */
     override fun onSuccess(asyncActionToken: IMqttToken?) {
-        isConnected = true
         try {
 //            mqttAndroidClient.subscribe(RESPONSE_TOPIC, 1)//订阅主题，参数：主题、服务质量
             MyLog.d(TAG, "mqtt初始化成功")
-            connectSuccessed = true
+            initSuccessed = true
 
             MqttManager.getInstance().publishEventData(1014, "1")
 
@@ -277,8 +277,7 @@ class MqttManager : MqttCallback, IMqttActionListener, MqttCallbackExtended {
     }
 
     override fun onFailure(asyncActionToken: IMqttToken?, exception: Throwable?) {
-        isConnected = false
-        MyLog.d(TAG, "onFailure：${exception?.message}+mqttAndroidClient.isConnected")
+        MyLog.d(TAG, "onFailure：${exception?.message}+${mqttAndroidClient.isConnected}")
     }
 
     /**

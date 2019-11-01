@@ -2,6 +2,8 @@ package us.nonda.commonibrary.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +67,16 @@ public class DeviceUtils {
     }
 
     /**
+     * 获取sim卡状态
+     * @param context
+     * @return
+     */
+    public static int getSimState(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(AppCompatActivity.TELEPHONY_SERVICE);
+        return telephonyManager.getSimState();
+    }
+
+    /**
      * 熄火时不进休眠控制属性值
      */
     public static void cancelIPO() {
@@ -72,9 +84,11 @@ public class DeviceUtils {
         MyLog.d("上传视频取消休眠", "取消自动休眠");
     }
 
+
     /**
      * true是休眠
      * false是未休眠
+     *
      * @return
      */
     public static boolean getIpoStatus() {

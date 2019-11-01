@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="us.nonda.ai">
-
-   <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!--
+     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>-->
-
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -39,6 +39,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
             android:name=".app.base.NondaApp"
             android:allowBackup="true"
@@ -48,13 +49,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <service
-                android:name=".app.service.WakeUpService">
+        <activity android:name=".app.ui.debug.DebugActivity">
+        </activity>
+
+        <service android:name=".app.service.WakeUpService">
         </service>
 
         <activity android:name=".app.ui.TestActivity">
         </activity>
-        <activity android:name=".app.ui.VideoRecordActivity"
+        <activity
+                android:name=".app.ui.VideoRecordActivity"
                 android:launchMode="singleTop">
         </activity>
         <activity

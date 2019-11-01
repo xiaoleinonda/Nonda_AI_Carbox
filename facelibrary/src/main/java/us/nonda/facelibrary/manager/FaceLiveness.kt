@@ -82,47 +82,47 @@ class FaceLiveness constructor(
              return isLiveness
          }
  */
-       /* if (future != null && !future!!.isDone()) {
-            return isLiveness
-        }*/
+        /* if (future != null && !future!!.isDone()) {
+             return isLiveness
+         }*/
 
 //        future = es.submit {
-            //  克隆基本数据，保证一致
+        //  克隆基本数据，保证一致
 //            var cloneRgbArray = rgbArray!!.clone()
-            Log.d("FaceLiveness", "开始识别=" + rgbArray.size)
+        Log.d("FaceLiveness", "开始识别=" + rgbArray.size)
 
-            val maxFace = trackMaxFace(rgbArray, width, height)
+        val maxFace = trackMaxFace(rgbArray, width, height)
 
-            Log.d(TAG, "maxFace=" + maxFace)
+        Log.d(TAG, "maxFace=" + maxFace)
 
-            val livenessModel = LivenessModel()
-            livenessModel.imageFrame.argb = rgbArray
-            livenessModel.imageFrame.width = width
-            livenessModel.imageFrame.height = height
+        val livenessModel = LivenessModel()
+        livenessModel.imageFrame.argb = rgbArray
+        livenessModel.imageFrame.width = width
+        livenessModel.imageFrame.height = height
 
-            if (maxFace != null && maxFace.size > 0) {
-                livenessModel.trackFaceInfo = maxFace
-                val faceInfo = maxFace[0]
-                livenessModel.landmarks = faceInfo.landmarks
-                livenessModel.faceInfo = faceInfo
-                livenessModel.faceID = faceInfo.face_id
+        if (maxFace != null && maxFace.size > 0) {
+            livenessModel.trackFaceInfo = maxFace
+            val faceInfo = maxFace[0]
+            livenessModel.landmarks = faceInfo.landmarks
+            livenessModel.faceInfo = faceInfo
+            livenessModel.faceID = faceInfo.face_id
 
-                callback?.onFaceDetectCallback(
-                    true, faceInfo.mWidth.toInt(),
-                    faceInfo.mWidth.toInt(), faceInfo.mCenter_x.toInt(), faceInfo.mCenter_y.toInt(),
-                    width, height
-                )
+            callback?.onFaceDetectCallback(
+                true, faceInfo.mWidth.toInt(),
+                faceInfo.mWidth.toInt(), faceInfo.mCenter_x.toInt(), faceInfo.mCenter_y.toInt(),
+                width, height
+            )
 
-                livenessFeatures(livenessModel)
+            livenessFeatures(livenessModel)
 
-            } else {
-                callback?.onTip(1, "未检测到人脸")
-                callback?.onFaceDetectCallback(
-                    false, 0,
-                    0, 0, 0, 0, 0
-                )
+        } else {
+            callback?.onTip(1, "未检测到人脸")
+            callback?.onFaceDetectCallback(
+                false, 0,
+                0, 0, 0, 0, 0
+            )
 
-            }
+        }
 //        }
 
         return isLiveness
@@ -137,37 +137,37 @@ class FaceLiveness constructor(
 
         var liveType = 0
 //        future2 = es2.submit {
-            var rgbScore: Float = 0f
+        var rgbScore: Float = 0f
 
-            when (liveType) {
-                0 -> {
-                    rgbScore = rgbLiveness(
-                        livenessModel.imageFrame.argb,
-                        livenessModel.imageFrame.width,
-                        livenessModel.imageFrame.height,
-                        livenessModel.landmarks
-                    )
-                }
-                1 -> {
-                    rgbScore = irLiveness(
-                        livenessModel.imageFrame.ir,
-                        livenessModel.imageFrame.width,
-                        livenessModel.imageFrame.height,
-                        livenessModel.landmarks
-                    )
-                }
-
+        when (liveType) {
+            0 -> {
+                rgbScore = rgbLiveness(
+                    livenessModel.imageFrame.argb,
+                    livenessModel.imageFrame.width,
+                    livenessModel.imageFrame.height,
+                    livenessModel.landmarks
+                )
             }
-            livenessModel.rgbLivenessScore = rgbScore
-
-            Log.d("人脸识别", "活体=" + rgbScore)
-            if (isFeature()) {
-                filterFeature(livenessModel)
+            1 -> {
+                rgbScore = irLiveness(
+                    livenessModel.imageFrame.ir,
+                    livenessModel.imageFrame.width,
+                    livenessModel.imageFrame.height,
+                    livenessModel.landmarks
+                )
             }
 
-            if (isEnmotion()) {
-                startEnmotion(livenessModel)
-            }
+        }
+        livenessModel.rgbLivenessScore = rgbScore
+
+        Log.d("人脸识别", "活体=" + rgbScore)
+        if (isFeature()) {
+            filterFeature(livenessModel)
+        }
+
+        if (isEnmotion()) {
+            startEnmotion(livenessModel)
+        }
 
 //        }
 
@@ -183,13 +183,27 @@ class FaceLiveness constructor(
         futureEnmotion = esEnmotion.submit {
             livenessModel.run {
                 val emotions = faceAttribute.emotions(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
+                val attribute = faceAttribute.attribute(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
                 val parseFaceEnmition = parseFaceEnmition(emotions)
                 emotionsMsg = parseFaceEnmition
-                Log.d(TAG, "情绪=" + parseFaceEnmition)
+                Log.d(
+                    TAG,
+                    "情绪=" + parseFaceEnmition + "  expression_conf= ${emotions.expression_conf}  expression_conf_list= ${emotions.expression_conf_list}"
+                )
+                attribute?.run {
+                    Log.d(
+                        TAG, " " +
+                                "=$age  种族=$race  佩戴眼镜状态=$glasses  性别=$gender  笑容=$emotion"
+                    )
+
+                }
+
+
                 callback?.onEnmotionCallback(this)
             }
         }
 
+//        FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
 
     }
 

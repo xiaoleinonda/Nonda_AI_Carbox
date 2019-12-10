@@ -93,14 +93,6 @@ class FaceSDKManager private constructor() {
     val threadForInit = Executors.newSingleThreadExecutor()
     val futureForInit: Future<*>? = null
 
-    fun initttt() {
-        if (futureForInit != null && !futureForInit.isDone) {
-            return
-        }
-        threadForInit.submit {
-
-        }
-    }
 
 
     var checking = false
@@ -108,19 +100,13 @@ class FaceSDKManager private constructor() {
         if (checking) {
             return
         }
-/*
-        if (future != null && !future!!.isDone()) {
-            return
-        }
-        future = newSingleThreadExecutor.submit {*/
+
         MyLog.d(TAG, "check  status=$status")
         if (status == STATUS_INIT) {
             checkLicenceStatus()
         }
 
         checkRegistFaceStatus()
-//        }
-
     }
 
     fun check(checkRegist: Boolean) {
@@ -694,7 +680,7 @@ class FaceSDKManager private constructor() {
         val url = CarboxConfigRepostory.instance.getHttpUrl() + CarboxConfigRepostory.URL_SERIALNUM
 
         requestSerialNumDisposable = NetModule.instance.provideAPIService()
-            .getSerialNum(url,imeiCode, deviceId!!)
+            .getSerialNum(url, imeiCode, deviceId!!)
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())

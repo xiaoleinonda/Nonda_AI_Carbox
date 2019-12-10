@@ -6,11 +6,10 @@ import com.baidu.idl.facesdk.*
 import com.baidu.idl.facesdk.model.BDFaceSDKCommon
 import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
 import com.baidu.idl.facesdk.model.FaceInfo
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.schedulers.Schedulers
-import us.nonda.commonibrary.utils.FileUtils
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.config.FaceConfig
+import us.nonda.facelibrary.local.FaceEmotionsSnapshot
+import us.nonda.facelibrary.model.FaceAttributeModel
 import us.nonda.facelibrary.model.LivenessModel
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
@@ -21,13 +20,6 @@ class FaceLiveness constructor(
     private var faceFeature: FaceFeature,
     private var faceAttribute: FaceAttributes
 ) {
-//    private var faceDetector: FaceDetector ?=null
-
-
-    private val es = Executors.newSingleThreadExecutor()
-    private var future: Future<*>? = null
-    private val es2 = Executors.newSingleThreadExecutor()
-    private var future2: Future<*>? = null
 
     private val es3 = Executors.newSingleThreadExecutor()
     private var future3: Future<*>? = null
@@ -78,23 +70,7 @@ class FaceLiveness constructor(
 
     fun onDetectCheck(rgbArray: IntArray): Boolean {
         var isLiveness = false
-        /* if (mRgbArray == null) {
-             return isLiveness
-         }
- */
-        /* if (future != null && !future!!.isDone()) {
-             return isLiveness
-         }*/
-
-//        future = es.submit {
-        //  克隆基本数据，保证一致
-//            var cloneRgbArray = rgbArray!!.clone()
-        Log.d("FaceLiveness", "开始识别=" + rgbArray.size)
-
         val maxFace = trackMaxFace(rgbArray, width, height)
-
-        Log.d(TAG, "maxFace=" + maxFace)
-
         val livenessModel = LivenessModel()
         livenessModel.imageFrame.argb = rgbArray
         livenessModel.imageFrame.width = width
@@ -123,10 +99,7 @@ class FaceLiveness constructor(
             )
 
         }
-//        }
-
         return isLiveness
-
     }
 
 
@@ -183,27 +156,13 @@ class FaceLiveness constructor(
         futureEnmotion = esEnmotion.submit {
             livenessModel.run {
                 val emotions = faceAttribute.emotions(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
-                val attribute = faceAttribute.attribute(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
+//                val attribute = faceAttribute.attribute(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
                 val parseFaceEnmition = parseFaceEnmition(emotions)
                 emotionsMsg = parseFaceEnmition
-                Log.d(
-                    TAG,
-                    "情绪=" + parseFaceEnmition + "  expression_conf= ${emotions.expression_conf}  expression_conf_list= ${emotions.expression_conf_list}"
-                )
-                attribute?.run {
-                    Log.d(
-                        TAG, " " +
-                                "=$age  种族=$race  佩戴眼镜状态=$glasses  性别=$gender  笑容=$emotion"
-                    )
-
-                }
-
-
                 callback?.onEnmotionCallback(this)
             }
         }
 
-//        FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
 
     }
 

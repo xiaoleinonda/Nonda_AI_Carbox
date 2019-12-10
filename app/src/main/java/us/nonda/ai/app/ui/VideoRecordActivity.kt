@@ -7,10 +7,6 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_video_record2.*
 import kotlinx.android.synthetic.main.activity_video_record2.draw_detect_face_view
 import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewBack
@@ -19,18 +15,17 @@ import us.nonda.ai.BuildConfig
 import us.nonda.ai.R
 import us.nonda.ai.app.service.SensorReportService
 import us.nonda.cameralibrary.camera.*
-import us.nonda.cameralibrary.model.PictureModel
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.utils.DeviceLightUtils
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
+import us.nonda.facelibrary.local.FaceEmotionsSnapshot
 import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.facelibrary.model.LivenessModel
 import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
-import java.util.concurrent.TimeUnit
 
 class VideoRecordActivity : AppCompatActivity() {
 
@@ -50,7 +45,6 @@ class VideoRecordActivity : AppCompatActivity() {
                 return
             }
             MyLog.d("VideoRecordActivity", "starter")
-
             val intent = Intent(context, VideoRecordActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
@@ -71,16 +65,12 @@ class VideoRecordActivity : AppCompatActivity() {
         isOpen = true
         FaceSDKManager2.instance.isRegisted = false
 
-
         //开启服务
         service()
 
         //开启摄像头录制
-
         initCamera()
 
-
-//        initkFace()
         FaceSDKManager2.instance.setCallback(object : FaceDetectCallBack {
             override fun onFaceDetectCallback(
                 isDetect: Boolean,
@@ -88,7 +78,7 @@ class VideoRecordActivity : AppCompatActivity() {
                 faceHeight: Int,
                 faceCenterX: Int,
                 faceCenterY: Int,
-                imgWidth: Int,
+                imgWidth: Int,/**/
                 imgHeight: Int
             ) {
                 draw_detect_face_view.onFaceDetectCallback(
@@ -103,20 +93,16 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
             override fun onTip(code: Int, msg: String?) {
-//                println("识别  onTip=${msg}")
             }
 
 
             override fun onEnmotionCallback(livenessModel: LivenessModel?) {
-                println("识别  onEnmotionCallback=${livenessModel?.emotionsMsg}")
                 reportEmotion(livenessModel)
 
             }
 
             override fun onFaceFeatureCallBack(livenessModel: LivenessModel?) {
                 reportFace(livenessModel)
-                println("识别  onFaceFeatureCallBack=${livenessModel?.featureStatus}")
-
             }
 
 
@@ -126,13 +112,12 @@ class VideoRecordActivity : AppCompatActivity() {
 
     private fun reportEmotion(livenessModel: LivenessModel?) {
         livenessModel?.run {
+            MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
             val currentTimeMillis = System.currentTimeMillis()
 
-            val fileName = "$currentTimeMillis$emotionsMsg"
             if (BuildConfig.DEBUG) {
                 setEnmotion(emotionsMsg)
             }
-            MyLog.d(TAG, "情绪结果emotionsMsg=$emotionsMsg  size=${emotionData.size}")
 
             if (emotionData.size > 0) {
                 val time = emotionData[0].time
@@ -144,27 +129,12 @@ class VideoRecordActivity : AppCompatActivity() {
                 }
             }
             emotionData.add(EmotionBean(emotionsMsg, currentTimeMillis))
-
-/*
-            val pictureModel = PictureModel(
-                emotionsMsg!!,
-                imageFrame.width, imageFrame.height, imageFrame.argb, fileName
-            )
-            backCameraDevice?.pictureProcessor?.onNext(
-
-                pictureModel
-            )
-            frontCameraDevice?.pictureFrontProcessor?.onNext(pictureModel)*/
-
         }
-
-
     }
 
     private fun reportFace(livenessModel: LivenessModel?) {
         livenessModel?.run {
             MyLog.d(TAG, "人脸比对结果=$featureStatus   相似度值=$featureScore")
-
             val currentTimeMillis = System.currentTimeMillis()
 
             if (faceData.size > 0) {
@@ -181,29 +151,7 @@ class VideoRecordActivity : AppCompatActivity() {
             if (BuildConfig.DEBUG) {
                 setResult("相似度：$featureScore  ")
             }
-            /* var pictureModel: PictureModel
-             if (featureStatus == 1) {
-                 var fileName = "${currentTimeMillis}ture"
-                 pictureModel = PictureModel(
-                     "ture", imageFrame.width, imageFrame.height, imageFrame.argb
-                     , fileName
-                 )
-                 setResult("成功")
-
-             } else {
-                 var fileName = "${currentTimeMillis}false"
-                 pictureModel = PictureModel(
-                     "false", imageFrame.width, imageFrame.height, imageFrame.argb
-                     , fileName
-                 )
-                 setResult("失败=$featureStatus")
-
-             }
-             backCameraDevice?.pictureFaceProcessor?.onNext(pictureModel)
- */
         }
-
-
     }
 
     private val serviceConnection = object : ServiceConnection {
@@ -237,6 +185,7 @@ class VideoRecordActivity : AppCompatActivity() {
 
             override fun onOpenCameraSucceed() {
                 initkFace()
+//                FaceEmotionsSnapshot.instance.initFile()
                 MqttManager.getInstance().publishEventData(1005, "1")
                 MyLog.d("相机", "内路 onOpenCameraSucceed")
             }
@@ -247,7 +196,6 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
             override fun onYuvCbFrame(bytes: ByteArray, width: Int, height: Int) {
-//                Log.d("yuv数据", "usb=$bytes")
                 face(bytes, width, height)
             }
 
@@ -255,7 +203,6 @@ class VideoRecordActivity : AppCompatActivity() {
                 MyLog.d("相机", "内路 onCloseCamera")
                 MqttManager.getInstance().publishEventData(1011, "1")
                 MqttManager.getInstance().publishEventData(1007, "1")
-
             }
 
         })
@@ -263,24 +210,20 @@ class VideoRecordActivity : AppCompatActivity() {
             override fun onRecordSucceed() {
                 MyLog.d("相机", "外路 onRecordSucceed")
                 MqttManager.getInstance().publishEventData(1008, "1")
-
             }
 
             override fun onRecordFailed(code: Int) {
                 MyLog.d("相机", "外路 onRecordFailed code=$code")
                 MqttManager.getInstance().publishEventData(1008, "2")
-
             }
 
             override fun onOpenCameraSucceed() {
                 MqttManager.getInstance().publishEventData(1004, "1")
-
                 MyLog.d("相机", "外路 onOpenCameraSucceed")
             }
 
             override fun onOpenCameraFaile(msg: String) {
                 MqttManager.getInstance().publishEventData(1004, "2")
-
                 MyLog.d("相机", "外路 onOpenCameraFaile= $msg")
             }
 
@@ -315,18 +258,10 @@ class VideoRecordActivity : AppCompatActivity() {
         }
     }
 
-
     private fun initkFace() {
         FaceSDKManager2.instance.init()
         DeviceLightUtils.normallYellow()
     }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        MyLog.d(TAG, "onNewIntent")
-
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -335,12 +270,11 @@ class VideoRecordActivity : AppCompatActivity() {
         FaceSDKManager2.instance.setCallback(null)
         FaceSDKManager2.instance.onCameraClose()
         closeService()
-//        val deleteAllFeature = DBManager.getInstance().deleteAllFeature("0")
 
         backCameraDevice?.onDestroy()
         frontCameraDevice?.onDestroy()
         FinishActivityManager.getManager().removeActivity(this)
-
+//        FaceEmotionsSnapshot.instance.stop()
     }
 
 

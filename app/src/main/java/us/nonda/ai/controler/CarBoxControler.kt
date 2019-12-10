@@ -104,6 +104,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
      *
      */
     fun accOffModeWork() {
+//        todo 休眠后工作暂时关闭
         cancelIPO()
         checkVersion()
     }
@@ -269,7 +270,7 @@ class CarBoxControler private constructor() : onDownloadListener, UploadManager.
     /**
      * 是否打开碰撞检测
      */
-    fun setSuspendCollision(boolean: Boolean){
+    fun setSuspendCollision(boolean: Boolean) {
         CameraStatus.instance.setSuspendCollision(boolean)
     }
 

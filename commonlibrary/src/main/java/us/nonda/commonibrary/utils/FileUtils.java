@@ -228,35 +228,40 @@ public class FileUtils {
         if (argb == null || argb.length <= 0) {
             return "";
         }
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {      // 获取SDCard指定目录下
+        try {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {      // 获取SDCard指定目录下
 
-            File dirFile = new File(sdcardPath);  //目录转化成文件夹
-            if (!dirFile.exists()) {                //如果不存在，那就建立这个文件夹
-                dirFile.mkdirs();
-            }                            //文件夹有啦，就可以保存图片啦
-            File file = new File(sdcardPath, imgName + ".jpeg");// 在SDcard的目录下创建图片文,以当前时间为其命名
+                File dirFile = new File(sdcardPath);  //目录转化成文件夹
+                if (!dirFile.exists()) {                //如果不存在，那就建立这个文件夹
+                    dirFile.mkdirs();
+                }                            //文件夹有啦，就可以保存图片啦
+                File file = new File(sdcardPath, imgName + ".jpeg");// 在SDcard的目录下创建图片文,以当前时间为其命名
 
-            Bitmap bitmap = Bitmap.createBitmap(width,
-                    height, Bitmap.Config.ARGB_8888);
-            bitmap.setPixels(argb, 0, width, 0, 0, width, height);
+                Bitmap bitmap = Bitmap.createBitmap(width,
+                        height, Bitmap.Config.ARGB_8888);
+                bitmap.setPixels(argb, 0, width, 0, 0, width, height);
 
-            FileOutputStream out = null;
-            try {
-                out = new FileOutputStream(file);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-                return file.getAbsolutePath();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
+                FileOutputStream out = null;
                 try {
-                    if (out != null) {
-                        out.close();
-                    }
+                    out = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    return file.getAbsolutePath();
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return "";

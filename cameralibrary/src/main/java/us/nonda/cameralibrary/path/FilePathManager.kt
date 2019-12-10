@@ -53,4 +53,14 @@ class FilePathManager private constructor() {
         return "$sdcard/$path_main/"
     }
 
+    fun getEmotionsPath():String{
+        val nowDateShort = DateUtils.getStringDateShort()
+        return "$sdcard/$path_main/$nowDateShort/emotions/"
+    }
+
+    fun getEmotionsCsvPath():String{
+        val nowDateShort = DateUtils.getStringDateShort()
+        return "$sdcard/$path_main/$nowDateShort/csv/"
+    }
+
 }

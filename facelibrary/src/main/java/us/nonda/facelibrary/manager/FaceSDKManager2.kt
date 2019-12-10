@@ -6,23 +6,12 @@ import android.text.TextUtils
 import android.util.Log
 import com.baidu.idl.facesdk.*
 import com.baidu.idl.facesdk.callback.Callback
-import com.baidu.idl.facesdk.model.BDFaceSDKCommon
-import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
-import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.schedulers.Schedulers
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
 import us.nonda.commonibrary.http.NetModule
-import us.nonda.commonibrary.model.PostLicenceBody
-import us.nonda.commonibrary.utils.AppUtils
-import us.nonda.commonibrary.utils.DeviceUtils
-import us.nonda.commonibrary.utils.NetworkUtil
-import us.nonda.facelibrary.`interface`.IFaceInitListener
+import us.nonda.commonibrary.utils.*
 import us.nonda.facelibrary.auth.FaceAuthManager
 import us.nonda.facelibrary.auth.IFaceAuthCallback
 import us.nonda.facelibrary.callback.FaceDetectCallBack
@@ -37,7 +26,6 @@ import us.nonda.facelibrary.status.FaceStatusCache
 import us.nonda.mqttlibrary.mqtt.MqttManager
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
-import java.io.InputStreamReader
 import java.lang.Exception
 import java.util.concurrent.ExecutorService
 
@@ -125,7 +113,6 @@ class FaceSDKManager2 private constructor() {
     }
 
     private fun checkLicenceStatus() {
-//        FaceStatusCache.instance.faceLicence = ""
         MyLog.d(TAG, "checkLicenceStatus  status=$status")
         if (faceCache.isLicence()) {
             log("已激活 直接初始化")
@@ -284,11 +271,9 @@ class FaceSDKManager2 private constructor() {
                 if (code == 0) {
                     livenessSucceed = true
                     if (detectSucceed && featureSucceed && attributeSucceed) {
-//                        listener?.onSucceed()
                         onInitSucceed()
                     }
                 } else {
-//                    listener?.onFailed(response)
                     onInitFailed(response)
                 }
             }
@@ -616,6 +601,7 @@ class FaceSDKManager2 private constructor() {
         faceCache.clearFacePicture()
         faceCache.clearFacePassStatus()
         MyLog.d(TAG, "人脸删除成功")
+
 
     }
 

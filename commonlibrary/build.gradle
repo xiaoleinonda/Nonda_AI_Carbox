@@ -33,10 +33,15 @@ android {
 
         debug {
             debuggable true
-            buildConfigField('String', 'API_URL', DEV_API_URL)
-            buildConfigField('String', 'MQTT_URL', DEV_MQTT_URL)
-            buildConfigField('String', 'MQTT_NAME', DEV_MQTT_NAME)
-            buildConfigField('String', 'MQTT_PASSWORD', DEV_MQTT_PASSWORD)
+//            buildConfigField('String', 'API_URL', DEV_API_URL)
+//            buildConfigField('String', 'MQTT_URL', DEV_MQTT_URL)
+//            buildConfigField('String', 'MQTT_NAME', DEV_MQTT_NAME)
+//            buildConfigField('String', 'MQTT_PASSWORD', DEV_MQTT_PASSWORD)
+
+            buildConfigField('String', 'API_URL', PROD_API_URL)
+            buildConfigField('String', 'MQTT_URL', PROD_MQTT_URL)
+            buildConfigField('String', 'MQTT_NAME', PROD_MQTT_NAME)
+            buildConfigField('String', 'MQTT_PASSWORD', PROD_MQTT_PASSWORD)
 
             buildConfigField('boolean', 'MYLOG_SWITCH', "true")
         }
@@ -95,7 +100,7 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.6.1'
     api 'org.greenrobot:eventbus:3.1.1'
 
-//    implementation 'org.apache.commons:commons-csv:1.5'
+    api 'org.apache.commons:commons-csv:1.7'
 }
 repositories {
     mavenCentral()

@@ -1,67 +1,62 @@
 package us.nonda.commonibrary.utils;
 
-import android.database.Cursor;
 import android.util.Log;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.List;
 
 public class CsvUtils {
-    public void ExportToCSV(Cursor c, String filePath, String fileName) {
-        int rowCount = 0;
-        int colCount = 0;
-        FileWriter fw;
-        BufferedWriter bfw;
-        File saveFile = new File(filePath, fileName);
 
+    // 读取 .csv 文件
+    private void readCsv(String path) {
         try {
-
-            rowCount = c.getCount();
-            colCount = c.getColumnCount();
-            fw = new FileWriter(saveFile);
-            bfw = new BufferedWriter(fw);
-            if (rowCount > 0) {
-                c.moveToFirst();
-                // 写入表头
-                for (int i = 0; i < colCount; i++) {
-                    if (i != colCount - 1)
-                        bfw.write(c.getColumnName(i) + ',');
-                    else
-                        bfw.write(c.getColumnName(i));
-                }
-                // 写好表头后换行
-                bfw.newLine();
-                // 写入数据
-                for (int i = 0; i < rowCount; i++) {
-                    c.moveToPosition(i);
-                    // Toast.makeText(mContext, "正在导出第"+(i+1)+"条",
-                    // Toast.LENGTH_SHORT).show();
-                    Log.v("导出数据", "正在导出第" + (i + 1) + "条");
-                    for (int j = 0; j < colCount; j++) {
-                        if (j != colCount - 1)
-                            bfw.write(c.getString(j) + ',');
-                        else
-                            bfw.write(c.getString(j));
-                    }
-                    // 写好每条记录后换行
-                    bfw.newLine();
-                }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"));  // 防止出现乱码
+            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+            for (CSVRecord csvRecord : csvRecords) {
+              /*  ApacheBean apacheBean = new ApacheBean();
+                apacheBean.setId(Integer.parseInt(csvRecord.get("id")));
+                apacheBean.setName(csvRecord.get("name"));
+                apacheBean.setAge(Integer.parseInt(csvRecord.get("age")));
+                mList.add(apacheBean);*/
             }
-            // 将缓存数据写入文件
-            bfw.flush();
-            // 释放缓存
-            bfw.close();
-            // Toast.makeText(mContext, "导出完毕！", Toast.LENGTH_SHORT).show();
-            Log.d("导出数据", "导出完毕！");
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            c.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 写入 .csv 文件
+    public static void writeCsv(String filePath, List<String> data) {
+        try {
+            Log.d("情绪", "保存csv" + data.size());
+            File file = new File(filePath+System.currentTimeMillis() + ".csv");
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));  // 防止出现乱码
+            // 添加头部
+            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("name", "age", "race", "glasses", "gender", "emotionThree", "emotionSeven", "score"));
+            // 添加内容
+//            csvPrinter
+            for (int i = 0; i < data.size(); i++) {
+//                csvPrinter.printRecord(
+//                        data.get(i).getName(),
+//                        data.get(i).getAge(),
+//                        data.get(i).getRace(),
+//                        data.get(i).getGlasses(),
+//                        data.get(i).getGender(),
+//                        data.get(i).getEmotionThree(),
+//                        data.get(i).getEmotionSeven(),
+//                        data.get(i).getScore());
+            }
+            csvPrinter.printRecord();
+            csvPrinter.flush();
+        } catch (IOException e) {
+            Log.d("情绪", "异常" + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

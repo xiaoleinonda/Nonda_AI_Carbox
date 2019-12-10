@@ -17,11 +17,6 @@ import java.util.concurrent.Executors
 class FaceAuthManager {
 
     private val TAG = "FaceAuthManager"
-    val SIM_ID = "118BB9401E107C84AC1708900C29DBB6ED"
-    val WIFI_ID = "15CDCF3615CFE44BFC4EB4900C29DBB6ED"
-    val WIFI_ID2 = "150364FC114FBFE5F1AF7E900C29DBB6ED"
-    val WIFI_ID_NEW_ROM = "150364FC114FBFE5F1AF7E900C29DB5892"
-
     private var disposable: Disposable? = null
 
     private val es: ExecutorService = Executors.newSingleThreadExecutor()
@@ -30,45 +25,8 @@ class FaceAuthManager {
         val faceAuth = FaceAuth()
         faceAuth.setActiveLog(FaceAuth.BDFaceLogInfo.BDFACE_LOG_ALL_MESSAGE)
         faceAuth.setAnakinThreadsConfigure(2, 0)
-//        var licenseIDNew: String = ""
         val deviceId = faceAuth.getDeviceId(context)
-        /* val imeiCode = DeviceUtils.getIMEICode(context)
-         when (imeiCode) {
-             "869455047237132" -> {
- //                licenseIDNew =   "LY77-J8DW-8YCZ-5X6L"//wifi
-                 licenseIDNew = "GSVT-TSMR-SU0B-KIHP"//wifi
-
-             }
-             "869455047237124" -> {
- //                licenseIDNew =   "6HDB-HCPB-B4PW-RQVS"//sim卡
-                 licenseIDNew = "LY77-J8DW-8YCZ-5X6L"//wifi
-
-             }
-             "869455047237298" -> {
-                 licenseIDNew = "BJHH-JFNI-WYP2-FNTL"//wifi
- //                licenseIDNew =   "GSVT-TSMR-SU0B-KIHP"//sim
-
-             }
-             else -> {
-             }
-         }
- */
-        /*  var deviceId = faceAuth.getDeviceId(context)
-          var licenseIDNew: String = ""
-          if (SIM_ID == deviceId) {
-              licenseIDNew = "EEJK-DAFA-X7HG-LU2G"
-          } else if (WIFI_ID == deviceId) {
-              licenseIDNew = "JJXH-SEIJ-EGF3-PWEQ"
-          } else if (WIFI_ID2 == deviceId) {
-              licenseIDNew = "EZMH-DDPY-KBZO-HCCA"
-          } else if (WIFI_ID_NEW_ROM == deviceId) {
-              licenseIDNew = "BHM9-9ODP-GD5M-2DOM"
-          } else {
-              licenseIDNew = "LY77-J8DW-8YCZ-5X6L"
-          }
-  */
         initLicenseOnLine(context, deviceId, faceAuth, licenseID, callback)
-
     }
 
     private fun initLicenseOnLine(
@@ -78,25 +36,15 @@ class FaceAuthManager {
         licenseID: String,
         callback: IFaceAuthCallback
     ) {
-//        var str = "6HDB-HCPB-B4PW-RQVS"
-
-//        es.execute {
-        faceAuth.initLicenseOnLine(context, licenseID, object : AuthCallback {
-            override fun onResponse(p0: Int, p1: String?, p2: String?) {
-                if (p0 == 0) {
-                    callback.onSucceed()
-                    postLicenseSucceed(licenseID, deviceId)
-                } else {
-                    callback.onFailed(p1 ?: "")
-                }
+        var testLicenseID = "IT37-09PA-BHD8-FYYS"
+        faceAuth.initLicenseOnLine(context, licenseID) { p0, p1, p2 ->
+            if (p0 == 0) {
+                callback.onSucceed()
+                postLicenseSucceed(licenseID, deviceId)
+            } else {
+                callback.onFailed(p1 ?: "")
             }
-
-
-        })
-
-//        }
-
-
+        }
     }
 
 

@@ -156,9 +156,16 @@ class FaceLiveness constructor(
         futureEnmotion = esEnmotion.submit {
             livenessModel.run {
                 val emotions = faceAttribute.emotions(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
-//                val attribute = faceAttribute.attribute(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
+                val attribute = faceAttribute.attribute(imageFrame.argb, imageFrame.height, imageFrame.width, landmarks)
                 val parseFaceEnmition = parseFaceEnmition(emotions)
                 emotionsMsg = parseFaceEnmition
+
+                if (attribute.gender == BDFaceSDKCommon.BDFaceGender.BDFACE_GENDER_MALE) {
+                    gender = "男"
+                } else {
+                    gender = "女"
+                }
+                age = attribute.age
                 callback?.onEnmotionCallback(this)
             }
         }
@@ -169,26 +176,33 @@ class FaceLiveness constructor(
     private fun parseFaceEnmition(emotions: BDFaceSDKEmotions?): String? {
         return when (emotions?.emotion) {
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_ANGRY -> {
-                "ANGRY"
+//                "ANGRY"
+                "生气"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_DISGUST -> {
-                "DISGUST"
+//                "DISGUST"
+                "恶心"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_FEAR -> {
-                "FEAR"
+//                "FEAR"
+                "害怕"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_HAPPY -> {
-                "HAPPY"
+//                "HAPPY"
+                "开心"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_SAD -> {
-                "SAD"
+//                "SAD"
+                "伤心"
             }
 
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_SURPRISE -> {
-                "SURPRISE"
+//                "SURPRISE"
+                "惊讶"
             }
             BDFaceSDKCommon.BDFaceEmotionEnum.BDFACE_EMOTIONS_NEUTRAL -> {
-                "NEUTRAL"
+//                "NEUTRAL"
+                "无情绪"
             }
             else -> {
                 "NULL"

@@ -449,7 +449,7 @@ class FaceSDKManager2 private constructor() {
             return
         }
         log("请求人脸图片成功")
-        registFace(facePicture!!)
+        registFace(facePicture)
 
     }
 
@@ -600,9 +600,8 @@ class FaceSDKManager2 private constructor() {
         isRegisted = false
         faceCache.clearFacePicture()
         faceCache.clearFacePassStatus()
+        FaceStatusCache.instance.registerBitmap = null
         MyLog.d(TAG, "人脸删除成功")
-
-
     }
 
     private fun log(msg: String) {

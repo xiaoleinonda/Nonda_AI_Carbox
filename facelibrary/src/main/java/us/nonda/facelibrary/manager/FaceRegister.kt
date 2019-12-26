@@ -9,8 +9,10 @@ import com.baidu.idl.facesdk.FaceDetect
 import com.baidu.idl.facesdk.FaceFeature
 import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
+import org.greenrobot.eventbus.EventBus
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
+import us.nonda.commonibrary.event.FaceRegistEvent
 import us.nonda.commonibrary.utils.AppUtils
 import us.nonda.commonibrary.utils.PathUtils
 import us.nonda.facelibrary.db.DBManager
@@ -74,6 +76,7 @@ class FaceRegister constructor(
                 rgbArray, 0, bitmap.width, 0, 0,
                 bitmap.width, bitmap.height
             )
+            FaceStatusCache.instance.registerBitmap = bitmap
 
             return checkFace(rgbArray, bitmap.width, bitmap.height, faceImage.image)
 
@@ -214,10 +217,14 @@ class FaceRegister constructor(
                 FaceSDKManager2.instance.setFeature()
                 FaceSDKManager2.instance.isRegisted = true
                 FaceStatusCache.instance.facePicture = facePicture
+
+                EventBus.getDefault().post(FaceRegistEvent(FaceStatusCache.instance.registerBitmap))
+
                 MyLog.d(TAG, "注册成功")
                 return 0
             } else {
                 MyLog.d(TAG, "注册特征提取失败")
+                FaceStatusCache.instance.registerBitmap = null
                 MqttManager.getInstance().publishEventData(1013, "2")
                 return -1
 
@@ -229,6 +236,7 @@ class FaceRegister constructor(
         }
 
     }
+
 
     /**
      * 人脸特征提取

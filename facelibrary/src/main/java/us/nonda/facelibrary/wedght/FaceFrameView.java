@@ -38,14 +38,15 @@ public class FaceFrameView extends RelativeLayout {
         mSizeThirty = ImageUtils.dip2px(mContext, 30);
         // 绘制人脸框四个角的画笔
         mPaintHorn = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaintHorn.setColor(Color.argb(255, 101, 227, 239));
+//        mPaintHorn.setColor(Color.argb(255, 101, 227, 239));
+        mPaintHorn.setColor(Color.argb(255, 0, 68, 204));
         mPaintHorn.setStrokeWidth(ImageUtils.dip2px(mContext, 4));
         // 绘制人脸框四条边的画笔
         mPaint = new Paint();
         mPaint.setStrokeWidth(ImageUtils.dip2px(mContext, 1));
         mPaint.setTextSize(24);
-        mPaint.setColor(Color.argb(155, 101, 227, 239));
-
+//        mPaint.setColor(Color.argb(155, 101, 227, 239));
+        mPaint.setColor(Color.argb(155, 0, 68, 204));
         initFaceFrame(context);
     }
 

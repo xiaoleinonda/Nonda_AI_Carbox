@@ -3,6 +3,7 @@
  */
 package us.nonda.facelibrary.model;
 
+import com.baidu.idl.facesdk.model.BDFaceSDKAttribute;
 import com.baidu.idl.facesdk.model.FaceInfo;
 import com.baidu.idl.facesdk.model.Feature;
 
@@ -31,6 +32,10 @@ public class LivenessModel {
     private byte[] featureByte;
 
     private String emotionsMsg;
+
+    private Float age;
+
+    private String gender;
 
     /**
      * 提取失败=0
@@ -227,6 +232,22 @@ public class LivenessModel {
 
     public void setFaceID(int faceID) {
         this.faceID = faceID;
+    }
+
+    public Float getAge() {
+        return age;
+    }
+
+    public void setAge(Float age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
 

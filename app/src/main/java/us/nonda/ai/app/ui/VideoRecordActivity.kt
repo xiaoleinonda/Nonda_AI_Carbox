@@ -7,22 +7,28 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.view.View
+import android.view.WindowManager
 import kotlinx.android.synthetic.main.activity_video_record2.*
 import kotlinx.android.synthetic.main.activity_video_record2.draw_detect_face_view
 import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewBack
 import kotlinx.android.synthetic.main.activity_video_record2.surfaceViewFront
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import us.nonda.ai.BuildConfig
 import us.nonda.ai.R
 import us.nonda.ai.app.service.SensorReportService
 import us.nonda.cameralibrary.camera.*
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.config.CarboxConfigRepostory
+import us.nonda.commonibrary.event.FaceRegistEvent
 import us.nonda.commonibrary.utils.DeviceLightUtils
 import us.nonda.commonibrary.utils.FinishActivityManager
 import us.nonda.facelibrary.callback.FaceDetectCallBack
-import us.nonda.facelibrary.local.FaceEmotionsSnapshot
 import us.nonda.facelibrary.manager.FaceSDKManager2
 import us.nonda.facelibrary.model.LivenessModel
+import us.nonda.facelibrary.status.FaceStatusCache
 import us.nonda.mqttlibrary.model.EmotionBean
 import us.nonda.mqttlibrary.model.FaceResultBean
 import us.nonda.mqttlibrary.mqtt.MqttManager
@@ -59,9 +65,12 @@ class VideoRecordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_video_record2)
         MyLog.d(TAG, "onCreate")
         FinishActivityManager.getManager().addActivity(this)
+
+        EventBus.getDefault().register(this)
         isOpen = true
         FaceSDKManager2.instance.isRegisted = false
 
@@ -108,6 +117,46 @@ class VideoRecordActivity : AppCompatActivity() {
 
         })
 
+
+
+        setDataInfoDisplayView()
+
+    }
+
+    private fun setDataInfoDisplayView() {
+        setFrontCameraDispaly()
+
+        tv_show.setOnClickListener {
+            setFrontCameraDispaly()
+        }
+
+        val registerBitmap = FaceStatusCache.instance.registerBitmap
+        if (registerBitmap != null) {
+            iv_register.setImageBitmap(registerBitmap)
+        }
+
+    }
+
+    private var showFrontCamera = false
+
+    private fun setFrontCameraDispaly() {
+        tv_show.text = if (showFrontCamera) "隐 藏" else "显 示"
+        view_bg.visibility = if (!showFrontCamera) View.VISIBLE else View.GONE
+        iv_register.visibility = if (!showFrontCamera) View.VISIBLE else View.INVISIBLE
+        tv_pass.visibility = if (!showFrontCamera) View.VISIBLE else View.INVISIBLE
+        tv_emotion.visibility = if (!showFrontCamera) View.VISIBLE else View.INVISIBLE
+        tv_age.visibility = if (!showFrontCamera) View.VISIBLE else View.INVISIBLE
+        tv_gender.visibility = if (!showFrontCamera) View.VISIBLE else View.INVISIBLE
+
+        showFrontCamera = !showFrontCamera
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: FaceRegistEvent) {
+        if (event.bitmap != null) {
+            iv_register.setImageBitmap(event.bitmap)
+        }
     }
 
     private fun reportEmotion(livenessModel: LivenessModel?) {
@@ -116,7 +165,7 @@ class VideoRecordActivity : AppCompatActivity() {
             val currentTimeMillis = System.currentTimeMillis()
 
             if (BuildConfig.DEBUG) {
-                setEnmotion(emotionsMsg)
+                setEnmotion(this)
             }
 
             if (emotionData.size > 0) {
@@ -149,7 +198,7 @@ class VideoRecordActivity : AppCompatActivity() {
             faceData.add(FaceResultBean(featureStatus, currentTimeMillis))
 
             if (BuildConfig.DEBUG) {
-                setResult("相似度：$featureScore  ")
+                setResult("相似度(%)：$featureScore")
             }
         }
     }
@@ -184,7 +233,7 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
             override fun onOpenCameraSucceed() {
-                initkFace()
+//                initkFace()
 //                FaceEmotionsSnapshot.instance.initFile()
                 MqttManager.getInstance().publishEventData(1005, "1")
                 MyLog.d("相机", "内路 onOpenCameraSucceed")
@@ -218,6 +267,8 @@ class VideoRecordActivity : AppCompatActivity() {
             }
 
             override fun onOpenCameraSucceed() {
+                initkFace()
+
                 MqttManager.getInstance().publishEventData(1004, "1")
                 MyLog.d("相机", "外路 onOpenCameraSucceed")
             }
@@ -246,9 +297,12 @@ class VideoRecordActivity : AppCompatActivity() {
         FaceSDKManager2.instance.recognition(bytes, width, height)
     }
 
-    private fun setEnmotion(emotion: String) {
+    private fun setEnmotion(emotion: LivenessModel) {
         runOnUiThread {
-            tv_emotion.setText(emotion)
+            tv_emotion.text = "情绪: ${emotion.emotionsMsg}"
+//            val attribute = emotion.bdFaceAttribute
+            tv_gender.text = "性别: ${emotion.gender}"
+            tv_age.text = "年龄: ${emotion.age}"
         }
     }
 
@@ -264,7 +318,8 @@ class VideoRecordActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+
         MyLog.d(TAG, "onDestroy")
         isOpen = false
         FaceSDKManager2.instance.setCallback(null)
@@ -275,6 +330,9 @@ class VideoRecordActivity : AppCompatActivity() {
         frontCameraDevice?.onDestroy()
         FinishActivityManager.getManager().removeActivity(this)
 //        FaceEmotionsSnapshot.instance.stop()
+
+        super.onDestroy()
+
     }
 
 

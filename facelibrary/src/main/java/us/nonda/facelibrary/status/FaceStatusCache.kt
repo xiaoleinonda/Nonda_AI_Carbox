@@ -1,6 +1,7 @@
 package us.nonda.facelibrary.status
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.text.TextUtils
 import com.google.gson.Gson
 import us.nonda.commonibrary.utils.AppUtils
@@ -9,6 +10,8 @@ import us.nonda.commonibrary.utils.SPUtils
 class FaceStatusCache private constructor() {
 
     private var context: Context = AppUtils.context
+
+    var registerBitmap: Bitmap? = null
 
     companion object {
         val SP_KEY = "FaceStatusCache"
@@ -90,14 +93,13 @@ class FaceStatusCache private constructor() {
      */
     fun isLicence() = !TextUtils.isEmpty(faceLicence)
 
-    fun clearFacePicture(){
+    fun clearFacePicture() {
         facePicture = ""
     }
 
-    fun clearFacePassStatus(){
+    fun clearFacePassStatus() {
         facePassStatus = -1
     }
-
 
 
     fun resetStatus() {

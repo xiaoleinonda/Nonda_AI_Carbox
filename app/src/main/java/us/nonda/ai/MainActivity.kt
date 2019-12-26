@@ -92,9 +92,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         MyLog.d(TAG, "onDestroy")
-        super.onDestroy()
+
+        unregisterReceiver(netStateChangeReceiver)
         EventBus.getDefault().unregister(this)
         CarBoxControler.instance.onDestroy()
+        super.onDestroy()
+
     }
 
     private fun registReceiver() {

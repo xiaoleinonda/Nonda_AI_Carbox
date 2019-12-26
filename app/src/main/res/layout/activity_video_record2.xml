@@ -7,20 +7,11 @@
         android:layout_height="match_parent"
         tools:context=".app.ui.VideoRecordActivityTest">
 
-
-    <Button
-            android:id="@+id/btn_camera"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="open"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            app:layout_constraintBottom_toTopOf="@id/surfaceViewBack"
-            android:layout_height="wrap_content"/>
-
     <SurfaceView
             android:layout_width="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_camera"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/surfaceViewFront"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/surfaceViewBack"
@@ -28,8 +19,8 @@
 
     <SurfaceView
             android:layout_width="0dp"
-            android:layout_marginLeft="5dp"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_weight="1.4"
             app:layout_constraintTop_toTopOf="@id/surfaceViewBack"
             app:layout_constraintLeft_toRightOf="@id/surfaceViewBack"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,27 +37,97 @@
             android:layout_height="0dp"
             />
 
-    <TextView
-            android:id="@+id/tv_emotion"
+    <View
+            android:id="@+id/view_bg"
+            app:layout_constraintLeft_toLeftOf="@id/surfaceViewFront"
+            app:layout_constraintRight_toRightOf="@id/surfaceViewFront"
+            app:layout_constraintTop_toTopOf="@id/surfaceViewFront"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#fff"
+            android:layout_width="0dp"
+            android:visibility="gone"
+            android:layout_height="0dp"/>
+
+    <Button
+            android:text="显 示"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="open"
-            tools:text="sdfsdf"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textColor="@color/colorAccent"
+            android:id="@+id/tv_show"
+            android:textColor="#fff"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            app:layout_constraintLeft_toRightOf="@id/iv_register"
+            android:textSize="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/selector_button_bg"
+            android:layout_marginRight="16dp"
+            app:layout_constraintRight_toRightOf="@id/surfaceViewFront"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+
+    <ImageView
+            android:id="@+id/iv_register"
+            app:layout_constraintLeft_toLeftOf="@id/surfaceViewFront"
+            app:layout_constraintRight_toLeftOf="@id/tv_show"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            tools:background="#ffbf00"
+            android:scaleType="centerCrop"
+            android:layout_width="80dp"
+            android:layout_height="160dp"/>
 
     <TextView
             android:id="@+id/tv_pass"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_emotion"
             tools:text="sdfsdf"
-            android:textSize="25dp"
+            android:textSize="14dp"
+            android:layout_marginTop="32dp"
             android:textStyle="bold"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="#f00"
+            app:layout_constraintLeft_toLeftOf="@id/iv_register"
+            android:textColor="#003399"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_register"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_emotion"
+            tools:text="情绪："
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_pass"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_pass"
+            android:textColor="#003399"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
- </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+            android:id="@+id/tv_gender"
+            tools:text="性别："
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_emotion"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_pass"
+            android:textColor="#003399"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_age"
+            tools:text="年龄："
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_gender"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_pass"
+            android:textColor="#003399"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

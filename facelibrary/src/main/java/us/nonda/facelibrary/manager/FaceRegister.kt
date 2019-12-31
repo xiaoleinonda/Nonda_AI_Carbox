@@ -10,6 +10,7 @@ import com.baidu.idl.facesdk.FaceFeature
 import com.baidu.idl.facesdk.model.FaceInfo
 import com.baidu.idl.facesdk.model.Feature
 import org.greenrobot.eventbus.EventBus
+import us.nonda.cameralibrary.camera.BackCameraDevice
 import us.nonda.cameralibrary.status.CameraStatus
 import us.nonda.commonibrary.MyLog
 import us.nonda.commonibrary.event.FaceRegistEvent
@@ -43,8 +44,8 @@ class FaceRegister constructor(
     /**
      * 宽高反转
      */
-    private var width = 640
-    private var height = 480
+    private var width = BackCameraDevice.width
+    private var height = BackCameraDevice.height
 
     /**
      * -1：失败

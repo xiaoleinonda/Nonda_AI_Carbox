@@ -6,6 +6,7 @@ import com.baidu.idl.facesdk.*
 import com.baidu.idl.facesdk.model.BDFaceSDKCommon
 import com.baidu.idl.facesdk.model.BDFaceSDKEmotions
 import com.baidu.idl.facesdk.model.FaceInfo
+import us.nonda.cameralibrary.camera.BackCameraDevice
 import us.nonda.facelibrary.callback.FaceDetectCallBack
 import us.nonda.facelibrary.config.FaceConfig
 import us.nonda.facelibrary.local.FaceEmotionsSnapshot
@@ -34,8 +35,8 @@ class FaceLiveness constructor(
 
     private val TAG = "FaceLiveness"
 
-    private var width = 640
-    private var height = 480
+    private var width = BackCameraDevice.width
+    private var height = BackCameraDevice.height
 
     /******   config   ****/
     private var EMOTION_FREQ_TIME: Long = 1000

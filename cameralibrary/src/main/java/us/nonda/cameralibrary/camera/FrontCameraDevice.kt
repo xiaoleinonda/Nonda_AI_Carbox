@@ -21,13 +21,34 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private val TAG = "Main摄像头"
 
     /***       CONFIG               ***/
-    private var width = 640
-    private var height = 480
+    /**
+     * width=176  height=144
+     *width=320  height=240
+     *width=352  height=288
+     *width=480  height=320
+     *width=480  height=368
+     *width=640  height=480
+     *width=720  height=480
+     *width=800  height=480
+     *width=800  height=600
+     *width=864  height=480
+     *width=960  height=540
+     *width=960  height=640
+     *width=1280  height=720
+     *width=1440  height=960
+     *width=1440  height=1080
+     *width=1600  height=960
+     *width=1600  height=1200
+     *width=1920  height=1080
+     *width=1920  height=1088
+     */
+    private var width = 176
+    private var height = 144
 
     private var videoDurationMS = 1000 * 60 * 1
     private var rotation = 0
     private var videoFilePathName = FilePathManager.get().getFrontVideoPath()
-    private var videoQuality: Int = CamcorderProfile.QUALITY_480P
+    private var videoQuality: Int = CamcorderProfile.QUALITY_720P
     private var videoFrameRate: Int = 30
     private var videoBitRate: Int = 1 * 500 * 1000
     private var videoSizeLimi: Int = 300//M
@@ -57,24 +78,24 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
         }
 */
 
-      /*  if (subscribeEmotion?.isDisposed == false) {
-            subscribeEmotion?.dispose()
-        }
-        subscribeEmotion = pictureFrontProcessor.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
-                t.emotion
-            }
-            .doOnNext {
-                //                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() +   "可爱/"
+        /*  if (subscribeEmotion?.isDisposed == false) {
+              subscribeEmotion?.dispose()
+          }
+          subscribeEmotion = pictureFrontProcessor.subscribeOn(Schedulers.io())
+              .unsubscribeOn(Schedulers.io())
+              .observeOn(Schedulers.io())
+              .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
+                  t.emotion
+              }
+              .doOnNext {
+                  //                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() +   "可爱/"
 
-//                val currentTimeMillis = System.currentTimeMillis()
-//                takePicture(folderPath, "${currentTimeMillis}可爱")
-                val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
-                takePicture(folderPath, it.fileName)
-            }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
-*/
+  //                val currentTimeMillis = System.currentTimeMillis()
+  //                takePicture(folderPath, "${currentTimeMillis}可爱")
+                  val folderPath = FilePathManager.get().getFrontEmotionPictureFolderPath() + it.emotion + "/"
+                  takePicture(folderPath, it.fileName)
+              }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
+  */
 
     }
 
@@ -223,7 +244,7 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
     private fun initParameters(cameraDevice: CameraDevice, cameraID: Int) {
         val parameters = cameraDevice.getParameters()
 
-        parameters.setPreviewSize(640, 480)
+        parameters.setPreviewSize(width, height)
 
         parameters.setCameraId(cameraID)
         parameters.setVideoRotateDuration(videoDurationMS)
@@ -243,8 +264,10 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
         parameters.setMainVideoFrameMode(VideoFrameMode.DISABLE) //保存为视频文件
         parameters.setOutputFileFormat(OutputFormat.MPEG_4)
         parameters.previewFrameRate = videoFrameRate//usb摄像头设置15帧
-        cameraDevice.parameters = parameters
 
+        cameraDevice.parameters = parameters
+        val previewSize = parameters.previewSize
+        Log.d("分辨率", "前: width=${previewSize.width}  height=${previewSize.height}");
     }
 
     private fun openCamera(cameraId: Int): CameraDevice? {
@@ -373,8 +396,8 @@ class FrontCameraDevice constructor(private var surfaceView: SurfaceView) : Surf
 
     fun onDestroy() {
         closeCamera()
-       /* if (subscribeEmotion?.isDisposed == false) {
-            subscribeEmotion?.dispose()
-        }*/
+        /* if (subscribeEmotion?.isDisposed == false) {
+             subscribeEmotion?.dispose()
+         }*/
     }
 }

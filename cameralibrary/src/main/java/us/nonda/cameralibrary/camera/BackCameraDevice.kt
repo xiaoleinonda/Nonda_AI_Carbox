@@ -23,14 +23,19 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
 
     private val TAG = "USB摄像头"
 
-    /***       CONFIG               ***/
-    private var width = 640
-    private var height = 480
+    companion object {
+        /**
+         * width=1280  height=720
+         * width=640  height=480
+         */
+        val width = 1280
+        val height = 720
+    }
 
     private var videoDurationMS = 1000 * 60 * 1
     private var rotation = 0
     private var videoFilePathName = FilePathManager.get().getBackVideoPath()
-    private var videoQuality: Int = CamcorderProfile.QUALITY_480P
+    private var videoQuality: Int = CamcorderProfile.QUALITY_720P
     private var videoFrameRate: Int = 15
     private var videoBitRate: Int = 1 * 500 * 1000
     private var videoSizeLimi: Int = 300//M
@@ -81,36 +86,36 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
         }
         CarcorderManager.get().addCameraAvailableCallback(cameraAvailableCallback)
 
-       /* if (subscribeEmotion?.isDisposed == false) {
-            subscribeEmotion?.dispose()
-        }
+        /* if (subscribeEmotion?.isDisposed == false) {
+             subscribeEmotion?.dispose()
+         }
 
-        subscribeEmotion = pictureProcessor.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
-                t.emotion
-            }
-            .doOnNext {
-                var folderPath = FilePathManager.get().getBackEmotionPictureFolderPath() + it.emotion + "/"
-                FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
-            }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
+         subscribeEmotion = pictureProcessor.subscribeOn(Schedulers.io())
+             .unsubscribeOn(Schedulers.io())
+             .observeOn(Schedulers.io())
+             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
+                 t.emotion
+             }
+             .doOnNext {
+                 var folderPath = FilePathManager.get().getBackEmotionPictureFolderPath() + it.emotion + "/"
+                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
+             }.subscribe({ Log.d("图片", "保存情绪图片成功") }, {})
 
-        if (subscribeFace?.isDisposed == false) {
-            subscribeFace?.dispose()
-        }
-        subscribeFace = pictureFaceProcessor.subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
-                t.emotion
-            }
-            .doOnNext {
-                var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion + "/"
-                FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
+         if (subscribeFace?.isDisposed == false) {
+             subscribeFace?.dispose()
+         }
+         subscribeFace = pictureFaceProcessor.subscribeOn(Schedulers.io())
+             .unsubscribeOn(Schedulers.io())
+             .observeOn(Schedulers.io())
+             .distinctUntilChanged { t: us.nonda.cameralibrary.model.PictureModel ->
+                 t.emotion
+             }
+             .doOnNext {
+                 var folderPath = FilePathManager.get().getFacePictureFolderPath() + it.emotion + "/"
+                 FileUtils.saveBitmapToSDCard(it.argb, it.width, it.height, folderPath, it.fileName)
 
-            }.subscribe({ Log.d("图片", "保存人脸图片成功") }, {})
-*/
+             }.subscribe({ Log.d("图片", "保存人脸图片成功") }, {})
+ */
     }
 
 
@@ -266,7 +271,7 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
     private fun initParameters(cameraDevice: CameraDevice, cameraID: Int) {
         val parameters = cameraDevice.getParameters()
 
-        parameters.setPreviewSize(640, 480)
+        parameters.setPreviewSize(width, height)
 
         parameters.setCameraId(cameraID)
         parameters.setVideoRotateDuration(videoDurationMS)
@@ -286,7 +291,11 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
         parameters.setMainVideoFrameMode(CameraDevice.VideoFrameMode.DISABLE) //保存为视频文件
         parameters.setOutputFileFormat(CameraDevice.OutputFormat.MPEG_4)
         parameters.previewFrameRate = videoFrameRate//usb摄像头设置15帧
+
         cameraDevice.parameters = parameters
+
+        val previewSize = parameters.previewSize
+        Log.d("分辨率", "后: width=${previewSize.width}  height=${previewSize.height}");
 
     }
 
@@ -404,12 +413,12 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
         if (cameraAvailableCallback != null) {
             CarcorderManager.get().removeCameraAvailableCallback(cameraAvailableCallback)
         }
-     /*   if (subscribeEmotion?.isDisposed == false) {
-            subscribeEmotion?.dispose()
-        }
-        if (subscribeFace?.isDisposed == false) {
-            subscribeFace?.dispose()
-        }*/
+        /*   if (subscribeEmotion?.isDisposed == false) {
+               subscribeEmotion?.dispose()
+           }
+           if (subscribeFace?.isDisposed == false) {
+               subscribeFace?.dispose()
+           }*/
 
     }
 

@@ -28,8 +28,11 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
          * width=1280  height=720
          * width=640  height=480
          */
-        val width = 1280
-        val height = 720
+//        val width = 1280
+//        val height = 720
+
+        val width = 640
+        val height = 480
     }
 
     private var videoDurationMS = 1000 * 60 * 1
@@ -60,27 +63,24 @@ class BackCameraDevice constructor(private var surfaceView: SurfaceView) : Surfa
         val surfaceHolder = initPreview()
 
         if (cameraAvailableCallback == null) {
-            cameraAvailableCallback = object : CarcorderManager.CameraAvailableCallback {
-                override fun onAvailable(cameraid: Int, status: Int) {
-                    MyLog.d(TAG, "热插拔：p0=$cameraid  p1=$status")
-                    if (cameraid == 1) {
-                        when (status) {
-                            CarcorderManager.CameraAvailableCallback.STATUS_CAMERA_ADDED -> {
-                                initCamera()
-                                if (!isPreviewed && surfaceCreated) {
-                                    _startPreview(surfaceHolder)
-                                }
-                            }
-                            CarcorderManager.CameraAvailableCallback.STATUS_CAMERA_REMOVED -> {
-                                closeCamera()
-                            }
-                            else -> {
+            cameraAvailableCallback = CarcorderManager.CameraAvailableCallback { cameraid, status ->
+                MyLog.d(TAG, "热插拔：p0=$cameraid  p1=$status")
+                if (cameraid == 1) {
+                    when (status) {
+                        CarcorderManager.CameraAvailableCallback.STATUS_CAMERA_ADDED -> {
+                            initCamera()
+                            if (!isPreviewed && surfaceCreated) {
+                                _startPreview(surfaceHolder)
                             }
                         }
-
+                        CarcorderManager.CameraAvailableCallback.STATUS_CAMERA_REMOVED -> {
+                            closeCamera()
+                        }
+                        else -> {
+                        }
                     }
-                }
 
+                }
             }
 
         }
